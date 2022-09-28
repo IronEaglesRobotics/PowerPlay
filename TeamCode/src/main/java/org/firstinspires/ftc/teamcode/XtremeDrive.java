@@ -26,10 +26,10 @@ public class XtremeDrive extends OpMode {
         drive.setPoseEstimate(PoseStorage.currentPose);
         leftClaw = hardwareMap.get(Servo.class,"leftClaw");
         rightClaw = hardwareMap.get(Servo.class,"rightClaw");
-        leftOpen = 0;
-        leftClosed = 1;
-        rightOpen = 0;
-        rightClosed = 1;
+        leftOpen = 0.16;
+        leftClosed = 0.02;
+        rightOpen = 0.15;
+        rightClosed = 0.35;
     }
 
     @Override
@@ -37,12 +37,12 @@ public class XtremeDrive extends OpMode {
         double x = -gamepad1.left_stick_y;
         double y = -gamepad1.left_stick_x;
         double z = -gamepad1.right_stick_x;
-        boolean a = gamepad1.a;
+        boolean a = gamepad1.right_bumper;
 
         Pose2d poseEstimate = drive.getPoseEstimate();
         Vector2d input = new Vector2d(x,y).rotated(-poseEstimate.getHeading());
-        drive.setWeightedDrivePower(new Pose2d(input.getX(), input.getY(), z/2.0));
-//        drive.setWeightedDrivePower(new Pose2d(x, y, z));
+//        drive.setWeightedDrivePower(new Pose2d(input.getX(), input.getY(), z/2.0));
+        drive.setWeightedDrivePower(new Pose2d(x, y, z/2.0));
         drive.update();
 
         if (a) {
