@@ -14,7 +14,7 @@ public class StraightTesting extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d start = new Pose2d(-12,60,Math.toRadians(-90));
+        Pose2d start = new Pose2d(-12,66,Math.toRadians(-90));
         Pose2d back = new Pose2d(-12,55,Math.toRadians(-90));
         Pose2d turretJ1 = new Pose2d(-12,30,Math.toRadians(-90));
         Pose2d turretJ2 = new Pose2d(-12,6,Math.toRadians(-90));
@@ -57,7 +57,7 @@ public class StraightTesting extends LinearOpMode {
 
         waitForStart();
 
-        if(isStopRequested()) return;
+//        if(isStopRequested()) return;
 
         drive.followTrajectory(t1);
         drive.followTrajectory(t2);
