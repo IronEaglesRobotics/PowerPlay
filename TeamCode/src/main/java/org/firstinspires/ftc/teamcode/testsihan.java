@@ -14,17 +14,18 @@ public class testsihan extends OpMode {
     private DcMotor frontRight = null;
     private DcMotor backLeft = null;
     private DcMotor backRight = null;
-    private Servo servo_turn = null;
+    private Servo servoclawturn = null;
+    private Servo servoclawgrip = null;
+
 
     // robot initialization
-    private Servo servo_test = null;
     @Override
     public void init() {
 
         //servo code
 //        servo_test = hardwareMap.servo.get("servo");
-        servo_test = hardwareMap.get(Servo.class, "servo");
-        servo_turn = hardwareMap.get(Servo.class, "servoturn");
+        servoclawgrip = hardwareMap.get(Servo.class, "servo");
+        servoclawturn = hardwareMap.get(Servo.class, "servoturn");
 
         // initialize motor variables
         // (the names are what is set through the driver station)
@@ -55,17 +56,17 @@ public class testsihan extends OpMode {
     {
         if(gamepad1.x)
         {
-            servo_test.setPosition(0.275);
+            servoclawgrip.setPosition(0.275);
         }
         else {
-            servo_test.setPosition(0.5);
+            servoclawgrip.setPosition(0.5);
         }
 
 
         if(gamepad1.y) {
-                servo_turn.setPosition(0.79);
+                servoclawturn.setPosition(0.79);
             } else {
-                servo_turn.setPosition(0.085);
+                servoclawturn.setPosition(0.085);
             }
         }
 

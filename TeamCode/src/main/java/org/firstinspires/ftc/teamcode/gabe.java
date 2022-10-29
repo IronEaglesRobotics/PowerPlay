@@ -9,34 +9,34 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "Basic Bot", group = "Development")
 public class gabe extends OpMode {
     // instantiate motor variables
-    private DcMotor frontLeft = null;
-    private DcMotor frontRight = null;
-    private DcMotor backLeft = null;
-    private DcMotor backRight = null;
+    private DcMotor frontLeftWheel = null;
+    private DcMotor frontRightWheel = null;
+    private DcMotor backLeftWheel = null;
+    private DcMotor backRightWheel = null;
 
     // robot initialization
     @Override
     public void init() {
         // initialize motor variables
         // (the names are what is set through the driver station)
-        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        frontLeftWheel = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRightWheel = hardwareMap.get(DcMotor.class, "frontRight");
+        backLeftWheel = hardwareMap.get(DcMotor.class, "backLeft");
+        backRightWheel = hardwareMap.get(DcMotor.class, "backRight");
 
         // set the default direction for the motors
         // (some are reversed because they face opposite directions)
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
+        frontLeftWheel.setDirection(DcMotor.Direction.REVERSE);
+        frontRightWheel.setDirection(DcMotor.Direction.FORWARD);
+        backLeftWheel.setDirection(DcMotor.Direction.REVERSE);
+        backRightWheel.setDirection(DcMotor.Direction.FORWARD);
 
         // set the motors to run without encoders
         // (encoders make the motor speeds more accurate, but require extra wires)
-        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     // main loop
@@ -55,23 +55,25 @@ public class gabe extends OpMode {
     // method to set wheel powers
     public void setWheels(double x, double y, double z) {
         // instantiate motor power variables
-        double flPower, frPower, blPower, brPower;
+        double FLP, FRP, BLP, BRP;
 
         // compute motor powers
-        // (see gm0.org/en/latest/docs/software/mecanum-drive.html for more info)
-        flPower =  x + y + z; frPower = -x + y - z;
-        blPower = -x + y + z; brPower =  x + y - z;
+        // check out https://bit.ly/3S9XPIb for more information
+        FLP =  x + y + z;
+        FRP = -x + y - z;
+        BLP = -x + y + z;
+        BRP =  x + y - z;
 
         // make sure that the motor powers don't exceed 1 or -1
         // (a value greater than 1 or -1 will just be truncated down so it's ok, however it will throw off the ratio with the other motors)
-        double max = Math.max(Math.max(flPower, frPower), Math.max(blPower, brPower));
+        double max = Math.max(Math.max(BLP, FRP), Math.max(BLP, BRP));
         if (max > 1) {
-            flPower /= max; frPower /= max;
-            blPower /= max; brPower /= max;
+            FLP /= max; FRP /= max;
+            BLP /= max; BRP /= max;
         }
 
         // actually set the motor powers
-        frontLeft.setPower(flPower); frontRight.setPower(frPower);
-        backLeft.setPower(blPower);  backRight.setPower(brPower);
+        frontLeftWheel.setPower(FLP); frontRightWheel.setPower(FRP);
+        backLeftWheel.setPower(BLP);  backRightWheel.setPower(BRP);
     }
 }
