@@ -3,20 +3,29 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 // starter mecanum base opmode
 // (the name and group arguments are optional, they organize how the opmodes are shown on the driver station)
-@TeleOp(name = "Basic Bot", group = "Development")
+@TeleOp(name = "Basic Bot Sihan", group = "Development")
 public class testsihan extends OpMode {
     // instantiate motor variables
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
     private DcMotor backLeft = null;
     private DcMotor backRight = null;
+    private Servo servo_turn = null;
 
     // robot initialization
+    private Servo servo_test = null;
     @Override
     public void init() {
+
+        //servo code
+//        servo_test = hardwareMap.servo.get("servo");
+        servo_test = hardwareMap.get(Servo.class, "servo");
+        servo_turn = hardwareMap.get(Servo.class, "servoturn");
+
         // initialize motor variables
         // (the names are what is set through the driver station)
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -37,19 +46,44 @@ public class testsihan extends OpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
     }
 
     // main loop
+    public void servo_move()
+    {
+        if(gamepad1.x)
+        {
+            servo_test.setPosition(0.275);
+        }
+        else {
+            servo_test.setPosition(0.5);
+        }
+
+
+        if(gamepad1.y) {
+                servo_turn.setPosition(0.79);
+            } else {
+                servo_turn.setPosition(0.085);
+            }
+        }
+
+
     @Override
     public void loop() {
+
         // get input from the gamepad
         // (up on the gamepad sticks is considered negative 1, so that's why you have to add a negative to the y)
         double x = gamepad1.left_stick_x/1.75;
         double y = -gamepad1.left_stick_y/1.75;
-        double z = gamepad1.right_stick_x/1.75;
+        double z = gamepad1.right_stick_x/1.25;
 
         // set motor power based on the gamepad input
         setWheels(x, y, z);
+        servo_move();
+
+
     }
 
     // method to set wheel powers
@@ -57,7 +91,7 @@ public class testsihan extends OpMode {
         // instantiate motor power variables
         double flPower, frPower, blPower, brPower;
 
-        // compute motor powers
+        // compute motor powers~/Library/Android/sdk/platform-tools/adb
         // (see gm0.org/en/latest/docs/software/mecanum-drive.html for more info)
         flPower =  x + y + z; frPower = -x + y - z;
         blPower = -x + y + z; brPower =  x + y - z;
