@@ -15,10 +15,10 @@ public class challangeTest extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         Pose2d start = new Pose2d(-12,65.5,Math.toRadians(-90));
-        Pose2d point1 = new Pose2d(-12,30,Math.toRadians(-90));
-        Pose2d point2 = new Pose2d(-30,30,Math.toRadians(-90));
-        Pose2d point3 = new Pose2d(-36,16,Math.toRadians(-90));
-        Pose2d point4 = new Pose2d(-12,16,Math.toRadians(-90));
+        Pose2d point1 = new Pose2d(-12,36,Math.toRadians(-90));
+        Pose2d point2 = new Pose2d(-36,36,Math.toRadians(-90));
+        Pose2d point3 = new Pose2d(-36,12,Math.toRadians(-90));
+        Pose2d point4 = new Pose2d(-12,12,Math.toRadians(-90));
 
         // turret paths
         Trajectory forward = drive.trajectoryBuilder(start)
