@@ -1,24 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // starter mecanum base opmode
 // (the name and group arguments are optional, they organize how the opmodes are shown on the driver station)
-@TeleOp(name = "Basic Bot", group = "Development")
-public class gabe extends OpMode {
+@Autonomous(name = "Basic Bot", group = "Development")
+public class gabeAuto extends LinearOpMode {
     // instantiate motor variables
     private DcMotor frontLeftWheel = null;
     private DcMotor frontRightWheel = null;
     private DcMotor backLeftWheel = null;
     private DcMotor backRightWheel = null;
 
-    // robot initialization
     @Override
-    public void init() {
-        // initialize motor variables
-        // (the names are what is set through the driver station)
+    public void runOpMode() throws InterruptedException {
         frontLeftWheel = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRightWheel = hardwareMap.get(DcMotor.class, "frontRight");
         backLeftWheel = hardwareMap.get(DcMotor.class, "backLeft");
@@ -39,18 +38,10 @@ public class gabe extends OpMode {
         backRightWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    // main loop
-    @Override
-    public void loop() {
-        // get input from the gamepad
-        // (up on the gamepad sticks is considered negative 1, so that's why you have to add a negative to the y)
-        double x = gamepad1.left_stick_x/1.75;
-        double y = -gamepad1.left_stick_y/1.75;
-        double z = gamepad1.right_stick_x/1.75;
+    // robot initialization
 
-        // set motor power based on the gamepad input
-        setWheels(x, y, z);
-    }
+    // main loop
+
 
     // method to set wheel powers
     public void setWheels(double x, double y, double z) {
