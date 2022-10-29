@@ -21,7 +21,6 @@ public class testsihan extends OpMode {
     private Servo servoclawgrip = null;
     private DcMotor slide = null;
     private DcMotor armswing = null;
-    private DcMotor slide2 = null;
     private ColorRangeSensor coloursensor = null;
 
     // robot initialization
@@ -41,8 +40,6 @@ public class testsihan extends OpMode {
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         slide = hardwareMap.get(DcMotor.class, "slide");
         armswing = hardwareMap.get(DcMotor.class, "armswing");
-        slide2 = hardwareMap.get(DcMotor.class, "slide2");
-        slide2.setDirection(DcMotor.Direction.REVERSE);
         //sensor code
         coloursensor = hardwareMap.get(ColorRangeSensor.class, "coloursensor");
 
@@ -61,28 +58,29 @@ public class testsihan extends OpMode {
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armswing.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armswing.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
     // main loop
     public void servo_move() {
-        if (gamepad1.x) {
-            servoclawgrip.setPosition(0.275);
-        } else {
-            servoclawgrip.setPosition(0.5);
-        }
+//        if (gamepad1.x) {
+//            servoclawgrip.setPosition(0.275);
+//        } else {
+//            servoclawgrip.setPosition(0.5);
+//        }
 
 
-        if (gamepad1.y) {
-            servoclawturn.setPosition(0.79);
-        } else {
-            servoclawturn.setPosition(0.085);
-        }
+//        if (gamepad1.y) {
+//            servoclawturn.setPosition(0.79);
+//        } else {
+//            servoclawturn.setPosition(0.085);
+//        }
 
 
-        servoclawturn.setPosition(gamepad1.left_trigger);
-        servoclawgrip.setPosition(Math.min(0.6, Math.max(0.2, gamepad1.right_trigger)));
+        servoclawgrip.setPosition(Math.min(0.5, Math.max(0.287, gamepad1.left_trigger)));
+        servoclawturn.setPosition(Math.min(0.675, Math.max(0.02, gamepad1.right_trigger)));
     }
 
 
@@ -101,9 +99,9 @@ public class testsihan extends OpMode {
 
         //armswing
         if (pressright) {
-            armswing.setPower(0.3);
+            armswing.setPower(1.0);
         } else if (pressleft) {
-            armswing.setPower(-0.3);
+            armswing.setPower(-1.0);
         } else {
             armswing.setPower(0);
         }
@@ -113,13 +111,10 @@ public class testsihan extends OpMode {
         //slide up and down
         if (pressup) {
             slide.setPower(0.3);
-            slide2.setPower(0.3);
         } else if (pressdown) {
             slide.setPower(-0.3);
-            slide2.setPower(-0.3);
         } else {
             slide.setPower(0);
-            slide2.setPower(0);
         }
 
         // set motor power based on the gamepad input
