@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 // starter mecanum base opmode
 // (the name and group arguments are optional, they organize how the opmodes are shown on the driver station)
-@TeleOp(name = "Basic Bot Sihan", group = "Development")
+@TeleOp(name = "Tele-OP Sihan", group = "Development")
 public class testsihan extends OpMode {
     // instantiate motor variables
     private DcMotor frontLeft = null;
@@ -79,8 +79,8 @@ public class testsihan extends OpMode {
 //        }
 
 
-        servoclawgrip.setPosition(Math.min(0.5, Math.max(0.287, gamepad1.left_trigger)));
-        servoclawturn.setPosition(Math.min(0.675, Math.max(0.02, gamepad1.right_trigger)));
+        servoclawgrip.setPosition(Math.min(0.5, Math.max(0.287, gamepad1.right_trigger)));
+        servoclawturn.setPosition(Math.min(0.675, Math.max(0.02, gamepad2.right_trigger)));
     }
 
 
@@ -92,8 +92,8 @@ public class testsihan extends OpMode {
         double x = gamepad1.left_stick_x / 1.75;
         double y = -gamepad1.left_stick_y / 1.75;
         double z = gamepad1.right_stick_x / 1.25;
-        boolean pressup = gamepad1.dpad_up;
-        boolean pressdown = gamepad1.dpad_down;
+        boolean pressup = gamepad2.y;
+        boolean pressdown = gamepad2.a;
         boolean pressright = gamepad1.dpad_right;
         boolean pressleft = gamepad1.dpad_left;
 
@@ -110,9 +110,9 @@ public class testsihan extends OpMode {
 
         //slide up and down
         if (pressup) {
-            slide.setPower(0.3);
-        } else if (pressdown) {
             slide.setPower(-0.3);
+        } else if (pressdown) {
+            slide.setPower(0.3);
         } else {
             slide.setPower(0);
         }
