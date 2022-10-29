@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 // starter mecanum base opmode
 // (the name and group arguments are optional, they organize how the opmodes are shown on the driver station)
-@TeleOp(name = "Basic Bot", group = "Development")
+@TeleOp(name = "Basic Bot teleop", group = "Development")
 public class gabeTeleOp extends OpMode {
     // instantiate motor variables
     private DcMotor frontLeftWheel = null;
