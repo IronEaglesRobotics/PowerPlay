@@ -20,8 +20,9 @@ public class testsihan extends OpMode {
     private Servo servoclawturn = null;
     private Servo servoclawgrip = null;
     private DcMotor slide = null;
-    private DcMotor armswing = null;
     private ColorRangeSensor coloursensor = null;
+    private DcMotor armswing = null;
+    private DcMotor armswing2 = null;
 
     // robot initialization
     @Override
@@ -58,8 +59,9 @@ public class testsihan extends OpMode {
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armswing.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armswing.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armswing2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
 
@@ -94,16 +96,19 @@ public class testsihan extends OpMode {
         double z = gamepad1.right_stick_x / 1.25;
         boolean pressup = gamepad2.y;
         boolean pressdown = gamepad2.a;
-        boolean pressright = gamepad1.dpad_right;
-        boolean pressleft = gamepad1.dpad_left;
+        boolean pressright = gamepad2.dpad_right;
+        boolean pressleft = gamepad2.dpad_left;
 
         //armswing
         if (pressright) {
-            armswing.setPower(1.0);
+            armswing.setPower(1);
+            armswing2.setPower(-1);
         } else if (pressleft) {
-            armswing.setPower(-1.0);
+            armswing.setPower(-1);
+            armswing2.setPower(1);
         } else {
             armswing.setPower(0);
+            armswing2.setPower(0);
         }
 
         telemetry.addData("armswing", armswing.getCurrentPosition());
