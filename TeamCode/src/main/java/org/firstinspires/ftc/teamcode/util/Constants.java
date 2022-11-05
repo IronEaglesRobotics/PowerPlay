@@ -41,19 +41,9 @@ public class Constants {
     public static final String WHEEL_FRONT_RIGHT = "frontRight";
     public static final String WHEEL_BACK_LEFT = "backLeft";
     public static final String WHEEL_BACK_RIGHT = "backRight";
-    public static final String INTAKE = "intake";
-    public static final String TURRET = "turret";
-    public static final String SLIDES = "slides";
-    public static final String HOPPER_SERVO = "hopperServo";
-    public static final String PIVOT_SERVO = "slidesServo";
-    public static final String LEFT_DUCKY = "leftDucky";
-    public static final String RIGHT_DUCKY = "rightDucky";
-    public static final String INTAKE_SERVO = "intakeServo";
-    public static final String ODO_SERVO = "odoServo";
-    public static final String BARCODE_WEBCAM = "Webcam";
-    public static final String WEBCAM_LEFT = "Left Webcam";
-    public static final String WEBCAM_RIGHT = "Right Webcam";
-    public static final String IMU_SENSOR = "imu";
-    public static final String LIGHTS = "lights";
-    public static final String COLOR = "color";
+    public static final String ARM = "armswing";
+    public static final String GRIP = "servo";
+    public static final String WRIST = "servoturn";
+    public static final String LIFT = "slide";
+    public static final String AUTO_CAMERA = "autoCamera";
 }
