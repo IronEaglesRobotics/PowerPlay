@@ -28,7 +28,6 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 @Config
 // Class for the camera
