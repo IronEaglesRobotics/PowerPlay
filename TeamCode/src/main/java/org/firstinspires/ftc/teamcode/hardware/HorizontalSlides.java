@@ -8,10 +8,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class HorizontalSlides {
     private Servo pivot;
 
-    public static double intake = 0.75;
-    public static double score = 0.1;
+    public static double intake = 0.75; // up on joystick
+    public static double score = 0.1; // down on joystick
 
-    private boolean isInIntake = true;
+    public static double manualSpeed = 0.025;
+    private double target = 0.1;
 
     public HorizontalSlides(HardwareMap hardwareMap) {
         pivot = hardwareMap.get(Servo.class, "pivot");
@@ -19,30 +20,21 @@ public class HorizontalSlides {
         goToIntake();
     }
 
-    public void toggle() {
-        if (isInIntake) {
-            goToScore();
-        } else {
-            goToIntake();
-        }
-        isInIntake = !isInIntake;
+    public void increaseTarget(double increase) {
+        target -= (increase * manualSpeed);
+        target = Math.min(intake, Math.max(score, target));
     }
-
-    public void update() {
-        if (isInIntake) {
-            goToIntake();
-        } else {
-            goToScore();
-        }
-    }
-
 
     public void goToScore() {
-        pivot.setPosition(score);
+        target = score;
     }
 
     public void goToIntake() {
-        pivot.setPosition(intake);
+        target = intake;
+    }
+
+    public void update() {
+        pivot.setPosition(target);
     }
 
     public String getTelemetry() {

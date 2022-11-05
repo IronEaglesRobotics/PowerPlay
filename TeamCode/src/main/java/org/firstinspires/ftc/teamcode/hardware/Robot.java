@@ -9,8 +9,6 @@ public class Robot {
     public SampleMecanumDrive drive;
     public Slides slides;
     public Claw claw;
-
-//    public Arm arm;
     public HorizontalSlides hSlides;
 
     public Robot(HardwareMap hardwareMap) {

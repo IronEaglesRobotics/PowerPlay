@@ -19,9 +19,14 @@ public class Slides {
 
     public static int targetMin = 0;
     public static int targetMax = 1150;
+    public static int highPos = 1150;
+    public static int midPos = 575;
+    public static int lowPos = 288;
     private int target = 0;
 
     public static int manualSpeed = 20;
+
+    public enum Position { HIGH, MEDIUM, LOW }
 
     public Slides(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
@@ -36,12 +41,20 @@ public class Slides {
     }
 
     public void setTarget(int pos) {
-        target = Math.min(Math.max(target, targetMin), targetMax);
+        target = Math.min(Math.max(pos, targetMin), targetMax);
     }
-
+    public void setTarget(Position pos) {
+        if (pos == Position.HIGH) {
+            target = Math.min(Math.max(highPos, targetMin), targetMax);
+        } else if (pos == Position.MEDIUM) {
+            target = Math.min(Math.max(midPos, targetMin), targetMax);
+        } else if (pos == Position.LOW) {
+            target = Math.min(Math.max(lowPos, targetMin), targetMax);
+        }
+    }
     public void increaseTarget(double increase) {
         target += (int) (increase * manualSpeed);
-        target += increase;
+        target = Math.min(targetMax, Math.max(targetMin, target));
     }
 
     public void update() {
