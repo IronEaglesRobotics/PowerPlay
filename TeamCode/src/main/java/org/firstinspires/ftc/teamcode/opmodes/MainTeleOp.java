@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
 @Config
 @TeleOp(name = "Tele-OP Sihan", group = "Development")
-public class testsihan extends OpMode {
+public class MainTeleOp extends OpMode {
     // instantiate motor variables
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
