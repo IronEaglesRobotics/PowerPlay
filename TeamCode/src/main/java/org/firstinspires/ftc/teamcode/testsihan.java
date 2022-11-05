@@ -60,6 +60,7 @@ public class testsihan extends OpMode {
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armswing.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //use this if you want to run without encoders
 
     }
 
@@ -150,10 +151,14 @@ public class testsihan extends OpMode {
             brPower /= max;
         }
 
-        // actually set the motor powers
+        // sets the motor powers
         frontLeft.setPower(flPower);
+        //above is the front left motor power
         frontRight.setPower(frPower);
+        //above is the front right motor power
         backLeft.setPower(blPower);
+        //above is the back left motor power
         backRight.setPower(brPower);
+        //above is the back right motor power
     }
 }
