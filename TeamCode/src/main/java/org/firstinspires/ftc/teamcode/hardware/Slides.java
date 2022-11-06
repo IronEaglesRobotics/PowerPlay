@@ -52,6 +52,12 @@ public class Slides {
             target = Math.min(Math.max(lowPos, targetMin), targetMax);
         }
     }
+    public void cancel() {
+        target = slide.getCurrentPosition();
+    }
+    public void targetReset() {
+        target = targetMin;
+    }
     public void increaseTarget(double increase) {
         target += (int) (increase * manualSpeed);
         target = Math.min(targetMax, Math.max(targetMin, target));

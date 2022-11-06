@@ -25,6 +25,10 @@ public class HorizontalSlides {
         target = Math.min(intake, Math.max(score, target));
     }
 
+    public void cancel() {
+        // TODO finish function.
+    }
+
     public void goToScore() {
         target = score;
     }
