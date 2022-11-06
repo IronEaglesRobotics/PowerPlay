@@ -30,6 +30,8 @@ public class BlueTeleOp extends OpMode {
     public static double clawWait = 0.2;
     public static double vslideWait = 0.5;
 
+    public static double drivebaseThrottle = 0.4;
+
     @Override
     public void init() {
         robot =  new Robot(hardwareMap);
@@ -75,7 +77,7 @@ public class BlueTeleOp extends OpMode {
         double y = -driver1.getLeftStick().getX();
         double z = -driver1.getRightStick().getX();
 
-        robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
+        robot.drive.setWeightedDrivePower(new Pose2d(x * drivebaseThrottle, y * drivebaseThrottle, z * drivebaseThrottle));
 
 
         robot.slides.increaseTarget(driver2.getLeftStick().getY());
@@ -92,7 +94,7 @@ public class BlueTeleOp extends OpMode {
         }
 
         // Middle position [middle goal level]
-        if (driver2.getY().isJustPressed()) {
+        if (driver2.getY().isJustPressed()) { // TODO `PROBLEM WITH JUST PRESSED AND CASE LOOP NOT RUNNING MULTIPLE TIMES
             extendMacro(Slides.Position.MEDIUM);
         }
 
