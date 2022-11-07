@@ -6,11 +6,12 @@ import com.acmerobotics.dashboard.config.Config;
 public class Configurables {
     // Slide
     public static double SLIDE_POWER_UP = 1.0;
-    public static int SLIDE_MAX = 4080;
+    public static int SLIDE_MAX = 4175;
+    public static int SLIDE_POSITION = 0;
 
     // Claw
-    public static double CLAW_OPEN = 0.496;
-    public static double CLAW_CLOSED = 0.25;
+    public static double CLAW_OPEN = 0.519;
+    public static double CLAW_CLOSED = 0.26;
     public static double CLAW_UP = 0.02;
     public static double CLAW_DOWN = 0.675;
 
@@ -20,4 +21,7 @@ public class Configurables {
     public static int ARM_LEFT = -86;
     public static int ARM_RIGHT = 178;
     public static double ARM_POWER = 0.3;
+
+    //Auto
+    public static int PARK_POSITION = 1;
 }

@@ -114,7 +114,7 @@ public class Camera {
 
             }
         }
-        return 0;
+        return -1;
     }
 
     // Get Telemetry for the current active camera

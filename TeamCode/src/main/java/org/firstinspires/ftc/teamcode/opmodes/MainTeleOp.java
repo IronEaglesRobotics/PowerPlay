@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_UPRIGHT;
+import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_POSITION;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -43,6 +44,7 @@ public class MainTeleOp extends OpMode {
         // Lift
         boolean upPressed = gamepad2.y || gamepad1.y;
         boolean downPressed = gamepad2.x || gamepad1.x;
+
         if (upPressed && !prevUpPressed) {
             this.robot.getLift().slideUp();
         } else if (downPressed && !prevDownPressed) {
@@ -59,5 +61,8 @@ public class MainTeleOp extends OpMode {
         } else {
             this.robot.getClaw().open();
         }
+
+        telemetry.addLine(this.robot.getLift().getTelemetry());
+        telemetry.update();
     }
 }

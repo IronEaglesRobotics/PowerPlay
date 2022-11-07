@@ -213,6 +213,11 @@ public class Robot {
             this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide.setTargetPosition(slide.getCurrentPosition());
             this.slide.setPower(1.0);
+
+        }
+
+        public String getTelemetry() {
+            return String.format("position: %s", slide.getCurrentPosition());
         }
     }
 }
