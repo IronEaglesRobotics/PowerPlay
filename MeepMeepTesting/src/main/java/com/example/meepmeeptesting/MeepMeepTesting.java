@@ -180,18 +180,80 @@ public class MeepMeepTesting {
         Pose2d y5 = new Pose2d(-60,36,Math.toRadians(90));
 
     //autonomousOP
-        Pose2d startOP = new Pose2d(-36,60,Math.toRadians(-90));
+        Pose2d startOP = new Pose2d(-36,60,Math.toRadians(180));
         Pose2d rob1 = new Pose2d(-36,-12,Math.toRadians(-90));
         Pose2d rob2 = new Pose2d(-36,12,Math.toRadians(-90));
         Pose2d rob3 = new Pose2d(-12,12,Math.toRadians(-90));
         Pose2d rob4 = new Pose2d(-60,12,Math.toRadians(-90));
-        Pose2d end1 = new Pose2d(-36,24,Math.toRadians(-90));
-        Pose2d end2 = new Pose2d(-12,24,Math.toRadians(-90));
-        Pose2d end3 = new Pose2d(-60,24,Math.toRadians(-90));
+        Pose2d end1 = new Pose2d(-36,36,Math.toRadians(-90));
+        Pose2d end2 = new Pose2d(-12,36,Math.toRadians(-90));
+        Pose2d end3 = new Pose2d(-60,36,Math.toRadians(-90));
+        Pose2d score = new Pose2d(-30,6,Math.toRadians(-45));
+        Pose2d load = new Pose2d(-60,12,Math.toRadians(-90));
+        Pose2d carry = new Pose2d(-36,12,Math.toRadians(180));
+
 
 
         MeepMeep meepMeep = new MeepMeep(600);
 
+
+        RoadRunnerBotEntity autonomousOP = new DefaultBotBuilder(meepMeep)
+                .setColorScheme(new ColorSchemeBlueDark())
+                .setConstraints(60, 60, 60, 60, Math.toRadians(180))
+                .setDimensions(12,12)
+                .setStartPose(startOP)
+                .followTrajectorySequence(drive ->
+                        drive.trajectorySequenceBuilder(startOP)
+                                .lineToSplineHeading(new Pose2d(-36,24, Math.toRadians(180)))
+                                .splineToSplineHeading(new Pose2d(-32, 8, Math.toRadians(135)), Math.toRadians(-45))
+                                .setReversed(false)
+                                .splineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)), Math.toRadians(180))
+                                .lineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)))
+                                .lineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)))
+                                .splineToSplineHeading(new Pose2d(-32, 8, Math.toRadians(135)), Math.toRadians(-45))
+                                .setReversed(false)
+                                .splineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)), Math.toRadians(180))
+                                .lineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)))
+                                .lineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)))
+                                .splineToSplineHeading(new Pose2d(-32, 8, Math.toRadians(135)), Math.toRadians(-45))
+                                .setReversed(false)
+                                .splineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)), Math.toRadians(180))
+                                .lineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)))
+                                .lineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)))
+                                .splineToSplineHeading(new Pose2d(-32, 8, Math.toRadians(135)), Math.toRadians(-45))
+                                .setReversed(false)
+                                .splineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)), Math.toRadians(180))
+                                .lineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)))
+                                .lineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)))
+                                .splineToSplineHeading(new Pose2d(-32, 8, Math.toRadians(135)), Math.toRadians(-45))
+                                .setReversed(false)
+                                .splineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)), Math.toRadians(180))
+                                .lineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)))
+                                .lineToSplineHeading(new Pose2d(-48, 12, Math.toRadians(180)))
+                                .splineToSplineHeading(new Pose2d(-32, 8, Math.toRadians(135)), Math.toRadians(-45))
+                                .setReversed(false)
+                                .splineToSplineHeading(new Pose2d(-36, 24, Math.toRadians(90)), Math.toRadians(90))
+                                .lineToSplineHeading(new Pose2d(-36, 36, Math.toRadians(90)))
+//                                .splineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)), Math.toRadians(180))
+//                                .lineToLinearHeading(rob1)
+//                                .lineToLinearHeading(rob2)
+//                                .lineToLinearHeading(score)
+//                                .splineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-36, 6, Math.toRadians(-45)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-36, 6, Math.toRadians(-45)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-36, 6, Math.toRadians(-45)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-36, 6, Math.toRadians(-45)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-36, 6, Math.toRadians(-45)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-60, 12, Math.toRadians(180)), Math.toRadians(180))
+//                                .splineToSplineHeading(new Pose2d(-36, 6, Math.toRadians(-45)), Math.toRadians(180))
+//                                .lineToLinearHeading(rob2)
+//                                .lineToLinearHeading(end1)
+                                .build()
+                );
         RoadRunnerBotEntity myServant = new DefaultBotBuilder(meepMeep)
                 .setColorScheme(new ColorSchemeBlueDark())
                 .setConstraints(60, 60, 60, 60, Math.toRadians(180))
@@ -453,19 +515,6 @@ public class MeepMeepTesting {
                                 .lineToLinearHeading(y5)
                                 .lineToLinearHeading(y1)
                                 .lineToLinearHeading(start20)
-                                .build()
-                );
-        RoadRunnerBotEntity autonomousOP = new DefaultBotBuilder(meepMeep)
-                .setColorScheme(new ColorSchemeBlueDark())
-                .setConstraints(60, 60, 60, 60, Math.toRadians(180))
-                .setDimensions(13.5,13.5)
-                .setStartPose(startOP)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(startOP)
-                                .lineToLinearHeading(rob1)
-                                .lineToLinearHeading(rob2)
-                                .lineToLinearHeading(rob4)
-                                .turn(Math.toRadians(-90))
                                 .build()
                 );
 
