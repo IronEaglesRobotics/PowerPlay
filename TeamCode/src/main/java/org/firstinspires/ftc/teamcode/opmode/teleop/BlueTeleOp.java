@@ -205,6 +205,7 @@ public class BlueTeleOp extends OpMode {
                 break;
             case (4): // macro reset
                 resetMacro();
+                break;
         }
 
         // cancel the macros

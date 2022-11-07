@@ -43,11 +43,13 @@ public class Claw {
     public void close() {
         left.setPosition(leftClosed);
         right.setPosition(rightClosed);
+        isOpen = false;
     }
 
     public void open() {
         left.setPosition(leftOpen);
         right.setPosition(rightOpen);
+        isOpen = true;
     }
 
     public String getTelemetry() {
