@@ -184,6 +184,7 @@ public class BlueTeleOp extends OpMode {
                 if (driver2.getB().isJustPressed()) {
                     runningMacro = 1;
                 }
+                break;
             case(1):
                 extendMacro(Slides.Position.LOW);
                 break;
