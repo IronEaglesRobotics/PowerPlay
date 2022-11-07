@@ -24,11 +24,6 @@ public class Claw {
     }
 
     public void toggle() {
-        if (isOpen) {
-            close();
-        } else {
-            open();
-        }
         isOpen = !isOpen;
     }
 

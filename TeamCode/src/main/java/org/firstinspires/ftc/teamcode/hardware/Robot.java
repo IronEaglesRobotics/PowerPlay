@@ -21,9 +21,9 @@ public class Robot {
         hSlides = new HorizontalSlides(hardwareMap);
     }
 
-    public void update() {
+    public void update(double runTime) {
         drive.update();
-        slides.update();
+        slides.update(runTime);
 //        arm.update();
         claw.update();
         hSlides.update();

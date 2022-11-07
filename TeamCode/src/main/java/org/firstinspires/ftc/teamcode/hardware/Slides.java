@@ -25,6 +25,9 @@ public class Slides {
     public static int lowPos = 288;
     private int target = 0;
 
+    private double startOfTighten = -1;
+    public static double tightenTime = 0.5;
+
     public static int manualSpeed = 20;
 
     public enum Position { HIGH, MEDIUM, LOW }
@@ -33,7 +36,7 @@ public class Slides {
         slide = hardwareMap.get(DcMotor.class, "slide");
         slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slide.setDirection(DcMotorSimple.Direction.REVERSE);
+//        slide.setDirection(DcMotorSimple.Direction.REVERSE);
 
         slide2 = hardwareMap.get(DcMotor.class, "slide2");
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -43,6 +46,9 @@ public class Slides {
 
     public void setTarget(int pos) {
         target = Math.min(Math.max(pos, targetMin), targetMax);
+    }
+    public int getTarget() {
+        return target;
     }
     public void setTarget(Position pos) {
         if (pos == Position.HIGH) {
@@ -64,7 +70,7 @@ public class Slides {
         target = Math.min(targetMax, Math.max(targetMin, target));
     }
 
-    public void update() {
+    public void update(double runTime) {
         controller.setPID(p, i, d);
         controller.setTolerance(pTolerance);
 
@@ -77,6 +83,21 @@ public class Slides {
         ff = f;
 
         slide2.setPower(pid + ff);
+
+        if (target < 5 && slide.getCurrentPosition() < 5) {
+            if (startOfTighten == -1) {
+                startOfTighten = runTime;
+                slide.setPower(0.2);
+                slide2.setPower(0.2);
+            }
+            if (runTime > startOfTighten + tightenTime) {
+                slide.setPower(0);
+                slide2.setPower(0);
+                startOfTighten = -2;
+            }
+        } else {
+            startOfTighten = -1;
+        }
     }
 
     public boolean atTarget() {

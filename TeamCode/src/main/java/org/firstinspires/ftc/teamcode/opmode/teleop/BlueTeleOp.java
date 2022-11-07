@@ -22,9 +22,9 @@ public class BlueTeleOp extends OpMode {
     private int runningMacro = 0; // 0 = no macro | 1 = low macro | 2 = mid macro | 3 = high macro
     private int lastMacro = 0;
 
-    public static double clawWait = 0.5;
-    public static double[] vslideWaits = new double[]{0.5, 1, 1.5}; // slide waits for low, med, high
-    public static double hslideWait = 1;
+    public static int targetDecrement = -1;
+    public static double clawWait = 0.2;
+    public static double hslideWait = 0.4;
 
     public static double drivebaseThrottle = 0.4;
 
@@ -35,41 +35,10 @@ public class BlueTeleOp extends OpMode {
         driver2 = new Controller(gamepad2);
     }
 
-    public int posToNum (Slides.Position pos) {
-        /*
-        HIGH - 3
-        MEDIUM - 2
-        LOW - 1
-        ELSE - -1
-         */
-        if (pos == Slides.Position.HIGH) {
-            return 3;
-        } else if (pos == Slides.Position.MEDIUM) {
-            return 2;
-        } else if (pos ==Slides.Position.LOW) {
-            return 1;
-        }
-        return -1;
-    }
-
-    public Slides.Position numToPos (int num) {
-        /*
-        3 - High
-        2 - Medium
-        1 = Low
-        */
-        if (num == 1) {
-            return Slides.Position.LOW;
-        } else if (num == 2) {
-            return Slides.Position.MEDIUM;
-        } else {
-            return Slides.Position.HIGH;
-        }
-    }
-
     public void extendMacro(Slides.Position pos) {
         switch(macroState) {
             case(0):
+                driver2.rumble(20);
                 macroStartTime = getRuntime();
                 robot.claw.close();
                 macroState ++;
@@ -88,9 +57,6 @@ public class BlueTeleOp extends OpMode {
                 if (robot.slides.atTarget()) {
                     macroState++;
                 }
-//                if (getRuntime() > macroStartTime + vslideWaits[posToNum(pos) - 1]) {
-//                    macroState ++;
-//                }
                 break;
             case(4):
                 robot.hSlides.goToScore();
@@ -104,6 +70,7 @@ public class BlueTeleOp extends OpMode {
     public void resetMacro() {
         switch(macroState) {
             case(0):
+                driver2.rumble(20);
                 macroStartTime = getRuntime();
                 robot.claw.open();
                 macroState++;
@@ -134,10 +101,13 @@ public class BlueTeleOp extends OpMode {
                 }
                 break;
             case(6):
-                macroState = 0;
-                robot.slides.targetReset();
-                runningMacro = 0;
-                lastMacro = 0;
+                robot.slides.increaseTarget(targetDecrement);
+                if (robot.slides.getTarget() < 20) {
+                    macroState = 0;
+                    robot.slides.targetReset();
+                    runningMacro = 0;
+                    lastMacro = 0;
+                }
                 break;
         }
     }
@@ -163,36 +133,33 @@ public class BlueTeleOp extends OpMode {
             case(0): // manual mode
                 robot.slides.increaseTarget(driver2.getLeftStick().getY());
                 robot.hSlides.increaseTarget(driver2.getRightStick().getY());
-                if (Math.abs(driver2.getRightStick().getY()) > 0.05) {
+                if (Math.abs(driver2.getRightStick().getY()) > 0.05) { // close claw if anything is moved
                     robot.claw.close();
                 }
-                if (Math.abs(driver2.getLeftStick().getY()) > 0.05 || Math.abs(driver2.getRightStick().getY()) > 0.05) {
+                // retract all the time
+                if (driver2.getLeftStickButton().isJustPressed()) {
+                    runningMacro = 4;
+                }
+
+                // to cancel macro and allow manual movement
+                if (driver2.getLeftStick().getY() > 0.05 || driver2.getRightStick().getY() > 0.05) {
+                    runningMacro = 0;
                     lastMacro = 0;
                 }
-                // high position [closed, bring up, bring out]
-                if (driver2.getX().isJustPressed()) {
+
+                if (driver2.getX().isJustPressed()) { // high position [closed, bring up, bring out]
                     runningMacro = 3;
-                }
-
-                // middle position [middle goal level]
-                if (driver2.getY().isJustPressed()) {
+                } else if (driver2.getY().isJustPressed()) { // middle position [middle goal level]
                     runningMacro = 2;
-                }
-
-                // low position [low goal level]
-                if (driver2.getB().isJustPressed()) {
+                } else if (driver2.getB().isJustPressed() && !driver2.getStart().isJustPressed()) { // low position [low goal level]
                     runningMacro = 1;
-                }
-
-                if (driver2.getA().isJustPressed()) {
+                } else if (driver2.getA().isJustPressed()) {
                     if (lastMacro == 0) { // if not running any macros
                         robot.claw.toggle();
-                        runningMacro = 0;
                     } else { // otherwise, I need to undo a macro
                         runningMacro = 4;
                     }
                 }
-
                 break;
             case(1):
                 extendMacro(Slides.Position.LOW);
@@ -209,13 +176,16 @@ public class BlueTeleOp extends OpMode {
         }
 
         // cancel the macros
-        if (driver2.getLeftStickButton().isJustPressed() || driver2.getRightStickButton().isJustPressed()) {
+        if (driver2.getRightStickButton().isJustPressed()) {
             runningMacro = 0;
+            lastMacro = 0;
             macroState = 0;
+            robot.slides.cancel();
         }
 
+
         // update and telemetry
-        robot.update();
+        robot.update(getRuntime());
 
         telemetry.addLine(robot.getTelemetry());
         telemetry.addLine(String.format("Last Macro: %s\nRunning Macro: %s\nMacroState: %s", lastMacro, runningMacro, macroState));
