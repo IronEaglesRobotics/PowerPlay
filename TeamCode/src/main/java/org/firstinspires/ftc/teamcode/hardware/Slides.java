@@ -14,7 +14,8 @@ public class Slides {
     public static double p = 0.004;
     public static double i = 0;
     public static double d = 0;
-    public static double f = 0;
+    public static double f = 0.01;
+    public static double pTolerance = 20;
     public static PIDController controller = new PIDController(p, i, d);
 
     public static int targetMin = 0;
@@ -65,6 +66,7 @@ public class Slides {
 
     public void update() {
         controller.setPID(p, i, d);
+        controller.setTolerance(pTolerance);
 
         double pid = controller.calculate(slide.getCurrentPosition(), target);
         double ff = f;
@@ -75,6 +77,10 @@ public class Slides {
         ff = f;
 
         slide2.setPower(pid + ff);
+    }
+
+    public boolean atTarget() {
+        return controller.atSetPoint();
     }
 
     public String getTelemetry() {

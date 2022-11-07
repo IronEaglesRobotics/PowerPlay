@@ -85,9 +85,12 @@ public class BlueTeleOp extends OpMode {
                 macroState ++;
                 break;
             case(3):
-                if (getRuntime() > macroStartTime + vslideWaits[posToNum(pos) - 1]) {
-                    macroState ++;
+                if (robot.slides.atTarget()) {
+                    macroState++;
                 }
+//                if (getRuntime() > macroStartTime + vslideWaits[posToNum(pos) - 1]) {
+//                    macroState ++;
+//                }
                 break;
             case(4):
                 robot.hSlides.goToScore();
@@ -113,6 +116,7 @@ public class BlueTeleOp extends OpMode {
             case(2):
                 macroStartTime = getRuntime();
                 robot.claw.close();
+                macroState++;
                 break;
             case(3):
                 if (getRuntime() > macroStartTime + clawWait) {
@@ -162,6 +166,9 @@ public class BlueTeleOp extends OpMode {
                 if (Math.abs(driver2.getRightStick().getY()) > 0.05) {
                     robot.claw.close();
                 }
+                if (Math.abs(driver2.getLeftStick().getY()) > 0.05 || Math.abs(driver2.getRightStick().getY()) > 0.05) {
+                    lastMacro = 0;
+                }
                 // high position [closed, bring up, bring out]
                 if (driver2.getX().isJustPressed()) {
                     runningMacro = 3;
@@ -176,6 +183,16 @@ public class BlueTeleOp extends OpMode {
                 if (driver2.getB().isJustPressed()) {
                     runningMacro = 1;
                 }
+
+                if (driver2.getA().isJustPressed()) {
+                    if (lastMacro == 0) { // if not running any macros
+                        robot.claw.toggle();
+                        runningMacro = 0;
+                    } else { // otherwise, I need to undo a macro
+                        runningMacro = 4;
+                    }
+                }
+
                 break;
             case(1):
                 extendMacro(Slides.Position.LOW);
@@ -190,15 +207,6 @@ public class BlueTeleOp extends OpMode {
                 resetMacro();
         }
 
-        if (driver2.getA().isJustPressed()) {
-            if (lastMacro == 0) { // if not running any macros
-                robot.claw.toggle();
-                runningMacro = 0;
-            } else { // otherwise, I need to undo a macro
-                runningMacro = 4;
-            }
-        }
-
         // cancel the macros
         if (driver2.getLeftStickButton().isJustPressed() || driver2.getRightStickButton().isJustPressed()) {
             runningMacro = 0;
@@ -209,6 +217,8 @@ public class BlueTeleOp extends OpMode {
         robot.update();
 
         telemetry.addLine(robot.getTelemetry());
+        telemetry.addLine(String.format("Last Macro: %s\nRunning Macro: %s\nMacroState: %s", lastMacro, runningMacro, macroState));
         telemetry.update();
+
     }
 }
