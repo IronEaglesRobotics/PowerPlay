@@ -102,6 +102,7 @@ public class BlueTeleOp extends OpMode {
         switch(macroState) {
             case(0):
                 macroStartTime = getRuntime();
+                robot.claw.open();
                 macroState++;
                 break;
             case(1):
@@ -161,15 +162,6 @@ public class BlueTeleOp extends OpMode {
                 if (Math.abs(driver2.getRightStick().getY()) > 0.05) {
                     robot.claw.close();
                 }
-                if (driver2.getA().isJustPressed()) {
-                    if (lastMacro == 0) { // if not running any macros
-                        robot.claw.toggle();
-                        runningMacro = 0;
-                    } else { // otherwise, I need to undo a macro
-                        robot.claw.open();
-                        runningMacro = 4;
-                    }
-                }
                 // high position [closed, bring up, bring out]
                 if (driver2.getX().isJustPressed()) {
                     runningMacro = 3;
@@ -196,6 +188,15 @@ public class BlueTeleOp extends OpMode {
                 break;
             case (4): // macro reset
                 resetMacro();
+        }
+
+        if (driver2.getA().isJustPressed()) {
+            if (lastMacro == 0) { // if not running any macros
+                robot.claw.toggle();
+                runningMacro = 0;
+            } else { // otherwise, I need to undo a macro
+                runningMacro = 4;
+            }
         }
 
         // cancel the macros
