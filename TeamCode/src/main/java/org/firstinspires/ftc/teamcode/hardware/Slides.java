@@ -20,9 +20,9 @@ public class Slides {
 
     public static int targetMin = 0;
     public static int targetMax = 1150;
-    public static int highPos = 1150;
-    public static int midPos = 575;
-    public static int lowPos = 288;
+    public static int highPos = 1130;
+    public static int midPos = 800;
+    public static int lowPos = 500;
     private int target = 0;
 
     private double startOfTighten = -1;
