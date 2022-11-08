@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
-import org.firstinspires.ftc.teamcode.vision.AprilTagDetectionPipeline;
-import org.openftc.apriltag.AprilTagDetection;
-
-import java.util.ArrayList;
 
 @Autonomous(name = "MainAuto", group = "Competition")
 public class MainAuto extends LinearOpMode {
@@ -18,28 +17,51 @@ public class MainAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         this.robot = new Robot().init(hardwareMap, true);
-        this.parkPosition = robot.getAutoCamera().getMarkerId();
+
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+        Pose2d startOP = new Pose2d(-34, -60, Math.toRadians(90));
+
+        drive.setPoseEstimate(startOP);
+
+        Trajectory park1 = drive.trajectoryBuilder(startOP)
+                .splineTo(new Vector2d(-34, -34),Math.toRadians(90))
+                .splineTo(new Vector2d(-60, -34),Math.toRadians(90))
+                .build();
+
+        Trajectory park2 = drive.trajectoryBuilder(startOP)
+                .splineTo(new Vector2d(-34, -34),Math.toRadians(90))
+                .build();
+
+        Trajectory park3 = drive.trajectoryBuilder(startOP)
+                .splineTo(new Vector2d(-34, -34),Math.toRadians(90))
+                .splineTo(new Vector2d(-12, -34),Math.toRadians(90))
+                .build();
 
         // Do stuff
 
+        while (!isStarted()) {
+            this.parkPosition = robot.getAutoCamera().getMarkerId();
+        }
 
-
-        switch(this.parkPosition) {
+        switch (this.parkPosition) {
             case 1:
+                drive.followTrajectory(park1);
                 // Park on the outside edge of the field
                 break;
             case 2:
-                // Park on the interior of the three options
+                drive.followTrajectory(park2);
                 break;
             case 3:
+                drive.followTrajectory(park3);
                 // Park in the middle of the field
                 break;
             default:
-                // AHHH!!!!!
-
-
-
+                break;
+            // AHHH!!!!!
 
         }
+
+
     }
 }

@@ -27,3 +27,8 @@ dependencies {
     implementation 'org.openftc:apriltag:1.1.0'
     implementation 'org.openftc:easyopencv:1.5.2'
 }
+
+repositories {
+    maven { url = 'https://jitpack.io' }
+    maven { url = 'https://maven.brott.dev/' }
+}
