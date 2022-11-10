@@ -102,6 +102,9 @@ public class BlueTeleOp extends OpMode {
                 break;
             case(6):
                 robot.slides.increaseTarget(targetDecrement);
+                if (robot.slides.getTarget() < 200) {
+                    robot.claw.open();
+                }
                 if (robot.slides.getTarget() < 20) {
                     macroState = 0;
                     robot.slides.targetReset();
