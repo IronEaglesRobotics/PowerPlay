@@ -86,7 +86,7 @@ public class Camera {
 
     // AprilTag methods:
     public int getMarkerId() {
-        detections = aprilTagDetectionPipeline.getDetectionsUpdate();
+        detections = aprilTagDetectionPipeline.getLatestDetections();
 
         // If there's been a new frame...
         if (detections != null) {

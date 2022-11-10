@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmodes;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -7,10 +8,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
+@Config
 
 @Autonomous(name = "TestAuto", group = "Competition")
 public class testauto extends LinearOpMode {
-    public int parkPosition = 2;
+    public static int parkPosition = 1;
     private Robot robot;
 
     @Override
@@ -29,26 +31,26 @@ public class testauto extends LinearOpMode {
         //Trajectories
         Trajectory park1 = drive.trajectoryBuilder(startOP)
                 .forward(18)
-                .splineTo(new Vector2d(-57,-36),Math.toRadians(0))
+                .splineTo(new Vector2d(-57,-36),Math.toRadians(180))
                 .build();
 
         Trajectory park2 = drive.trajectoryBuilder(startOP)
-                .forward(18)
-                .splineTo(new Vector2d(-34,-36),Math.toRadians(0))
+                .forward(24)
                 .build();
 
         Trajectory park3 = drive.trajectoryBuilder(startOP)
-                .forward(12)
-                .splineTo(new Vector2d(-24,-36),Math.toRadians(0))
-                .splineTo(new Vector2d(-11,-34),Math.toRadians(-90))
+                .forward(16)
+                .splineTo(new Vector2d(-12,-36),Math.toRadians(0))
                 .build();
 
         while (!isStarted()) {
             this.parkPosition = robot.getAutoCamera().getMarkerId();
+            telemetry.addData("parkPosition", (parkPosition));
+            telemetry.update();
         }
         // Do stuff
 
-        telemetry.addData("parkPosition", (parkPosition));
+
 
         switch (this.parkPosition) {
             case 1:
