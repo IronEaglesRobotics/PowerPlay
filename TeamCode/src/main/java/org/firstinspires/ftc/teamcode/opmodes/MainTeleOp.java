@@ -35,28 +35,35 @@ public class MainTeleOp extends OpMode {
             this.robot.getArm().drop();
         }
 
-        if (this.robot.getArm().getCurrentPosition() < ARM_UPRIGHT) {
-            this.robot.getClaw().twistDown();
-        } else {
-            this.robot.getClaw().twistUp();
-        }
+        this.robot.getClaw().twistUp();
+
+//        if (this.robot.getArm().getCurrentPosition() < ARM_UPRIGHT) {
+////            this.robot.getClaw().twistDown();
+//        } else {
+//            this.robot.getClaw().twistUp();
+//        }
 
         // Lift
         boolean upPressed = gamepad2.y || gamepad1.y;
-        boolean downPressed = gamepad2.x || gamepad1.x;
+        boolean downPressed = gamepad2.a || gamepad1.x;
 
         if (upPressed && !prevUpPressed) {
             this.robot.getLift().slideUp();
+        } else if (gamepad2.dpad_up && !prevUpPressed) {
+            this.robot.getLift().slideMed();
+        } else if (gamepad2.dpad_down && !prevUpPressed) {
+            this.robot.getLift().slideLow();
         } else if (downPressed && !prevDownPressed) {
             this.robot.getLift().slideDown();
         } else if ((prevUpPressed != upPressed) || (prevDownPressed != downPressed)) {
             this.robot.getLift().slideStop();
         }
+
         prevUpPressed = upPressed;
         prevDownPressed = downPressed;
 
         // Claw
-        if (gamepad2.a || gamepad1.b) {
+        if (gamepad2.b || gamepad1.b) {
             this.robot.getClaw().close();
         } else {
             this.robot.getClaw().open();

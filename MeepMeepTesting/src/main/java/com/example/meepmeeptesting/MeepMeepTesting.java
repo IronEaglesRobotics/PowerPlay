@@ -28,8 +28,17 @@ public class MeepMeepTesting {
                 .setStartPose(startOP)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startOP)
-                                .strafeTo(new Vector2d(-34, -34))
-                                .strafeTo(new Vector2d(-60, -34))
+//                                .splineTo(new Vector2d(-34, -36),Math.toRadians(0))
+                                .forward(5)
+
+
+
+
+
+
+
+
+//                                .splineTo(new Vector2d(-56, -36),Math.toRadians(0))
                                 .build()
                 );
         meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_KAI_DARK)
