@@ -27,20 +27,27 @@ public class testauto extends LinearOpMode {
 
         this.robot.getClaw().open();
 
+        Trajectory push = drive.trajectoryBuilder(startOP)
+                .forward(30)
+                .build();
+
+        Trajectory pushBack = drive.trajectoryBuilder(push.end())
+                .back(18)
+                .build();
 
         //Trajectories
-        Trajectory park1 = drive.trajectoryBuilder(startOP)
-                .forward(18)
+        Trajectory park1 = drive.trajectoryBuilder(pushBack.end())
+                .forward(6)
                 .splineTo(new Vector2d(-57,-36),Math.toRadians(180))
                 .build();
 
-        Trajectory park2 = drive.trajectoryBuilder(startOP)
-                .forward(24)
+        Trajectory park2 = drive.trajectoryBuilder(pushBack.end())
+                .forward(14)
                 .build();
 
-        Trajectory park3 = drive.trajectoryBuilder(startOP)
-                .forward(16)
-                .splineTo(new Vector2d(-12,-36),Math.toRadians(0))
+        Trajectory park3 = drive.trajectoryBuilder(pushBack.end())
+                .forward(6)
+                .splineTo(new Vector2d(-8,-32),Math.toRadians(0))
                 .build();
 
         while (!isStarted()) {
@@ -50,7 +57,8 @@ public class testauto extends LinearOpMode {
         }
         // Do stuff
 
-
+        drive.followTrajectory(push);
+        drive.followTrajectory(pushBack);
 
         switch (this.parkPosition) {
             case 1:
