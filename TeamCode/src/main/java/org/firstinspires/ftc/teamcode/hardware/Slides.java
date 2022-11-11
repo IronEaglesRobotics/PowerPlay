@@ -59,6 +59,10 @@ public class Slides {
             target = Math.min(Math.max(lowPos, targetMin), targetMax);
         }
     }
+    public int getPosition() {
+        return slide.getCurrentPosition();
+    }
+
     public void cancel() {
         target = slide.getCurrentPosition();
     }
@@ -71,33 +75,38 @@ public class Slides {
     }
 
     public void update(double runTime) {
-        controller.setPID(p, i, d);
-        controller.setTolerance(pTolerance);
+        if (target > 0) {
+            controller.setPID(p, i, d);
+            controller.setTolerance(pTolerance);
 
-        double pid = controller.calculate(slide.getCurrentPosition(), target);
-        double ff = f;
+            double pid = controller.calculate(slide.getCurrentPosition(), target);
+            double ff = f;
 
-        slide.setPower(pid + ff);
+            slide.setPower(pid + ff);
 
-        pid = controller.calculate(slide2.getCurrentPosition(), target);
-        ff = f;
+            pid = controller.calculate(slide2.getCurrentPosition(), target);
+            ff = f;
 
-        slide2.setPower(pid + ff);
-
-        if (target < 5 && slide.getCurrentPosition() < 5) {
-            if (startOfTighten == -1) {
-                startOfTighten = runTime;
-                slide.setPower(0.2);
-                slide2.setPower(0.2);
-            }
-            if (runTime > startOfTighten + tightenTime) {
-                slide.setPower(0);
-                slide2.setPower(0);
-                startOfTighten = -2;
-            }
+            slide2.setPower(pid + ff);
         } else {
-            startOfTighten = -1;
+            slide.setPower(0);
+            slide2.setPower(0);
         }
+
+//        if (target < 5 && slide.getCurrentPosition() < 5) {
+//            if (startOfTighten == -1) {
+//                startOfTighten = runTime;
+//                slide.setPower(0.2);
+//                slide2.setPower(0.2);
+//            }
+//            if (runTime > startOfTighten + tightenTime) {
+//                slide.setPower(0);
+//                slide2.setPower(0);
+//                startOfTighten = -2;
+//            }
+//        } else {
+//            startOfTighten = -1;
+//        }
     }
 
     public boolean atTarget() {

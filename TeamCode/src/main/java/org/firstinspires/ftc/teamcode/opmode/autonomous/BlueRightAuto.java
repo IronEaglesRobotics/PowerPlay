@@ -14,50 +14,52 @@ public class BlueRightAuto extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d start = new Pose2d(-36,60,Math.toRadians(180));
-        Pose2d score = new Pose2d(-32,8,Math.toRadians(135));
-        Pose2d load = new Pose2d(-62,12,Math.toRadians(180));
-        Pose2d topEnd1 = new Pose2d(-12,36,Math.toRadians(90));
-        Pose2d topEnd2 = new Pose2d(-12,12,Math.toRadians(90));
-        Pose2d middleEnd1 = new Pose2d(-36,36,Math.toRadians(90));
-        Pose2d middleEnd2 = new Pose2d(-36,12,Math.toRadians(90));
-        Pose2d bottomEnd1 = new Pose2d(-60,36,Math.toRadians(90));
-        Pose2d bottomEnd2 = new Pose2d(-60,12,Math.toRadians(90));
+        int[] heights = {0, (int)(145.1*(32/112.0)), (int)(145.1*(64/112.0)), (int)(145.1*(96/112.0)), (int)(145.1*(128/112.0))};
 
-        // turret paths
-        Trajectory fromStartToScore = drive.trajectoryBuilder(start)
-                .lineToSplineHeading(new Pose2d(-36, 24, Math.toRadians(180)))
-                .splineToSplineHeading(new Pose2d(-32, 8, Math.toRadians(135)), Math.toRadians(-45))
+        Pose2d start = new Pose2d(-36,66, Math.toRadians(180));
+        Pose2d start2 = new Pose2d(-36,24, Math.toRadians(180));
+        Pose2d score = new Pose2d(-32,8,Math.toRadians(135));
+
+        Pose2d sLoad1 = new Pose2d(-48, 12, Math.toRadians(180));
+        Pose2d sLoad2 = new Pose2d(-48, 12, Math.toRadians(180));
+        Pose2d sLoad3 = new Pose2d(-48, 12, Math.toRadians(180));
+        Pose2d sLoad4 = new Pose2d(-48, 12, Math.toRadians(180));
+        Pose2d sLoad5 = new Pose2d(-48, 12, Math.toRadians(180));
+        Pose2d lLoad1 = new Pose2d(-62,12,Math.toRadians(180));
+        Pose2d lLoad2 = new Pose2d(-62,12,Math.toRadians(180));
+        Pose2d lLoad3 = new Pose2d(-62,12,Math.toRadians(180));
+        Pose2d lLoad4 = new Pose2d(-62,12,Math.toRadians(180));
+        Pose2d lLoad5 = new Pose2d(-62,12,Math.toRadians(180));
+
+        Pose2d lScore1 = new Pose2d(-48,12,Math.toRadians(180));
+        Pose2d lScore2 = new Pose2d(-48,12,Math.toRadians(180));
+        Pose2d lScore3 = new Pose2d(-48,12,Math.toRadians(180));
+        Pose2d lScore4 = new Pose2d(-48,12,Math.toRadians(180));
+        Pose2d lScore5 = new Pose2d(-48,12,Math.toRadians(180));
+        Pose2d sScore1 = new Pose2d(-32,8,Math.toRadians(135));
+        Pose2d sScore2 = new Pose2d(-32,8,Math.toRadians(135));
+        Pose2d sScore3 = new Pose2d(-32,8,Math.toRadians(135));
+        Pose2d sScore4 = new Pose2d(-32,8,Math.toRadians(135));
+        Pose2d sScore5 = new Pose2d(-32,8,Math.toRadians(135));
+
+        Trajectory startScore = drive.trajectoryBuilder(start)
+                .lineToSplineHeading(start2)
+                .splineToSplineHeading(score, Math.toRadians(-45))
                 .build();
-        Trajectory fromScoreToLoad = drive.trajectoryBuilder(score)
-                .splineToSplineHeading(new Pose2d(-48,12,Math.toRadians(180)),Math.toRadians(180))
-                .lineToSplineHeading(new Pose2d(-60,12,Math.toRadians(180)))
+        Trajectory load1 = drive.trajectoryBuilder(startScore.end())
+                .lineToSplineHeading(sLoad1)
+                .splineToSplineHeading(lLoad1, Math.toRadians(180))
                 .build();
-        Trajectory fromLoadToScore = drive.trajectoryBuilder(load)
-                .lineToSplineHeading(new Pose2d(-48,12,Math.toRadians(180)))
-                .splineToSplineHeading(new Pose2d(-32,8,Math.toRadians(135)),Math.toRadians(-45))
+        Trajectory score1 = drive.trajectoryBuilder(load1.end())
+                .lineToSplineHeading(start2)
+                .splineToSplineHeading(score, Math.toRadians(-45))
                 .build();
-        Trajectory fromScoreToMiddleEnd1 = drive.trajectoryBuilder(score)
-                .splineToSplineHeading(new Pose2d(-36,24,Math.toRadians(90)),Math.toRadians(90))
-                .lineToSplineHeading(new Pose2d(-36,36,Math.toRadians(90)))
-                .build();
+
 
         drive.setPoseEstimate(start);//12.5x12  11.25
 
         waitForStart();
         if(isStopRequested()) return;
 
-        drive.followTrajectory(fromStartToScore);
-        drive.followTrajectory(fromScoreToLoad);
-        drive.followTrajectory(fromLoadToScore);
-        drive.followTrajectory(fromScoreToLoad);
-        drive.followTrajectory(fromLoadToScore);
-        drive.followTrajectory(fromScoreToLoad);
-        drive.followTrajectory(fromLoadToScore);
-        drive.followTrajectory(fromScoreToLoad);
-        drive.followTrajectory(fromLoadToScore);
-        drive.followTrajectory(fromScoreToLoad);
-        drive.followTrajectory(fromLoadToScore);
-        drive.followTrajectory(fromScoreToMiddleEnd1);
     }
 }

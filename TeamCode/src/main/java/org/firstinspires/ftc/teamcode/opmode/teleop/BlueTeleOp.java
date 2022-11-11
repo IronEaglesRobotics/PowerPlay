@@ -55,7 +55,7 @@ public class BlueTeleOp extends OpMode {
                 break;
             case(3):
                 if (robot.slides.atTarget()) {
-                    macroState++;
+                    macroState ++;
                 }
                 break;
             case(4):
@@ -101,13 +101,17 @@ public class BlueTeleOp extends OpMode {
                 }
                 break;
             case(6):
-                robot.slides.increaseTarget(targetDecrement);
-                if (robot.slides.getTarget() < 200) {
+                robot.slides.setTarget(0);
+//                robot.slides.increaseTarget(targetDecrement);
+//                if (robot.slides.getTarget() < 200) {
+//                    robot.claw.open();
+//                }
+                if (robot.slides.getPosition() < 200) {
                     robot.claw.open();
                 }
-                if (robot.slides.getTarget() < 20) {
+                if (robot.slides.getPosition() < 50) {
                     macroState = 0;
-                    robot.slides.targetReset();
+//                    robot.slides.targetReset();
                     runningMacro = 0;
                     lastMacro = 0;
                 }
