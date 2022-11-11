@@ -13,7 +13,7 @@ public class BlueRightAuto2 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Robot robot = new Robot(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         Pose2d start = new Pose2d(-36,66,Math.toRadians(180));
         Pose2d score = new Pose2d(-32,8,Math.toRadians(135));
@@ -26,39 +26,39 @@ public class BlueRightAuto2 extends LinearOpMode {
         Pose2d bottomEnd2 = new Pose2d(-60,12,Math.toRadians(90));
 
         // turret paths
-        Trajectory fromStartToScore = robot.drive.trajectoryBuilder(start)
+        Trajectory fromStartToScore = drive.trajectoryBuilder(start)
                 .lineToSplineHeading(new Pose2d(-36, 24, Math.toRadians(180)))
                 .splineToSplineHeading(new Pose2d(-32, 8, Math.toRadians(135)), Math.toRadians(-45))
                 .build();
-        Trajectory fromScoreToLoad = robot.drive.trajectoryBuilder(score)
+        Trajectory fromScoreToLoad = drive.trajectoryBuilder(score)
                 .splineToSplineHeading(new Pose2d(-48,12,Math.toRadians(180)),Math.toRadians(180))
                 .lineToSplineHeading(new Pose2d(-60,12,Math.toRadians(180)))
                 .build();
-        Trajectory fromLoadToScore = robot.drive.trajectoryBuilder(load)
+        Trajectory fromLoadToScore = drive.trajectoryBuilder(load)
                 .lineToSplineHeading(new Pose2d(-48,12,Math.toRadians(180)))
                 .splineToSplineHeading(new Pose2d(-32,8,Math.toRadians(135)),Math.toRadians(-45))
                 .build();
-        Trajectory fromScoreToMiddleEnd1 = robot.drive.trajectoryBuilder(score)
+        Trajectory fromScoreToMiddleEnd1 = drive.trajectoryBuilder(score)
                 .splineToSplineHeading(new Pose2d(-36,24,Math.toRadians(90)),Math.toRadians(90))
                 .lineToSplineHeading(new Pose2d(-36,36,Math.toRadians(90)))
                 .build();
 
-        robot.drive.setPoseEstimate(start);//12.5x12  11.25
+        drive.setPoseEstimate(start);//12.5x12  11.25
 
         waitForStart();
         if(isStopRequested()) return;
 
-        robot.drive.followTrajectory(fromStartToScore);
-        robot.drive.followTrajectory(fromScoreToLoad);
-        robot.drive.followTrajectory(fromLoadToScore);
-        robot.drive.followTrajectory(fromScoreToLoad);
-        robot.drive.followTrajectory(fromLoadToScore);
-        robot.drive.followTrajectory(fromScoreToLoad);
-        robot.drive.followTrajectory(fromLoadToScore);
-        robot.drive.followTrajectory(fromScoreToLoad);
-        robot.drive.followTrajectory(fromLoadToScore);
-        robot.drive.followTrajectory(fromScoreToLoad);
-        robot.drive.followTrajectory(fromLoadToScore);
-        robot.drive.followTrajectory(fromScoreToMiddleEnd1);
+        drive.followTrajectory(fromStartToScore);
+        drive.followTrajectory(fromScoreToLoad);
+        drive.followTrajectory(fromLoadToScore);
+        drive.followTrajectory(fromScoreToLoad);
+        drive.followTrajectory(fromLoadToScore);
+        drive.followTrajectory(fromScoreToLoad);
+        drive.followTrajectory(fromLoadToScore);
+        drive.followTrajectory(fromScoreToLoad);
+        drive.followTrajectory(fromLoadToScore);
+        drive.followTrajectory(fromScoreToLoad);
+        drive.followTrajectory(fromLoadToScore);
+        drive.followTrajectory(fromScoreToMiddleEnd1);
     }
 }
