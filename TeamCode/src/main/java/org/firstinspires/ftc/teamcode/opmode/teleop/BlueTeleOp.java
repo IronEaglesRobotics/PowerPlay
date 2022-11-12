@@ -162,10 +162,12 @@ public class BlueTeleOp extends OpMode {
                     runningMacro = 1;
                 } else if (driver2.getA().isJustPressed()) {
                     if (lastMacro == 0) { // if not running any macros
-                        robot.claw.toggle();
+                        robot.claw.toggle(true);
                     } else { // otherwise, I need to undo a macro
                         runningMacro = 4;
                     }
+                } else if (driver2.getDRight().isJustPressed()) {
+                    robot.claw.toggle(false);
                 }
                 break;
             case(1):

@@ -10,6 +10,7 @@ public class HorizontalSlides {
 
     public static double intake = 0.75; // up on joystick
     public static double score = 0.1; // down on joystick
+    public static double scoreOffset = 0.2;
 
     public static double manualSpeed = 0.025;
     private double target = 0.1;
@@ -30,7 +31,7 @@ public class HorizontalSlides {
     }
 
     public void goToScore() {
-        target = score;
+        target = score + scoreOffset;
     }
 
     public void goToIntake() {

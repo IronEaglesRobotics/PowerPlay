@@ -11,10 +11,13 @@ public class Claw {
 
     public static double leftOpen = 0.6;
     public static double leftClosed = 0.4;
+    public static double strongLeftClosed = 0.35;
     public static double rightOpen = 0.3;
     public static double rightClosed = 0.5;
+    public static double strongRightClosed = 0.55;
 
     private boolean isOpen = false;
+    private boolean isStrong = false; // by default not strong close
 
     public Claw(HardwareMap hardwareMap) {
         left = hardwareMap.get(Servo.class, "leftClaw");
@@ -23,21 +26,37 @@ public class Claw {
         close();
     }
 
-    public void toggle() {
+    public void toggle(boolean strong) {
         isOpen = !isOpen;
+        if (strong) {
+            isStrong = true;
+        } else {
+            isStrong = false;
+        }
     }
 
     public void update() {
         if (isOpen) {
+            isStrong = false;
             open();
         } else {
-            close();
+            if (isStrong) {
+                strongClose();
+            } else {
+                close();
+            }
         }
     }
 
     public void close() {
         left.setPosition(leftClosed);
         right.setPosition(rightClosed);
+        isOpen = false;
+    }
+
+    public void strongClose() {
+        left.setPosition(strongLeftClosed);
+        right.setPosition(strongRightClosed);
         isOpen = false;
     }
 
