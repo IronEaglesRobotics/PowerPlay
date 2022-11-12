@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 
 @Config
-@TeleOp
-public class BlueTeleOp extends OpMode {
+@TeleOp(name = "TeleOp", group = "Competition")
+public class MainTeleOp extends OpMode {
     private Robot robot;
     Controller driver1;
     Controller driver2;

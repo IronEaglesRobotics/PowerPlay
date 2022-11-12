@@ -518,6 +518,17 @@ public class MeepMeepTesting {
                                 .build()
                 );
 
+        RoadRunnerBotEntity testBot = new DefaultBotBuilder(meepMeep)
+                .setColorScheme(new ColorSchemeBlueDark())
+                .setConstraints(60, 60, 60, 60, Math.toRadians(180))
+                .setDimensions(12,12)
+                .setStartPose(start20)
+                .followTrajectorySequence(drive ->
+                        drive.trajectorySequenceBuilder(new Pose2d(-32, 8, Math.toRadians(135)))
+                                .splineToSplineHeading(new Pose2d(-12,12,Math.toRadians(90)), Math.toRadians(0))
+                                .build()
+                );
+
         meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_OFFICIAL)
                 //.setDarkMode(true)
                 //.setBackgroundAlpha(0.95f)
@@ -535,7 +546,8 @@ public class MeepMeepTesting {
                 //.addEntity(varoomBot)
                 //.addEntity(xBot)
                 //.addEntity(yBot)
-                .addEntity(autonomousOP)
+//                .addEntity(autonomousOP)
+                .addEntity(testBot)
                 .start();
 
     }
