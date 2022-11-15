@@ -51,7 +51,7 @@ public class testauto extends LinearOpMode {
                 .build();
 
         while (!isStarted()) {
-            this.parkPosition = robot.getAutoCamera().getMarkerId();
+            parkPosition = robot.getAutoCamera().getMarkerId();
             telemetry.addData("parkPosition", (parkPosition));
             telemetry.update();
         }
@@ -60,7 +60,7 @@ public class testauto extends LinearOpMode {
         drive.followTrajectory(push);
         drive.followTrajectory(pushBack);
 
-        switch (this.parkPosition) {
+        switch (parkPosition) {
             case 1:
                 drive.followTrajectory(park1);
                 // Park on the outside edge of the field

@@ -33,9 +33,9 @@ import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.YELLOW_UPPER;
 public class BarcodePipeline extends OpenCvPipeline  {
     private Detection teamElement;
 
-    private Mat blurred = new Mat();
-    private Mat hsv = new Mat();
-    private Mat yellowMask = new Mat();
+    private final Mat blurred = new Mat();
+    private final Mat hsv = new Mat();
+    private final Mat yellowMask = new Mat();
 
     // Init
     @Override

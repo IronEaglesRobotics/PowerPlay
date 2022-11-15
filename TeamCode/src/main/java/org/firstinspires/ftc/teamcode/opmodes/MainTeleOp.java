@@ -25,6 +25,7 @@ public class MainTeleOp extends OpMode {
         this.robot.getDrive().setInput(gamepad1, gamepad2);
 
         // Arm
+        // arm control code
         boolean pressRight = gamepad2.dpad_right;
         boolean pressLeft = gamepad2.dpad_left;
         if (pressRight) {
@@ -44,6 +45,7 @@ public class MainTeleOp extends OpMode {
 //        }
 
         // Lift
+        // lift control code
         boolean upPressed = gamepad2.y || gamepad1.y;
         boolean downPressed = gamepad2.a || gamepad1.x;
 

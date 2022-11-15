@@ -17,8 +17,8 @@ import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.getCenterOfContou
 
 // Class for a Detection using opencv color matching
 public class  Detection {
-    private double minAreaPx;
-    private double maxAreaPx;
+    private final double minAreaPx;
+    private final double maxAreaPx;
     private final Size maxSizePx;
     private double areaPx =  INVALID_AREA;
     private Point centerPx = INVALID_POINT;
