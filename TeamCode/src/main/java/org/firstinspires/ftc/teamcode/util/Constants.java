@@ -45,5 +45,6 @@ public class Constants {
     public static final String GRIP = "servo";
     public static final String WRIST = "servoturn";
     public static final String LIFT = "slide";
+    public static final String SLIDE = "slide2";
     public static final String AUTO_CAMERA = "autoCamera";
 }

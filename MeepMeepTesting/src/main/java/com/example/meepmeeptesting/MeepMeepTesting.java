@@ -13,7 +13,7 @@ import com.noahbres.meepmeep.roadrunner.trajectorysequence.TrajectorySequence;
 public class MeepMeepTesting {
     public static void main(String[] args) {
 
-        Pose2d startOP = new Pose2d(-34,-60,Math.toRadians(90));
+        Pose2d startOP = new Pose2d(34,-60,Math.toRadians(90));
         Pose2d pos1 = new Pose2d(-34,-36, Math.toRadians(90));
 
 
@@ -28,13 +28,28 @@ public class MeepMeepTesting {
                 .setStartPose(startOP)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startOP)
-                                .forward(12)
-                                .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
-                                .splineTo(new Vector2d(-11, -34), Math.toRadians(45))
-                                .forward(2)
-                                .back(2)
-                                .splineTo(new Vector2d(-24, -36), Math.toRadians(180))
-                                .back(36)
+                                .forward(60)
+                                .back(12)
+                                .turn(Math.toRadians(45))
+                                .forward(6)
+                                .back(6)
+                                .turn(Math.toRadians(-135))
+                                .forward(24)
+                                .back(24)
+                                .turn(Math.toRadians(135))
+                                .forward(6)
+                                .back(6)
+                                .turn(Math.toRadians(-135))
+                                .forward(24)
+                                .back(24)
+                                .turn(Math.toRadians(135))
+                                .forward(6)
+                                .back(6)
+                                .turn(Math.toRadians(-135))
+                                .back(24)
+
+
+
 
 
 

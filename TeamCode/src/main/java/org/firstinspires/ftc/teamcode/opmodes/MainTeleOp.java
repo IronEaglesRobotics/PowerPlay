@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_POSITION;
+import static org.firstinspires.ftc.teamcode.util.Configurables.STOP;
+
+import android.transition.Slide;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -25,7 +28,6 @@ public class MainTeleOp extends OpMode {
         this.robot.getDrive().setInput(gamepad1, gamepad2);
 
         // Arm
-        // arm control code
         boolean pressRight = gamepad2.dpad_right;
         boolean pressLeft = gamepad2.dpad_left;
         if (pressRight) {
@@ -35,6 +37,7 @@ public class MainTeleOp extends OpMode {
         } else {
             this.robot.getArm().drop();
         }
+        this.robot.getArm().update();
 
         this.robot.getClaw().twistUp();
 
@@ -44,20 +47,31 @@ public class MainTeleOp extends OpMode {
 //            this.robot.getClaw().twistUp();
 //        }
 
-        // Lift
-        // lift control code
-        boolean upPressed = gamepad2.y || gamepad1.y;
-        boolean downPressed = gamepad2.a || gamepad1.x;
+        int Position = this.robot.getLift().slide.getCurrentPosition();
+        int Position2 = this.robot.getLift().slide2.getCurrentPosition();
+        int armPosition = this.robot.getArm().getCurrentPosition();
 
-        if (upPressed && !prevUpPressed) {
+        // Lift
+        boolean upPressed = gamepad2.y;
+        boolean downPressed = gamepad2.a;
+
+        telemetry.addData("Slide Position", (Position));
+        telemetry.addData("Slide Position2", (Position2));
+        telemetry.addData("armPosition", armPosition);
+        telemetry.update();
+
+
+        if (gamepad2.x && !prevUpPressed) {
+            this.robot.getLift().slideUpFree();
+        } else if (upPressed && !prevUpPressed) {
             this.robot.getLift().slideUp();
         } else if (gamepad2.dpad_up && !prevUpPressed) {
             this.robot.getLift().slideMed();
         } else if (gamepad2.dpad_down && !prevUpPressed) {
             this.robot.getLift().slideLow();
-        } else if (downPressed && !prevDownPressed) {
+        } else if (downPressed) {
             this.robot.getLift().slideDown();
-        } else if ((prevUpPressed != upPressed) || (prevDownPressed != downPressed)) {
+        } else if ((prevUpPressed != upPressed) || prevDownPressed) {
             this.robot.getLift().slideStop();
         }
 
@@ -65,13 +79,10 @@ public class MainTeleOp extends OpMode {
         prevDownPressed = downPressed;
 
         // Claw
-        if (gamepad2.b || gamepad1.b) {
+        if (gamepad2.b) {
             this.robot.getClaw().close();
         } else {
             this.robot.getClaw().open();
         }
-
-        telemetry.addLine(this.robot.getLift().getTelemetry());
-        telemetry.update();
     }
 }

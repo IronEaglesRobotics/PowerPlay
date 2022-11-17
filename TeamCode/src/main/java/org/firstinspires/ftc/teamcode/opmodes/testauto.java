@@ -4,11 +4,13 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 @Config
+@Disabled
 
 @Autonomous(name = "TestAuto", group = "Competition")
 public class testauto extends LinearOpMode {
@@ -28,11 +30,38 @@ public class testauto extends LinearOpMode {
         this.robot.getClaw().open();
 
         Trajectory push = drive.trajectoryBuilder(startOP)
-                .forward(30)
+                .forward(60)
                 .build();
 
         Trajectory pushBack = drive.trajectoryBuilder(push.end())
-                .back(18)
+                .back(12)
+                .build();
+
+        Trajectory score = drive.trajectoryBuilder(new Pose2d(pushBack.end().getX(), pushBack.end().getY(), Math.toRadians(0)))
+                .forward(6)
+                .build();
+        Trajectory back = drive.trajectoryBuilder(score.end())
+                .back(6)
+                .build();
+
+        Trajectory getCone = drive.trajectoryBuilder(new Pose2d(back.end().getX(), back.end().getY(), Math.toRadians(0)))
+                .forward(23)
+                .build();
+
+        Trajectory toScore = drive.trajectoryBuilder(getCone.end())
+                .back(23)
+                .build();
+
+        Trajectory scoreAgain = drive.trajectoryBuilder(toScore.end())
+                .forward(6)
+                .build();
+
+        Trajectory backAgain = drive.trajectoryBuilder(toScore.end())
+                .back(6)
+                .build();
+
+        Trajectory getMoreCone = drive.trajectoryBuilder(new Pose2d(back.end().getX(), back.end().getY(), Math.toRadians(0)))
+                .forward(23)
                 .build();
 
         //Trajectories
@@ -57,8 +86,62 @@ public class testauto extends LinearOpMode {
         }
         // Do stuff
 
-        drive.followTrajectory(push);
-        drive.followTrajectory(pushBack);
+//        drive.followTrajectory(push);
+//        drive.followTrajectory(pushBack);
+//        drive.turn(Math.toRadians(45));
+//        this.robot.getLift().slideUp();
+//        sleep(2000);
+//        drive.followTrajectory(score);
+//        this.robot.getClaw().autoOpen();
+//        sleep(200);
+//        drive.followTrajectory(back);
+//        this.robot.getLift().slideDown();
+//        sleep(2000);
+//        drive.turn(Math.toRadians(-135));
+////        this.robot.getLift().oneCone();
+//        this.robot.getClaw().close();
+//        drive.followTrajectory(getCone);
+//        this.robot.getClaw().open();
+//        this.robot.getLift().clear();
+//        drive.followTrajectory(toScore);
+//        drive.turn(Math.toRadians(135));
+//        this.robot.getLift().slideUp();
+//        sleep(2000);
+//        drive.followTrajectory(scoreAgain);
+//        this.robot.getClaw().autoOpen();
+//        sleep(200);
+//        drive.followTrajectory(backAgain);
+//        this.robot.getClaw().close();
+//        this.robot.getLift().twoCone();
+//        drive.followTrajectory(getMoreCone);
+//        this.robot.getClaw().open();
+//        this.robot.getLift().clear();
+//        drive.followTrajectory(toScore);
+//        drive.turn(Math.toRadians(135));
+//        this.robot.getLift().slideUp();
+//        sleep(2000);
+//        drive.followTrajectory(scoreAgain);
+//        this.robot.getClaw().autoOpen();
+//        sleep(200);
+//        drive.followTrajectory(backAgain);
+//        this.robot.getClaw().close();
+//        this.robot.getLift().threeCone();
+//        drive.followTrajectory(getMoreCone);
+//        this.robot.getClaw().open();
+//        this.robot.getLift().clear();
+//        drive.followTrajectory(toScore);
+//        drive.turn(Math.toRadians(135));
+//        this.robot.getLift().slideUp();
+//        sleep(2000);
+//        drive.followTrajectory(scoreAgain);
+//        this.robot.getClaw().autoOpen();
+//        sleep(200);
+//        drive.followTrajectory(backAgain);
+//        this.robot.getClaw().close();
+//        this.robot.getLift().threeCone();
+//        drive.followTrajectory(getMoreCone);
+//        this.robot.getClaw().open();
+//        this.robot.getLift().clear();
 
         switch (parkPosition) {
             case 1:

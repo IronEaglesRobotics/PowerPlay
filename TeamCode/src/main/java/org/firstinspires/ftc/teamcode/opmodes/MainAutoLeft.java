@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes;
+
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -8,8 +10,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-@Autonomous(name = "MainAuto", group = "Competition")
-public class MainAuto extends LinearOpMode {
+@Config
+@Autonomous(name = "MainAutoLeft", group = "Competition")
+public class MainAutoLeft extends LinearOpMode {
+    public static int TO_PARK_ROTATION = 180;
     private int parkPosition = 2;
     private Robot robot;
 
@@ -26,33 +30,33 @@ public class MainAuto extends LinearOpMode {
         this.robot.getClaw().open();
         this.robot.getClaw().twistUp();
 
-
         //Trajectories
         Trajectory push = drive.trajectoryBuilder(startOP)
                 .forward(30)
                 .build();
 
         Trajectory pushBack = drive.trajectoryBuilder(push.end())
-                .back(18)
+                .back(30)
                 .build();
 
         Trajectory scorePreLoad = drive.trajectoryBuilder(pushBack.end())
+                .forward(12)
                 .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
-                .splineTo(new Vector2d(-11, -34), Math.toRadians(45))
+                .splineTo(new Vector2d(-10, -34), Math.toRadians(45))
                 .build();
 
 
         Trajectory score = drive.trajectoryBuilder(scorePreLoad.end())
-                .forward(2)
+                .forward(3)
                 .build();
 
 
         Trajectory backLittle = drive.trajectoryBuilder(score.end())
-                .back(2)
+                .back(3)
                 .build();
 
-        Trajectory toPark = drive.trajectoryBuilder(new Pose2d(backLittle.end().getX(), backLittle.end().getY(), 0))
-                .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
+        Trajectory toPark = drive.trajectoryBuilder(new Pose2d(backLittle.end().getX(), backLittle.end().getY(), Math.toRadians(0)))
+                .back(11)
                 .build();
 
         Trajectory park1 = drive.trajectoryBuilder(toPark.end())
@@ -64,56 +68,64 @@ public class MainAuto extends LinearOpMode {
                 .build();
 
         Trajectory park3 = drive.trajectoryBuilder(toPark.end())
-                .forward(12)
+                .forward(11)
                 .build();
 
-
+        //Camera look stuff
         while (!isStarted()) {
             this.parkPosition = robot.getAutoCamera().getMarkerId();
             telemetry.addData("parkPosition", (parkPosition));
             telemetry.update();
         }
-            // Do stuff
 
-            //Cone Scoring
-//        this.robot.getArm().moveRight();
-//        sleep(1000);
-//        this.robot.getArm().drop();
-            drive.followTrajectory(push);
-            drive.followTrajectory(pushBack);
-            drive.followTrajectory(scorePreLoad);
-            this.robot.getLift().slideUp();
-            sleep(3000);
-            drive.followTrajectory(score);
-            this.robot.getClaw().close();
-            sleep(500);
-            this.robot.getClaw().open();
-            drive.followTrajectory(backLittle);
-            sleep(1000);
-            this.robot.getLift().slideDown();
-            sleep(3000);
-            drive.followTrajectory(toPark);
-//        drive.followTrajectory(toPark);
+        //Cone Scoring
+        this.robot.getArm().moveRight();
+        sleep(1000);
+        this.robot.getArm().drop();
+        drive.followTrajectory(push);
+        drive.followTrajectory(pushBack);
+        drive.followTrajectory(scorePreLoad);
+        this.robot.getLift().slideUp();
+        sleep(2500);
+        drive.followTrajectory(score);
+        sleep(500);
+        this.robot.getLift().dunk();
+        sleep(500);
+        this.robot.getClaw().close();
+        sleep(200);
+        this.robot.getLift().slideUp();
+        drive.followTrajectory(backLittle);
+        sleep(500);
+        this.robot.getLift().slideDown();
+        sleep(2000);
+        drive.turn(-Math.toRadians(45));
+        drive.followTrajectory(toPark);
 
-            switch (this.parkPosition) {
-                case 1:
-                    drive.followTrajectory(park1);
-                    // Park on the outside edge of the field
-                    break;
-                case 2:
-                    drive.followTrajectory(park2);
-                    break;
-                case 3:
-                    drive.followTrajectory(park3);
-                    // Park in the middle of the field
-                    break;
-                default:
+        //Parking
+        switch (this.parkPosition) {
+            case 1:
+                drive.followTrajectory(park1);
+                this.robot.getClaw().auto();
+                sleep(1000);
+                // Park on the outside edge of the field
+                break;
+            case 2:
+                drive.followTrajectory(park2);
+                this.robot.getClaw().auto();
+                sleep(1000);
+                break;
+            case 3:
+                drive.followTrajectory(park3);
+                this.robot.getClaw().auto();
+                sleep(1000);
+                // Park in the middle of the field
+                break;
+            default:
 
-                    break;
-                // AHHH!!!!!
-
-            }
+                break;
+            // AHHH!!!!!
 
 
         }
     }
+}
