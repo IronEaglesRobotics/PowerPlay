@@ -27,8 +27,11 @@ public class Constants {
     public static final Size BLUR_SIZE = new Size(7, 7);
 
     // CV Camera Constants
-    public static final int WEBCAM_WIDTH = 800;//320
-    public static final int WEBCAM_HEIGHT = 448;//240
+    public static final int AUTO_WEBCAM_WIDTH = 800;//320
+    public static final int AUTO_WEBCAM_HEIGHT = 448;//240
+    public static final int AIMING_WEBCAM_HEIGHT = 480;
+    public static final int AIMING_WEBCAM_WIDTH = 640;
+
     public static final OpenCvCameraRotation WEBCAM_ROTATION = OpenCvCameraRotation.UPRIGHT;
 
     // CV Invalid Detection Constants
@@ -47,4 +50,5 @@ public class Constants {
     public static final String LIFT = "slide";
     public static final String SLIDE = "slide2";
     public static final String AUTO_CAMERA = "autoCamera";
+    public static final String AIMING_CAMERA = "aimingCamera";
 }

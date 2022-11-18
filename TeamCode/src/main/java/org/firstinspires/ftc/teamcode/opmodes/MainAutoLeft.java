@@ -19,7 +19,7 @@ public class MainAutoLeft extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        this.robot = new Robot().init(hardwareMap, true);
+        this.robot = new Robot().init(hardwareMap, Robot.Vision.AUTO);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 

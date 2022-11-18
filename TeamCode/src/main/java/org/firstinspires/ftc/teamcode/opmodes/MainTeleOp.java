@@ -19,7 +19,7 @@ public class MainTeleOp extends OpMode {
 
     @Override
     public void init() {
-        this.robot = new Robot().init(hardwareMap, false);
+        this.robot = new Robot().init(hardwareMap, null);
     }
 
     @Override

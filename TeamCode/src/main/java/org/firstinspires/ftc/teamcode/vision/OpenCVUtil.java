@@ -6,12 +6,15 @@ import org.firstinspires.ftc.teamcode.util.Color;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.imgproc.Moments;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,8 +31,9 @@ public class OpenCVUtil {
     public static int RIGHT_BOUNDARY_APRILTAG = 800;
 
     // Draw a point
-    public static void drawPoint(Mat img, Point point, Scalar color) {
-        Imgproc.circle(img, point, 3, color,  -1);
+    // Draw a point
+    public static void drawPoint(Mat img, Point point, Scalar color, int radiusPx) {
+        Imgproc.circle(img, point, radiusPx, color,  -1);
     }
 
     // Get the center of a contour
@@ -96,5 +100,14 @@ public class OpenCVUtil {
     public static List<MatOfPoint> getLargestContours(List<MatOfPoint> contours, int numContours) {
         Collections.sort(contours, (a, b) -> (int) Imgproc.contourArea(b) - (int) Imgproc.contourArea(a));
         return contours.subList(0, Math.min(numContours, contours.size()));
+    }
+
+    public static void drawAngledRect(Mat img, MatOfPoint contour, Scalar color, boolean fill) {
+        RotatedRect rect = Imgproc.minAreaRect(new MatOfPoint2f(contour.toArray()));
+        Point[] vertices = new Point[4];
+        rect.points(vertices);
+        List<MatOfPoint> boxContours = new ArrayList<>();
+        boxContours.add(new MatOfPoint(vertices));
+        Imgproc.drawContours(img, boxContours, 0, color, fill ? -1 : 2);
     }
 }

@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_CAMERA;
-import static org.firstinspires.ftc.teamcode.util.Constants.WEBCAM_HEIGHT;
+import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_WEBCAM_HEIGHT;
 import static org.firstinspires.ftc.teamcode.util.Constants.WEBCAM_ROTATION;
-import static org.firstinspires.ftc.teamcode.util.Constants.WEBCAM_WIDTH;
+import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_WEBCAM_WIDTH;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -11,7 +11,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.vision.AprilTagDetectionPipeline;
-import org.firstinspires.ftc.teamcode.vision.BarcodePipeline;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 
 @Config
 // Class for the camera
-public class Camera {
+public class AprilTagCamera {
     private boolean barcodeWebcamInitialized;
 
     // AprilTag stuff
@@ -51,11 +50,11 @@ public class Camera {
     private OpenCvCamera barcodeWebcam;
 
     // Constructor
-    public Camera() {
+    public AprilTagCamera() {
     }
 
     // Initiate the Barcode Camera
-    public Camera init(HardwareMap hardwareMap) {
+    public AprilTagCamera init(HardwareMap hardwareMap) {
         int stackCameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         this.barcodeWebcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, AUTO_CAMERA), stackCameraMonitorViewId);
         // AprilTag pipeline
@@ -65,7 +64,7 @@ public class Camera {
         barcodeWebcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                barcodeWebcam.startStreaming(WEBCAM_WIDTH, WEBCAM_HEIGHT, WEBCAM_ROTATION);
+                barcodeWebcam.startStreaming(AUTO_WEBCAM_WIDTH, AUTO_WEBCAM_HEIGHT, WEBCAM_ROTATION);
                 barcodeWebcamInitialized = true;
                 FtcDashboard.getInstance().startCameraStream(barcodeWebcam, 0);
             }

@@ -5,7 +5,6 @@ import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_F;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_I;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_LEFT;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_P;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_POWER;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_RIGHT;
 import static org.firstinspires.ftc.teamcode.util.Configurables.AUTO;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_AUTO;
@@ -13,15 +12,12 @@ import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_UP;
-import static org.firstinspires.ftc.teamcode.util.Configurables.CLEAR;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_LOW;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_MAX;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_MED;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_POWER_UP;
 import static org.firstinspires.ftc.teamcode.util.Configurables.STOP;
 import static org.firstinspires.ftc.teamcode.util.Configurables.dunk;
-import static org.firstinspires.ftc.teamcode.util.Configurables.threeCone;
-import static org.firstinspires.ftc.teamcode.util.Configurables.twoCone;
 import static org.firstinspires.ftc.teamcode.util.Constants.ARM;
 import static org.firstinspires.ftc.teamcode.util.Constants.GRIP;
 import static org.firstinspires.ftc.teamcode.util.Constants.LIFT;
@@ -32,14 +28,12 @@ import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_FRONT_LEFT;
 import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_FRONT_RIGHT;
 import static org.firstinspires.ftc.teamcode.util.Constants.WRIST;
 
-import com.acmerobotics.roadrunner.control.PIDFController;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.SerialNumber;
 
 public class Robot {
     private Drive drive;
@@ -47,15 +41,22 @@ public class Robot {
     private Claw claw;
     private Lift lift;
 
-    private Camera autoCamera = null;
+    private AprilTagCamera autoCamera = null;
+    private AimingCamera aimingCamera = null;
 
     public Robot init(HardwareMap hardwareMap) {
-        return this.init(hardwareMap, true);
+        return this.init(hardwareMap, null);
     }
 
-    public Robot init(HardwareMap hardwareMap, boolean withVision) {
-        if (withVision) {
-            this.autoCamera = new Camera().init(hardwareMap);
+    public enum Vision {
+        AUTO, AIMING
+    }
+
+    public Robot init(HardwareMap hardwareMap, Vision vision) {
+        if (vision == Vision.AUTO) {
+            this.autoCamera = new AprilTagCamera().init(hardwareMap);
+        } else if (vision == Vision.AIMING) {
+            this.aimingCamera = new AimingCamera().init(hardwareMap);
         }
         this.drive = new Drive().init(hardwareMap);
         this.claw = new Claw().init(hardwareMap);
@@ -65,7 +66,11 @@ public class Robot {
         return this;
     }
 
-    public Camera getAutoCamera() {
+    public AimingCamera getAimingCamera() {
+        return this.aimingCamera;
+    }
+
+    public AprilTagCamera getAutoCamera() {
         return this.autoCamera;
     }
 
