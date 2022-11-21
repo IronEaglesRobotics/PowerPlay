@@ -14,9 +14,10 @@ public class Slides {
     public static double p = 0.004;
     public static double i = 0;
     public static double d = 0;
-    public static double f = 0.01;
+    public static double f = 0;
     public static double pTolerance = 20;
     public static PIDController controller = new PIDController(p, i, d);
+    public static double downMultiplier = 0.5;
 
     public static int targetMin = 0;
     public static int targetMax = 1150;
@@ -24,9 +25,12 @@ public class Slides {
     public static int midPos = 800;
     public static int lowPos = 500;
     private int target = 0;
+    private int actualTarget = 0;
+    private int actualTarget2 = 0;
 
     private double startOfTighten = -1;
     public static double tightenTime = 0.5;
+    public int decrementAmount = 100;
 
     public static int manualSpeed = 20;
 
@@ -46,6 +50,8 @@ public class Slides {
 
     public void setTarget(int pos) {
         target = Math.min(Math.max(pos, targetMin), targetMax);
+        actualTarget = slide.getCurrentPosition();
+        actualTarget2 = slide2.getCurrentPosition();
     }
     public int getTarget() {
         return target;
@@ -58,6 +64,8 @@ public class Slides {
         } else if (pos == Position.LOW) {
             target = Math.min(Math.max(lowPos, targetMin), targetMax);
         }
+        actualTarget = slide.getCurrentPosition();
+        actualTarget2 = slide2.getCurrentPosition();
     }
     public int getPosition() {
         return slide.getCurrentPosition();
@@ -75,23 +83,48 @@ public class Slides {
     }
 
     public void update(double runTime) {
-        if (target > 0) {
+//        if (target > 0) {
+//            double actualTarget = slide.getCurrentPosition();
+        if (actualTarget > target) {
+            actualTarget -= decrementAmount;
+        } else {
+            actualTarget = target;
+        }
+
+        if (actualTarget2 > target) {
+            actualTarget2 -= decrementAmount;
+        } else {
+            actualTarget2 = target;
+        }
+//            if (slide.getCurrentPosition() > target) {
+//                actualTarget -= decrementAmount;
+//            } else {
+//                actualTarget = target;
+//            }
             controller.setPID(p, i, d);
             controller.setTolerance(pTolerance);
 
-            double pid = controller.calculate(slide.getCurrentPosition(), target);
+            double pid = controller.calculate(slide.getCurrentPosition(), actualTarget);
             double ff = f;
 
-            slide.setPower(pid + ff);
+//            if (slide.getCurrentPosition() > target) {
+//                slide.setPower(pid*downMultiplier+ff);
+//            } else {
+                slide.setPower(pid + ff);
+//            }
 
-            pid = controller.calculate(slide2.getCurrentPosition(), target);
+            pid = controller.calculate(slide2.getCurrentPosition(), actualTarget2);
             ff = f;
 
-            slide2.setPower(pid + ff);
-        } else {
-            slide.setPower(0);
-            slide2.setPower(0);
-        }
+//            if (slide2.getCurrentPosition() > target) {
+//                slide2.setPower(pid*downMultiplier+ff);
+//            } else {
+                slide2.setPower(pid + ff);
+//            }
+//        } else {
+//            slide.setPower(0);
+//            slide2.setPower(0);
+//        }
 
 //        if (target < 5 && slide.getCurrentPosition() < 5) {
 //            if (startOfTighten == -1) {
