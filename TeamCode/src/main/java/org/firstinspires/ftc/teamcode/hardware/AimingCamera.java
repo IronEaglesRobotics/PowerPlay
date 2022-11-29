@@ -27,7 +27,6 @@ public class AimingCamera {
     public AimingCamera init(HardwareMap hardwareMap) {
         int stackCameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         this.camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, AIMING_CAMERA), stackCameraMonitorViewId);
-        this.camera
         // AprilTag pipeline
         this.junctionPipeline = new JunctionPipeline();
         camera.setPipeline(this.junctionPipeline);

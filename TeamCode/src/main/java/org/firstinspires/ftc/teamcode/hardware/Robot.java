@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_D;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_F;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_I;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_LEFT;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_P;
+import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_POWER;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_RIGHT;
 import static org.firstinspires.ftc.teamcode.util.Configurables.AUTO;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_AUTO;
@@ -145,38 +145,25 @@ public class Robot {
 
     public static class Arm {
         private DcMotor arm = null;
-        private PIDController pidfController;
-
-        private int targetPosition;
-        private final int TICKS_IN_DEGREE = 373 / 180;
 
         public Arm init(HardwareMap hardwareMap) {
-            this.pidfController = new PIDController(ARM_P, ARM_I, ARM_D);
             this.arm = hardwareMap.get(DcMotor.class, ARM);
             this.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.arm.setTargetPosition(0);
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
             return this;
         }
 
-        public void update() {
-            pidfController.setPID(ARM_P, ARM_I, ARM_D);
-            int armPos = arm.getCurrentPosition();
-            double pid = pidfController.calculate(armPos, this.targetPosition);
-            double ff = Math.cos(Math.toRadians(targetPosition / TICKS_IN_DEGREE)) * ARM_F;
-
-            double power = pid * ff;
-
-            arm.setPower(power);
-        }
-
         public void moveLeft() {
-            this.targetPosition = ARM_LEFT;
+            this.arm.setPower(ARM_POWER);
+            this.arm.setTargetPosition(ARM_LEFT);
         }
 
         public void moveRight() {
-            this.targetPosition = ARM_RIGHT;
+            this.arm.setPower(ARM_POWER);
+            this.arm.setTargetPosition(ARM_RIGHT);
         }
 
         public void drop() {

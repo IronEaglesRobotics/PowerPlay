@@ -37,15 +37,12 @@ public class MainTeleOp extends OpMode {
         } else {
             this.robot.getArm().drop();
         }
-        this.robot.getArm().update();
 
-        this.robot.getClaw().twistUp();
-
-//        if (this.robot.getArm().getCurrentPosition() < ARM_UPRIGHT) {
-////            this.robot.getClaw().twistDown();
-//        } else {
-//            this.robot.getClaw().twistUp();
-//        }
+        if (this.robot.getArm().getCurrentPosition() < ARM_UPRIGHT) {
+            this.robot.getClaw().twistDown();
+        } else {
+            this.robot.getClaw().twistUp();
+        }
 
         int Position = this.robot.getLift().slide.getCurrentPosition();
         int Position2 = this.robot.getLift().slide2.getCurrentPosition();

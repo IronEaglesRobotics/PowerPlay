@@ -27,15 +27,14 @@ public class Configurables {
     public static double CLAW_AUTO = 0.4;
 
     // Arm
-    public static int ARM_UPRIGHT = 69;
+    public static int ARM_UPRIGHT = 165;
     public static int ARM_STARTING = 0;
-    public static int ARM_LEFT = -117;
-    public static int ARM_RIGHT = 256;
-    public static double ARM_POWER = 0.3;
-    public static double ARM_P = 0;
+    public static int ARM_LEFT = -220;
+    public static int ARM_RIGHT = 550;
+    public static double ARM_POWER = 0.2;
+    public static double ARM_P = 1.0;
     public static double ARM_I = 0;
     public static double ARM_D = 0;
-    public static double ARM_F = 0;
 
     //Auto
     public static int PARK_POSITION = 1;
