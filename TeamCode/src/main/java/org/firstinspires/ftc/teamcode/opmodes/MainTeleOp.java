@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_STARTING;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_UPRIGHT;
+import static org.firstinspires.ftc.teamcode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_POSITION;
 import static org.firstinspires.ftc.teamcode.util.Configurables.STOP;
 
@@ -16,6 +18,7 @@ public class MainTeleOp extends OpMode {
     private Robot robot;
     private boolean prevUpPressed = false;
     private boolean prevDownPressed = false;
+    private boolean prevClawPressed = false;
 
     @Override
     public void init() {
@@ -30,15 +33,19 @@ public class MainTeleOp extends OpMode {
         // Arm
         boolean pressRight = gamepad2.dpad_right;
         boolean pressLeft = gamepad2.dpad_left;
+        boolean pressMid = gamepad2.x;
+
         if (pressRight) {
             this.robot.getArm().moveRight();
         } else if (pressLeft) {
             this.robot.getArm().moveLeft();
+        } else if (pressMid) {
+            this.robot.getArm().moveMid();
         } else {
             this.robot.getArm().drop();
         }
 
-        if (this.robot.getArm().getCurrentPosition() < ARM_UPRIGHT) {
+        if (this.robot.getArm().getCurrentPosition() < ARM_STARTING) {
             this.robot.getClaw().twistDown();
         } else {
             this.robot.getClaw().twistUp();
@@ -58,9 +65,7 @@ public class MainTeleOp extends OpMode {
         telemetry.update();
 
 
-        if (gamepad2.x && !prevUpPressed) {
-            this.robot.getLift().slideUpFree();
-        } else if (upPressed && !prevUpPressed) {
+        if (upPressed && !prevUpPressed) {
             this.robot.getLift().slideUp();
         } else if (gamepad2.dpad_up && !prevUpPressed) {
             this.robot.getLift().slideMed();
@@ -75,11 +80,33 @@ public class MainTeleOp extends OpMode {
         prevUpPressed = upPressed;
         prevDownPressed = downPressed;
 
+        //Slow Mode
+
+        if(gamepad1.a) {
+            GO_SLOW = 4;
+        } else {
+            GO_SLOW = 1.4;
+        }
+
         // Claw
+
+//        boolean clawPressed = gamepad2.b;
+//
+//        if (gamepad2.b && !prevClawPressed) {
+//            if (this.robot.getClaw().isOpen()) {
+//                this.robot.getClaw().close();
+//            } else {
+//                this.robot.getClaw().open();
+//            }
+//        }
+//
+//        prevClawPressed = clawPressed;
+
         if (gamepad2.b) {
             this.robot.getClaw().close();
         } else {
             this.robot.getClaw().open();
         }
+
     }
 }

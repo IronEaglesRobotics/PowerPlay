@@ -6,12 +6,14 @@ import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_LEFT;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_P;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_POWER;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_RIGHT;
+import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.util.Configurables.AUTO;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_AUTO;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_UP;
+import static org.firstinspires.ftc.teamcode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_LOW;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_MAX;
 import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_MED;
@@ -114,9 +116,11 @@ public class Robot {
             return this;
         }
 
+
+
         public void setInput(Gamepad gamepad1, Gamepad gamepad2) {
-            double x = gamepad1.left_stick_x / 1.4;
-            double y = -gamepad1.left_stick_y / 1.4;
+            double x = gamepad1.left_stick_x / GO_SLOW;
+            double y = -gamepad1.left_stick_y / GO_SLOW;
             double z = gamepad1.right_stick_x / 1.25;
 
             // instantiate motor power variables
@@ -161,6 +165,11 @@ public class Robot {
             this.arm.setTargetPosition(ARM_LEFT);
         }
 
+        public void moveMid() {
+            this.arm.setPower(ARM_POWER);
+            this.arm.setTargetPosition(ARM_UPRIGHT);
+        }
+
         public void moveRight() {
             this.arm.setPower(ARM_POWER);
             this.arm.setTargetPosition(ARM_RIGHT);
@@ -178,6 +187,7 @@ public class Robot {
     public static class Claw {
         private Servo clawTurn = null;
         private Servo clawGrip = null;
+        private boolean isOpen = false;
 
         public Claw init(HardwareMap hardwareMap) {
             this.clawGrip = hardwareMap.get(Servo.class, GRIP);
@@ -188,6 +198,7 @@ public class Robot {
 
         public void open() {
             this.clawGrip.setPosition(CLAW_OPEN);
+            this.isOpen = true;
         }
 
         public void autoOpen() {
@@ -196,6 +207,7 @@ public class Robot {
 
         public void close() {
             this.clawGrip.setPosition(CLAW_CLOSED);
+            this.isOpen = false;
         }
 
         public void auto() {
@@ -208,6 +220,10 @@ public class Robot {
 
         public void twistDown() {
             this.clawTurn.setPosition(CLAW_DOWN);
+        }
+
+        public boolean isOpen() {
+            return this.isOpen;
         }
     }
 

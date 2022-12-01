@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 @Config
-@Disabled
 
 @Autonomous(name = "TestAuto", group = "Competition")
 public class testauto extends LinearOpMode {
@@ -23,13 +22,13 @@ public class testauto extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startOP = new Pose2d(-34, -60, Math.toRadians(90));
+        Pose2d startOP = new Pose2d(34, -60, Math.toRadians(90));
 
         drive.setPoseEstimate(startOP);
 
         this.robot.getClaw().open();
 
-        Trajectory push = drive.trajectoryBuilder(startOP)
+        Trajectory  push = drive.trajectoryBuilder(startOP)
                 .forward(60)
                 .build();
 
@@ -40,29 +39,22 @@ public class testauto extends LinearOpMode {
         Trajectory score = drive.trajectoryBuilder(new Pose2d(pushBack.end().getX(), pushBack.end().getY(), Math.toRadians(0)))
                 .forward(6)
                 .build();
-        Trajectory back = drive.trajectoryBuilder(score.end())
-                .back(6)
+
+
+        Trajectory getCone = drive.trajectoryBuilder(new Pose2d(score.end().getX(), score.end().getY(), Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
                 .build();
 
-        Trajectory getCone = drive.trajectoryBuilder(new Pose2d(back.end().getX(), back.end().getY(), Math.toRadians(0)))
-                .forward(23)
+        Trajectory goScore = drive.trajectoryBuilder(new Pose2d(getCone.end().getX(), getCone.end().getY(), Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
                 .build();
 
-        Trajectory toScore = drive.trajectoryBuilder(getCone.end())
-                .back(23)
+        Trajectory park = drive.trajectoryBuilder(getCone.end())
+                .lineToSplineHeading(new Pose2d(36, -12, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(12, -12, Math.toRadians(180)))
                 .build();
 
-        Trajectory scoreAgain = drive.trajectoryBuilder(toScore.end())
-                .forward(6)
-                .build();
 
-        Trajectory backAgain = drive.trajectoryBuilder(toScore.end())
-                .back(6)
-                .build();
-
-        Trajectory getMoreCone = drive.trajectoryBuilder(new Pose2d(back.end().getX(), back.end().getY(), Math.toRadians(0)))
-                .forward(23)
-                .build();
 
         //Trajectories
         Trajectory park1 = drive.trajectoryBuilder(pushBack.end())
@@ -86,80 +78,41 @@ public class testauto extends LinearOpMode {
         }
         // Do stuff
 
-//        drive.followTrajectory(push);
-//        drive.followTrajectory(pushBack);
-//        drive.turn(Math.toRadians(45));
-//        this.robot.getLift().slideUp();
-//        sleep(2000);
-//        drive.followTrajectory(score);
-//        this.robot.getClaw().autoOpen();
-//        sleep(200);
-//        drive.followTrajectory(back);
-//        this.robot.getLift().slideDown();
-//        sleep(2000);
-//        drive.turn(Math.toRadians(-135));
-////        this.robot.getLift().oneCone();
-//        this.robot.getClaw().close();
-//        drive.followTrajectory(getCone);
-//        this.robot.getClaw().open();
-//        this.robot.getLift().clear();
-//        drive.followTrajectory(toScore);
-//        drive.turn(Math.toRadians(135));
-//        this.robot.getLift().slideUp();
-//        sleep(2000);
-//        drive.followTrajectory(scoreAgain);
-//        this.robot.getClaw().autoOpen();
-//        sleep(200);
-//        drive.followTrajectory(backAgain);
-//        this.robot.getClaw().close();
-//        this.robot.getLift().twoCone();
-//        drive.followTrajectory(getMoreCone);
-//        this.robot.getClaw().open();
-//        this.robot.getLift().clear();
-//        drive.followTrajectory(toScore);
-//        drive.turn(Math.toRadians(135));
-//        this.robot.getLift().slideUp();
-//        sleep(2000);
-//        drive.followTrajectory(scoreAgain);
-//        this.robot.getClaw().autoOpen();
-//        sleep(200);
-//        drive.followTrajectory(backAgain);
-//        this.robot.getClaw().close();
-//        this.robot.getLift().threeCone();
-//        drive.followTrajectory(getMoreCone);
-//        this.robot.getClaw().open();
-//        this.robot.getLift().clear();
-//        drive.followTrajectory(toScore);
-//        drive.turn(Math.toRadians(135));
-//        this.robot.getLift().slideUp();
-//        sleep(2000);
-//        drive.followTrajectory(scoreAgain);
-//        this.robot.getClaw().autoOpen();
-//        sleep(200);
-//        drive.followTrajectory(backAgain);
-//        this.robot.getClaw().close();
-//        this.robot.getLift().threeCone();
-//        drive.followTrajectory(getMoreCone);
-//        this.robot.getClaw().open();
-//        this.robot.getLift().clear();
+        drive.followTrajectory(push);
+        drive.followTrajectory(pushBack);
+        drive.turn(Math.toRadians(135));
+        drive.followTrajectory(score);
+        drive.followTrajectory(getCone);
+        drive.followTrajectory(goScore);
+        drive.followTrajectory(getCone);
+        drive.followTrajectory(goScore);
+        drive.followTrajectory(getCone);
+        drive.followTrajectory(goScore);
+        drive.followTrajectory(getCone);
+        drive.followTrajectory(goScore);
+        drive.followTrajectory(getCone);
+        drive.followTrajectory(goScore);
 
-        switch (parkPosition) {
-            case 1:
-                drive.followTrajectory(park1);
-                // Park on the outside edge of the field
-                break;
-            case 2:
-                drive.followTrajectory(park2);
-                break;
-            case 3:
-                drive.followTrajectory(park3);
-                // Park in the middle of the field
-                break;
-            default:
-                break;
-            // AHHH!!!!!
 
-        }
+
+
+//        switch (parkPosition) {
+//            case 1:
+//                drive.followTrajectory(park1);
+//                // Park on the outside edge of the field
+//                break;
+//            case 2:
+//                drive.followTrajectory(park2);
+//                break;
+//            case 3:
+//                drive.followTrajectory(park3);
+//                // Park in the middle of the field
+//                break;
+//            default:
+//                break;
+//            // AHHH!!!!!
+
+//        }
 
 
     }

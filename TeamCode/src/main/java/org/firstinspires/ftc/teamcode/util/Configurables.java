@@ -4,9 +4,12 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class Configurables {
+    //Drive
+    public static double GO_SLOW = 1.4;
+
     // Slide
     public static double SLIDE_POWER_UP = 1.0;
-    public static int SLIDE_MAX = 4350;
+    public static int SLIDE_MAX = 3050;
     public static int SLIDE_LOW = 1890;
     public static int SLIDE_MED = 3050;
     public static int SLIDE_POSITION = 0;
@@ -15,8 +18,6 @@ public class Configurables {
     public static int threeCone = 3050;
     public static int CLEAR = 500;
     public static int STOP = 10;
-
-
 
     // Claw
     public static double CLAW_OPEN = 0.49;
@@ -27,11 +28,11 @@ public class Configurables {
     public static double CLAW_AUTO = 0.4;
 
     // Arm
-    public static int ARM_UPRIGHT = 165;
+    public static int ARM_UPRIGHT = 353;
     public static int ARM_STARTING = 0;
-    public static int ARM_LEFT = -220;
-    public static int ARM_RIGHT = 550;
-    public static double ARM_POWER = 0.2;
+    public static int ARM_LEFT = -520;
+    public static int ARM_RIGHT = 1221;
+    public static double ARM_POWER = 0.7;
     public static double ARM_P = 1.0;
     public static double ARM_I = 0;
     public static double ARM_D = 0;

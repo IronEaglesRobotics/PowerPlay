@@ -26,38 +26,25 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, 60, 60, Math.toRadians(180))
                 .setDimensions(16,16)
                 .setStartPose(startOP)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(startOP)
-                                .forward(60)
-                                .back(12)
-                                .turn(Math.toRadians(45))
-                                .forward(6)
-                                .back(6)
-                                .turn(Math.toRadians(-135))
-                                .forward(24)
-                                .back(24)
-                                .turn(Math.toRadians(135))
-                                .forward(6)
-                                .back(6)
-                                .turn(Math.toRadians(-135))
-                                .forward(24)
-                                .back(24)
-                                .turn(Math.toRadians(135))
-                                .forward(6)
-                                .back(6)
-                                .turn(Math.toRadians(-135))
-                                .back(24)
-
-
-
-
-
-
-
-
-
-
-                                .build());
+                .followTrajectorySequence(drive -> {
+                            return drive.trajectorySequenceBuilder(startOP)
+                                    .forward(60)
+                                    .back(12)
+                                    .turn(Math.toRadians(135))
+                                    .forward(6)
+                                    .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
+                                    .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
+                                    .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
+                                    .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
+                                    .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
+                                    .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
+                                    .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
+                                    .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
+                                    .lineToSplineHeading(new Pose2d(36, -12, Math.toRadians(180)))
+                                    .lineToSplineHeading(new Pose2d(12, -12, Math.toRadians(180)))
+                                    .build();
+                        }
+                                );
         meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_KAI_DARK)
                 .addEntity(autonomousOP)
                 .start();
