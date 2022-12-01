@@ -39,4 +39,6 @@ public class Configurables {
 
     //Auto
     public static int PARK_POSITION = 1;
+
+    public static double AIMING_KP = 0.001;
 }

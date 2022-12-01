@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import static org.firstinspires.ftc.teamcode.util.Configurables.AIMING_KP;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_D;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_I;
 import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_LEFT;
@@ -30,12 +31,15 @@ import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_FRONT_LEFT;
 import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_FRONT_RIGHT;
 import static org.firstinspires.ftc.teamcode.util.Constants.WRIST;
 
+import com.arcrobotics.ftclib.controller.PController;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.opencv.core.Point;
 
 public class Robot {
     private Drive drive;
@@ -66,6 +70,19 @@ public class Robot {
         this.arm = new Arm().init(hardwareMap);
 
         return this;
+    }
+
+    public void aimSync() {
+        PController pController = new PController(AIMING_KP);
+        pController.setSetPoint(320);
+
+        Point topOfJunction = this.getAimingCamera().getTopOfJunction();
+        while(!pController.atSetPoint()) {
+            double output = pController.calculate(topOfJunction.x) * -1;
+            this.getDrive().setInput(0, 0, output);
+        }
+
+        this.getDrive().setInput(0, 0, 0);
     }
 
     public AimingCamera getAimingCamera() {
@@ -116,13 +133,7 @@ public class Robot {
             return this;
         }
 
-
-
-        public void setInput(Gamepad gamepad1, Gamepad gamepad2) {
-            double x = gamepad1.left_stick_x / GO_SLOW;
-            double y = -gamepad1.left_stick_y / GO_SLOW;
-            double z = gamepad1.right_stick_x / 1.25;
-
+        public void setInput(double x, double y, double z) {
             // instantiate motor power variables
             double flPower, frPower, blPower, brPower;
 
@@ -144,6 +155,14 @@ public class Robot {
             frontRight.setPower(frPower);
             backLeft.setPower(blPower);
             backRight.setPower(brPower);
+        }
+
+        public void setInput(Gamepad gamepad1, Gamepad gamepad2) {
+            double x = gamepad1.left_stick_x / 1.4;
+            double y = -gamepad1.left_stick_y / 1.4;
+            double z = gamepad1.right_stick_x / 1.25;
+
+            setInput(x, y, z);
         }
     }
 
