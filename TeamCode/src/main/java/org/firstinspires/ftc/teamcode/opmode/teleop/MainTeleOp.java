@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 
 @Config
-@TeleOp
-public class BlueTeleOp extends OpMode {
+@TeleOp(name = "TeleOp", group = "Competition")
+public class MainTeleOp extends OpMode {
     private Robot robot;
     Controller driver1;
     Controller driver2;
@@ -33,12 +33,13 @@ public class BlueTeleOp extends OpMode {
         robot =  new Robot(hardwareMap);
         driver1 = new Controller(gamepad1);
         driver2 = new Controller(gamepad2);
+        robot.slides.decrementAmount = 90;
     }
 
     public void extendMacro(Slides.Position pos) {
         switch(macroState) {
             case(0):
-                driver2.rumble(20);
+//                driver2.rumble(20);
                 macroStartTime = getRuntime();
                 robot.claw.close();
                 macroState ++;
@@ -59,7 +60,7 @@ public class BlueTeleOp extends OpMode {
                 }
                 break;
             case(4):
-                robot.hSlides.goToScore();
+                robot.hSlides.goToScoreWithOffset();
                 macroState = 0;
                 lastMacro = runningMacro;
                 runningMacro = 0;
@@ -70,7 +71,7 @@ public class BlueTeleOp extends OpMode {
     public void resetMacro() {
         switch(macroState) {
             case(0):
-                driver2.rumble(20);
+//                driver2.rumble(20);
                 macroStartTime = getRuntime();
                 robot.claw.open();
                 macroState++;
@@ -103,9 +104,6 @@ public class BlueTeleOp extends OpMode {
             case(6):
                 robot.slides.setTarget(0);
 //                robot.slides.increaseTarget(targetDecrement);
-//                if (robot.slides.getTarget() < 200) {
-//                    robot.claw.open();
-//                }
                 if (robot.slides.getPosition() < 200) {
                     robot.claw.open();
                 }
@@ -129,8 +127,8 @@ public class BlueTeleOp extends OpMode {
 
         if (driver1.getLeftBumper().isPressed() || driver1.getRightBumper().isPressed()) { // TURBO
             robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
-            driver1.rumble();
-            driver2.rumble();
+//            driver1.rumble();
+//            driver2.rumble();
         } else {
             robot.drive.setWeightedDrivePower(new Pose2d(x * drivebaseThrottle, y * drivebaseThrottle, z * drivebaseThrottle));
         }

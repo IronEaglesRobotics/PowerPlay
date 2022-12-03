@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_CAMERA;
 import static org.firstinspires.ftc.teamcode.util.Constants.WEBCAM_HEIGHT;
 import static org.firstinspires.ftc.teamcode.util.Constants.WEBCAM_ROTATION;
 import static org.firstinspires.ftc.teamcode.util.Constants.WEBCAM_WIDTH;
@@ -10,8 +9,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.util.CameraPosition;
 import org.firstinspires.ftc.teamcode.vision.AprilTagDetectionPipeline;
-import org.firstinspires.ftc.teamcode.vision.BarcodePipeline;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -21,12 +20,13 @@ import java.util.ArrayList;
 @Config
 // Class for the camera
 public class Camera {
-    private boolean barcodeWebcamInitialized;
+    private boolean signalWebcamInitialized;
 
     // AprilTag stuff
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
     ArrayList<AprilTagDetection> detections;
     static final double FEET_PER_METER = 3.28084;
+    public CameraPosition cameraPosition;
 
     // Lens intrinsics
     // UNITS ARE PIXELS
@@ -48,26 +48,31 @@ public class Camera {
     final int THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION = 4;
 
     // OpenCV stuff
-    private OpenCvCamera barcodeWebcam;
+    private OpenCvCamera signalWebcam;
 
     // Constructor
-    public Camera() {
+    public Camera(CameraPosition cameraPosition) {
+        this.cameraPosition = cameraPosition;
     }
 
     // Initiate the Barcode Camera
-    public Camera init(HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) {
         int stackCameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        this.barcodeWebcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, AUTO_CAMERA), stackCameraMonitorViewId);
+        if (cameraPosition == CameraPosition.RIGHT) {
+            this.signalWebcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), stackCameraMonitorViewId);
+        } else {
+            this.signalWebcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), stackCameraMonitorViewId);
+        }
         // AprilTag pipeline
         this.aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
-        barcodeWebcam.setPipeline(aprilTagDetectionPipeline);
+        signalWebcam.setPipeline(aprilTagDetectionPipeline);
         // OpenCV pipeline
-        barcodeWebcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+        signalWebcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                barcodeWebcam.startStreaming(WEBCAM_WIDTH, WEBCAM_HEIGHT, WEBCAM_ROTATION);
-                barcodeWebcamInitialized = true;
-                FtcDashboard.getInstance().startCameraStream(barcodeWebcam, 0);
+                signalWebcam.startStreaming(WEBCAM_WIDTH, WEBCAM_HEIGHT, WEBCAM_ROTATION);
+                signalWebcamInitialized = true;
+                FtcDashboard.getInstance().startCameraStream(signalWebcam, 0);
             }
 
             @Override
@@ -75,18 +80,17 @@ public class Camera {
 
             }
         });
-
-        return this;
     }
 
     // Close the Barcode Camera
     public void stopBarcodeWebcam() {
-        barcodeWebcam.closeCameraDeviceAsync(() -> barcodeWebcamInitialized = false);
+        signalWebcam.closeCameraDeviceAsync(() -> signalWebcamInitialized = false);
     }
+
 
     // AprilTag methods:
     public int getMarkerId() {
-        detections = aprilTagDetectionPipeline.getDetectionsUpdate();
+        detections = aprilTagDetectionPipeline.getLatestDetections();
 
         // If there's been a new frame...
         if (detections != null) {
@@ -117,9 +121,19 @@ public class Camera {
         return -1;
     }
 
+    // Get the number of frames the current camera has processed
+    public int getFrameCount() {
+        if (signalWebcamInitialized) {
+            return signalWebcam.getFrameCount();
+        } else {
+            return 0;
+        }
+    }
+
+
     // Get Telemetry for the current active camera
     public String getTelemetry() {
-        if (barcodeWebcamInitialized) {
+        if (signalWebcamInitialized) {
             if (detections != null) {
                 StringBuilder info = new StringBuilder();
                 for (AprilTagDetection detection : detections) {

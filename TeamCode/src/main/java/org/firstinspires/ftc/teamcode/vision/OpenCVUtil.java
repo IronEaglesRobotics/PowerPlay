@@ -24,8 +24,8 @@ public class OpenCVUtil {
     public static int LEFT_BOUNDARY = -25;
     public static int RIGHT_BOUNDARY = 25;
 
-    public static int LEFT_BOUNDARY_APRILTAG = 350;
-    public static int RIGHT_BOUNDARY_APRILTAG = 700;
+    public static int LEFT_BOUNDARY_APRILTAG = 0;
+    public static int RIGHT_BOUNDARY_APRILTAG = 800;
 
     // Draw a point
     public static void drawPoint(Mat img, Point point, Scalar color) {
