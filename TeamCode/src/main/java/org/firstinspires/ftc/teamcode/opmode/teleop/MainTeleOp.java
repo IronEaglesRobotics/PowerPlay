@@ -28,6 +28,18 @@ public class MainTeleOp extends OpMode {
 
     public static double drivebaseThrottle = 0.4;
 
+    public static double robot_width = 12;
+    public static double robot_length = 12;
+    public static double robot_radius = 6;
+
+    public static double groundJuncRadius = 6;
+    public static double coneRadius = 4;
+
+    Pose2d robot_pos;
+    double robot_x, robot_y, robot_heading;
+
+
+
     @Override
     public void init() {
         robot =  new Robot(hardwareMap);
@@ -117,6 +129,33 @@ public class MainTeleOp extends OpMode {
         }
     }
 
+    public double[] getJuncPos(int juncNum) {
+        int x_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(0)));
+        int y_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(1)));
+
+        double x_pos = (y_ref * -23.5) + 70.5;
+        double y_pos = (x_ref * -23.5) + 70.5;
+
+        return new double[] {x_pos, y_pos};
+    }
+
+    public boolean isGroundJunc(int juncNum) {
+        int x_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(0)));
+        int y_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(1)));
+
+        return x_ref % 2 != 0 && y_ref % 2 != 0;
+    }
+
+    public int nearestJunc(double posX, double posY) { // robot position
+        int diffJuncX = (int) ((Math.abs(posX) + 11.75) / 23.5);
+        int juncY = (posX < 0? 3 + diffJuncX : 3 - diffJuncX);
+
+        int diffJuncY = (int) ((Math.abs(posY) + 11.75) / 23.5);
+        int juncX = (posY < 0? 3 + diffJuncY : 3 - diffJuncY);
+
+        return Integer.parseInt(String.valueOf(juncX) + String.valueOf(juncY));
+    }
+
     @Override
     public void loop() {
         driver1.update();
@@ -125,13 +164,43 @@ public class MainTeleOp extends OpMode {
         double y = -driver1.getLeftStick().getX();
         double z = -driver1.getRightStick().getX();
 
+        robot_pos = robot.drive.getPoseEstimate();
+        robot_x = robot_pos.getX();
+        robot_y = robot_pos.getY();
+        robot_heading = robot_pos.getHeading(); // in radians
+
+
+        // check if overlapping
+        int nearJunc = nearestJunc(robot_x, robot_y);
+        double juncPosX = getJuncPos(nearJunc)[0];
+        double juncPosY = getJuncPos(nearJunc)[1];
+        double d = Math.sqrt((robot_x - juncPosX) * (robot_x - juncPosX) + (robot_y - juncPosY) * (robot_y - juncPosY));
+        double juncRadius = (isGroundJunc(nearJunc)? groundJuncRadius : coneRadius);
+        double juncAngle = Math.acos(robot_radius / d); // absolute angle of the junction from robot in radians
+
+        if (d <= robot_radius + juncRadius) {
+            // overlapping or touching
+            double radianDiff = juncAngle - robot_heading;
+
+            if (radianDiff < Math.toRadians(180)) {
+                x = Math.max(x, 0);
+            } else if (radianDiff > Math.toRadians(180)) {
+                x = Math.min(x, 0);
+            }
+
+            if (radianDiff < Math.toRadians(90) || radianDiff > Math.toRadians(270)) {
+                y = Math.min(y, 0);
+            } else if (radianDiff > Math.toRadians(90) && radianDiff < Math.toRadians(270)) {
+                y = Math.max(y, 0);
+            }
+        }
+
         if (driver1.getLeftBumper().isPressed() || driver1.getRightBumper().isPressed()) { // TURBO
             robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
-//            driver1.rumble();
-//            driver2.rumble();
         } else {
             robot.drive.setWeightedDrivePower(new Pose2d(x * drivebaseThrottle, y * drivebaseThrottle, z * drivebaseThrottle));
         }
+
 
 
         switch (runningMacro) {
