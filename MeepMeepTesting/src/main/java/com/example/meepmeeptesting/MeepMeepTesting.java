@@ -191,12 +191,73 @@ public class MeepMeepTesting {
         Pose2d score = new Pose2d(-30,6,Math.toRadians(-45));
         Pose2d load = new Pose2d(-60,12,Math.toRadians(-90));
         Pose2d carry = new Pose2d(-36,12,Math.toRadians(180));
+    //leftAuto
+        Pose2d startAuto = new Pose2d(36,66, Math.toRadians(0));
+        Pose2d startAuto2 = new Pose2d(36,24, Math.toRadians(0));
+        Pose2d scoreAuto = new Pose2d(32,8,Math.toRadians(45));
 
+        Pose2d sLoad1 = new Pose2d(48, 12, Math.toRadians(0));
+        Pose2d sLoad2 = new Pose2d(48, 12, Math.toRadians(0));
+        Pose2d sLoad3 = new Pose2d(48, 12, Math.toRadians(0));
+        Pose2d sLoad4 = new Pose2d(48, 12, Math.toRadians(0));
+        Pose2d sLoad5 = new Pose2d(48, 12, Math.toRadians(0));
+        Pose2d lLoad1 = new Pose2d(63.5,12,Math.toRadians(0));
+        Pose2d lLoad2 = new Pose2d(63.5,12,Math.toRadians(0));
+        Pose2d lLoad3 = new Pose2d(63.5,12,Math.toRadians(0));
+        Pose2d lLoad4 = new Pose2d(63.5,12,Math.toRadians(0));
+        Pose2d lLoad5 = new Pose2d(63.5,12,Math.toRadians(0));
 
+        Pose2d lScore1 = new Pose2d(48,12,Math.toRadians(0));
+        Pose2d lScore2 = new Pose2d(48,12,Math.toRadians(0));
+        Pose2d lScore3 = new Pose2d(48,12,Math.toRadians(0));
+        Pose2d lScore4 = new Pose2d(48,12,Math.toRadians(0));
+        Pose2d lScore5 = new Pose2d(48,12,Math.toRadians(0));
+        Pose2d sScore1 = new Pose2d(32,8,Math.toRadians(45));
+        Pose2d sScore2 = new Pose2d(32,8,Math.toRadians(45));
+        Pose2d sScore3 = new Pose2d(32,8,Math.toRadians(45));
+        Pose2d sScore4 = new Pose2d(32,8,Math.toRadians(45));
+        Pose2d sScore5 = new Pose2d(32,8,Math.toRadians(45));
+        Pose2d lPark1 = new Pose2d(36,36,Math.toRadians(-90));
 
         MeepMeep meepMeep = new MeepMeep(600);
 
-
+        RoadRunnerBotEntity leftAuto = new DefaultBotBuilder(meepMeep)
+                .setColorScheme(new ColorSchemeBlueDark())
+                .setConstraints(60, 60, 60, 60, Math.toRadians(180))
+                .setDimensions(12,12)
+                .setStartPose(startOP)
+                .followTrajectorySequence(drive ->
+                                drive.trajectorySequenceBuilder(startAuto)
+                                        .lineToSplineHeading(startAuto2)
+                                        .splineToSplineHeading(scoreAuto, Math.toRadians(-135))
+                                        .setReversed(false)
+                                        .splineToSplineHeading(sLoad1, Math.toRadians(0))
+                                        .lineToSplineHeading(lLoad1)
+                                        .lineToSplineHeading(lScore1)
+                                        .splineToSplineHeading(sScore1, Math.toRadians(-135))
+                                        .setReversed(false)
+                                        .splineToSplineHeading(sLoad2, Math.toRadians(0))
+                                        .lineToSplineHeading(lLoad2)
+                                        .lineToSplineHeading(lScore2)
+                                        .splineToSplineHeading(sScore2, Math.toRadians(-135))
+                                        .setReversed(false)
+                                        .splineToSplineHeading(sLoad3, Math.toRadians(0))
+                                        .lineToSplineHeading(lLoad3)
+                                        .lineToSplineHeading(lScore3)
+                                        .splineToSplineHeading(sScore3, Math.toRadians(-135))
+                                        .setReversed(false)
+                                        .splineToSplineHeading(sLoad4, Math.toRadians(0))
+                                        .lineToSplineHeading(lLoad4)
+                                        .lineToSplineHeading(lScore4)
+                                        .splineToSplineHeading(sScore4, Math.toRadians(-135))
+                                        .setReversed(false)
+                                        .splineToSplineHeading(sLoad5, Math.toRadians(0))
+                                        .lineToSplineHeading(lLoad5)
+                                        .lineToSplineHeading(lScore5)
+                                        .splineToSplineHeading(sScore5, Math.toRadians(-135))
+                                        .lineToSplineHeading(lPark1)
+                                        .build()
+                );
         RoadRunnerBotEntity autonomousOP = new DefaultBotBuilder(meepMeep)
                 .setColorScheme(new ColorSchemeBlueDark())
                 .setConstraints(60, 60, 60, 60, Math.toRadians(180))
@@ -547,7 +608,8 @@ public class MeepMeepTesting {
                 //.addEntity(xBot)
                 //.addEntity(yBot)
 //                .addEntity(autonomousOP)
-                .addEntity(testBot)
+                //.addEntity(testBot)
+                .addEntity(leftAuto)
                 .start();
 
     }
