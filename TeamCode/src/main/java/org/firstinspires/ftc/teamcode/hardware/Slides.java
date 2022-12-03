@@ -20,15 +20,10 @@ public class Slides {
     public static double downMultiplier = 0.5;
 
     public static int targetMin = 0;
-    public static int targetMax = 1150;
-    public static int highPos = 1130;
-    public static int midPos = 800;
-    public static int lowPos = 500;
-    public static int fivePos = 500;
-    public static int fourPos = 500;
-    public static int threePos = 500;
-    public static int twoPos = 500;
-    public static int onePos = 500;
+    public static int targetMax = 1150*(int)(384.5/145.1);
+    public static int highPos = 1130*(int)(384.5/145.1);
+    public static int midPos = 800*(int)(384.5/145.1);
+    public static int lowPos = 500*(int)(384.5/145.1);
     private int target = 0;
     private int actualTarget = 0;
     private int actualTarget2 = 0;
@@ -39,7 +34,7 @@ public class Slides {
 
     public static int manualSpeed = 20;
 
-    public enum Position { HIGH, MEDIUM, LOW, FIVE, FOUR, THREE, TWO, ONE}
+    public enum Position { HIGH, MEDIUM, LOW }
 
     public Slides(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
@@ -68,16 +63,6 @@ public class Slides {
             target = Math.min(Math.max(midPos, targetMin), targetMax);
         } else if (pos == Position.LOW) {
             target = Math.min(Math.max(lowPos, targetMin), targetMax);
-        } else if (pos == Position.FIVE) {
-            target = Math.min(Math.max(fivePos, targetMin), targetMax);
-        } else if (pos == Position.FOUR) {
-            target = Math.min(Math.max(fourPos, targetMin), targetMax);
-        } else if (pos == Position.THREE) {
-            target = Math.min(Math.max(threePos, targetMin), targetMax);
-        } else if (pos == Position.TWO) {
-            target = Math.min(Math.max(twoPos, targetMin), targetMax);
-        } else if (pos == Position.ONE) {
-            target = Math.min(Math.max(onePos, targetMin), targetMax);
         }
         actualTarget = slide.getCurrentPosition();
         actualTarget2 = slide2.getCurrentPosition();
