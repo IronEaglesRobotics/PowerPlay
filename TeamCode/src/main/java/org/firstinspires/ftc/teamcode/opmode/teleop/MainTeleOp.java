@@ -176,21 +176,22 @@ public class MainTeleOp extends OpMode {
         double juncPosY = getJuncPos(nearJunc)[1];
         double d = Math.sqrt((robot_x - juncPosX) * (robot_x - juncPosX) + (robot_y - juncPosY) * (robot_y - juncPosY));
         double juncRadius = (isGroundJunc(nearJunc)? groundJuncRadius : coneRadius);
-        double juncAngle = Math.acos(robot_radius / d); // absolute angle of the junction from robot in radians
+//        double juncAngle = Math.acos(robot_radius / d); // absolute angle of the junction from robot in radians
+        double juncAngle = Math.atan2(juncPosY - robot_y, juncPosX - robot_x); // absolute angle of the junction from robot in radians
 
         if (d <= robot_radius + juncRadius) {
             // overlapping or touching
             double radianDiff = juncAngle - robot_heading;
 
-            if (radianDiff < Math.toRadians(180)) {
+            if (radianDiff < Math.toRadians(180) && radianDiff > Math.toRadians(0)) {
                 x = Math.max(x, 0);
-            } else if (radianDiff > Math.toRadians(180)) {
+            } else if (radianDiff > Math.toRadians(-180) && radianDiff < Math.toRadians(0)) {
                 x = Math.min(x, 0);
             }
 
-            if (radianDiff < Math.toRadians(90) || radianDiff > Math.toRadians(270)) {
+            if (radianDiff < Math.toRadians(90) && radianDiff > Math.toRadians(-90)) {
                 y = Math.min(y, 0);
-            } else if (radianDiff > Math.toRadians(90) && radianDiff < Math.toRadians(270)) {
+            } else if (radianDiff > Math.toRadians(90) || radianDiff < Math.toRadians(-90)) {
                 y = Math.max(y, 0);
             }
         }
