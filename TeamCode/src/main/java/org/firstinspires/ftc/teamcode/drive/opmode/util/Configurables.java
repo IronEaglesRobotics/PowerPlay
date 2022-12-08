@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode.drive.opmode.util;
 
 import com.acmerobotics.dashboard.config.Config;
 
@@ -6,18 +6,25 @@ import com.acmerobotics.dashboard.config.Config;
 public class Configurables {
     //Drive
     public static double GO_SLOW = 1.4;
+    public static double WHY_TURN = 1.25;
+
 
     // Slide
     public static double SLIDE_POWER_UP = 1.0;
     public static int SLIDE_MAX = 3050;
-    public static int SLIDE_LOW = 1890;
+    public static int SLIDE_LOW = 2300;
     public static int SLIDE_MED = 3050;
     public static int SLIDE_POSITION = 0;
-    public static int dunk = 3800;
+    public static int dunk = 1200;
     public static int twoCone = 3050;
     public static int threeCone = 3050;
     public static int CLEAR = 500;
     public static int STOP = 10;
+    public static int TELE_DUNK = 2600;
+    public static int AUTO_TOP = 480;
+    public static int AUTO_TOP2 = 380;
+
+
 
     // Claw
     public static double CLAW_OPEN = 0.49;
@@ -26,6 +33,8 @@ public class Configurables {
     public static double CLAW_DOWN = 0.675;
     public static double AUTO = 0.005;
     public static double CLAW_AUTO = 0.4;
+    public static double GO_OTHER_WAY = -100;
+    public static double OTHER_WAY = 300;
 
     // Arm
     public static int ARM_UPRIGHT = 353;

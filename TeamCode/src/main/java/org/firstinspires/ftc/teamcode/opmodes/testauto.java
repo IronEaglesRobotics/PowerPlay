@@ -33,28 +33,35 @@ public class testauto extends LinearOpMode {
                 .build();
 
         Trajectory pushBack = drive.trajectoryBuilder(push.end())
-                .back(12)
+                .back(14)
                 .build();
 
-        Trajectory score = drive.trajectoryBuilder(new Pose2d(pushBack.end().getX(), pushBack.end().getY(), Math.toRadians(0)))
-                .forward(6)
+//        Trajectory score = drive.trajectoryBuilder(new Pose2d(pushBack.end().getX(), pushBack.end().getY(), Math.toRadians(-45)))
+//                .back(6)
+//                .build();
+
+        Trajectory getConeOne = drive.trajectoryBuilder(new Pose2d(pushBack.end().getX(), pushBack.end().getY(), Math.toRadians(0)), true)
+                .lineToSplineHeading(new Pose2d(54, -9, Math.toRadians(0)))
                 .build();
 
-
-        Trajectory getCone = drive.trajectoryBuilder(new Pose2d(score.end().getX(), score.end().getY(), Math.toRadians(0)))
-                .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
+        Trajectory goScore = drive.trajectoryBuilder(new Pose2d(getConeOne.end().getX(), getConeOne.end().getY(), Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(27, -14, Math.toRadians(45)))
                 .build();
 
-        Trajectory goScore = drive.trajectoryBuilder(new Pose2d(getCone.end().getX(), getCone.end().getY(), Math.toRadians(0)))
-                .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
+        Trajectory getCone = drive.trajectoryBuilder(new Pose2d(goScore.end().getX(), goScore.end().getY(), Math.toRadians(45)))
+                .lineToSplineHeading(new Pose2d(56, -9, Math.toRadians(0)))
                 .build();
-
-        Trajectory park = drive.trajectoryBuilder(getCone.end())
-                .lineToSplineHeading(new Pose2d(36, -12, Math.toRadians(180)))
-                .lineToSplineHeading(new Pose2d(12, -12, Math.toRadians(180)))
+        Trajectory Go = drive.trajectoryBuilder(new Pose2d(goScore.end().getX(), goScore.end().getY(), Math.toRadians(45)))
+                .lineToSplineHeading(new Pose2d(57, -12, Math.toRadians(22)))
                 .build();
-
-
+        Trajectory Go2 = drive.trajectoryBuilder(new Pose2d(getConeOne.end().getX(), getConeOne.end().getY(), Math.toRadians(45)))
+                .lineToSplineHeading(new Pose2d(57, -12, Math.toRadians(22)))
+                .build();
+//
+//        Trajectory park = drive.trajectoryBuilder(getCone.end())
+//                .lineToSplineHeading(new Pose2d(36, -12, Math.toRadians(180)))
+//                .lineToSplineHeading(new Pose2d(12, -12, Math.toRadians(180)))
+//                .build();
 
         //Trajectories
         Trajectory park1 = drive.trajectoryBuilder(pushBack.end())
@@ -78,23 +85,43 @@ public class testauto extends LinearOpMode {
         }
         // Do stuff
 
+        robot.getArm().moveMid();
         drive.followTrajectory(push);
+        robot.getArm().moveMid();
+//        robot.getLift().slideUp();
+        robot.getArm().moveMid();
         drive.followTrajectory(pushBack);
-        drive.turn(Math.toRadians(135));
-        drive.followTrajectory(score);
-        drive.followTrajectory(getCone);
+        robot.getArm().moveMid();
+        drive.turn(Math.toRadians(-45));
+        robot.getArm().moveMid();
+//        robot.getArm().moveRight();
+//        drive.followTrajectory(score);
+//        robot.getLift().dunk();
+//        robot.getClaw().close();
+        drive.followTrajectory(getConeOne);
+        drive.followTrajectory(Go2);
         drive.followTrajectory(goScore);
+        drive.followTrajectory(Go);
+//        robot.aimSync();
         drive.followTrajectory(getCone);
+        drive.followTrajectory(Go2);
         drive.followTrajectory(goScore);
+        drive.followTrajectory(Go);
+////        robot.aimSync();
         drive.followTrajectory(getCone);
+        drive.followTrajectory(Go2);
         drive.followTrajectory(goScore);
+        drive.followTrajectory(Go);
+////        robot.aimSync();
         drive.followTrajectory(getCone);
+        drive.followTrajectory(Go2);
         drive.followTrajectory(goScore);
+        drive.followTrajectory(Go);
+////        robot.aimSync();
         drive.followTrajectory(getCone);
+        drive.followTrajectory(Go2);
         drive.followTrajectory(goScore);
-
-
-
+        drive.followTrajectory(Go);
 
 //        switch (parkPosition) {
 //            case 1:
@@ -111,7 +138,7 @@ public class testauto extends LinearOpMode {
 //            default:
 //                break;
 //            // AHHH!!!!!
-
+//
 //        }
 
 

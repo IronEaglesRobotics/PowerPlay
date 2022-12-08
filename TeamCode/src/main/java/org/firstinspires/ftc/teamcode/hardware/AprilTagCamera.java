@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_CAMERA;
-import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_WEBCAM_HEIGHT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WEBCAM_ROTATION;
-import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_WEBCAM_WIDTH;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.AUTO_CAMERA;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.AUTO_WEBCAM_HEIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WEBCAM_ROTATION;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.AUTO_WEBCAM_WIDTH;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;

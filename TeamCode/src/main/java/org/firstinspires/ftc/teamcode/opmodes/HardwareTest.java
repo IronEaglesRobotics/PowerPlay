@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
-import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_BACK_LEFT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_BACK_RIGHT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_FRONT_LEFT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_FRONT_RIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_BACK_LEFT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_BACK_RIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_FRONT_LEFT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_FRONT_RIGHT;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;

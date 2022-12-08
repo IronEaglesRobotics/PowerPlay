@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.vision;
 
-import static org.firstinspires.ftc.teamcode.util.Constants.ANCHOR;
-import static org.firstinspires.ftc.teamcode.util.Constants.BLUR_SIZE;
-import static org.firstinspires.ftc.teamcode.util.Constants.ERODE_DILATE_ITERATIONS;
-import static org.firstinspires.ftc.teamcode.util.Constants.STRUCTURING_ELEMENT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ANCHOR;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.BLUR_SIZE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ERODE_DILATE_ITERATIONS;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.STRUCTURING_ELEMENT;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.YELLOW_LOWER;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.YELLOW_UPPER;
 
-import org.firstinspires.ftc.teamcode.util.Color;
+import org.firstinspires.ftc.teamcode.drive.opmode.util.Color;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;

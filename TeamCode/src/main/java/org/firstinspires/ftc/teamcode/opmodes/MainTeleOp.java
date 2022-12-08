@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_STARTING;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_UPRIGHT;
-import static org.firstinspires.ftc.teamcode.util.Configurables.GO_SLOW;
-import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_POSITION;
-import static org.firstinspires.ftc.teamcode.util.Configurables.STOP;
-
-import android.transition.Slide;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_OTHER_WAY;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.OTHER_WAY;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY_TURN;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -45,9 +42,9 @@ public class MainTeleOp extends OpMode {
             this.robot.getArm().drop();
         }
 
-        if (this.robot.getArm().getCurrentPosition() < ARM_STARTING) {
+        if (this.robot.getArm().getCurrentPosition() < GO_OTHER_WAY) {
             this.robot.getClaw().twistDown();
-        } else {
+        } else if (this.robot.getArm().getCurrentPosition() > OTHER_WAY) {
             this.robot.getClaw().twistUp();
         }
 
@@ -68,9 +65,9 @@ public class MainTeleOp extends OpMode {
         if (upPressed && !prevUpPressed) {
             this.robot.getLift().slideUp();
         } else if (gamepad2.dpad_up && !prevUpPressed) {
-            this.robot.getLift().slideMed();
+            this.robot.getLift().slideUp();
         } else if (gamepad2.dpad_down && !prevUpPressed) {
-            this.robot.getLift().slideLow();
+            this.robot.getLift().teleDunk();
         } else if (downPressed) {
             this.robot.getLift().slideDown();
         } else if ((prevUpPressed != upPressed) || prevDownPressed) {
@@ -82,10 +79,12 @@ public class MainTeleOp extends OpMode {
 
         //Slow Mode
 
-        if(gamepad1.a) {
+        if(gamepad1.a || gamepad1.y || gamepad1.right_bumper) {
             GO_SLOW = 4;
+            WHY_TURN = 3.5;
         } else {
             GO_SLOW = 1.4;
+            WHY_TURN = 1.25;
         }
 
         // Claw

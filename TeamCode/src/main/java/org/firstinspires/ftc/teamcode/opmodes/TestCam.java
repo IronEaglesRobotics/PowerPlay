@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
 import static org.firstinspires.ftc.teamcode.hardware.Robot.Vision.AIMING;
-import static org.firstinspires.ftc.teamcode.util.Configurables.AIMING_KP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KP;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;

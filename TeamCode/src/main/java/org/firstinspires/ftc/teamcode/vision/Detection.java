@@ -9,9 +9,9 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-import static org.firstinspires.ftc.teamcode.util.Constants.GREEN;
-import static org.firstinspires.ftc.teamcode.util.Constants.INVALID_AREA;
-import static org.firstinspires.ftc.teamcode.util.Constants.INVALID_POINT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.GREEN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.INVALID_AREA;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.INVALID_POINT;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.drawConvexHull;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.drawPoint;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.fillConvexHull;

@@ -1,18 +1,16 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.teamcode.util.Constants.AIMING_CAMERA;
-import static org.firstinspires.ftc.teamcode.util.Constants.AIMING_WEBCAM_HEIGHT;
-import static org.firstinspires.ftc.teamcode.util.Constants.AIMING_WEBCAM_WIDTH;
-import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_WEBCAM_HEIGHT;
-import static org.firstinspires.ftc.teamcode.util.Constants.INVALID_POINT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WEBCAM_ROTATION;
-import static org.firstinspires.ftc.teamcode.util.Constants.AUTO_WEBCAM_WIDTH;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.AIMING_CAMERA;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.AIMING_WEBCAM_HEIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.AIMING_WEBCAM_WIDTH;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.INVALID_POINT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WEBCAM_ROTATION;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.util.Color;
+import org.firstinspires.ftc.teamcode.drive.opmode.util.Color;
 import org.firstinspires.ftc.teamcode.vision.Detection;
 import org.firstinspires.ftc.teamcode.vision.JunctionPipeline;
 import org.opencv.core.Point;

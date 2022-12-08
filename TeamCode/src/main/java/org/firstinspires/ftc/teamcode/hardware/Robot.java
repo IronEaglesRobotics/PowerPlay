@@ -1,38 +1,37 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.teamcode.util.Configurables.AIMING_KP;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_D;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_I;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_LEFT;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_P;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_POWER;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_RIGHT;
-import static org.firstinspires.ftc.teamcode.util.Configurables.ARM_UPRIGHT;
-import static org.firstinspires.ftc.teamcode.util.Configurables.AUTO;
-import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_AUTO;
-import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_CLOSED;
-import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_DOWN;
-import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_OPEN;
-import static org.firstinspires.ftc.teamcode.util.Configurables.CLAW_UP;
-import static org.firstinspires.ftc.teamcode.util.Configurables.GO_SLOW;
-import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_LOW;
-import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_MAX;
-import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_MED;
-import static org.firstinspires.ftc.teamcode.util.Configurables.SLIDE_POWER_UP;
-import static org.firstinspires.ftc.teamcode.util.Configurables.STOP;
-import static org.firstinspires.ftc.teamcode.util.Configurables.dunk;
-import static org.firstinspires.ftc.teamcode.util.Constants.ARM;
-import static org.firstinspires.ftc.teamcode.util.Constants.GRIP;
-import static org.firstinspires.ftc.teamcode.util.Constants.LIFT;
-import static org.firstinspires.ftc.teamcode.util.Constants.SLIDE;
-import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_BACK_LEFT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_BACK_RIGHT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_FRONT_LEFT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WHEEL_FRONT_RIGHT;
-import static org.firstinspires.ftc.teamcode.util.Constants.WRIST;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_POWER;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP2;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_AUTO;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_LOW;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_UP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.STOP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.TELE_DUNK;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY_TURN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.dunk;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ARM;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.GRIP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.LIFT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.SLIDE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_BACK_LEFT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_BACK_RIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_FRONT_LEFT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_FRONT_RIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WRIST;
 
 import com.arcrobotics.ftclib.controller.PController;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -158,9 +157,9 @@ public class Robot {
         }
 
         public void setInput(Gamepad gamepad1, Gamepad gamepad2) {
-            double x = gamepad1.left_stick_x / 1.4;
-            double y = -gamepad1.left_stick_y / 1.4;
-            double z = gamepad1.right_stick_x / 1.25;
+            double x = gamepad1.left_stick_x / GO_SLOW;
+            double y = -gamepad1.left_stick_y / GO_SLOW;
+            double z = gamepad1.right_stick_x / WHY_TURN;
 
             setInput(x, y, z);
         }
@@ -180,19 +179,23 @@ public class Robot {
         }
 
         public void moveLeft() {
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.arm.setPower(ARM_POWER);
             this.arm.setTargetPosition(ARM_LEFT);
         }
 
         public void moveMid() {
-            this.arm.setPower(ARM_POWER);
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.arm.setTargetPosition(ARM_UPRIGHT);
+            this.arm.setPower(ARM_POWER);
         }
 
         public void moveRight() {
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.arm.setPower(ARM_POWER);
             this.arm.setTargetPosition(ARM_RIGHT);
         }
+
 
         public void drop() {
             this.arm.setPower(0);
@@ -277,11 +280,22 @@ public class Robot {
         public void slideUp() {
             this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(SLIDE_MED);
+            this.slide.setTargetPosition(SLIDE_MAX);
             this.slide.setPower(SLIDE_POWER_UP);
             this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(SLIDE_MED);
+            this.slide2.setTargetPosition(SLIDE_MAX);
+            this.slide2.setPower(SLIDE_POWER_UP);
+        }
+
+        public void teleDunk() {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide.setTargetPosition(TELE_DUNK);
+            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide2.setTargetPosition(TELE_DUNK);
             this.slide2.setPower(SLIDE_POWER_UP);
         }
 
@@ -321,11 +335,11 @@ public class Robot {
         public void slideMed() {
             this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(SLIDE_MAX);
+            this.slide.setTargetPosition(SLIDE_LOW);
             this.slide.setPower(SLIDE_POWER_UP);
             this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(SLIDE_MAX);
+            this.slide2.setTargetPosition(SLIDE_LOW);
             this.slide2.setPower(SLIDE_POWER_UP);
         }
 
@@ -339,6 +353,29 @@ public class Robot {
             this.slide2.setPower(this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
             this.slide2.setTargetPosition(0);
         }
+
+        public void autoTop() {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide.setTargetPosition(AUTO_TOP);
+            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide2.setTargetPosition(AUTO_TOP);
+            this.slide2.setPower(SLIDE_POWER_UP);
+        }
+
+        public void autoTop2() {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide.setTargetPosition(AUTO_TOP2);
+            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide2.setTargetPosition(AUTO_TOP2);
+            this.slide2.setPower(SLIDE_POWER_UP);
+        }
+
 
         public void slideStop() {
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
