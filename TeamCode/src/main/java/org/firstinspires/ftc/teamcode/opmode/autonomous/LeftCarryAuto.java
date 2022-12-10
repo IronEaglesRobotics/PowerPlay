@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
 @Config
-@Autonomous(name = "Left Carry Auto", group = "Competition", preselectTeleOp = "TeleOp")
+@Autonomous(name = "Left Carry Auto", group = "Competition", preselectTeleOp = "Blue TeleOp")
 public class LeftCarryAuto extends AbstractAuto {
 
     public Trajectory startScore;

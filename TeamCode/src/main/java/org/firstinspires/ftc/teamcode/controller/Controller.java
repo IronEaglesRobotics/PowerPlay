@@ -166,4 +166,8 @@ public class Controller {
     public boolean isRumbling() {
         return gamepad.isRumbling();
     }
+
+    public void setColor(int r, int g, int b) {
+        gamepad.setLedColor(r, g, b, -1);
+    }
 }

@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
+import android.transition.Slide;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot;
+import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
 import java.util.ArrayList;
@@ -153,6 +156,56 @@ public abstract class AbstractAuto extends LinearOpMode {
             @Override
             public boolean isFinished() {
                 return !robot.drive.isBusy();
+            }
+        });
+    }
+
+    public void followAndExtend(Trajectory trajectory, Slides.Position pos) {
+        steps.add(new Step("Following a trajectory") {
+            @Override
+            public void start() {
+                robot.drive.followTrajectoryAsync(trajectory);
+                robot.extendMacro(pos, currentRuntime);
+            }
+
+            @Override
+            public void whileRunning() {
+                robot.extendMacro(pos, currentRuntime);
+                robot.drive.update();
+            }
+
+            @Override
+            public void end() {
+            }
+
+            @Override
+            public boolean isFinished() {
+                return !robot.drive.isBusy() && robot.macroState == 0;
+            }
+        });
+    }
+
+    public void followAndReset(Trajectory trajectory, int pos) {
+        steps.add(new Step("Following a trajectory") {
+            @Override
+            public void start() {
+                robot.drive.followTrajectoryAsync(trajectory);
+                robot.resetMacro(pos, currentRuntime);
+            }
+
+            @Override
+            public void whileRunning() {
+                robot.resetMacro(pos, currentRuntime);
+                robot.drive.update();
+            }
+
+            @Override
+            public void end() {
+            }
+
+            @Override
+            public boolean isFinished() {
+                return !robot.drive.isBusy() && robot.macroState == 0;
             }
         });
     }

@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
 @Config
-@Autonomous(name = "Left Park Auto", group = "Competition", preselectTeleOp = "TeleOp")
+@Autonomous(name = "Left Park Auto", group = "Competition", preselectTeleOp = "Blue TeleOp")
 public class LeftParkAuto extends AbstractAuto {
 
     public Trajectory parkOne1;

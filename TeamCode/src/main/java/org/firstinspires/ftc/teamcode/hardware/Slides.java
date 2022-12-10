@@ -19,22 +19,24 @@ public class Slides {
     public static PIDController controller = new PIDController(p, i, d);
     public static double downMultiplier = 0.5;
 
+    public static int[] heights = {0, (int)(280/4.0), 2*(int)(280/4.0), 3*(int)(280/4.0), 4*(int)(280/4)};
+
+    public static int heightOffset = 0;
     public static int targetMin = 0;
-    public static int targetMax = 1150*(int)(384.5/145.1);
-    public static int highPos = 1130*(int)(384.5/145.1);
-    public static int midPos = 800*(int)(384.5/145.1);
-    public static int lowPos = 500*(int)(384.5/145.1);
+    public static int targetMax = 2000;
+    public static int highPos = 1830 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int midPos = 1250 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int lowPos = 800 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     private int target = 0;
     private int actualTarget = 0;
     private int actualTarget2 = 0;
 
-    private double startOfTighten = -1;
-    public static double tightenTime = 0.5;
     public int decrementAmount = 100;
 
-    public static int manualSpeed = 20;
+    public static int manualSpeed = 50;
+    public static int zeroPower = 5;
 
-    public enum Position { HIGH, MEDIUM, LOW }
+    public enum Position { HIGH, MEDIUM, LOW, DOWN }
 
     public Slides(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
@@ -83,8 +85,30 @@ public class Slides {
     }
 
     public void update(double runTime) {
+        highPos = 1830 + heightOffset;
+        midPos = 1250 + heightOffset;
+        lowPos = 800 + heightOffset;
+        if (target < 5) {
+            slide.setPower(0);
+            slide2.setPower(0);
+        } else {
+            double pid, ff;
+            controller.setPID(p, i, d);
+            controller.setTolerance(pTolerance);
+
+            pid = controller.calculate(slide.getCurrentPosition(), target);
+            ff = f;
+            slide.setPower(pid + ff);
+
+            pid = controller.calculate(slide2.getCurrentPosition(), target);
+            ff = f;
+            slide2.setPower(pid + ff);
+        }
+
 //        if (target > 0) {
 //            double actualTarget = slide.getCurrentPosition();
+
+
         if (actualTarget > target) {
             actualTarget -= decrementAmount;
         } else {
@@ -147,6 +171,6 @@ public class Slides {
     }
 
     public String getTelemetry() {
-        return String.format("Position: %s %s\nTarget: %s %s\nPower: %s %s", slide.getCurrentPosition(), slide2.getCurrentPosition(), target, target, slide.getPower(), slide2.getPower());
+        return String.format("Position: %s %s\nTarget: %s %s\nPower: %s %s\nHeightOffset: %s", slide.getCurrentPosition(), slide2.getCurrentPosition(), target, target, slide.getPower(), slide2.getPower(), heightOffset);
     }
 }
