@@ -51,29 +51,29 @@ public class RightCarryAuto extends AbstractAuto {
 
         Pose2d start = new Pose2d(-36,65.5, Math.toRadians(180));
         Pose2d start2 = new Pose2d(-36,24, Math.toRadians(180));
-        Pose2d score = new Pose2d(-32,7,Math.toRadians(135));
+        Pose2d score = new Pose2d(-31,6,Math.toRadians(135));
 
         Pose2d sLoad1 = new Pose2d(-48, 12+0.0, Math.toRadians(180));
         Pose2d sLoad2 = new Pose2d(-48, 12+0.5, Math.toRadians(180));
         Pose2d sLoad3 = new Pose2d(-48, 12+1.0, Math.toRadians(180));
         Pose2d sLoad4 = new Pose2d(-48, 12+1.5, Math.toRadians(180));
         Pose2d sLoad5 = new Pose2d(-48, 12+2.0, Math.toRadians(180));
-        Pose2d lLoad1 = new Pose2d(-62,12+0.0,Math.toRadians(180));
-        Pose2d lLoad2 = new Pose2d(-62,12+0.5,Math.toRadians(180));
-        Pose2d lLoad3 = new Pose2d(-62,12+1.0,Math.toRadians(180));
-        Pose2d lLoad4 = new Pose2d(-62,12+1.5,Math.toRadians(180));
-        Pose2d lLoad5 = new Pose2d(-62,12+2.0,Math.toRadians(180));
+        Pose2d lLoad1 = new Pose2d(-63,12+0.0,Math.toRadians(180));
+        Pose2d lLoad2 = new Pose2d(-63,12+0.5,Math.toRadians(180));
+        Pose2d lLoad3 = new Pose2d(-64,12+1.0,Math.toRadians(180));
+        Pose2d lLoad4 = new Pose2d(-64,12+1.5,Math.toRadians(180));
+        Pose2d lLoad5 = new Pose2d(-65,12+2.0,Math.toRadians(180));
 
         Pose2d lScore1 = new Pose2d(-48,11.5+0.0,Math.toRadians(180));
         Pose2d lScore2 = new Pose2d(-48,11.5+0.5,Math.toRadians(180));
         Pose2d lScore3 = new Pose2d(-48,11.5+1.0,Math.toRadians(180));
         Pose2d lScore4 = new Pose2d(-48,11.5+1.5,Math.toRadians(180));
         Pose2d lScore5 = new Pose2d(-48,11.5+2.0,Math.toRadians(180));
-        Pose2d sScore1 = new Pose2d(-32,7,Math.toRadians(135));
-        Pose2d sScore2 = new Pose2d(-32,7,Math.toRadians(135));
-        Pose2d sScore3 = new Pose2d(-32,7,Math.toRadians(135));
-        Pose2d sScore4 = new Pose2d(-32,7,Math.toRadians(135));
-        Pose2d sScore5 = new Pose2d(-32,7,Math.toRadians(135));
+        Pose2d sScore1 = new Pose2d(-30.5,7,Math.toRadians(135));
+        Pose2d sScore2 = new Pose2d(-30.5,7.5,Math.toRadians(135));
+        Pose2d sScore3 = new Pose2d(-31.5,7.5,Math.toRadians(135));
+        Pose2d sScore4 = new Pose2d(-33,8,Math.toRadians(135));
+        Pose2d sScore5 = new Pose2d(-33,8,Math.toRadians(135));
 
 //        Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(90));
         Pose2d lPark1 = new Pose2d(-12,12, Math.toRadians(90));

@@ -167,12 +167,22 @@ public abstract class AbstractAuto extends LinearOpMode {
             @Override
             public void start() {
                 robot.drive.followTrajectoryAsync(trajectory);
+                if (pos == Slides.Position.HIGH) {
+                    robot.runningMacro = 3;
+                } else if (pos == Slides.Position.MEDIUM) {
+                    robot.runningMacro = 2;
+                } else if (pos == Slides.Position.LOW) {
+                    robot.runningMacro = 1;
+                }
                 robot.extendMacro(pos, currentRuntime);
             }
 
             @Override
             public void whileRunning() {
-                robot.extendMacro(pos, currentRuntime);
+                if (robot.runningMacro != 0) {
+                    robot.extendMacro(pos, currentRuntime);
+                }
+
                 robot.drive.update();
             }
 
@@ -182,7 +192,7 @@ public abstract class AbstractAuto extends LinearOpMode {
 
             @Override
             public boolean isFinished() {
-                return !robot.drive.isBusy() && robot.macroState == 0;
+                return !robot.drive.isBusy() && robot.runningMacro == 0;
             }
         });
     }
@@ -192,12 +202,15 @@ public abstract class AbstractAuto extends LinearOpMode {
             @Override
             public void start() {
                 robot.drive.followTrajectoryAsync(trajectory);
+                robot.runningMacro = 4;
                 robot.resetMacro(pos, currentRuntime);
             }
 
             @Override
             public void whileRunning() {
-                robot.resetMacro(pos, currentRuntime);
+                if (robot.runningMacro != 0) {
+                    robot.resetMacro(pos, currentRuntime);
+                }
                 robot.drive.update();
             }
 
@@ -207,7 +220,7 @@ public abstract class AbstractAuto extends LinearOpMode {
 
             @Override
             public boolean isFinished() {
-                return !robot.drive.isBusy() && robot.macroState == 0;
+                return !robot.drive.isBusy() && robot.runningMacro == 0;
             }
         });
     }
