@@ -50,7 +50,7 @@ public class Robot {
             case(0):
 //                driver2.rumble(20);
                 macroStartTime = runTime;
-                claw.close();
+                claw.strongClose();
                 macroState ++;
                 break;
             case(1):
@@ -92,7 +92,7 @@ public class Robot {
                 break;
             case(2):
                 macroStartTime = runTime;
-                claw.close();
+                claw.strongClose();
                 macroState++;
                 break;
             case(3):
@@ -108,16 +108,17 @@ public class Robot {
             case(5):
                 if (runTime > macroStartTime + hslideWait) {
                     macroState ++;
+                    claw.open();
                 }
                 break;
             case(6):
                 slides.setTarget(pos);
-                if (slides.getPosition() < 500) {
-                    claw.open();
-                }
+//                if (slides.getPosition() < 500) {
+//                    claw.open();
+//                }
 //                robot.slides.increaseTarget(targetDecrement);
                 if (slides.atTarget()) {
-                    claw.open();
+//                    claw.open();
                     macroState = 0;
 //                    robot.slides.targetReset();
                     runningMacro = 0;

@@ -23,7 +23,7 @@ public class LeftParkAuto extends AbstractAuto {
 
     @Override
     public void setCameraPosition() {
-        cameraPosition = CameraPosition.RIGHT;
+        cameraPosition = CameraPosition.LEFT;
     }
 
     @Override

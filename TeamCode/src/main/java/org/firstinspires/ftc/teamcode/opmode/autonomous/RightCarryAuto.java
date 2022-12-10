@@ -37,7 +37,7 @@ public class RightCarryAuto extends AbstractAuto {
 
     @Override
     public void setCameraPosition() {
-        cameraPosition = CameraPosition.LEFT;
+        cameraPosition = CameraPosition.RIGHT;
     }
 
     @Override
@@ -49,9 +49,9 @@ public class RightCarryAuto extends AbstractAuto {
     @Override
     public void makeTrajectories() {
 
-        Pose2d start = new Pose2d(-36,66, Math.toRadians(180));
+        Pose2d start = new Pose2d(-36,65.5, Math.toRadians(180));
         Pose2d start2 = new Pose2d(-36,24, Math.toRadians(180));
-        Pose2d score = new Pose2d(-32,8,Math.toRadians(135));
+        Pose2d score = new Pose2d(-32,7,Math.toRadians(135));
 
         Pose2d sLoad1 = new Pose2d(-48, 12+0.0, Math.toRadians(180));
         Pose2d sLoad2 = new Pose2d(-48, 12+0.5, Math.toRadians(180));
@@ -69,11 +69,11 @@ public class RightCarryAuto extends AbstractAuto {
         Pose2d lScore3 = new Pose2d(-48,11.5+1.0,Math.toRadians(180));
         Pose2d lScore4 = new Pose2d(-48,11.5+1.5,Math.toRadians(180));
         Pose2d lScore5 = new Pose2d(-48,11.5+2.0,Math.toRadians(180));
-        Pose2d sScore1 = new Pose2d(-32,8,Math.toRadians(135));
-        Pose2d sScore2 = new Pose2d(-32,8,Math.toRadians(135));
-        Pose2d sScore3 = new Pose2d(-32,8,Math.toRadians(135));
-        Pose2d sScore4 = new Pose2d(-32,8,Math.toRadians(135));
-        Pose2d sScore5 = new Pose2d(-32,8,Math.toRadians(135));
+        Pose2d sScore1 = new Pose2d(-32,7,Math.toRadians(135));
+        Pose2d sScore2 = new Pose2d(-32,7,Math.toRadians(135));
+        Pose2d sScore3 = new Pose2d(-32,7,Math.toRadians(135));
+        Pose2d sScore4 = new Pose2d(-32,7,Math.toRadians(135));
+        Pose2d sScore5 = new Pose2d(-32,7,Math.toRadians(135));
 
 //        Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(90));
         Pose2d lPark1 = new Pose2d(-12,12, Math.toRadians(90));
@@ -213,8 +213,8 @@ public class RightCarryAuto extends AbstractAuto {
         followAndReset(load4, heights[1]);
         followAndExtend(score4, Slides.Position.HIGH);
 
-        followAndReset(load5, heights[0]);
-        followAndExtend(score5, Slides.Position.HIGH);
+//        followAndReset(load5, heights[0]);
+//        followAndExtend(score5, Slides.Position.HIGH);
 
         switch (location) {
             case 1:

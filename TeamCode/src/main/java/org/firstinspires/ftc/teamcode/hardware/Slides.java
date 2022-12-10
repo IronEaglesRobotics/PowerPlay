@@ -25,7 +25,7 @@ public class Slides {
     public static int targetMin = 0;
     public static int targetMax = 2000;
     public static int highPos = 1830 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
-    public static int midPos = 1250 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int midPos = 1300 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     public static int lowPos = 800 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     private int target = 0;
     private int actualTarget = 0;
@@ -86,7 +86,7 @@ public class Slides {
 
     public void update(double runTime) {
         highPos = 1830 + heightOffset;
-        midPos = 1250 + heightOffset;
+        midPos = 1300 + heightOffset;
         lowPos = 800 + heightOffset;
         if (target < 5) {
             slide.setPower(0);

@@ -44,6 +44,7 @@ public abstract class AbstractAuto extends LinearOpMode {
         while (!(isStarted() || isStopRequested())) {
             currentRuntime = getRuntime();
             robot.update(currentRuntime);
+            robot.claw.strongClose();
 
             int newLocation = robot.camera.getMarkerId();
             if (newLocation != -1) {
@@ -52,6 +53,7 @@ public abstract class AbstractAuto extends LinearOpMode {
 
             telemetry.addLine("Initialized");
             telemetry.addLine("Randomization: "+teamElementLocation);
+            telemetry.addLine(robot.getTelemetry());
             telemetry.update();
         }
         resetRuntime();

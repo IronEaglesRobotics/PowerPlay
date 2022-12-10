@@ -23,7 +23,7 @@ public class Claw {
         left = hardwareMap.get(Servo.class, "leftClaw");
         right = hardwareMap.get(Servo.class, "rightClaw");
 
-        close();
+        strongClose();
     }
 
     public void toggle(boolean strong) {
@@ -37,7 +37,7 @@ public class Claw {
 
     public void update() {
         if (isOpen) {
-            isStrong = false;
+//            isStrong = false;
             open();
         } else {
             if (isStrong) {
@@ -57,6 +57,7 @@ public class Claw {
     public void strongClose() {
         left.setPosition(strongLeftClosed);
         right.setPosition(strongRightClosed);
+        isStrong = true;
         isOpen = false;
     }
 
@@ -67,6 +68,6 @@ public class Claw {
     }
 
     public String getTelemetry() {
-        return "";
+        return "Left: "+left.getPosition()+" Right: "+right.getPosition();
     }
 }
