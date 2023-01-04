@@ -2,27 +2,32 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_POWER;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP2;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP3;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_AUTO;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_JUNC;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_LOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.STOP;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.TELE_DUNK;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY_TURN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.dunk;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ARM;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.GRIP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.INVALID_POINT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.LIFT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.SLIDE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_BACK_LEFT;
@@ -49,20 +54,11 @@ public class Robot {
     private AprilTagCamera autoCamera = null;
     private AimingCamera aimingCamera = null;
 
+    private HardwareMap hardwareMap;
+
     public Robot init(HardwareMap hardwareMap) {
-        return this.init(hardwareMap, null);
-    }
+        this.hardwareMap = hardwareMap;
 
-    public enum Vision {
-        AUTO, AIMING
-    }
-
-    public Robot init(HardwareMap hardwareMap, Vision vision) {
-        if (vision == Vision.AUTO) {
-            this.autoCamera = new AprilTagCamera().init(hardwareMap);
-        } else if (vision == Vision.AIMING) {
-            this.aimingCamera = new AimingCamera().init(hardwareMap);
-        }
         this.drive = new Drive().init(hardwareMap);
         this.claw = new Claw().init(hardwareMap);
         this.lift = new Lift().init(hardwareMap);
@@ -71,12 +67,36 @@ public class Robot {
         return this;
     }
 
+    public void useAimingCamera() {
+        if (this.autoCamera != null) {
+            this.autoCamera.stopBarcodeWebcam();
+            this.autoCamera = null;
+        }
+
+        this.aimingCamera = new AimingCamera().init(this.hardwareMap);
+    }
+
+    public void useAutoCamera() {
+        if (this.aimingCamera != null) {
+            this.aimingCamera.stopAimingCamera();
+            this.aimingCamera = null;
+        }
+
+        this.autoCamera = new AprilTagCamera().init(this.hardwareMap);
+    }
+
     public void aimSync() {
+        long startTime = System.currentTimeMillis();
+
         PController pController = new PController(AIMING_KP);
         pController.setSetPoint(320);
 
-        Point topOfJunction = this.getAimingCamera().getTopOfJunction();
-        while(!pController.atSetPoint()) {
+        Point topOfJunction;
+        while(!pController.atSetPoint() && System.currentTimeMillis() < (startTime + 10000)) {
+            topOfJunction = this.getAimingCamera().getTopOfJunction();
+            if (topOfJunction == null || topOfJunction == INVALID_POINT) {
+                continue;
+            }
             double output = pController.calculate(topOfJunction.x) * -1;
             this.getDrive().setInput(0, 0, output);
         }
@@ -196,6 +216,23 @@ public class Robot {
             this.arm.setTargetPosition(ARM_RIGHT);
         }
 
+        public void moveLeftTele() {
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.arm.setPower(ARM_POWER);
+            this.arm.setTargetPosition(ARM_LEFT_TELE);
+        }
+
+        public void moveMidTele() {
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.arm.setTargetPosition(ARM_UPRIGHT_TELE);
+            this.arm.setPower(ARM_POWER);
+        }
+
+        public void moveRightTele() {
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.arm.setPower(ARM_POWER);
+            this.arm.setTargetPosition(ARM_RIGHT_TELE);
+        }
 
         public void drop() {
             this.arm.setPower(0);
@@ -288,14 +325,14 @@ public class Robot {
             this.slide2.setPower(SLIDE_POWER_UP);
         }
 
-        public void teleDunk() {
+        public void lowJunc() {
             this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(TELE_DUNK);
+            this.slide.setTargetPosition(LOW_JUNC);
             this.slide.setPower(SLIDE_POWER_UP);
             this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(TELE_DUNK);
+            this.slide2.setTargetPosition(LOW_JUNC);
             this.slide2.setPower(SLIDE_POWER_UP);
         }
 
@@ -376,6 +413,16 @@ public class Robot {
             this.slide2.setPower(SLIDE_POWER_UP);
         }
 
+        public void autoTop3() {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide.setTargetPosition(AUTO_TOP3);
+            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide2.setTargetPosition(AUTO_TOP3);
+            this.slide2.setPower(SLIDE_POWER_UP);
+        }
 
         public void slideStop() {
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

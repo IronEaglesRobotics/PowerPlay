@@ -20,7 +20,7 @@ public class WeirdAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        this.robot = new Robot().init(hardwareMap, Robot.Vision.AUTO);
+        this.robot = new Robot().init(hardwareMap);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
@@ -42,11 +42,10 @@ public class WeirdAuto extends LinearOpMode {
                 .splineTo(new Vector2d(34, -10), Math.toRadians(-140))
                 .build();
 
-        Trajectory ahhhhh = drive.trajectoryBuilder(score.end(), true)
-                .back(2)
-                .build();
+//        Trajectory ahhhhh = drive.trajectoryBuilder(score.end(), true)
+//                .build();
 
-        Trajectory getCone = drive.trajectoryBuilder(ahhhhh.end())
+        Trajectory getCone = drive.trajectoryBuilder(score.end())
                 .lineToSplineHeading(new Pose2d(56, -9, Math.toRadians(0)))
                 .build();
 
@@ -55,11 +54,10 @@ public class WeirdAuto extends LinearOpMode {
                 .splineTo(new Vector2d(36, -13), Math.toRadians(-140))
                 .build();
 
-        Trajectory ahhhhha = drive.trajectoryBuilder(scoreAgain.end(), true)
-                .back(1)
-                .build();
+//        Trajectory ahhhhha = drive.trajectoryBuilder(scoreAgain.end(), true)
+//                .build();
 
-        Trajectory getAgain = drive.trajectoryBuilder(ahhhhha.end())
+        Trajectory getAgain = drive.trajectoryBuilder(scoreAgain.end())
                 .lineToSplineHeading(new Pose2d(55, -10, Math.toRadians(0)))
                 .build();
 
@@ -68,11 +66,11 @@ public class WeirdAuto extends LinearOpMode {
                 .splineTo(new Vector2d(37, -13), Math.toRadians(-145))
                 .build();
 
-        Trajectory getAgain2 = drive.trajectoryBuilder(ahhhhha.end())
+        Trajectory getAgain2 = drive.trajectoryBuilder(scoreAgain2.end())
                 .lineToSplineHeading(new Pose2d(56, -8, Math.toRadians(0)))
                 .build();
 
-        Trajectory getAgain3 = drive.trajectoryBuilder(ahhhhha.end())
+        Trajectory getAgain3 = drive.trajectoryBuilder(scoreAgain2.end())
                 .lineToSplineHeading(new Pose2d(56, -7, Math.toRadians(0)))
                 .build();
 
@@ -81,7 +79,11 @@ public class WeirdAuto extends LinearOpMode {
                 .build();
 
         Trajectory park1 = drive.trajectoryBuilder(park2.end())
-                .back(24)
+                .back(28)
+                .build();
+
+        Trajectory noBigDeal = drive.trajectoryBuilder(park2.end())
+                .forward(4)
                 .build();
 
 
@@ -108,7 +110,7 @@ public class WeirdAuto extends LinearOpMode {
         drive.followTrajectory(score);
 //        sleep(500);
 //        robot.getLift().slideLow();
-        drive.followTrajectory(ahhhhh);
+//        drive.followTrajectory(ahhhhh);
         sleep(200);
         robot.getLift().dunk();
         sleep(150);
@@ -128,7 +130,7 @@ public class WeirdAuto extends LinearOpMode {
         drive.followTrajectory(scoreAgain);
         this.robot.getClaw().twistDown();
 //        sleep(500);
-        drive.followTrajectory(ahhhhha);
+//        drive.followTrajectory(ahhhhha);
         sleep(250);
         robot.getLift().dunk();
         sleep(150);
@@ -151,7 +153,7 @@ public class WeirdAuto extends LinearOpMode {
         sleep(150);
         robot.getClaw().close();
         robot.getArm().moveRight();
-        robot.getLift().autoTop2();
+        robot.getLift().autoTop3();
 
         sleep(100);
         robot.getClaw().twistUp();
@@ -183,6 +185,7 @@ public class WeirdAuto extends LinearOpMode {
                 break;
             case 3:
                 drive.followTrajectory(getAgain3);
+                drive.followTrajectory(noBigDeal);
                 // Park in the middle of the field
                 break;
             default:

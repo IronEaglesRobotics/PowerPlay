@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 @Config
-
+@Disabled
 @Autonomous(name = "TestAuto", group = "Competition")
 public class testauto extends LinearOpMode {
     public static int parkPosition = 1;
@@ -18,7 +18,7 @@ public class testauto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        this.robot = new Robot().init(hardwareMap, Robot.Vision.AUTO);
+        this.robot = new Robot().init(hardwareMap);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 

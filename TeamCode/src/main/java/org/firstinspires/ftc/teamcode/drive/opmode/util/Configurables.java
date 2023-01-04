@@ -15,14 +15,15 @@ public class Configurables {
     public static int SLIDE_LOW = 2300;
     public static int SLIDE_MED = 3050;
     public static int SLIDE_POSITION = 0;
-    public static int dunk = 1200;
+    public static int dunk = 1500;
     public static int twoCone = 3050;
     public static int threeCone = 3050;
     public static int CLEAR = 500;
     public static int STOP = 10;
-    public static int TELE_DUNK = 2600;
+    public static int LOW_JUNC = 1300;
     public static int AUTO_TOP = 480;
-    public static int AUTO_TOP2 = 380;
+    public static int AUTO_TOP2 = 360;
+    public static int AUTO_TOP3 = 280;
 
 
 
@@ -41,6 +42,9 @@ public class Configurables {
     public static int ARM_STARTING = 0;
     public static int ARM_LEFT = -520;
     public static int ARM_RIGHT = 1221;
+    public static int ARM_UPRIGHT_TELE = 0;
+    public static int ARM_LEFT_TELE = -884;
+    public static int ARM_RIGHT_TELE = 912;
     public static double ARM_POWER = 0.7;
     public static double ARM_P = 1.0;
     public static double ARM_I = 0;

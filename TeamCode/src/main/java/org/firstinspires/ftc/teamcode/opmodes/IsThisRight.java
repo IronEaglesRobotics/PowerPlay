@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Config
 
-@Autonomous(name = "WeirdAutoLeft", group = "Competition", preselectTeleOp = "MainTeleOp")
-public class WeirdAutoLeft extends LinearOpMode {
+@Autonomous(name = "IsThisRight", group = "Competition", preselectTeleOp = "MainTeleOp")
+public class IsThisRight extends LinearOpMode {
     public static int parkPosition = 1;
     private Robot robot;
 
@@ -24,7 +24,7 @@ public class WeirdAutoLeft extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startOP = new Pose2d(-34, -60, Math.toRadians(90));
+        Pose2d startOP = new Pose2d(34, -60, Math.toRadians(90));
 
         drive.setPoseEstimate(startOP);
 
@@ -39,57 +39,57 @@ public class WeirdAutoLeft extends LinearOpMode {
                 .build();
 
         Trajectory score = drive.trajectoryBuilder(pushback.end(), true)
-                .lineToSplineHeading(new Pose2d(-34, -13, Math.toRadians(135)))
+                .lineToSplineHeading(new Pose2d(34, -13, Math.toRadians(-140)))
                 .build();
 
-        Trajectory ahhhhh = drive.trajectoryBuilder(score.end(), true)
-                .back(1)
-                .build();
+//        Trajectory ahhhhh = drive.trajectoryBuilder(score.end(), true)
+//                .back(1)
+//                .build();
 
-        Trajectory getCone = drive.trajectoryBuilder(ahhhhh.end())
-                .splineTo(new Vector2d(-34.00001, -13), Math.toRadians(180))
-                .splineTo(new Vector2d(-50.5, -13), Math.toRadians(180))
+        Trajectory getCone = drive.trajectoryBuilder(score.end())
+                .splineTo(new Vector2d(34.00001, -13), Math.toRadians(0))
+                .splineTo(new Vector2d(50.5, -13), Math.toRadians(0))
                 .build();
 
         Trajectory scoreAgain = drive.trajectoryBuilder(getCone.end(), true)
-                .lineToSplineHeading(new Pose2d(-40, -13, Math.toRadians(180)))
-                .lineToSplineHeading(new Pose2d(-34, -13, Math.toRadians(135)))
+                .lineToSplineHeading(new Pose2d(40, -13, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(34, -13, Math.toRadians(-140)))
                 .build();
 
-        Trajectory ahhhhha = drive.trajectoryBuilder(scoreAgain.end(), true)
-                .back(1)
-                .build();
+//        Trajectory ahhhhha = drive.trajectoryBuilder(scoreAgain.end(), true)
+//                .back(1)
+//                .build();
 
-        Trajectory getAgain = drive.trajectoryBuilder(ahhhhha.end())
+        Trajectory getAgain = drive.trajectoryBuilder(scoreAgain.end())
                 .lineToSplineHeading(new Pose2d(55, -10, Math.toRadians(0)))
                 .build();
 
         Trajectory scoreAgain2 = drive.trajectoryBuilder(getCone.end(), true)
-                .lineToSplineHeading(new Pose2d(-40, -13, Math.toRadians(180)))
-                .lineToSplineHeading(new Pose2d(-34, -13, Math.toRadians(132)))
+                .lineToSplineHeading(new Pose2d(40, -13, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(34, -13, Math.toRadians(-145)))
                 .build();
 
         Trajectory getAgain2 = drive.trajectoryBuilder(scoreAgain2.end())
-                .splineTo(new Vector2d(-34.00001, -13), Math.toRadians(180))
-                .splineTo(new Vector2d(-50.5, -14), Math.toRadians(180))
+                .splineTo(new Vector2d(34.00001, -13), Math.toRadians(0))
+                .splineTo(new Vector2d(50.5, -14), Math.toRadians(0))
                 .build();
 
-        Trajectory getAgain3 = drive.trajectoryBuilder(ahhhhha.end())
-                .splineTo(new Vector2d(-34.00001, -13), Math.toRadians(180))
-                .splineTo(new Vector2d(-50.5, -14), Math.toRadians(180))
+        Trajectory getAgain3 = drive.trajectoryBuilder(scoreAgain2.end())
+                .splineTo(new Vector2d(34.00001, -13), Math.toRadians(0))
+                .splineTo(new Vector2d(50.5, -14), Math.toRadians(0))
                 .build();
 
-        Trajectory park3 = drive.trajectoryBuilder(ahhhhha.end())
-                .splineTo(new Vector2d(-34.00001, -13), Math.toRadians(180))
-                .splineTo(new Vector2d(-55, -14), Math.toRadians(180))
+        Trajectory park3 = drive.trajectoryBuilder(scoreAgain2.end())
+                .splineTo(new Vector2d(34.00001, -13), Math.toRadians(0))
+                .splineTo(new Vector2d(55, -14), Math.toRadians(0))
                 .build();
 
-        Trajectory park2 = drive.trajectoryBuilder(ahhhhha.end())
-                .lineToSplineHeading(new Pose2d(-35,-14, Math.toRadians(180)))
+        Trajectory park2 = drive.trajectoryBuilder(scoreAgain2.end())
+                .lineToSplineHeading(new Pose2d(-35,-14, Math.toRadians(0)))
                 .build();
 
         Trajectory park1 = drive.trajectoryBuilder(park2.end())
-                .back(25)
+                .back(24)
                 .build();
 
 
@@ -116,13 +116,14 @@ public class WeirdAutoLeft extends LinearOpMode {
         drive.followTrajectory(score);
 //        sleep(500);
 //        robot.getLift().slideLow();
-        drive.followTrajectory(ahhhhh);
+//        drive.followTrajectory(ahhhhh);
+//        sleep(100);
         robot.getLift().dunk();
         sleep(150);
         robot.getClaw().close();
         robot.getArm().moveRight();
         robot.getLift().autoTop();
-        sleep(150);
+        sleep(100);
         robot.getClaw().twistUp();
 
         drive.followTrajectory(getAgain2);
@@ -135,13 +136,14 @@ public class WeirdAutoLeft extends LinearOpMode {
         this.robot.getClaw().twistDown();
         drive.followTrajectory(scoreAgain);
 //        sleep(500);
-        drive.followTrajectory(ahhhhha);
+//        drive.followTrajectory(ahhhhha);
+//        sleep(100);
         robot.getLift().dunk();
         sleep(150);
         robot.getClaw().close();
         robot.getArm().moveRight();
         robot.getLift().autoTop2();
-        sleep(150);
+        sleep(100);
         robot.getClaw().twistUp();
 //
         drive.followTrajectory(getAgain2);
@@ -152,13 +154,15 @@ public class WeirdAutoLeft extends LinearOpMode {
         robot.getLift().slideLow();
         this.robot.getClaw().twistDown();
         drive.followTrajectory(scoreAgain2);
-        drive.followTrajectory(ahhhhha);
+//        drive.followTrajectory(ahhhhha);
+//        sleep(250);
         robot.getLift().dunk();
         sleep(150);
         robot.getClaw().close();
         robot.getArm().moveRight();
         robot.getLift().autoTop3();
-        sleep(150);
+
+        sleep(100);
         robot.getClaw().twistUp();
         drive.followTrajectory(getAgain3);
         robot.getClaw().open();
@@ -169,13 +173,15 @@ public class WeirdAutoLeft extends LinearOpMode {
         robot.getLift().slideLow();
         this.robot.getClaw().twistDown();
         drive.followTrajectory(scoreAgain2);
-        drive.followTrajectory(ahhhhha);
+//        drive.followTrajectory(ahhhhha);
+//        sleep(100);
 //        sleep(1000);
         robot.getLift().dunk();
         sleep(150);
         robot.getClaw().close();
+        sleep(100);
         robot.getArm().moveMid();
-//        robot.getClaw().open();
+        robot.getClaw().open();
         robot.getLift().slideDown();
 
 

@@ -19,7 +19,7 @@ public class MainTeleOp extends OpMode {
 
     @Override
     public void init() {
-        this.robot = new Robot().init(hardwareMap, null);
+        this.robot = new Robot().init(hardwareMap);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class MainTeleOp extends OpMode {
         boolean pressMid = gamepad2.x;
 
         if (pressRight) {
-            this.robot.getArm().moveRight();
+            this.robot.getArm().moveRightTele();
         } else if (pressLeft) {
-            this.robot.getArm().moveLeft();
+            this.robot.getArm().moveLeftTele();
         } else if (pressMid) {
-            this.robot.getArm().moveMid();
+            this.robot.getArm().moveMidTele();
         } else {
             this.robot.getArm().drop();
         }
@@ -66,8 +66,10 @@ public class MainTeleOp extends OpMode {
             this.robot.getLift().slideUp();
         } else if (gamepad2.dpad_up && !prevUpPressed) {
             this.robot.getLift().slideUp();
-        } else if (gamepad2.dpad_down && !prevUpPressed) {
-            this.robot.getLift().teleDunk();
+        } else if (gamepad2.left_bumper && !prevUpPressed) {
+            this.robot.getLift().slideLow();
+        } else if (gamepad2.right_bumper && !prevUpPressed) {
+            this.robot.getLift().lowJunc();
         } else if (downPressed) {
             this.robot.getLift().slideDown();
         } else if ((prevUpPressed != upPressed) || prevDownPressed) {
@@ -82,6 +84,9 @@ public class MainTeleOp extends OpMode {
         if(gamepad1.a || gamepad1.y || gamepad1.right_bumper) {
             GO_SLOW = 4;
             WHY_TURN = 3.5;
+        } else if (gamepad1.x){
+            GO_SLOW = 1;
+            WHY_TURN = 1.25;
         } else {
             GO_SLOW = 1.4;
             WHY_TURN = 1.25;

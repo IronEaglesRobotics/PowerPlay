@@ -1,18 +1,17 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
-import static org.firstinspires.ftc.teamcode.hardware.Robot.Vision.AIMING;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KP;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.controller.PController;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.opencv.core.Point;
-
 @Config
 @TeleOp(name = "TestCam", group = "Competition")
 public class TestCam extends OpMode {
@@ -24,8 +23,8 @@ public class TestCam extends OpMode {
 
     @Override
     public void init() {
-        this.robot = new Robot().init(hardwareMap, AIMING);
-
+        this.robot = new Robot().init(hardwareMap);
+        this.robot.useAimingCamera();
         this.pController = new PController(AIMING_KP);
         this.pController.setSetPoint(320);
     }
