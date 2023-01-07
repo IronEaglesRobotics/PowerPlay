@@ -85,35 +85,42 @@ public abstract class AbstractTeleOp extends OpMode {
         double y = -driver1.getLeftStick().getX();
         double z = -driver1.getRightStick().getX();
 
-//        robot_pos = robot.drive.getPoseEstimate();
-//        robot_x = robot_pos.getX();
-//        robot_y = robot_pos.getY();
-//        robot_heading = robot_pos.getHeading(); // in radians
-//
-//
-//        // check if overlapping
-//        int nearJunc = nearestJunc(robot_x, robot_y);
-//        double juncPosX = getJuncPos(nearJunc)[0];
-//        double juncPosY = getJuncPos(nearJunc)[1];
-//        double d = Math.sqrt((robot_x - juncPosX) * (robot_x - juncPosX) + (robot_y - juncPosY) * (robot_y - juncPosY));
-//        double juncRadius = (isGroundJunc(nearJunc)? groundJuncRadius : coneRadius);
-////        double juncAngle = Math.acos(robot_radius / d); // absolute angle of the junction from robot in radians
-//        double juncAngle = Math.atan2(juncPosY - robot_y, juncPosX - robot_x); // absolute angle of the junction from robot in radians
-//
+        robot_pos = robot.drive.getPoseEstimate();
+        robot_x = robot_pos.getX();
+        robot_y = robot_pos.getY();
+        robot_heading = robot_pos.getHeading(); // in radians
+
+
+        // check if overlapping
+        int nearJunc = nearestJunc(robot_x, robot_y);
+        double juncPosX = getJuncPos(nearJunc)[0];
+        double juncPosY = getJuncPos(nearJunc)[1];
+        double d = Math.sqrt((robot_x - juncPosX) * (robot_x - juncPosX) + (robot_y - juncPosY) * (robot_y - juncPosY));
+        double juncRadius = (isGroundJunc(nearJunc)? groundJuncRadius : coneRadius);
+//        double juncAngle = Math.acos(robot_radius / d); // absolute angle of the junction from robot in radians
+        double juncAngle = Math.atan2(juncPosY - robot_y, juncPosX - robot_x); // absolute angle of the junction from robot in radians
+
+        /** NOTES FOR THIS IF STATEMENT
+         * the below was made with field-centric in mind, which is not correct anymore
+         * need to rethink idea and where I can move, but its important to realize that x and y are roadrunner
+         * x and y, not the cartesian x and y... x is forward and y is sideways
+         * Also include noah's idea for sending a proportional driver instruction sideways or off the junction
+         * dependent on how much the user continues to throttle "into the junction"
+         **/
 //        if (d <= robot_radius + juncRadius) {
 //            // overlapping or touching
 //            double radianDiff = juncAngle - robot_heading;
 //
-//            if (radianDiff < Math.toRadians(180) && radianDiff > Math.toRadians(0)) {
-//                x = Math.max(x, 0);
-//            } else if (radianDiff > Math.toRadians(-180) && radianDiff < Math.toRadians(0)) {
-//                x = Math.min(x, 0);
+//            if (radianDiff < Math.toRadians(180) && radianDiff > Math.toRadians(0)) { // facing to the left
+//                y = Math.max(y, 0);
+//            } else if (radianDiff > Math.toRadians(-180) && radianDiff < Math.toRadians(0)) { // facing to the right
+//                y = Math.min(y, 0);
 //            }
 //
-//            if (radianDiff < Math.toRadians(90) && radianDiff > Math.toRadians(-90)) {
-//                y = Math.min(y, 0);
-//            } else if (radianDiff > Math.toRadians(90) || radianDiff < Math.toRadians(-90)) {
-//                y = Math.max(y, 0);
+//            if (radianDiff < Math.toRadians(90) && radianDiff > Math.toRadians(-90)) { // facing junction
+//                x = Math.min(x, 0);
+//            } else if (radianDiff > Math.toRadians(90) || radianDiff < Math.toRadians(-90)) { // back against junction
+//                x = Math.max(x, 0);
 //            }
 //        }
 

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Claw {
     private Servo left;
     private Servo right;
+    private RevColorSensorV3 sensor;
 
     public static double leftOpen = 0.6;
     public static double leftClosed = 0.4;
