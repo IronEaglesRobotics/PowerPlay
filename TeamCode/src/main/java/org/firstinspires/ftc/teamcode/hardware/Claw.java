@@ -5,6 +5,8 @@ import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @Config
 public class Claw {
     private Servo pincher;
@@ -15,15 +17,20 @@ public class Claw {
     public static double pincherClosed = 0.4;
     public static double wristUpright = 0.35;
     public static double wristFlipped = 0.35;
-    public static double triggerDistance = 0.01;
+    public static double triggerDistance = 20; // mm
 
     private boolean isOpen = false;
     private boolean isUpright = true;
 
     public Claw(HardwareMap hardwareMap) {
-        pincher = hardwareMap.get(Servo.class, "Claw");
-        wrist = hardwareMap.get(Servo.class, "Wrist");
+        pincher = hardwareMap.get(Servo.class, "claw");
+        wrist = hardwareMap.get(Servo.class, "wrist");
+        sensor = hardwareMap.get(RevColorSensorV3.class, "trigger");
         close();
+    }
+
+    public double getTriggerDistance() {
+        return sensor.getDistance(DistanceUnit.MM);
     }
 
     public void toggle() {

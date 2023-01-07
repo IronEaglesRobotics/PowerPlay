@@ -11,7 +11,8 @@ import org.firstinspires.ftc.teamcode.util.CameraPosition;
 public class Robot {
     public SampleMecanumDrive drive;
     public Slides slides;
-    public DualServoClaw claw;
+//    public DualServoClaw claw;
+    public Claw claw;
     public HorizontalSlides hSlides;
     public Camera camera;
     private boolean camEnabled = false;
@@ -29,7 +30,8 @@ public class Robot {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
-        claw = new DualServoClaw(hardwareMap);
+//        claw = new DualServoClaw(hardwareMap);
+        claw = new Claw(hardwareMap);
         hSlides = new HorizontalSlides(hardwareMap);
         camEnabled = false;
     }
@@ -38,7 +40,8 @@ public class Robot {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
-        claw = new DualServoClaw(hardwareMap);
+//        claw = new DualServoClaw(hardwareMap);
+        claw = new Claw(hardwareMap);
         hSlides = new HorizontalSlides(hardwareMap);
         camera = new Camera(cameraPosition);
         camera.init(hardwareMap);
@@ -50,7 +53,7 @@ public class Robot {
             case(0):
 //                driver2.rumble(20);
                 macroStartTime = runTime;
-                claw.strongClose();
+                claw.close();
                 macroState ++;
                 break;
             case(1):
@@ -92,7 +95,7 @@ public class Robot {
                 break;
             case(2):
                 macroStartTime = runTime;
-                claw.strongClose();
+                claw.close();
                 macroState++;
                 break;
             case(3):

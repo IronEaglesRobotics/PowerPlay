@@ -165,12 +165,12 @@ public abstract class AbstractTeleOp extends OpMode {
                     robot.runningMacro = 1;
                 } else if (driver2.getA().isJustPressed()) {
                     if (robot.lastMacro == 0) { // if not running any macros
-                        robot.claw.toggle(true);
+                        robot.claw.toggle();
                     } else { // otherwise, I need to undo a macro
                         robot.runningMacro = 4;
                     }
                 } else if (driver2.getDRight().isJustPressed()) {
-                    robot.claw.toggle(false);
+                    robot.claw.toggle();
                 }
                 break;
             case(1):
