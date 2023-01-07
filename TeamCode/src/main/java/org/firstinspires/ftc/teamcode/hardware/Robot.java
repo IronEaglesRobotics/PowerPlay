@@ -139,10 +139,11 @@ public class Robot {
     }
 
     public String getTelemetry() {
-        if (camEnabled) {
-            return String.format("Slides: %s\nClaw: %s\nCamera: %s", slides.getTelemetry(), claw.getTelemetry(), camera.getTelemetry());
-        } else {
-            return String.format("Slides: %s\nClaw: %s", slides.getTelemetry(), claw.getTelemetry());
-        }
+//        if (camEnabled) {
+//            return String.format("Slides: %s\nClaw: %s\nCamera: %s", slides.getTelemetry(), claw.getTelemetry(), camera.getTelemetry());
+//        } else {
+//            return String.format("Slides: %s\nClaw: %s", slides.getTelemetry(), claw.getTelemetry());
+//        }
+        return String.format("Claw: %s", claw.getTelemetry());
     }
 }
