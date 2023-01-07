@@ -27,25 +27,25 @@ public class Robot {
 
 
     public Robot(HardwareMap hardwareMap) {
-        drive = new SampleMecanumDrive(hardwareMap);
-        drive.setPoseEstimate(PoseStorage.currentPose);
-        slides = new Slides(hardwareMap);
-//        claw = new DualServoClaw(hardwareMap);
+//        drive = new SampleMecanumDrive(hardwareMap);
+//        drive.setPoseEstimate(PoseStorage.currentPose);
+//        slides = new Slides(hardwareMap);
+////        claw = new DualServoClaw(hardwareMap);
         claw = new Claw(hardwareMap);
-        hSlides = new HorizontalSlides(hardwareMap);
-        camEnabled = false;
+//        hSlides = new HorizontalSlides(hardwareMap);
+//        camEnabled = false;
     }
 
     public Robot(HardwareMap hardwareMap, CameraPosition cameraPosition) {
-        drive = new SampleMecanumDrive(hardwareMap);
-        drive.setPoseEstimate(PoseStorage.currentPose);
-        slides = new Slides(hardwareMap);
-//        claw = new DualServoClaw(hardwareMap);
+//        drive = new SampleMecanumDrive(hardwareMap);
+//        drive.setPoseEstimate(PoseStorage.currentPose);
+//        slides = new Slides(hardwareMap);
+////        claw = new DualServoClaw(hardwareMap);
         claw = new Claw(hardwareMap);
-        hSlides = new HorizontalSlides(hardwareMap);
-        camera = new Camera(cameraPosition);
-        camera.init(hardwareMap);
-        camEnabled = true;
+//        hSlides = new HorizontalSlides(hardwareMap);
+//        camera = new Camera(cameraPosition);
+//        camera.init(hardwareMap);
+//        camEnabled = true;
     }
 
     public void extendMacro(Slides.Position pos, double runTime) {

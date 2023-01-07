@@ -44,7 +44,7 @@ public abstract class AbstractAuto extends LinearOpMode {
         while (!(isStarted() || isStopRequested())) {
             currentRuntime = getRuntime();
             robot.update(currentRuntime);
-            robot.claw.strongClose();
+            robot.claw.close();
 
             int newLocation = robot.camera.getMarkerId();
             if (newLocation != -1) {
@@ -251,7 +251,7 @@ public abstract class AbstractAuto extends LinearOpMode {
         steps.add(new Step("", timeout) {
             @Override
             public void start() {
-                robot.claw.strongClose();
+                robot.claw.close();
             }
 
             @Override
