@@ -53,5 +53,8 @@ public class Configurables {
     //Auto
     public static int PARK_POSITION = 1;
 
-    public static double AIMING_KP = 0.001;
+    public static double AIMING_KP = 0.0011;
+    public static double AIMING_KI = 0.015;
+    public static double AIMING_KD = 0.00001;
+    public static double AIMING_TOLERANCE = 15;
 }

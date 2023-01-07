@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KD;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KI;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_TOLERANCE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_POWER;
@@ -37,6 +40,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_F
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WRIST;
 
 import com.arcrobotics.ftclib.controller.PController;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -88,11 +92,12 @@ public class Robot {
     public void aimSync() {
         long startTime = System.currentTimeMillis();
 
-        PController pController = new PController(AIMING_KP);
+        PIDController pController = new PIDController(AIMING_KP, AIMING_KI, AIMING_KD);
         pController.setSetPoint(320);
+        pController.setTolerance(AIMING_TOLERANCE);
 
         Point topOfJunction;
-        while(!pController.atSetPoint() && System.currentTimeMillis() < (startTime + 10000)) {
+        while(!pController.atSetPoint() && System.currentTimeMillis() < (startTime + 1500)) {
             topOfJunction = this.getAimingCamera().getTopOfJunction();
             if (topOfJunction == null || topOfJunction == INVALID_POINT) {
                 continue;
