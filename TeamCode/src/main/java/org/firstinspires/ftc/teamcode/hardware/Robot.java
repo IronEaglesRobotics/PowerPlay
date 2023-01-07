@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.CameraPosition;
 public class Robot {
     public SampleMecanumDrive drive;
     public Slides slides;
-    public Claw claw;
+    public DualServoClaw claw;
     public HorizontalSlides hSlides;
     public Camera camera;
     private boolean camEnabled = false;
@@ -29,7 +29,7 @@ public class Robot {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
-        claw = new Claw(hardwareMap);
+        claw = new DualServoClaw(hardwareMap);
         hSlides = new HorizontalSlides(hardwareMap);
         camEnabled = false;
     }
@@ -38,7 +38,7 @@ public class Robot {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
-        claw = new Claw(hardwareMap);
+        claw = new DualServoClaw(hardwareMap);
         hSlides = new HorizontalSlides(hardwareMap);
         camera = new Camera(cameraPosition);
         camera.init(hardwareMap);
