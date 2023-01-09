@@ -13,7 +13,8 @@ public class Robot {
     public Slides slides;
 //    public DualServoClaw claw;
     public Claw claw;
-    public HorizontalSlides hSlides;
+//    public HorizontalSlides hSlides;
+    public Arm arm;
     public Camera camera;
     private boolean camEnabled = false;
 
@@ -27,25 +28,28 @@ public class Robot {
 
 
     public Robot(HardwareMap hardwareMap) {
-//        drive = new SampleMecanumDrive(hardwareMap);
-//        drive.setPoseEstimate(PoseStorage.currentPose);
-//        slides = new Slides(hardwareMap);
-////        claw = new DualServoClaw(hardwareMap);
+        drive = new SampleMecanumDrive(hardwareMap);
+        drive.setPoseEstimate(PoseStorage.currentPose);
+        slides = new Slides(hardwareMap);
+//        claw = new DualServoClaw(hardwareMap);
         claw = new Claw(hardwareMap);
 //        hSlides = new HorizontalSlides(hardwareMap);
-//        camEnabled = false;
+        arm = new Arm(hardwareMap);
+        camEnabled = false;
     }
 
     public Robot(HardwareMap hardwareMap, CameraPosition cameraPosition) {
-//        drive = new SampleMecanumDrive(hardwareMap);
-//        drive.setPoseEstimate(PoseStorage.currentPose);
-//        slides = new Slides(hardwareMap);
-////        claw = new DualServoClaw(hardwareMap);
+        drive = new SampleMecanumDrive(hardwareMap);
+        drive.setPoseEstimate(PoseStorage.currentPose);
+        slides = new Slides(hardwareMap);
+//        claw = new DualServoClaw(hardwareMap);
         claw = new Claw(hardwareMap);
 //        hSlides = new HorizontalSlides(hardwareMap);
-//        camera = new Camera(cameraPosition);
-//        camera.init(hardwareMap);
-//        camEnabled = true;
+        arm = new Arm(hardwareMap);
+        camera = new Camera(cameraPosition);
+        camera = new Camera(cameraPosition);
+        camera.init(hardwareMap);
+        camEnabled = true;
     }
 
     public void extendMacro(Slides.Position pos, double runTime) {
@@ -72,7 +76,8 @@ public class Robot {
                 }
                 break;
             case(4):
-                hSlides.goToScoreWithOffset();
+//                hSlides.goToScoreWithOffset();
+                arm.goToScore();
                 macroState = 0;
                 lastMacro = runningMacro;
                 runningMacro = 0;
@@ -105,7 +110,8 @@ public class Robot {
                 break;
             case(4):
                 macroStartTime = runTime;
-                hSlides.goToIntake();
+//                hSlides.goToIntake();
+                arm.goToIntake();
                 macroState ++;
                 break;
             case(5):
@@ -116,10 +122,6 @@ public class Robot {
                 break;
             case(6):
                 slides.setTarget(pos);
-//                if (slides.getPosition() < 500) {
-//                    claw.open();
-//                }
-//                robot.slides.increaseTarget(targetDecrement);
                 if (slides.atTarget()) {
 //                    claw.open();
                     macroState = 0;
@@ -132,18 +134,19 @@ public class Robot {
     }
 
     public void update(double runTime) {
-//        drive.update();
-//        slides.update(runTime);
+        drive.update();
+        slides.update(runTime);
         claw.update();
 //        hSlides.update();
+        arm.update();
     }
 
     public String getTelemetry() {
-//        if (camEnabled) {
-//            return String.format("Slides: %s\nClaw: %s\nCamera: %s", slides.getTelemetry(), claw.getTelemetry(), camera.getTelemetry());
-//        } else {
-//            return String.format("Slides: %s\nClaw: %s", slides.getTelemetry(), claw.getTelemetry());
-//        }
-        return String.format("Claw: %s", claw.getTelemetry());
+        if (camEnabled) {
+            return String.format("Slides: %s\nClaw: %s\nCamera: %s", slides.getTelemetry(), claw.getTelemetry(), camera.getTelemetry());
+        } else {
+            return String.format("Slides: %s\nClaw: %s", claw.getTelemetry());
+        }
+//        return String.format("Claw: %s", claw.getTelemetry());
     }
 }

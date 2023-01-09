@@ -142,7 +142,8 @@ public abstract class AbstractTeleOp extends OpMode {
         switch (robot.runningMacro) {
             case(0): // manual mode
                 robot.slides.increaseTarget(driver2.getLeftStick().getY());
-                robot.hSlides.increaseTarget(driver2.getRightStick().getY());
+//                robot.hSlides.increaseTarget(driver2.getRightStick().getY());
+                robot.arm.increaseTarget(driver2.getRightStick().getY());
                 if (Math.abs(driver2.getRightStick().getY()) > 0.05) { // close claw if anything is moved
                     robot.claw.close();
                 }
@@ -169,8 +170,13 @@ public abstract class AbstractTeleOp extends OpMode {
                     } else { // otherwise, I need to undo a macro
                         robot.runningMacro = 4;
                     }
-                } else if (driver2.getDRight().isJustPressed()) {
-                    robot.claw.toggle();
+                } else {
+                    if (driver2.getDRight().isJustPressed()) {
+                        robot.claw.toggle();
+                    }
+                    if (driver2.getDUp().isJustPressed()) {
+                        robot.claw.flip();
+                    }
                 }
                 break;
             case(1):

@@ -86,13 +86,13 @@ public class LeftCarryAuto extends AbstractAuto {
                 .splineToSplineHeading(score, Math.toRadians(-135))
                 .addTemporalMarker(0, () -> robot.claw.close())
                 .addTemporalMarker(0.1, () -> robot.slides.setTarget(Slides.Position.HIGH))
-                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
+                .addTemporalMarker(1.5, () -> robot.arm.goToScore())
                 .build();
 
         load1 = robot.drive.trajectoryBuilder(startScore.end())
                 .splineToSplineHeading(sLoad1, Math.toRadians(0))
                 .lineToSplineHeading(lLoad1)
-                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+                .addTemporalMarker(0.2, () -> robot.arm.goToIntake())
                 .addTemporalMarker(0.7, () -> robot.slides.setTarget(heights[4]))
                 .addTemporalMarker(1.4, () -> robot.claw.open())
                 .addDisplacementMarker(() -> robot.claw.close())
@@ -101,13 +101,13 @@ public class LeftCarryAuto extends AbstractAuto {
                 .lineToSplineHeading(lScore1)
                 .splineToSplineHeading(sScore1, Math.toRadians(-135))
                 .addTemporalMarker(0.1, () -> robot.slides.setTarget(Slides.Position.HIGH))
-                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
+                .addTemporalMarker(1.5, () -> robot.arm.goToScore())
                 .build();
 
         load2 = robot.drive.trajectoryBuilder(score1.end())
                 .splineToSplineHeading(sLoad2, Math.toRadians(0))
                 .lineToSplineHeading(lLoad2)
-                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+                .addTemporalMarker(0.2, () -> robot.arm.goToIntake())
                 .addTemporalMarker(0.7, () -> robot.slides.setTarget(heights[3]))
                 .addTemporalMarker(1.4, () -> robot.claw.open())
                 .addDisplacementMarker(() -> robot.claw.close())
@@ -116,13 +116,13 @@ public class LeftCarryAuto extends AbstractAuto {
                 .lineToSplineHeading(lScore2)
                 .splineToSplineHeading(sScore2, Math.toRadians(-135))
                 .addTemporalMarker(0.1, () -> robot.slides.setTarget(Slides.Position.HIGH))
-                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
+                .addTemporalMarker(1.5, () -> robot.arm.goToScore())
                 .build();
 
         load3 = robot.drive.trajectoryBuilder(score2.end())
                 .splineToSplineHeading(sLoad3, Math.toRadians(0))
                 .lineToSplineHeading(lLoad3)
-                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+                .addTemporalMarker(0.2, () -> robot.arm.goToIntake())
                 .addTemporalMarker(0.7, () -> robot.slides.setTarget(heights[2]))
                 .addTemporalMarker(1.4, () -> robot.claw.open())
                 .addDisplacementMarker(() -> robot.claw.close())
@@ -131,13 +131,13 @@ public class LeftCarryAuto extends AbstractAuto {
                 .lineToSplineHeading(lScore3)
                 .splineToSplineHeading(sScore3, Math.toRadians(-135))
                 .addTemporalMarker(0.1, () -> robot.slides.setTarget(Slides.Position.HIGH))
-                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
+                .addTemporalMarker(1.5, () -> robot.arm.goToScore())
                 .build();
 
         load4 = robot.drive.trajectoryBuilder(score3.end())
                 .splineToSplineHeading(sLoad4, Math.toRadians(0))
                 .lineToSplineHeading(lLoad4)
-                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+                .addTemporalMarker(0.2, () -> robot.arm.goToIntake())
                 .addTemporalMarker(0.7, () -> robot.slides.setTarget(heights[1]))
                 .addTemporalMarker(1.4, () -> robot.claw.open())
                 .addDisplacementMarker(() -> robot.claw.close())
@@ -146,13 +146,13 @@ public class LeftCarryAuto extends AbstractAuto {
                 .lineToSplineHeading(lScore4)
                 .splineToSplineHeading(sScore4, Math.toRadians(-135))
                 .addTemporalMarker(0.1, () -> robot.slides.setTarget(Slides.Position.HIGH))
-                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
+                .addTemporalMarker(1.5, () -> robot.arm.goToScore())
                 .build();
 
         load5 = robot.drive.trajectoryBuilder(score4.end())
                 .splineToSplineHeading(sLoad5, Math.toRadians(0))
                 .lineToSplineHeading(lLoad5)
-                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+                .addTemporalMarker(0.2, () -> robot.arm.goToIntake())
                 .addTemporalMarker(0.7, () -> robot.slides.setTarget(heights[0]))
                 .addTemporalMarker(1.4, () -> robot.claw.open())
                 .addDisplacementMarker(() -> robot.claw.close())
@@ -161,13 +161,13 @@ public class LeftCarryAuto extends AbstractAuto {
                 .lineToSplineHeading(lScore5)
                 .splineToSplineHeading(sScore5, Math.toRadians(-135))
                 .addTemporalMarker(0.1, () -> robot.slides.setTarget(Slides.Position.HIGH))
-                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
+                .addTemporalMarker(1.5, () -> robot.arm.goToScore())
                 .build();
 
 
         park1 = robot.drive.trajectoryBuilder(score5.end())
                 .lineToSplineHeading(lPark1)
-                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+                .addTemporalMarker(0.2, () -> robot.arm.goToIntake())
                 .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
                 .addTemporalMarker(1.4, () -> robot.claw.open())
                 .build();
@@ -175,7 +175,7 @@ public class LeftCarryAuto extends AbstractAuto {
         park2 = robot.drive.trajectoryBuilder(score5.end())
                 .splineToSplineHeading(sPark2, Math.toRadians(90))
                 .lineToSplineHeading(lPark2)
-                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+                .addTemporalMarker(0.2, () -> robot.arm.goToIntake())
                 .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
                 .addTemporalMarker(1.4, () -> robot.claw.open())
                 .build();
@@ -183,7 +183,7 @@ public class LeftCarryAuto extends AbstractAuto {
         park3 = robot.drive.trajectoryBuilder(score5.end())
                 .splineToSplineHeading(sPark3, Math.toRadians(0))
                 .lineToSplineHeading(lPark3)
-                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+                .addTemporalMarker(0.2, () -> robot.arm.goToIntake())
                 .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
                 .addTemporalMarker(1.4, () -> robot.claw.open())
                 .build();
