@@ -132,10 +132,10 @@ public class Robot {
     }
 
     public void update(double runTime) {
-        drive.update();
-        slides.update(runTime);
+//        drive.update();
+//        slides.update(runTime);
         claw.update();
-        hSlides.update();
+//        hSlides.update();
     }
 
     public String getTelemetry() {

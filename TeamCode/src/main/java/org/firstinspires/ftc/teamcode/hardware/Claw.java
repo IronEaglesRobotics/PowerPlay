@@ -42,16 +42,20 @@ public class Claw {
     }
 
     public void update() {
-        if (isOpen) {
-            open();
-        } else {
-            close();
-        }
-
         if (isUpright) {
             upright();
         } else {
             flipped();
+        }
+
+        if (getTriggerDistance() < triggerDistance && isOpen) {
+            close();
+        }
+
+        if (isOpen) {
+            open();
+        } else {
+            close();
         }
     }
 
@@ -76,6 +80,6 @@ public class Claw {
     }
 
     public String getTelemetry() {
-        return "Pincher: "+pincher.getPosition()+"\nRotator: "+wrist.getPosition();
+        return "Pincher: "+pincher.getPosition()+"\nRotator: "+wrist.getPosition()+"\nProximitySensor: "+getTriggerDistance();
     }
 }
