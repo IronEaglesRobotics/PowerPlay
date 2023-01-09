@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Config
-public class Claw {
+public class Claw { // TODO done in theory, but need to get the actual servo positions &&&& do the Sensor stuff
     private Servo pincher;
     private Servo wrist;
     private RevColorSensorV3 sensor;

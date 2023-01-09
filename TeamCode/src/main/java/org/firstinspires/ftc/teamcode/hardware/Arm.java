@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
-public class Arm {
+public class Arm { // TODO make sure the correct arm is mirrored (check todo comment below somewhere ;)
     private Servo pivotRight;
     private Servo pivotLeft;
 
