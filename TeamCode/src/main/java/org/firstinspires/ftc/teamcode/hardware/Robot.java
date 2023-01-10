@@ -11,10 +11,8 @@ import org.firstinspires.ftc.teamcode.util.CameraPosition;
 public class Robot {
     public SampleMecanumDrive drive;
     public Slides slides;
-//    public DualServoClaw claw;
-    public Claw claw;
-//    public HorizontalSlides hSlides;
     public Arm arm;
+    public Claw claw;
     public Camera camera;
     private boolean camEnabled = false;
 
@@ -30,10 +28,8 @@ public class Robot {
     public Robot(HardwareMap hardwareMap) {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
-        slides = new Slides(hardwareMap);
-//        claw = new DualServoClaw(hardwareMap);
+//        slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap);
-//        hSlides = new HorizontalSlides(hardwareMap);
         arm = new Arm(hardwareMap);
         camEnabled = false;
     }
@@ -135,18 +131,18 @@ public class Robot {
 
     public void update(double runTime) {
         drive.update();
-        slides.update(runTime);
+//        slides.update(runTime);
         claw.update();
 //        hSlides.update();
         arm.update();
     }
 
     public String getTelemetry() {
-        if (camEnabled) {
-            return String.format("Slides: %s\nClaw: %s\nCamera: %s", slides.getTelemetry(), claw.getTelemetry(), camera.getTelemetry());
-        } else {
-            return String.format("Slides: %s\nClaw: %s", claw.getTelemetry());
-        }
-//        return String.format("Claw: %s", claw.getTelemetry());
+//        if (camEnabled) {
+//            return String.format("Slides: %s\nClaw: %s\nCamera: %s", slides.getTelemetry(), claw.getTelemetry(), camera.getTelemetry());
+//        } else {
+//            return String.format("Slides: %s\nClaw: %s", claw.getTelemetry());
+//        }
+        return String.format("Claw: %s", claw.getTelemetry());
     }
 }

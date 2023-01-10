@@ -88,7 +88,7 @@ public class OptimizationTesting {
         Pose2d intermediateCircle6 = new Pose2d(24, -60, Math.toRadians(180));
         driftBot = new DefaultBotBuilder(meepMeep)
             .setColorScheme(new ColorSchemeRedDark())
-            .setConstraints(70, 90, 70, 90, 11)
+            .setConstraints(700, 90, 700, 90, 10)
             .setDimensions(12,12)
             .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(startCircle)
                 .splineToSplineHeading(intermediateCircle1, Math.toRadians(90))

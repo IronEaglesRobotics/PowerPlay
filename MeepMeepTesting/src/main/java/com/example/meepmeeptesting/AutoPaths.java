@@ -22,7 +22,7 @@ public class AutoPaths {
 
     Pose2d blue_load2 = new Pose2d(66, -12, Math.toRadians(0));
     Pose2d blue_int2 = new Pose2d(48, -12, Math.toRadians(0));
-    Pose2d blue_score2 = new Pose2d(32, -8, Math.toRadians(-45));
+    Pose2d blue_score2 = new Pose2d(32, 1-8, Math.toRadians(-45));
 
     public RoadRunnerBotEntity redCarryBot;
 

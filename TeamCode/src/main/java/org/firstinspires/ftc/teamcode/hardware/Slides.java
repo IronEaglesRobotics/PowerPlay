@@ -28,8 +28,6 @@ public class Slides { // TODO fix the math for different slide motors and less s
     public static int midPos = 1300 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     public static int lowPos = 800 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     private int target = 0;
-    private int actualTarget = 0;
-    private int actualTarget2 = 0;
 
     public int decrementAmount = 100;
 
@@ -52,12 +50,8 @@ public class Slides { // TODO fix the math for different slide motors and less s
 
     public void setTarget(int pos) {
         target = Math.min(Math.max(pos, targetMin), targetMax);
-        actualTarget = slide.getCurrentPosition();
-        actualTarget2 = slide2.getCurrentPosition();
     }
-    public int getTarget() {
-        return target;
-    }
+
     public void setTarget(Position pos) {
         if (pos == Position.HIGH) {
             target = Math.min(Math.max(highPos, targetMin), targetMax);
@@ -66,28 +60,34 @@ public class Slides { // TODO fix the math for different slide motors and less s
         } else if (pos == Position.LOW) {
             target = Math.min(Math.max(lowPos, targetMin), targetMax);
         }
-        actualTarget = slide.getCurrentPosition();
-        actualTarget2 = slide2.getCurrentPosition();
     }
-    public int getPosition() {
-        return slide.getCurrentPosition();
+
+    public void increaseTarget(double increase) {
+        target += (int) (increase * manualSpeed);
+        target = Math.min(targetMax, Math.max(targetMin, target));
+    }
+
+    public int getTarget() {
+        return target;
+    }
+
+    public boolean atTarget() {
+        return controller.atSetPoint();
     }
 
     public void cancel() {
         target = slide.getCurrentPosition();
     }
+
     public void targetReset() {
         target = targetMin;
-    }
-    public void increaseTarget(double increase) {
-        target += (int) (increase * manualSpeed);
-        target = Math.min(targetMax, Math.max(targetMin, target));
     }
 
     public void update(double runTime) {
         highPos = 1830 + heightOffset;
         midPos = 1300 + heightOffset;
         lowPos = 800 + heightOffset;
+
         if (target < 5) {
             slide.setPower(0);
             slide2.setPower(0);
@@ -105,69 +105,26 @@ public class Slides { // TODO fix the math for different slide motors and less s
             slide2.setPower(pid + ff);
         }
 
-//        if (target > 0) {
-//            double actualTarget = slide.getCurrentPosition();
-
-
-        if (actualTarget > target) {
-            actualTarget -= decrementAmount;
-        } else {
-            actualTarget = target;
-        }
-
-        if (actualTarget2 > target) {
-            actualTarget2 -= decrementAmount;
-        } else {
-            actualTarget2 = target;
-        }
-//            if (slide.getCurrentPosition() > target) {
-//                actualTarget -= decrementAmount;
-//            } else {
-//                actualTarget = target;
-//            }
-            controller.setPID(p, i, d);
-            controller.setTolerance(pTolerance);
-
-            double pid = controller.calculate(slide.getCurrentPosition(), actualTarget);
-            double ff = f;
-
-//            if (slide.getCurrentPosition() > target) {
-//                slide.setPower(pid*downMultiplier+ff);
-//            } else {
-                slide.setPower(pid + ff);
-//            }
-
-            pid = controller.calculate(slide2.getCurrentPosition(), actualTarget2);
-            ff = f;
-
-//            if (slide2.getCurrentPosition() > target) {
-//                slide2.setPower(pid*downMultiplier+ff);
-//            } else {
-                slide2.setPower(pid + ff);
-//            }
-//        } else {
-//            slide.setPower(0);
-//            slide2.setPower(0);
-//        }
-
-//        if (target < 5 && slide.getCurrentPosition() < 5) {
-//            if (startOfTighten == -1) {
-//                startOfTighten = runTime;
-//                slide.setPower(0.2);
-//                slide2.setPower(0.2);
-//            }
-//            if (runTime > startOfTighten + tightenTime) {
-//                slide.setPower(0);
-//                slide2.setPower(0);
-//                startOfTighten = -2;
-//            }
-//        } else {
-//            startOfTighten = -1;
-//        }
-    }
-
-    public boolean atTarget() {
-        return controller.atSetPoint();
+//        controller.setPID(p, i, d);
+//        controller.setTolerance(pTolerance);
+//
+//        double pid = controller.calculate(slide.getCurrentPosition(), actualTarget);
+//        double ff = f;
+//
+////            if (slide.getCurrentPosition() > target) {
+////                slide.setPower(pid*downMultiplier+ff);
+////            } else {
+//            slide.setPower(pid + ff);
+////            }
+//
+//        pid = controller.calculate(slide2.getCurrentPosition(), actualTarget2);
+//        ff = f;
+//
+////            if (slide2.getCurrentPosition() > target) {
+////                slide2.setPower(pid*downMultiplier+ff);
+////            } else {
+//            slide2.setPower(pid + ff);
+////            }
     }
 
     public String getTelemetry() {
