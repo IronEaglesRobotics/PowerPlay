@@ -144,9 +144,9 @@ public abstract class AbstractTeleOp extends OpMode {
                 robot.slides.increaseTarget(driver2.getLeftStick().getY());
 //                robot.hSlides.increaseTarget(driver2.getRightStick().getY());
                 robot.arm.increaseTarget(driver2.getRightStick().getY());
-                if (Math.abs(driver2.getRightStick().getY()) > 0.05) { // close claw if anything is moved
-                    robot.claw.close();
-                }
+//                if (Math.abs(driver2.getRightStick().getY()) > 0.05) { // close claw if anything is moved
+//                    robot.claw.close();
+//                }
                 // retract all the time
                 if (driver2.getLeftStickButton().isJustPressed()) {
                     robot.runningMacro = 4;
@@ -174,7 +174,7 @@ public abstract class AbstractTeleOp extends OpMode {
                     if (driver2.getDRight().isJustPressed()) {
                         robot.claw.toggle();
                     }
-                    if (driver2.getDUp().isJustPressed()) {
+                    if (driver2.getDLeft().isJustPressed()) {
                         robot.claw.flip();
                     }
                 }

@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.controller.Controller;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
+import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
 @Config
 @TeleOp
@@ -22,7 +23,7 @@ public class ClawTeleOp extends OpMode {
 
     @Override
     public void init() {
-        robot =  new Robot(hardwareMap);
+        robot =  new Robot(hardwareMap, CameraPosition.LEFT);
         driver1 = new Controller(gamepad1);
         driver2 = new Controller(gamepad2);
     }

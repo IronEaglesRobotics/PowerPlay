@@ -58,11 +58,11 @@ public class Camera {
     // Initiate the Barcode Camera
     public void init(HardwareMap hardwareMap) {
         int stackCameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        if (cameraPosition == CameraPosition.RIGHT) {
-            this.signalWebcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), stackCameraMonitorViewId);
-        } else {
-            this.signalWebcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), stackCameraMonitorViewId);
-        }
+        this.signalWebcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), stackCameraMonitorViewId);
+//        if (cameraPosition == CameraPosition.RIGHT) {
+//        } else {
+//            this.signalWebcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), stackCameraMonitorViewId);
+//        }
         // AprilTag pipeline
         this.aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
         signalWebcam.setPipeline(aprilTagDetectionPipeline);

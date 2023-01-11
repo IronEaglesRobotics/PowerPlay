@@ -37,12 +37,9 @@ public class Robot {
     public Robot(HardwareMap hardwareMap, CameraPosition cameraPosition) {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
-        slides = new Slides(hardwareMap);
-//        claw = new DualServoClaw(hardwareMap);
+//        slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap);
-//        hSlides = new HorizontalSlides(hardwareMap);
         arm = new Arm(hardwareMap);
-        camera = new Camera(cameraPosition);
         camera = new Camera(cameraPosition);
         camera.init(hardwareMap);
         camEnabled = true;
