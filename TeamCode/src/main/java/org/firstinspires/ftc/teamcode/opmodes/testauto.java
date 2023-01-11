@@ -26,7 +26,7 @@ public class testauto extends LinearOpMode {
 
         drive.setPoseEstimate(startOP);
 
-        this.robot.getClaw().open();
+        this.robot.getClaw().close();
 
         Trajectory  push = drive.trajectoryBuilder(startOP)
                 .forward(60)

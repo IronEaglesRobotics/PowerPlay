@@ -39,7 +39,6 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_F
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_FRONT_RIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WRIST;
 
-import com.arcrobotics.ftclib.controller.PController;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -97,7 +96,7 @@ public class Robot {
         pController.setTolerance(AIMING_TOLERANCE);
 
         Point topOfJunction;
-        while(!pController.atSetPoint() && System.currentTimeMillis() < (startTime + 1500)) {
+        while(!pController.atSetPoint() && System.currentTimeMillis() < (startTime + 1000)) {
             topOfJunction = this.getAimingCamera().getTopOfJunction();
             if (topOfJunction == null || topOfJunction == INVALID_POINT) {
                 continue;
@@ -260,7 +259,7 @@ public class Robot {
             return this;
         }
 
-        public void open() {
+        public void close() {
             this.clawGrip.setPosition(CLAW_OPEN);
             this.isOpen = true;
         }
@@ -269,7 +268,7 @@ public class Robot {
             this.clawGrip.setPosition(CLAW_AUTO);
         }
 
-        public void close() {
+        public void open() {
             this.clawGrip.setPosition(CLAW_CLOSED);
             this.isOpen = false;
         }

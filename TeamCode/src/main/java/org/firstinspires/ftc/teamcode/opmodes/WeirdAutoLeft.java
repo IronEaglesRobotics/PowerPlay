@@ -28,7 +28,7 @@ public class WeirdAutoLeft extends LinearOpMode {
 
         drive.setPoseEstimate(startOP);
 
-        this.robot.getClaw().open();
+        this.robot.getClaw().close();
 
         Trajectory push = drive.trajectoryBuilder(startOP)
                 .forward(57)
@@ -105,7 +105,7 @@ public class WeirdAutoLeft extends LinearOpMode {
             telemetry.update();
         }
         // Do stuff
-        robot.getClaw().open();
+        robot.getClaw().close();
         robot.getArm().moveMid();
         drive.followTrajectory(push);
         robot.getLift().slideLow();
@@ -119,14 +119,14 @@ public class WeirdAutoLeft extends LinearOpMode {
         drive.followTrajectory(ahhhhh);
         robot.getLift().dunk();
         sleep(150);
-        robot.getClaw().close();
+        robot.getClaw().open();
         robot.getArm().moveRight();
         robot.getLift().autoTop();
         sleep(150);
         robot.getClaw().twistUp();
 
         drive.followTrajectory(getAgain2);
-        robot.getClaw().open();
+        robot.getClaw().close();
         sleep(100);
         robot.getArm().moveLeft();
         sleep(100);
@@ -138,14 +138,14 @@ public class WeirdAutoLeft extends LinearOpMode {
         drive.followTrajectory(ahhhhha);
         robot.getLift().dunk();
         sleep(150);
-        robot.getClaw().close();
+        robot.getClaw().open();
         robot.getArm().moveRight();
         robot.getLift().autoTop2();
         sleep(150);
         robot.getClaw().twistUp();
 //
         drive.followTrajectory(getAgain2);
-        robot.getClaw().open();
+        robot.getClaw().close();
         sleep(100);
         robot.getArm().moveLeft();
         sleep(250);
@@ -155,13 +155,13 @@ public class WeirdAutoLeft extends LinearOpMode {
         drive.followTrajectory(ahhhhha);
         robot.getLift().dunk();
         sleep(150);
-        robot.getClaw().close();
+        robot.getClaw().open();
         robot.getArm().moveRight();
         robot.getLift().autoTop3();
         sleep(150);
         robot.getClaw().twistUp();
         drive.followTrajectory(getAgain3);
-        robot.getClaw().open();
+        robot.getClaw().close();
         sleep(100);
         robot.getArm().moveLeft();
         sleep(250);
@@ -173,7 +173,7 @@ public class WeirdAutoLeft extends LinearOpMode {
 //        sleep(1000);
         robot.getLift().dunk();
         sleep(150);
-        robot.getClaw().close();
+        robot.getClaw().open();
         robot.getArm().moveMid();
 //        robot.getClaw().open();
         robot.getLift().slideDown();

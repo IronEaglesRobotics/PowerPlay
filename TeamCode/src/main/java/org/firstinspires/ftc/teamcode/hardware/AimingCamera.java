@@ -48,7 +48,8 @@ public class AimingCamera {
 
     // Close the Barcode Camera
     public void stopAimingCamera() {
-        camera.closeCameraDeviceAsync(() -> cameraInitialized = false);
+        camera.closeCameraDevice();
+        cameraInitialized = false;
     }
 
     public Point getTopOfJunction() {

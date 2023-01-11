@@ -28,7 +28,7 @@ public class MainAutoLeft extends LinearOpMode {
 
         drive.setPoseEstimate(startOP);
 
-        this.robot.getClaw().open();
+        this.robot.getClaw().close();
         this.robot.getClaw().twistUp();
 
         //Trajectories
@@ -92,7 +92,7 @@ public class MainAutoLeft extends LinearOpMode {
         sleep(500);
         this.robot.getLift().dunk();
         sleep(500);
-        this.robot.getClaw().close();
+        this.robot.getClaw().open();
         sleep(200);
         this.robot.getLift().slideUp();
         drive.followTrajectory(backLittle);

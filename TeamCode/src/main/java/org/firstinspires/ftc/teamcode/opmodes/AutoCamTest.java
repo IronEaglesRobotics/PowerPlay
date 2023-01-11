@@ -29,7 +29,7 @@ public class AutoCamTest extends LinearOpMode {
 
         drive.setPoseEstimate(startOP);
 
-        this.robot.getClaw().open();
+        this.robot.getClaw().close();
         this.robot.getClaw().twistDown();
 
         Trajectory push = drive.trajectoryBuilder(startOP)
@@ -47,14 +47,15 @@ public class AutoCamTest extends LinearOpMode {
         Trajectory ahhhhh = drive.trajectoryBuilder(score.end(), true)
                 .back(2)
                 .build();
+
         Trajectory getCone = drive.trajectoryBuilder(ahhhhh.end())
                 .splineTo(new Vector2d(-34.00001, -13), Math.toRadians(180))
                 .splineTo(new Vector2d(-50.5, -13), Math.toRadians(180))
                 .build();
 
         Trajectory scoreAgain = drive.trajectoryBuilder(getCone.end(), true)
-                .lineToSplineHeading(new Pose2d(-40, -13, Math.toRadians(180)))
-                .lineToSplineHeading(new Pose2d(-34, -13, Math.toRadians(135)))
+                .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(-34, -14, Math.toRadians(135)))
                 .build();
 
         Trajectory ahhhhha = drive.trajectoryBuilder(scoreAgain.end(), true)

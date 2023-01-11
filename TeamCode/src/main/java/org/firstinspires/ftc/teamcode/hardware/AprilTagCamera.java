@@ -80,7 +80,8 @@ public class AprilTagCamera {
 
     // Close the Barcode Camera
     public void stopBarcodeWebcam() {
-        barcodeWebcam.closeCameraDeviceAsync(() -> barcodeWebcamInitialized = false);
+        barcodeWebcam.closeCameraDevice();
+        barcodeWebcamInitialized = false;
     }
 
     // AprilTag methods:

@@ -28,7 +28,7 @@ public class MainAutoRight extends LinearOpMode {
 
         drive.setPoseEstimate(startOP);
 
-        this.robot.getClaw().open();
+        this.robot.getClaw().close();
         this.robot.getClaw().twistUp();
 
 
@@ -94,7 +94,7 @@ public class MainAutoRight extends LinearOpMode {
         sleep(500);
         this.robot.getLift().dunk();
         sleep(500);
-        this.robot.getClaw().close();
+        this.robot.getClaw().open();
         drive.followTrajectory(backLittle);
         sleep(300);
         this.robot.getLift().slideDown();

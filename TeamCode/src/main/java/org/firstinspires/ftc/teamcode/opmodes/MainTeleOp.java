@@ -107,9 +107,9 @@ public class MainTeleOp extends OpMode {
 //        prevClawPressed = clawPressed;
 
         if (gamepad2.b) {
-            this.robot.getClaw().close();
-        } else {
             this.robot.getClaw().open();
+        } else {
+            this.robot.getClaw().close();
         }
 
     }
