@@ -51,6 +51,7 @@ public class MainTeleOp extends OpMode {
         int Position = this.robot.getLift().slide.getCurrentPosition();
         int Position2 = this.robot.getLift().slide2.getCurrentPosition();
         int armPosition = this.robot.getArm().getCurrentPosition();
+        double clawGripPosition = this.robot.getClaw().getCurrentPosition();
 
         // Lift
         boolean upPressed = gamepad2.y;
@@ -59,6 +60,7 @@ public class MainTeleOp extends OpMode {
         telemetry.addData("Slide Position", (Position));
         telemetry.addData("Slide Position2", (Position2));
         telemetry.addData("armPosition", armPosition);
+        telemetry.addData("Claw Grip Position", clawGripPosition);
         telemetry.update();
 
 

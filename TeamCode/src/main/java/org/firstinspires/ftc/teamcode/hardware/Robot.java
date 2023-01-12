@@ -16,9 +16,9 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUT
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP2;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP3;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_AUTO;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_JUNC;
@@ -256,12 +256,18 @@ public class Robot {
             this.clawGrip = hardwareMap.get(Servo.class, GRIP);
             this.clawTurn = hardwareMap.get(Servo.class, WRIST);
 
+            this.clawGrip.scaleRange(0.01, 1);
+
             return this;
         }
 
+        public double getCurrentPosition() {
+            return this.clawGrip.getPosition();
+        }
+
         public void close() {
-            this.clawGrip.setPosition(CLAW_OPEN);
-            this.isOpen = true;
+            this.clawGrip.setPosition(CLAW_CLOSED);
+            this.isOpen = false;
         }
 
         public void autoOpen() {
@@ -269,8 +275,8 @@ public class Robot {
         }
 
         public void open() {
-            this.clawGrip.setPosition(CLAW_CLOSED);
-            this.isOpen = false;
+            this.clawGrip.setPosition(CLAW_OPEN);
+            this.isOpen = true;
         }
 
         public void auto() {

@@ -11,14 +11,14 @@ public class Configurables {
 
     // Slide
     public static double SLIDE_POWER_UP = 1.0;
-    public static int SLIDE_MAX = 3050;
-    public static int SLIDE_LOW = 2300;
-    public static int SLIDE_MED = 3050;
-    public static int SLIDE_POSITION = 0;
+    public static int SLIDE_MAX = 3200;
+    public static int SLIDE_LOW = 2450;
+//    public static int SLIDE_MED = 3050;
+//    public static int SLIDE_POSITION = 0;
     public static int dunk = 1500;
-    public static int twoCone = 3050;
-    public static int threeCone = 3050;
-    public static int CLEAR = 500;
+//    public static int twoCone = 3050;
+//    public static int threeCone = 3050;
+//    public static int CLEAR = 500;
     public static int STOP = 10;
     public static int LOW_JUNC = 1300;
     public static int AUTO_TOP = 480;
@@ -28,8 +28,8 @@ public class Configurables {
 
 
     // Claw
-    public static double CLAW_OPEN = 0.49;
-    public static double CLAW_CLOSED = 0.26;
+    public static double CLAW_CLOSED = 0.459;
+    public static double CLAW_OPEN = 0.26;
     public static double CLAW_UP = 0.02;
     public static double CLAW_DOWN = 0.675;
     public static double AUTO = 0.005;
