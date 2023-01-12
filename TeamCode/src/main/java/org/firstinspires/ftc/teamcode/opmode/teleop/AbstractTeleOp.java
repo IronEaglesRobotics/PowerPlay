@@ -81,8 +81,8 @@ public abstract class AbstractTeleOp extends OpMode {
     public void loop() {
         driver1.update();
         driver2.update();
-        double x = driver1.getLeftStick().getY();
-        double y = -driver1.getLeftStick().getX();
+        double x = -driver1.getLeftStick().getY();
+        double y = driver1.getLeftStick().getX();
         double z = -driver1.getRightStick().getX();
 
         robot_pos = robot.drive.getPoseEstimate();
@@ -147,6 +147,13 @@ public abstract class AbstractTeleOp extends OpMode {
 //                if (Math.abs(driver2.getRightStick().getY()) > 0.05) { // close claw if anything is moved
 //                    robot.claw.close();
 //                }
+
+                if (driver2.getRightBumper().isJustPressed()) {
+                    robot.arm.goToScore();
+                }
+                if (driver2.getLeftBumper().isJustPressed()) {
+                    robot.arm.goToIntake();
+                }
                 // retract all the time
                 if (driver2.getLeftStickButton().isJustPressed()) {
                     robot.runningMacro = 4;

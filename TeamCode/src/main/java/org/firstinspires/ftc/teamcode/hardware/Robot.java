@@ -28,7 +28,7 @@ public class Robot {
     public Robot(HardwareMap hardwareMap) {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
-//        slides = new Slides(hardwareMap);
+        slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap);
         arm = new Arm(hardwareMap);
         camEnabled = false;
@@ -37,7 +37,7 @@ public class Robot {
     public Robot(HardwareMap hardwareMap, CameraPosition cameraPosition) {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
-//        slides = new Slides(hardwareMap);
+        slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap);
         arm = new Arm(hardwareMap);
         camera = new Camera(cameraPosition);
@@ -61,20 +61,25 @@ public class Robot {
             case(2):
                 macroStartTime = runTime;
                 slides.setTarget(pos);
-                macroState ++;
-                break;
-            case(3):
-                if (slides.atTarget()) {
-                    macroState ++;
-                }
-                break;
-            case(4):
-//                hSlides.goToScoreWithOffset();
                 arm.goToScore();
+                claw.flipped();
+//                macroState ++;
                 macroState = 0;
                 lastMacro = runningMacro;
                 runningMacro = 0;
                 break;
+//            case(3):
+//                if (slides.atTarget()) {
+//                    macroState ++;
+//                }
+//                break;
+//            case(4):
+////                hSlides.goToScoreWithOffset();
+//                arm.goToScore();
+//                macroState = 0;
+//                lastMacro = runningMacro;
+//                runningMacro = 0;
+//                break;
         }
     }
 
@@ -93,43 +98,50 @@ public class Robot {
                 break;
             case(2):
                 macroStartTime = runTime;
-                claw.close();
-                macroState++;
-                break;
-            case(3):
-                if (runTime > macroStartTime + clawWait) {
-                    macroState ++;
-                }
-                break;
-            case(4):
-                macroStartTime = runTime;
-//                hSlides.goToIntake();
-                arm.goToIntake();
-                macroState ++;
-                break;
-            case(5):
-                if (runTime > macroStartTime + hslideWait) {
-                    macroState ++;
-                    claw.open();
-                }
-                break;
-            case(6):
+//                claw.close();
                 slides.setTarget(pos);
-                if (slides.atTarget()) {
+                arm.goToIntake();
+                claw.upright();
+                macroState = 0;
+                runningMacro = 0;
+                lastMacro = 0;
+
+//                macroState++;
+//                break;
+//            case(3):
+//                if (runTime > macroStartTime + clawWait) {
+//                    macroState ++;
+//                }
+//                break;
+//            case(4):
+//                macroStartTime = runTime;
+////                hSlides.goToIntake();
+//                arm.goToIntake();
+//                macroState ++;
+//                break;
+//            case(5):
+//                if (runTime > macroStartTime + hslideWait) {
+//                    macroState ++;
 //                    claw.open();
-                    macroState = 0;
-//                    robot.slides.targetReset();
-                    runningMacro = 0;
-                    lastMacro = 0;
-                }
-                break;
+//                }
+//                break;
+//            case(6):
+//                slides.setTarget(pos);
+//                if (slides.atTarget()) {
+////                    claw.open();
+//                    macroState = 0;
+////                    robot.slides.targetReset();
+//                    runningMacro = 0;
+//                    lastMacro = 0;
+//                }
+//                break;
         }
     }
 
     public void update(double runTime) {
         drive.update();
-//        slides.update(runTime);
-        claw.update();
+        slides.update(runTime);
+        claw.update(runTime);
 //        hSlides.update();
         arm.update();
     }
@@ -140,6 +152,6 @@ public class Robot {
 //        } else {
 //            return String.format("Slides: %s\nClaw: %s", claw.getTelemetry());
 //        }
-        return String.format("Claw: %s", claw.getTelemetry());
+        return String.format("Claw: %s \nArm: %s \nSlides: %s", claw.getTelemetry(), arm.getTelemetry(), slides.getTelemetry());
     }
 }

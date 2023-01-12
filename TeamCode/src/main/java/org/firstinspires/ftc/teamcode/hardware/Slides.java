@@ -11,22 +11,22 @@ public class Slides { // TODO fix the math for different slide motors and less s
     private DcMotor slide;
     private DcMotor slide2;
 
-    public static double p = 0.004;
-    public static double i = 0;
+    public static double p = 0.001;
+    public static double i = 0.01;
     public static double d = 0;
     public static double f = 0;
     public static double pTolerance = 20;
     public static PIDController controller = new PIDController(p, i, d);
     public static double downMultiplier = 0.5;
 
-    public static int[] heights = {0, (int)(280/4.0), 2*(int)(280/4.0), 3*(int)(280/4.0), 4*(int)(280/4)};
+    public static int[] heights = {0, (int)(200/4.0), 2*(int)(200/4.0), 3*(int)(200/4.0), 4*(int)(200/4)};
 
     public static int heightOffset = 0;
     public static int targetMin = 0;
-    public static int targetMax = 2000;
-    public static int highPos = 1830 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
-    public static int midPos = 1300 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
-    public static int lowPos = 800 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int targetMax = 700;
+    public static int highPos = 650 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int midPos = 300 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int lowPos = 0 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     private int target = 0;
 
     public int decrementAmount = 100;
@@ -84,26 +84,32 @@ public class Slides { // TODO fix the math for different slide motors and less s
     }
 
     public void update(double runTime) {
-        highPos = 1830 + heightOffset;
-        midPos = 1300 + heightOffset;
-        lowPos = 800 + heightOffset;
+//        highPos = 850 + heightOffset;
+//        midPos = 300 + heightOffset;
+//        lowPos = 0 + heightOffset;
 
-        if (target < 5) {
+        if (target == 0) {
             slide.setPower(0);
             slide2.setPower(0);
         } else {
-            double pid, ff;
-            controller.setPID(p, i, d);
-            controller.setTolerance(pTolerance);
+            if (target < 5) {
+                slide.setPower(0);
+                slide2.setPower(0);
+            } else {
+                double pid, ff;
+                controller.setPID(p, i, d);
+                controller.setTolerance(pTolerance);
 
-            pid = controller.calculate(slide.getCurrentPosition(), target);
-            ff = f;
-            slide.setPower(pid + ff);
+                pid = controller.calculate(slide.getCurrentPosition(), target);
+                ff = f;
+                slide.setPower(pid + ff);
 
-            pid = controller.calculate(slide2.getCurrentPosition(), target);
-            ff = f;
-            slide2.setPower(pid + ff);
+                pid = controller.calculate(slide2.getCurrentPosition(), target);
+                ff = f;
+                slide2.setPower(pid + ff);
+            }
         }
+
 
 //        controller.setPID(p, i, d);
 //        controller.setTolerance(pTolerance);

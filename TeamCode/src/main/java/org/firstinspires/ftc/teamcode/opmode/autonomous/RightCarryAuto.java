@@ -49,40 +49,40 @@ public class RightCarryAuto extends AbstractAuto {
     @Override
     public void makeTrajectories() {
 
-        Pose2d start = new Pose2d(-36,65.5, Math.toRadians(180));
-        Pose2d start2 = new Pose2d(-36,24, Math.toRadians(180));
-        Pose2d score = new Pose2d(-31,6,Math.toRadians(135));
+        Pose2d start = new Pose2d(-36,65.5, Math.toRadians(90));
+        Pose2d start2 = new Pose2d(-36,24, Math.toRadians(90));
+        Pose2d score = new Pose2d(-31,6,Math.toRadians(-45));
 
-        Pose2d sLoad1 = new Pose2d(-48, 12+0.0, Math.toRadians(180));
-        Pose2d sLoad2 = new Pose2d(-48, 12+0.5, Math.toRadians(180));
-        Pose2d sLoad3 = new Pose2d(-48, 12+1.0, Math.toRadians(180));
-        Pose2d sLoad4 = new Pose2d(-48, 12+1.5, Math.toRadians(180));
-        Pose2d sLoad5 = new Pose2d(-48, 12+2.0, Math.toRadians(180));
-        Pose2d lLoad1 = new Pose2d(-63,12+0.0,Math.toRadians(180));
-        Pose2d lLoad2 = new Pose2d(-63,12+0.5,Math.toRadians(180));
-        Pose2d lLoad3 = new Pose2d(-64,12+1.0,Math.toRadians(180));
-        Pose2d lLoad4 = new Pose2d(-64,12+1.5,Math.toRadians(180));
-        Pose2d lLoad5 = new Pose2d(-65,12+2.0,Math.toRadians(180));
+        Pose2d sLoad1 = new Pose2d(-42, 12+0.0, Math.toRadians(0));
+        Pose2d sLoad2 = new Pose2d(-42, 12+0.0, Math.toRadians(0));
+        Pose2d sLoad3 = new Pose2d(-42, 12+0.0, Math.toRadians(0));
+        Pose2d sLoad4 = new Pose2d(-42, 12+0.0, Math.toRadians(0));
+        Pose2d sLoad5 = new Pose2d(-42, 12+0.0, Math.toRadians(0));
+        Pose2d lLoad1 = new Pose2d(-63,12+0.0,Math.toRadians(0));
+        Pose2d lLoad2 = new Pose2d(-63,12+0.0,Math.toRadians(0));
+        Pose2d lLoad3 = new Pose2d(-63,12+0.0,Math.toRadians(0));
+        Pose2d lLoad4 = new Pose2d(-63,12+0.0,Math.toRadians(0));
+        Pose2d lLoad5 = new Pose2d(-63,12+0.0,Math.toRadians(0));
 
-        Pose2d lScore1 = new Pose2d(-48,11.5+0.0,Math.toRadians(180));
-        Pose2d lScore2 = new Pose2d(-48,11.5+0.5,Math.toRadians(180));
-        Pose2d lScore3 = new Pose2d(-48,11.5+1.0,Math.toRadians(180));
-        Pose2d lScore4 = new Pose2d(-48,11.5+1.5,Math.toRadians(180));
-        Pose2d lScore5 = new Pose2d(-48,11.5+2.0,Math.toRadians(180));
-        Pose2d sScore1 = new Pose2d(-30.5,7,Math.toRadians(135));
-        Pose2d sScore2 = new Pose2d(-30.5,7.5,Math.toRadians(135));
-        Pose2d sScore3 = new Pose2d(-31.5,7.5,Math.toRadians(135));
-        Pose2d sScore4 = new Pose2d(-33,8,Math.toRadians(135));
-        Pose2d sScore5 = new Pose2d(-33,8,Math.toRadians(135));
+        Pose2d lScore1 = new Pose2d(-42,12.0+0.0,Math.toRadians(0));
+        Pose2d lScore2 = new Pose2d(-42,12.0+0.0,Math.toRadians(0));
+        Pose2d lScore3 = new Pose2d(-42,12.0+0.0,Math.toRadians(0));
+        Pose2d lScore4 = new Pose2d(-42,12.0+0.0,Math.toRadians(0));
+        Pose2d lScore5 = new Pose2d(-42,12.0+0.0,Math.toRadians(0));
+        Pose2d sScore1 = new Pose2d(-31.0,6,Math.toRadians(-45));
+        Pose2d sScore2 = new Pose2d(-31.0,6,Math.toRadians(-45));
+        Pose2d sScore3 = new Pose2d(-31.0,6,Math.toRadians(-45));
+        Pose2d sScore4 = new Pose2d(-31.0,6,Math.toRadians(-45));
+        Pose2d sScore5 = new Pose2d(-31.0,6,Math.toRadians(-45));
 
 //        Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(90));
-        Pose2d lPark1 = new Pose2d(-12,12, Math.toRadians(90));
+        Pose2d lPark1 = new Pose2d(-12,12, Math.toRadians(-90));
 
-        Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(90));
-        Pose2d lPark2 = new Pose2d(-36,36, Math.toRadians(90));
+        Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(-90));
+        Pose2d lPark2 = new Pose2d(-36,36, Math.toRadians(-90));
 
-        Pose2d sPark3 = new Pose2d(-48, 12+2.0, Math.toRadians(180));
-        Pose2d lPark3 = new Pose2d(-62,12+2.0,Math.toRadians(180));
+        Pose2d sPark3 = new Pose2d(-48, 12+2.0, Math.toRadians(0));
+        Pose2d lPark3 = new Pose2d(-62,12+2.0,Math.toRadians(0));
 
         startScore = robot.drive.trajectoryBuilder(start)
                 .lineToSplineHeading(start2,
@@ -95,7 +95,7 @@ public class RightCarryAuto extends AbstractAuto {
 //                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
                 .build();
 
-        load1 = robot.drive.trajectoryBuilder(startScore.end())
+        load1 = robot.drive.trajectoryBuilder(startScore.end(), true)
                 .splineToSplineHeading(sLoad1, Math.toRadians(180))
                 .lineToSplineHeading(lLoad1)
 //                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
@@ -110,7 +110,7 @@ public class RightCarryAuto extends AbstractAuto {
 //                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
                 .build();
 
-        load2 = robot.drive.trajectoryBuilder(score1.end())
+        load2 = robot.drive.trajectoryBuilder(score1.end(), true)
                 .splineToSplineHeading(sLoad2, Math.toRadians(180))
                 .lineToSplineHeading(lLoad2)
 //                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
@@ -125,7 +125,7 @@ public class RightCarryAuto extends AbstractAuto {
 //                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
                 .build();
 
-        load3 = robot.drive.trajectoryBuilder(score2.end())
+        load3 = robot.drive.trajectoryBuilder(score2.end(), true)
                 .splineToSplineHeading(sLoad3, Math.toRadians(180))
                 .lineToSplineHeading(lLoad3)
 //                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
@@ -140,7 +140,7 @@ public class RightCarryAuto extends AbstractAuto {
 //                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
                 .build();
 
-        load4 = robot.drive.trajectoryBuilder(score3.end())
+        load4 = robot.drive.trajectoryBuilder(score3.end(), true)
                 .splineToSplineHeading(sLoad4, Math.toRadians(180))
                 .lineToSplineHeading(lLoad4)
 //                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
@@ -155,7 +155,7 @@ public class RightCarryAuto extends AbstractAuto {
 //                .addTemporalMarker(1.5, () -> robot.hSlides.goToScore())
                 .build();
 
-        load5 = robot.drive.trajectoryBuilder(score4.end())
+        load5 = robot.drive.trajectoryBuilder(score4.end(), true)
                 .splineToSplineHeading(sLoad5, Math.toRadians(180))
                 .lineToSplineHeading(lLoad5)
 //                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
@@ -171,28 +171,28 @@ public class RightCarryAuto extends AbstractAuto {
                 .build();
 
 
-        park1 = robot.drive.trajectoryBuilder(score5.end())
-                .lineToSplineHeading(lPark1)
-//                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
-//                .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
-//                .addTemporalMarker(1.4, () -> robot.claw.open())
-                .build();
-
-        park2 = robot.drive.trajectoryBuilder(score5.end())
-                .splineToSplineHeading(sPark2, Math.toRadians(90))
-                .lineToSplineHeading(lPark2)
-//                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
-//                .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
-//                .addTemporalMarker(1.4, () -> robot.claw.open())
-                .build();
-
-        park3 = robot.drive.trajectoryBuilder(score5.end())
-                .splineToSplineHeading(sPark3, Math.toRadians(180))
-                .lineToSplineHeading(lPark3)
-//                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
-//                .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
-//                .addTemporalMarker(1.4, () -> robot.claw.open())
-                .build();
+//        park1 = robot.drive.trajectoryBuilder(score5.end())
+//                .lineToSplineHeading(lPark1)
+////                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+////                .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
+////                .addTemporalMarker(1.4, () -> robot.claw.open())
+//                .build();
+//
+//        park2 = robot.drive.trajectoryBuilder(score5.end())
+//                .splineToSplineHeading(sPark2, Math.toRadians(-90))
+//                .lineToSplineHeading(lPark2)
+////                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+////                .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
+////                .addTemporalMarker(1.4, () -> robot.claw.open())
+//                .build();
+//
+//        park3 = robot.drive.trajectoryBuilder(score5.end())
+//                .splineToSplineHeading(sPark3, Math.toRadians(0))
+//                .lineToSplineHeading(lPark3)
+////                .addTemporalMarker(0.2, () -> robot.hSlides.goToIntake())
+////                .addTemporalMarker(0.7, () -> robot.slides.setTarget(0))
+////                .addTemporalMarker(1.4, () -> robot.claw.open())
+//                .build();
 
         robot.drive.setPoseEstimate(start);
     }
@@ -213,19 +213,19 @@ public class RightCarryAuto extends AbstractAuto {
         followAndReset(load4, heights[1]);
         followAndExtend(score4, Slides.Position.HIGH);
 
-//        followAndReset(load5, heights[0]);
-//        followAndExtend(score5, Slides.Position.HIGH);
+        followAndReset(load5, heights[0]);
+        followAndExtend(score5, Slides.Position.HIGH);
 
-        switch (location) {
-            case 1:
-                followAndReset(park1, 0);
-                break;
-            case 2:
-                followAndReset(park2, 0);
-                break;
-            case 3:
-                followAndReset(park3, 0);
-                break;
-        }
+//        switch (location) {
+//            case 1:
+//                followAndReset(park1, 0);
+//                break;
+//            case 2:
+//                followAndReset(park2, 0);
+//                break;
+//            case 3:
+//                followAndReset(park3, 0);
+//                break;
+//        }
     }
 }
