@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Config
 
-@Autonomous(name = "RightSideAuto", group = "Competition", preselectTeleOp = "MainTeleOp")
-public class RightSideAuto extends LinearOpMode {
+@Autonomous(name = "RightSideDuplicate", group = "Competition", preselectTeleOp = "MainTeleOp")
+public class RightSideDuplicate extends LinearOpMode {
     public static int parkPosition = 1;
     private Robot robot;
 
@@ -36,51 +36,47 @@ public class RightSideAuto extends LinearOpMode {
                 .build();
 
         Trajectory pushback = drive.trajectoryBuilder(push.end())
-                .back(4)
+                .back(6)
                 .build();
 
         Trajectory score = drive.trajectoryBuilder(pushback.end(), true)
-                .lineToSplineHeading(new Pose2d(36, -10, Math.toRadians(41)))
+                .lineToSplineHeading(new Pose2d(36, -12, Math.toRadians(45)))
                 .build();
 
         Trajectory prepareForDunk = drive.trajectoryBuilder(score.end(), true)
                 .back(3)
                 .build();
 
-        Trajectory prepareForDunkAgain = drive.trajectoryBuilder(score.end(), true)
-                .back(4)
-                .build();
-
         Trajectory getCone = drive.trajectoryBuilder(prepareForDunk.end())
-                .splineTo(new Vector2d(36.00001, -11), Math.toRadians(0))
-                .splineTo(new Vector2d(54.5, -11), Math.toRadians(6))
+                .splineTo(new Vector2d(36.00001, -13), Math.toRadians(0))
+                .splineTo(new Vector2d(51.5, -13), Math.toRadians(0))
                 .build();
 
         Trajectory scoreAgain = drive.trajectoryBuilder(getCone.end(), true)
-                .lineToSplineHeading(new Pose2d(40, -11, Math.toRadians(0)))
-                .lineToSplineHeading(new Pose2d(35, -11, Math.toRadians(41)))
+                .lineToSplineHeading(new Pose2d(40, -13, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(35, -13, Math.toRadians(45)))
                 .build();
 
         Trajectory scoreAgain2 = drive.trajectoryBuilder(getCone.end(), true)
-                .lineToSplineHeading(new Pose2d(40, -11, Math.toRadians(0)))
-                .lineToSplineHeading(new Pose2d(35, -11, Math.toRadians(39)))
+                .lineToSplineHeading(new Pose2d(40, -13, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(35, -13, Math.toRadians(45)))
                 .build();
 
         Trajectory getAgain2 = drive.trajectoryBuilder(scoreAgain.end())
-                .splineTo(new Vector2d(36.00001, -11), Math.toRadians(0))
-                .splineTo(new Vector2d(54.5, -11), Math.toRadians(6))
+                .splineTo(new Vector2d(36.00001, -13), Math.toRadians(0))
+                .splineTo(new Vector2d(51.2, -13), Math.toRadians(0))
                 .build();
 
-        Trajectory park3 = drive.trajectoryBuilder(scoreAgain.end())
+        Trajectory park1 = drive.trajectoryBuilder(scoreAgain.end())
                 .splineTo(new Vector2d(37.00001, -12), Math.toRadians(0))
-                .splineTo(new Vector2d(57, -10), Math.toRadians(0))
+                .splineTo(new Vector2d(56, -13), Math.toRadians(0))
                 .build();
 
         Trajectory park2 = drive.trajectoryBuilder(scoreAgain.end())
-                .splineTo(new Vector2d(36.00001, -11), Math.toRadians(0))
+                .splineTo(new Vector2d(36.00001, -13), Math.toRadians(0))
                 .build();
 
-        Trajectory park1 = drive.trajectoryBuilder(park2.end())
+        Trajectory park3 = drive.trajectoryBuilder(park2.end())
                 .back(25)
                 .build();
 
@@ -93,23 +89,25 @@ public class RightSideAuto extends LinearOpMode {
             telemetry.update();
         }
 
+
         // Score Preload
         robot.getClaw().close();
         robot.useAimingCamera();
         sleep(500);
         robot.getArm().moveMid();
         drive.followTrajectory(push);
+        //failure
         robot.getLift().dunk();
         robot.getArm().moveLeft();
-        this.robot.getClaw().twistDown();
         drive.followTrajectory(pushback);
+        this.robot.getClaw().twistDown();
         drive.followTrajectory(score);
         this.robot.aimSync();
         robot.getLift().slideLow();
         drive.followTrajectory(prepareForDunk);
         sleep(200);
         robot.getLift().dunk();
-        sleep(300);
+        sleep(200);
         robot.getClaw().open();
         robot.getArm().moveRight();
         robot.getLift().autoTop();
@@ -118,7 +116,7 @@ public class RightSideAuto extends LinearOpMode {
         //Stack One
         drive.followTrajectory(getAgain2);
         robot.getClaw().close();
-        sleep(250);
+        sleep(100);
         robot.getArm().moveLeft();
         sleep(300);
         robot.getLift().dunk();
@@ -126,10 +124,10 @@ public class RightSideAuto extends LinearOpMode {
         this.robot.getClaw().twistDown();
         this.robot.aimSync();
         robot.getLift().slideLow();
-        drive.followTrajectory(prepareForDunkAgain);
+        drive.followTrajectory(prepareForDunk);
         sleep(200);
         robot.getLift().dunk();
-        sleep(300);
+        sleep(200);
         robot.getClaw().open();
         robot.getArm().moveRight();
         robot.getLift().autoTop2();
@@ -138,7 +136,7 @@ public class RightSideAuto extends LinearOpMode {
         //Stack Two
         drive.followTrajectory(getAgain2);
         robot.getClaw().close();
-        sleep(250);
+        sleep(100);
         robot.getArm().moveLeft();
         sleep(300);
         robot.getLift().dunk();
@@ -146,10 +144,10 @@ public class RightSideAuto extends LinearOpMode {
         this.robot.getClaw().twistDown();
         this.robot.aimSync();
         robot.getLift().slideLow();
-        drive.followTrajectory(prepareForDunkAgain);
+        drive.followTrajectory(prepareForDunk);
         sleep(200);
         robot.getLift().dunk();
-        sleep(300);
+        sleep(200);
         robot.getClaw().open();
         robot.getArm().moveMid();
         robot.getClaw().twistUp();
@@ -159,7 +157,7 @@ public class RightSideAuto extends LinearOpMode {
         //Park
         switch (parkPosition) {
             case 1:
-                drive.followTrajectory(park3);
+                drive.followTrajectory(park1);
                 robot.getArm().moveMid();
                 break;
             case 2:
@@ -168,7 +166,7 @@ public class RightSideAuto extends LinearOpMode {
                 break;
             case 3:
                 drive.followTrajectory(park2);
-                drive.followTrajectory(park1);
+                drive.followTrajectory(park3);
                 robot.getArm().moveMid();
                 break;
             default:

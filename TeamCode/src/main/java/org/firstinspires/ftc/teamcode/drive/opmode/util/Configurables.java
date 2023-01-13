@@ -15,7 +15,7 @@ public class Configurables {
     public static int SLIDE_LOW = 2450;
 //    public static int SLIDE_MED = 3050;
 //    public static int SLIDE_POSITION = 0;
-    public static int dunk = 1500;
+    public static int dunk = 1400;
 //    public static int twoCone = 3050;
 //    public static int threeCone = 3050;
 //    public static int CLEAR = 500;
