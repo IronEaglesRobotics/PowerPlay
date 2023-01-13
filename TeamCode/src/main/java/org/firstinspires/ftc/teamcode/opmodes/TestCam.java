@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.opencv.core.Point;
+@Disabled
 @Config
 @TeleOp(name = "TestCam", group = "Competition")
 public class TestCam extends OpMode {

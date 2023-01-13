@@ -89,6 +89,9 @@ public class MainTeleOp extends OpMode {
         } else if (gamepad1.x){
             GO_SLOW = 1;
             WHY_TURN = 1.25;
+        } else if (gamepad1.dpad_up){
+            GO_SLOW = 1;
+            WHY_TURN = 1.25;
         } else {
             GO_SLOW = 1.4;
             WHY_TURN = 1.25;

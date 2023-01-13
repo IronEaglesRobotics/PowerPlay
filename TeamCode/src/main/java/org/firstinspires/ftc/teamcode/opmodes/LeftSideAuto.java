@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 @Config
 
-@Autonomous(name = "WeirdAutoCam", group = "Competition", preselectTeleOp = "MainTeleOp")
-public class WeirdAutoCam extends LinearOpMode {
+@Autonomous(name = "LeftSideAuto", group = "Competition", preselectTeleOp = "MainTeleOp")
+public class LeftSideAuto extends LinearOpMode {
     public static int parkPosition = 1;
     private Robot robot;
 

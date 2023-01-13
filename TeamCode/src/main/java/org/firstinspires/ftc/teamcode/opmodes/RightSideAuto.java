@@ -126,7 +126,7 @@ public class RightSideAuto extends LinearOpMode {
         this.robot.getClaw().twistDown();
         this.robot.aimSync();
         robot.getLift().slideLow();
-        drive.followTrajectory(prepareForDunkAgain);
+        drive.followTrajectory(prepareForDunk);
         sleep(200);
         robot.getLift().dunk();
         sleep(300);
@@ -146,29 +146,28 @@ public class RightSideAuto extends LinearOpMode {
         this.robot.getClaw().twistDown();
         this.robot.aimSync();
         robot.getLift().slideLow();
-        drive.followTrajectory(prepareForDunkAgain);
+        drive.followTrajectory(prepareForDunk);
         sleep(200);
         robot.getLift().dunk();
-        sleep(300);
+        sleep(400);
         robot.getClaw().open();
         robot.getArm().moveMid();
-        robot.getClaw().twistUp();
         robot.getLift().slideDown();
         robot.getArm().moveMid();
 
         //Park
         switch (parkPosition) {
             case 1:
-                drive.followTrajectory(park3);
-                robot.getArm().moveMid();
-                break;
+            drive.followTrajectory(park2);
+            drive.followTrajectory(park1);
+            robot.getArm().moveMid();
+            break;
             case 2:
-                drive.followTrajectory(park2);
-                robot.getArm().moveMid();
-                break;
+            drive.followTrajectory(park2);
+            robot.getArm().moveMid();
+            break;
             case 3:
-                drive.followTrajectory(park2);
-                drive.followTrajectory(park1);
+                drive.followTrajectory(park3);
                 robot.getArm().moveMid();
                 break;
             default:
