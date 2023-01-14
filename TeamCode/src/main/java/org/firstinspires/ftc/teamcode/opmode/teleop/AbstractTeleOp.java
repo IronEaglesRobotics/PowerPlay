@@ -8,6 +8,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.controller.Controller;
+import org.firstinspires.ftc.teamcode.hardware.Claw;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
@@ -33,6 +34,9 @@ public abstract class AbstractTeleOp extends OpMode {
 
     Pose2d robot_pos;
     double robot_x, robot_y, robot_heading;
+
+    private double timeSinceOpened = 0;
+    private boolean justOpened = false;
 
     @Override
     public void init() {
@@ -207,6 +211,19 @@ public abstract class AbstractTeleOp extends OpMode {
             robot.macroState = 0;
             robot.slides.cancel();
         }
+
+        if (justOpened) {
+            timeSinceOpened = getRuntime();
+            justOpened = false;
+        }
+
+        if (getRuntime() - timeSinceOpened > 0.5) {
+            if (robot.claw.getTriggerDistance() < Claw.triggerDistance) {
+                robot.claw.close();
+                robot.arm.goToMiddle();
+            }
+        }
+
 
         // update and telemetry
         robot.update(getRuntime());

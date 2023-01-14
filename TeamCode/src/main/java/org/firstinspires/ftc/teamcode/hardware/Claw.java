@@ -22,8 +22,9 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
     private boolean isOpen = true;
     private boolean isUpright = true;
 
-    private double timeSinceOpened = 0;
-    private boolean justOpened = false;
+//    private double timeSinceOpened = 0;
+//    private boolean justOpened = false;
+
     public boolean liftArm = false;
 
     public Claw(HardwareMap hardwareMap) {
@@ -66,28 +67,26 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 //            close();
         }
 
-        if (justOpened) {
-            timeSinceOpened = runTime;
-            justOpened = false;
-        }
-
-        if (runTime - timeSinceOpened > 0.5) {
-            if (getTriggerDistance() < triggerDistance) {
-                close();
-                liftArm = true; //TODO make the slides or claw lift up with this
-            }
-        }
+//        if (justOpened) {
+//            timeSinceOpened = runTime;
+//            justOpened = false;
+//        }
+//
+//        if (runTime - timeSinceOpened > 0.5) {
+//            if (getTriggerDistance() < triggerDistance) {
+//                close();
+//                liftArm = true; //TODO make the slides or claw lift up with this
+//            }
+//        }
     }
 
     public void close() {
-//        pincher.setPosition(pincherClosed);
         isOpen = false;
     }
 
     public void open() {
-//        pincher.setPosition(pincherOpen);
         isOpen = true;
-        justOpened = true;
+//        justOpened = true;
     }
 
     public void upright() {

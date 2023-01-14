@@ -14,6 +14,7 @@ public class Arm {
     public static double minPos = 0.04;
     public static double intake = 0.04; // up on joystick
     public static double score = 0.9; // down on joystick
+    public double middlePos = (intake+score)/2;
     public static double manualSpeed = 0.06;
     public static double armOffset = 0;
 
@@ -48,6 +49,10 @@ public class Arm {
 
     public void goToIntake() {
         target = intake;
+    }
+
+    public void goToMiddle() {
+        target = middlePos;
     }
 
     public void update() {
