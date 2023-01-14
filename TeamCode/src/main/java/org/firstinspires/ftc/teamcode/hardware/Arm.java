@@ -18,6 +18,7 @@ public class Arm {
 
     public static double[] presets = new double[]{0.9, 0.73, 0.55};
     public int presetIdx = 0;
+    public boolean usePresets = false;
 
     public static double manualSpeed = 0.06;
     public static double armOffset = 0;
@@ -48,10 +49,20 @@ public class Arm {
     }
 
     public void goToScore() {
-        target = score;
+        target = (usePresets ? presets[presetIdx] : score);
     }
-    public void goToPreset() {
-        target = presets[presetIdx];
+
+    public void usePreset() {
+        usePresets = true;
+    }
+    public void useDefault () {
+        usePresets = false;
+    }
+    public void cyclePreset() {
+        presetIdx++;
+        if (presetIdx >= presets.length) {
+            presetIdx = 0;
+        }
     }
 
     public void goToIntake() {

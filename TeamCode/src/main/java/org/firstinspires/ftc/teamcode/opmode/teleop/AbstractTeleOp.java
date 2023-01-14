@@ -149,6 +149,14 @@ public abstract class AbstractTeleOp extends OpMode {
             Slides.heightOffset -= heightIncrement;
             robot.slides.setTarget(robot.slides.getTarget() - heightIncrement);
         }
+        // change to presets
+        if (driver2.getDRight().isJustPressed()) {
+            robot.arm.usePreset();
+            robot.arm.goToScore();
+        } else if (driver2.getDLeft().isJustPressed()) {
+            robot.arm.cyclePreset();
+            robot.arm.goToScore();
+        }
 
         switch (robot.runningMacro) {
             case(0): // manual mode
