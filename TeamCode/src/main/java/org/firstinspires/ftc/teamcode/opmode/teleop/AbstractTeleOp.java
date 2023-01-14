@@ -202,12 +202,10 @@ public abstract class AbstractTeleOp extends OpMode {
                 }
 
                 if (getRuntime() - timeSinceOpened > 0.5) { // means I am ready to go again
-                    if (robot.claw.getTriggerDistance() < Claw.triggerDistance) {
-                        if (robot.claw.isOpen) {
-                            delayState = 0;
-                            doArmDelay = true;
-                        }
+                    if (robot.claw.isOpen && robot.claw.getTriggerDistance() < Claw.triggerDistance) {
                         robot.claw.close();
+                        delayState = 0;
+                        doArmDelay = true;
                     }
                 }
 
