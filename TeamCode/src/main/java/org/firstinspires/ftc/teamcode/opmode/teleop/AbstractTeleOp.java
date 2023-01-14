@@ -151,7 +151,7 @@ public abstract class AbstractTeleOp extends OpMode {
         }
         // change to presets
         if (driver2.getDRight().isJustPressed()) {
-            robot.arm.usePreset();
+            robot.arm.toggleUsePreset();
             robot.arm.goToScore();
         } else if (driver2.getDLeft().isJustPressed()) {
             robot.arm.cyclePreset();

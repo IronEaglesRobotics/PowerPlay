@@ -52,11 +52,8 @@ public class Arm {
         target = (usePresets ? presets[presetIdx] : score);
     }
 
-    public void usePreset() {
-        usePresets = true;
-    }
-    public void useDefault () {
-        usePresets = false;
+    public void toggleUsePreset() {
+        usePresets = !usePresets;
     }
     public void cyclePreset() {
         presetIdx++;
