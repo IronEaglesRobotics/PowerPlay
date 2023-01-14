@@ -15,12 +15,14 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 
     public static double pincherOpen = 0.4;
     public static double pincherClosed = 0.52;
+    public static double strongPincherClose = 0.55;
     public static double wristUpright = 0.08;
     public static double wristFlipped = 0.75;
     public static double triggerDistance = 30; // mm
 
     public boolean isOpen = true;
     public boolean isUpright = true;
+    public boolean strong = false;
 
 //    private double timeSinceOpened = 0;
     public boolean justOpened = false;
@@ -63,7 +65,7 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
             pincher.setPosition(pincherOpen);
 //            open();
         } else {
-            pincher.setPosition(pincherClosed);
+            pincher.setPosition(strong? strongPincherClose : pincherClosed);
 //            close();
         }
 
@@ -82,6 +84,11 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 
     public void close() {
         isOpen = false;
+        strong = false;
+    }
+    public void strongClose() {
+        isOpen = false;
+        strong = true;
     }
 
     public void open() {

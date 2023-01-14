@@ -15,6 +15,9 @@ public class Arm {
     public static double intake = 0.04; // up on joystick
     public static double score = 0.95; // down on joystick
     public double middlePos = 0.07; //(intake+score)/2;
+
+    public double[] presets = new double[] {};
+
     public static double manualSpeed = 0.06;
     public static double armOffset = 0;
 
