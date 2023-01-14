@@ -13,8 +13,8 @@ public class Arm {
     public static double maxPos = 0.98;
     public static double minPos = 0.04;
     public static double intake = 0.04; // up on joystick
-    public static double score = 0.9; // down on joystick
-    public double middlePos = (intake+score)/2;
+    public static double score = 0.95; // down on joystick
+    public double middlePos = 0.07; //(intake+score)/2;
     public static double manualSpeed = 0.06;
     public static double armOffset = 0;
 
@@ -23,9 +23,9 @@ public class Arm {
 
     public static double speed = 0.03;
 
-    public static double p = 0.08;
-    public static double i = 0.05;
-    public static double d = 0.001;
+    public static double p = 0.1;
+    public static double i = 0.01;
+    public static double d = 0.003;
     public static double f = 0;
     public static double pTolerance = 0.001;
     public static PIDController controller = new PIDController(p, i, d);

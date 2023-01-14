@@ -210,12 +210,19 @@ public abstract class AbstractAuto extends LinearOpMode {
             public void whileRunning() {
                 if (robot.runningMacro != 0) {
                     robot.resetMacro(pos, currentRuntime);
+                } else {
+                    if (robot.claw.getTriggerDistance() < 30) {
+                        robot.claw.close();
+                    } else {
+                        robot.claw.open();
+                    }
                 }
                 robot.drive.update();
             }
 
             @Override
             public void end() {
+                robot.slides.setTarget(Slides.Position.HIGH); // start moving slides
             }
 
             @Override

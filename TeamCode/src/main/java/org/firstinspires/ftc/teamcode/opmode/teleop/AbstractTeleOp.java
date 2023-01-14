@@ -158,12 +158,13 @@ public abstract class AbstractTeleOp extends OpMode {
 //                    robot.claw.close();
 //                }
 
-                if (driver2.getRightBumper().isJustPressed()) {
-                    robot.arm.goToScore();
-                }
-                if (driver2.getLeftBumper().isJustPressed()) {
-                    robot.arm.goToIntake();
-                }
+//                if (driver2.getRightBumper().isJustPressed()) {
+//                    robot.arm.goToScore();
+//                }
+//                if (driver2.getLeftBumper().isJustPressed()) {
+//                    robot.arm.goToIntake();
+//                }
+
                 // retract all the time
                 if (driver2.getLeftStickButton().isJustPressed()) {
                     robot.runningMacro = 4;
@@ -188,10 +189,10 @@ public abstract class AbstractTeleOp extends OpMode {
                         robot.runningMacro = 4;
                     }
                 } else {
-                    if (driver2.getDRight().isJustPressed()) {
+                    if (driver2.getRightBumper().isJustPressed()) {
                         robot.claw.toggle();
                     }
-                    if (driver2.getDLeft().isJustPressed()) {
+                    if (driver2.getLeftBumper().isJustPressed()) {
                         robot.claw.flip();
                     }
                 }
@@ -231,6 +232,7 @@ public abstract class AbstractTeleOp extends OpMode {
                             break;
                     }
                 }
+
                 break;
             case(1):
                 robot.extendMacro(Slides.Position.LOW, getRuntime());

@@ -34,14 +34,14 @@ public class LeftParkAuto extends AbstractAuto {
 
     @Override
     public void makeTrajectories() {
-        Pose2d start = new Pose2d(-36,66, Math.toRadians(0));
+        Pose2d start = new Pose2d(-36,66, Math.toRadians(180));
 
-        Pose2d one1 = new Pose2d(-36,36, Math.toRadians(0));
-        Pose2d one2 = new Pose2d(-12,36, Math.toRadians(0));
+        Pose2d one1 = new Pose2d(-36,36, Math.toRadians(180));
+        Pose2d one2 = new Pose2d(-12,36, Math.toRadians(180));
 
-        Pose2d two1 = new Pose2d(-36,36, Math.toRadians(0));
+        Pose2d two1 = new Pose2d(-36,36, Math.toRadians(180));
 
-        Pose2d three1 = new Pose2d(-36,36, Math.toRadians(0));
+        Pose2d three1 = new Pose2d(-36,36, Math.toRadians(180));
         Pose2d three2 = new Pose2d(-60,36, Math.toRadians(0));
 
         parkOne1 = robot.drive.trajectoryBuilder(start)

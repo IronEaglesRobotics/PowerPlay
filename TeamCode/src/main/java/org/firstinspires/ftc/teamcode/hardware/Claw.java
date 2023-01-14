@@ -17,7 +17,7 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
     public static double pincherClosed = 0.52;
     public static double wristUpright = 0.08;
     public static double wristFlipped = 0.75;
-    public static double triggerDistance = 20; // mm
+    public static double triggerDistance = 30; // mm
 
     public boolean isOpen = true;
     public boolean isUpright = true;
