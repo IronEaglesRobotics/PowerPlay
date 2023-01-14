@@ -194,6 +194,42 @@ public abstract class AbstractTeleOp extends OpMode {
                         robot.claw.flip();
                     }
                 }
+
+
+                if (robot.claw.justOpened) {
+                    timeSinceOpened = getRuntime();
+                    robot.claw.justOpened = false;
+                }
+
+                if (doArmDelay) {
+                    switch (delayState) {
+                        case (0):
+                            delayStart = getRuntime();
+                            delayState++;
+                            break;
+                        case (1):
+                            if (getRuntime() > delayStart + armWait) {
+                                delayState ++;
+                            }
+                            break;
+                        case(2):
+                            delayStart = getRuntime();
+                            robot.arm.goToMiddle();
+                            timeSinceOpened = getRuntime();
+                            doArmDelay = false;
+                            delayState = 0;
+                            break;
+                    }
+                }
+
+                if (getRuntime() - timeSinceOpened > 0.5) {
+                    if (robot.claw.getTriggerDistance() < Claw.triggerDistance) {
+                        robot.claw.close();
+                        doArmDelay = true;
+                    }
+                }
+
+
                 break;
             case(1):
                 robot.extendMacro(Slides.Position.LOW, getRuntime());
@@ -217,36 +253,6 @@ public abstract class AbstractTeleOp extends OpMode {
             robot.slides.cancel();
         }
 
-        if (robot.claw.justOpened) {
-            timeSinceOpened = getRuntime();
-            robot.claw.justOpened = false;
-        }
-
-        if (doArmDelay) {
-            switch (delayState) {
-                case (0):
-                    delayStart = getRuntime();
-                    delayState++;
-                    break;
-                case (1):
-                    if (getRuntime() > delayStart + armWait) {
-                        delayState ++;
-                    }
-                    break;
-                case(2):
-                    delayStart = getRuntime();
-                    robot.arm.goToMiddle();
-                    delayState = 0;
-                    break;
-            }
-        }
-
-        if (getRuntime() - timeSinceOpened > 0.5) {
-            if (robot.claw.getTriggerDistance() < Claw.triggerDistance) {
-                robot.claw.close();
-                doArmDelay = true;
-            }
-        }
 
 
         // update and telemetry
