@@ -23,8 +23,8 @@ public class Slides { // TODO fix the math for different slide motors and less s
 
     public static int heightOffset = 0;
     public static int targetMin = 0;
-    public static int targetMax = 700;
-    public static int highPos = 650 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int targetMax = 770;
+    public static int highPos = 770 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     public static int midPos = 300 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     public static int lowPos = 0 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     private int target = 0;
@@ -88,14 +88,14 @@ public class Slides { // TODO fix the math for different slide motors and less s
 //        midPos = 300 + heightOffset;
 //        lowPos = 0 + heightOffset;
 
-        if (target == 0) {
-            slide.setPower(0);
-            slide2.setPower(0);
-        } else {
-            if (target < 5) {
-                slide.setPower(0);
-                slide2.setPower(0);
-            } else {
+//        if (target == 0) {
+//            slide.setPower(0);
+//            slide2.setPower(0);
+//        } else {
+//            if (target < 5) {
+//                slide.setPower(0);
+//                slide2.setPower(0);
+//            } else {
                 double pid, ff;
                 controller.setPID(p, i, d);
                 controller.setTolerance(pTolerance);
@@ -107,8 +107,8 @@ public class Slides { // TODO fix the math for different slide motors and less s
                 pid = controller.calculate(slide2.getCurrentPosition(), target);
                 ff = f;
                 slide2.setPower(pid + ff);
-            }
-        }
+//            }
+//        }
 
 
 //        controller.setPID(p, i, d);

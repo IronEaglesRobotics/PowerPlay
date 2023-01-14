@@ -10,21 +10,21 @@ public class Arm {
     private Servo pivotRight;
     private Servo pivotLeft;
 
-    public static double maxPos = 0.95;
-    public static double minPos = 0.05;
-    public static double intake = 0.15; // up on joystick
-    public static double score = 0.98; // down on joystick
-    public static double manualSpeed = 0.005;
-    public static double armOffset = -0.006;
+    public static double maxPos = 0.98;
+    public static double minPos = 0.04;
+    public static double intake = 0.04; // up on joystick
+    public static double score = 0.9; // down on joystick
+    public static double manualSpeed = 0.06;
+    public static double armOffset = 0;
 
     private double target = intake;
     private double currentTarget = target;
 
     public static double speed = 0.03;
 
-    public static double p = 0.125;
+    public static double p = 0.08;
     public static double i = 0.05;
-    public static double d = 0;
+    public static double d = 0.001;
     public static double f = 0;
     public static double pTolerance = 0.001;
     public static PIDController controller = new PIDController(p, i, d);

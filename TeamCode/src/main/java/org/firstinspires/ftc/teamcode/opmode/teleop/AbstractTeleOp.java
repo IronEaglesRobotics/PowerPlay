@@ -50,32 +50,32 @@ public abstract class AbstractTeleOp extends OpMode {
         robot.slides.decrementAmount = 90;
     }
 
-    public double[] getJuncPos(int juncNum) {
-        int x_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(0)));
-        int y_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(1)));
-
-        double x_pos = (y_ref * -23.5) + 70.5;
-        double y_pos = (x_ref * -23.5) + 70.5;
-
-        return new double[] {x_pos, y_pos};
-    }
-
-    public boolean isGroundJunc(int juncNum) {
-        int x_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(0)));
-        int y_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(1)));
-
-        return x_ref % 2 != 0 && y_ref % 2 != 0;
-    }
-
-    public int nearestJunc(double posX, double posY) { // robot position
-        int diffJuncX = (int) ((Math.abs(posX) + 11.75) / 23.5);
-        int juncY = (posX < 0? 3 + diffJuncX : 3 - diffJuncX);
-
-        int diffJuncY = (int) ((Math.abs(posY) + 11.75) / 23.5);
-        int juncX = (posY < 0? 3 + diffJuncY : 3 - diffJuncY);
-
-        return Integer.parseInt(String.valueOf(juncX) + String.valueOf(juncY));
-    }
+//    public double[] getJuncPos(int juncNum) {
+//        int x_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(0)));
+//        int y_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(1)));
+//
+//        double x_pos = (y_ref * -23.5) + 70.5;
+//        double y_pos = (x_ref * -23.5) + 70.5;
+//
+//        return new double[] {x_pos, y_pos};
+//    }
+//
+//    public boolean isGroundJunc(int juncNum) {
+//        int x_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(0)));
+//        int y_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(1)));
+//
+//        return x_ref % 2 != 0 && y_ref % 2 != 0;
+//    }
+//
+//    public int nearestJunc(double posX, double posY) { // robot position
+//        int diffJuncX = (int) ((Math.abs(posX) + 11.75) / 23.5);
+//        int juncY = (posX < 0? 3 + diffJuncX : 3 - diffJuncX);
+//
+//        int diffJuncY = (int) ((Math.abs(posY) + 11.75) / 23.5);
+//        int juncX = (posY < 0? 3 + diffJuncY : 3 - diffJuncY);
+//
+//        return Integer.parseInt(String.valueOf(juncX) + String.valueOf(juncY));
+//    }
 
     @Override
     public void loop() {
@@ -91,22 +91,22 @@ public abstract class AbstractTeleOp extends OpMode {
         robot_heading = robot_pos.getHeading(); // in radians
 
 
-        // check if overlapping
-        int nearJunc = nearestJunc(robot_x, robot_y);
-        double juncPosX = getJuncPos(nearJunc)[0];
-        double juncPosY = getJuncPos(nearJunc)[1];
-        double d = Math.sqrt((robot_x - juncPosX) * (robot_x - juncPosX) + (robot_y - juncPosY) * (robot_y - juncPosY));
-        double juncRadius = (isGroundJunc(nearJunc)? groundJuncRadius : coneRadius);
-//        double juncAngle = Math.acos(robot_radius / d); // absolute angle of the junction from robot in radians
-        double juncAngle = Math.atan2(juncPosY - robot_y, juncPosX - robot_x); // absolute angle of the junction from robot in radians
-
-        /** NOTES FOR THIS IF STATEMENT
-         * the below was made with field-centric in mind, which is not correct anymore
-         * need to rethink idea and where I can move, but its important to realize that x and y are roadrunner
-         * x and y, not the cartesian x and y... x is forward and y is sideways
-         * Also include noah's idea for sending a proportional driver instruction sideways or off the junction
-         * dependent on how much the user continues to throttle "into the junction"
-         **/
+//        // check if overlapping
+//        int nearJunc = nearestJunc(robot_x, robot_y);
+//        double juncPosX = getJuncPos(nearJunc)[0];
+//        double juncPosY = getJuncPos(nearJunc)[1];
+//        double d = Math.sqrt((robot_x - juncPosX) * (robot_x - juncPosX) + (robot_y - juncPosY) * (robot_y - juncPosY));
+//        double juncRadius = (isGroundJunc(nearJunc)? groundJuncRadius : coneRadius);
+////        double juncAngle = Math.acos(robot_radius / d); // absolute angle of the junction from robot in radians
+//        double juncAngle = Math.atan2(juncPosY - robot_y, juncPosX - robot_x); // absolute angle of the junction from robot in radians
+//
+//        /** NOTES FOR THIS IF STATEMENT
+//         * the below was made with field-centric in mind, which is not correct anymore
+//         * need to rethink idea and where I can move, but its important to realize that x and y are roadrunner
+//         * x and y, not the cartesian x and y... x is forward and y is sideways
+//         * Also include noah's idea for sending a proportional driver instruction sideways or off the junction
+//         * dependent on how much the user continues to throttle "into the junction"
+//         **/
 //        if (d <= robot_radius + juncRadius) {
 //            // overlapping or touching
 //            double radianDiff = juncAngle - robot_heading;
