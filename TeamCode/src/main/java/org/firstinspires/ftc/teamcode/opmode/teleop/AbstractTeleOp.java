@@ -43,6 +43,7 @@ public abstract class AbstractTeleOp extends OpMode {
     private int delayState = 0; // for arm
     private double delayStart = 0;
     private boolean doArmDelay = false; // for arm
+    private boolean isAutoClose = true;
 
     @Override
     public void init() {
@@ -190,7 +191,8 @@ public abstract class AbstractTeleOp extends OpMode {
                     }
                 } else {
                     if (driver2.getRightBumper().isJustPressed()) {
-                        robot.claw.toggle();
+                        robot.claw.strongToggle();
+                        isAutoClose = false;
                     }
                     if (driver2.getLeftBumper().isJustPressed()) {
                         robot.claw.flip();
@@ -203,8 +205,12 @@ public abstract class AbstractTeleOp extends OpMode {
                 }
 
                 if (getRuntime() - timeSinceOpened > 0.5) { // means I am ready to go again
-                    if (robot.claw.isOpen && robot.claw.getTriggerDistance() < Claw.triggerDistance) {
+                    if (isAutoClose && robot.claw.isOpen && robot.claw.getTriggerDistance() < Claw.triggerDistance) {
                         robot.claw.close();
+                        delayState = 0;
+                        doArmDelay = true;
+                    }
+                    if (!isAutoClose && !robot.claw.isOpen) {
                         delayState = 0;
                         doArmDelay = true;
                     }

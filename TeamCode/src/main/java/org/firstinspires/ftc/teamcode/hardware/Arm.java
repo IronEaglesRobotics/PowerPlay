@@ -14,9 +14,10 @@ public class Arm {
     public static double minPos = 0.04;
     public static double intake = 0.04; // up on joystick
     public static double score = 0.95; // down on joystick
-    public double middlePos = 0.07; //(intake+score)/2;
+    public static double middlePos = 0.07; //(intake+score)/2; // TODO currently not correct, rename
 
-    public double[] presets = new double[] {};
+    public static double[] presets = new double[]{0.9, 0.73, 0.55};
+    public int presetIdx = 0;
 
     public static double manualSpeed = 0.06;
     public static double armOffset = 0;
@@ -48,6 +49,9 @@ public class Arm {
 
     public void goToScore() {
         target = score;
+    }
+    public void goToPreset() {
+        target = presets[presetIdx];
     }
 
     public void goToIntake() {

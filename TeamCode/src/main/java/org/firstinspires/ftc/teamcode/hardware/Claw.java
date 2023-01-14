@@ -49,6 +49,13 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
             open();
         }
     }
+    public void strongToggle() {
+        if (isOpen) {
+            strongClose();
+        } else {
+            open();
+        }
+    }
 
     public void flip() {
         isUpright = !isUpright;
