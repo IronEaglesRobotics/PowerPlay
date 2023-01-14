@@ -32,11 +32,16 @@ public abstract class AbstractTeleOp extends OpMode {
     public static double groundJuncRadius = 6;
     public static double coneRadius = 4;
 
+    public static double armWait = 0.2;
+
     Pose2d robot_pos;
     double robot_x, robot_y, robot_heading;
 
-    private double timeSinceOpened = 0;
-    private boolean justOpened = false;
+    private double timeSinceOpened = 0; // for claw
+
+    private int delayState = 0; // for arm
+    private double delayStart = 0;
+    private boolean doArmDelay = false; // for arm
 
     @Override
     public void init() {
@@ -212,15 +217,34 @@ public abstract class AbstractTeleOp extends OpMode {
             robot.slides.cancel();
         }
 
-        if (justOpened) {
+        if (robot.claw.justOpened) {
             timeSinceOpened = getRuntime();
-            justOpened = false;
+            robot.claw.justOpened = false;
+        }
+
+        if (doArmDelay) {
+            switch (delayState) {
+                case (0):
+                    delayStart = getRuntime();
+                    delayState++;
+                    break;
+                case (1):
+                    if (getRuntime() > delayStart + armWait) {
+                        delayState ++;
+                    }
+                    break;
+                case(2):
+                    delayStart = getRuntime();
+                    robot.arm.goToMiddle();
+                    delayState = 0;
+                    break;
+            }
         }
 
         if (getRuntime() - timeSinceOpened > 0.5) {
             if (robot.claw.getTriggerDistance() < Claw.triggerDistance) {
                 robot.claw.close();
-                robot.arm.goToMiddle();
+                doArmDelay = true;
             }
         }
 

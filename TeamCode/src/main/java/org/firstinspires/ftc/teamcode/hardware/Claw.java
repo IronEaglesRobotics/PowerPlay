@@ -23,7 +23,7 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
     private boolean isUpright = true;
 
 //    private double timeSinceOpened = 0;
-//    private boolean justOpened = false;
+    public boolean justOpened = false;
 
     public boolean liftArm = false;
 
@@ -86,7 +86,7 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 
     public void open() {
         isOpen = true;
-//        justOpened = true;
+        justOpened = true;
     }
 
     public void upright() {
