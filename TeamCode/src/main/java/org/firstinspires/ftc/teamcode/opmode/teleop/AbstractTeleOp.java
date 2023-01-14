@@ -38,6 +38,7 @@ public abstract class AbstractTeleOp extends OpMode {
     double robot_x, robot_y, robot_heading;
 
     private double timeSinceOpened = 0; // for claw
+    private double timeSinceClosed = 0;
 
     private int delayState = 0; // for arm
     private double delayStart = 0;
@@ -195,6 +196,21 @@ public abstract class AbstractTeleOp extends OpMode {
                     }
                 }
 
+                if (robot.claw.justOpened) {
+                    timeSinceOpened = getRuntime();
+                    robot.claw.justOpened = false;
+                }
+
+                if (getRuntime() - timeSinceOpened > 0.5) { // means I am ready to go again
+                    if (robot.claw.getTriggerDistance() < Claw.triggerDistance) {
+                        if (robot.claw.isOpen) {
+                            delayState = 0;
+                            doArmDelay = true;
+                        }
+                        robot.claw.close();
+                    }
+                }
+
                 if (doArmDelay) {
                     switch (delayState) {
                         case (0):
@@ -208,25 +224,15 @@ public abstract class AbstractTeleOp extends OpMode {
                             break;
                         case(2):
                             doArmDelay = false;
-                            delayState = 0;
+                            delayStart = getRuntime();
+                            delayState = 3;
                             robot.arm.goToMiddle();
+                            break;
+                        case(3):
+                            doArmDelay = false;
                             break;
                     }
                 }
-
-                if (robot.claw.justOpened) {
-                    timeSinceOpened = getRuntime();
-                    robot.claw.justOpened = false;
-                }
-
-                if (getRuntime() - timeSinceOpened > 0.5) { // means I am ready to go again
-                    if (robot.claw.getTriggerDistance() < Claw.triggerDistance) {
-                        robot.claw.close();
-                        doArmDelay = true;
-                    }
-                }
-
-
                 break;
             case(1):
                 robot.extendMacro(Slides.Position.LOW, getRuntime());

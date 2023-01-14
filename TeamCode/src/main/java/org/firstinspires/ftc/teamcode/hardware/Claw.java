@@ -19,8 +19,8 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
     public static double wristFlipped = 0.75;
     public static double triggerDistance = 20; // mm
 
-    private boolean isOpen = true;
-    private boolean isUpright = true;
+    public boolean isOpen = true;
+    public boolean isUpright = true;
 
 //    private double timeSinceOpened = 0;
     public boolean justOpened = false;
