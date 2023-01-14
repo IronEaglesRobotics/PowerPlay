@@ -195,12 +195,6 @@ public abstract class AbstractTeleOp extends OpMode {
                     }
                 }
 
-
-                if (robot.claw.justOpened) {
-                    timeSinceOpened = getRuntime();
-                    robot.claw.justOpened = false;
-                }
-
                 if (doArmDelay) {
                     switch (delayState) {
                         case (0):
@@ -213,16 +207,19 @@ public abstract class AbstractTeleOp extends OpMode {
                             }
                             break;
                         case(2):
-                            delayStart = getRuntime();
-                            robot.arm.goToMiddle();
-                            timeSinceOpened = getRuntime();
                             doArmDelay = false;
                             delayState = 0;
+                            robot.arm.goToMiddle();
                             break;
                     }
                 }
 
-                if (getRuntime() - timeSinceOpened > 0.5) {
+                if (robot.claw.justOpened) {
+                    timeSinceOpened = getRuntime();
+                    robot.claw.justOpened = false;
+                }
+
+                if (getRuntime() - timeSinceOpened > 0.5) { // means I am ready to go again
                     if (robot.claw.getTriggerDistance() < Claw.triggerDistance) {
                         robot.claw.close();
                         doArmDelay = true;
