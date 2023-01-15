@@ -16,7 +16,7 @@ public class Arm {
     public static double score = 0.95; // down on joystick
     public static double middlePos = 0.07; //(intake+score)/2; // TODO currently not correct, rename
 
-    public static double[] presets = new double[]{0.9, 0.73, 0.55};
+    public static double[] presets = new double[]{0.92, 0.9, 0.85};
     public int presetIdx = 0;
     public boolean usePresets = false;
 
@@ -28,7 +28,7 @@ public class Arm {
 
     public static double speed = 0.03;
 
-    public static double p = 0.1;
+    public static double p = 0.15;
     public static double i = 0.01;
     public static double d = 0.003;
     public static double f = 0;

@@ -14,7 +14,7 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
     private RevColorSensorV3 sensor;
 
     public static double pincherOpen = 0.4;
-    public static double pincherClosed = 0.52;
+    public static double pincherClosed = 0.53;
     public static double strongPincherClose = 0.55;
     public static double wristUpright = 0.08;
     public static double wristFlipped = 0.75;

@@ -11,10 +11,10 @@ public class Slides { // TODO fix the math for different slide motors and less s
     private DcMotor slide;
     private DcMotor slide2;
 
-    public static double p = 0.0015;
+    public static double p = 0.0012;
     public static double i = 0.02;
     public static double d = 0;
-    public static double f = 0.05;
+    public static double f = 0.03;
     public static double pTolerance = 20;
     public static PIDController controller = new PIDController(p, i, d);
     public static double downMultiplier = 0.5;
