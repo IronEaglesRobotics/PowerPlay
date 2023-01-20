@@ -25,21 +25,21 @@ public class Robot {
     public static double hslideWait = 0.4;
 
 
-    public Robot(HardwareMap hardwareMap) {
+    public Robot(HardwareMap hardwareMap, Arm.Position armPos) {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap);
-        arm = new Arm(hardwareMap);
+        arm = new Arm(hardwareMap, armPos);
         camEnabled = false;
     }
 
-    public Robot(HardwareMap hardwareMap, CameraPosition cameraPosition) {
+    public Robot(HardwareMap hardwareMap, Arm.Position armPos, CameraPosition cameraPosition) {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap);
-        arm = new Arm(hardwareMap);
+        arm = new Arm(hardwareMap, armPos);
         camera = new Camera(cameraPosition);
         camera.init(hardwareMap);
         camEnabled = true;

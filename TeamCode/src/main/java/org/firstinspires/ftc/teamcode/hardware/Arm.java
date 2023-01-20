@@ -7,6 +7,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class Arm {
+
+    public enum Position {
+        INTAKE, SCORE
+    }
+
     private Servo pivotRight;
     private Servo pivotLeft;
 
@@ -36,11 +41,15 @@ public class Arm {
     public static PIDController controller = new PIDController(p, i, d);
 
 
-    public Arm(HardwareMap hardwareMap) {
+    public Arm(HardwareMap hardwareMap, Position pos) {
         pivotRight = hardwareMap.get(Servo.class, "pivotRight");
         pivotLeft = hardwareMap.get(Servo.class, "pivotLeft");
 
-        goToIntake();
+        if (pos == Position.SCORE) {
+            goToScore();
+        } else {
+            goToIntake();
+        }
     }
 
     public void increaseTarget(double increase) {

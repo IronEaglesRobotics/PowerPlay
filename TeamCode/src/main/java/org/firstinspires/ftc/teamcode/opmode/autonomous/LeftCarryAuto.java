@@ -214,22 +214,22 @@ public class LeftCarryAuto extends AbstractAuto {
         followTrajectory(startScore);
         followTrajectory(startScore2);
         followTrajectory(startScore3);
-//        followAndExtend(startScore3, Slides.Position.HIGH);
-//
-//        followAndReset(load1, heights[4]);
-//        followAndExtend(score1, Slides.Position.HIGH);
-//
-//        followAndReset(load2, heights[3]);
-//        followAndExtend(score2, Slides.Position.HIGH);
-//
-//        followAndReset(load3, heights[2]);
-//        followAndExtend(score3, Slides.Position.HIGH);
-//
-//        followAndReset(load4, heights[1]);
-//        followAndExtend(score4, Slides.Position.HIGH);
+        followAndExtend(startScore3, Slides.Position.HIGH);
 
-//        followAndReset(load5, heights[0]);
-//        followAndExtend(score5, Slides.Position.HIGH);
+        followAndReset(load1, heights[4]);
+        followAndExtend(score1, Slides.Position.HIGH);
+
+        followAndReset(load2, heights[3]);
+        followAndExtend(score2, Slides.Position.HIGH);
+
+        followAndReset(load3, heights[2]);
+        followAndExtend(score3, Slides.Position.HIGH);
+
+        followAndReset(load4, heights[1]);
+        followAndExtend(score4, Slides.Position.HIGH);
+
+        followAndReset(load5, heights[0]);
+        followAndExtend(score5, Slides.Position.HIGH);
 
         switch (location) {
             case 1:

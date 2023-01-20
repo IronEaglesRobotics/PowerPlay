@@ -49,34 +49,34 @@ public class RightCarryAuto extends AbstractAuto {
     @Override
     public void makeTrajectories() {
 
-        Pose2d start = new Pose2d(-30.5,63.8, Math.toRadians(90));//30.5
-        Pose2d start2 = new Pose2d(-36,24, Math.toRadians(90));
-        Pose2d score = new Pose2d(-31.5,3.5,Math.toRadians(-45));
+        Pose2d start = new Pose2d(-30.5,63.8,Math.toRadians(-90));//30.5
+        Pose2d start2 = new Pose2d(-36,18,Math.toRadians(-90));
+        Pose2d score = new Pose2d(-26,7,Math.toRadians(-45));
 
-        Pose2d sLoad1 = new Pose2d(-42, 11+0.0, Math.toRadians(0));
-        Pose2d sLoad2 = new Pose2d(-42, 11+0.0, Math.toRadians(0));
-        Pose2d sLoad3 = new Pose2d(-42, 11+0.0, Math.toRadians(0));
-        Pose2d sLoad4 = new Pose2d(-42, 11+0.0, Math.toRadians(0));
-        Pose2d sLoad5 = new Pose2d(-42, 11+0.0, Math.toRadians(0));
-        Pose2d lLoad1 = new Pose2d(-63,11+0.0,Math.toRadians(0));
-        Pose2d lLoad2 = new Pose2d(-63,11+0.0,Math.toRadians(0));
-        Pose2d lLoad3 = new Pose2d(-63,11+0.0,Math.toRadians(0));
-        Pose2d lLoad4 = new Pose2d(-63,11.0,Math.toRadians(0));
-        Pose2d lLoad5 = new Pose2d(-63,11+0.0,Math.toRadians(0));
+        Pose2d sLoad1 = new Pose2d(-42,12,Math.toRadians(0));
+        Pose2d sLoad2 = new Pose2d(-42,12,Math.toRadians(0));
+        Pose2d sLoad3 = new Pose2d(-42,12,Math.toRadians(0));
+        Pose2d sLoad4 = new Pose2d(-42,12,Math.toRadians(0));
+        Pose2d sLoad5 = new Pose2d(-42,12,Math.toRadians(0));
+        Pose2d lLoad1 = new Pose2d(-56,12,Math.toRadians(0));
+        Pose2d lLoad2 = new Pose2d(-56,12,Math.toRadians(0));
+        Pose2d lLoad3 = new Pose2d(-56,12,Math.toRadians(0));
+        Pose2d lLoad4 = new Pose2d(-56,12,Math.toRadians(0));
+        Pose2d lLoad5 = new Pose2d(-56,12,Math.toRadians(0));
 
-        Pose2d lScore1 = new Pose2d(-42,11.0+0.0,Math.toRadians(0));
-        Pose2d lScore2 = new Pose2d(-42,11.0+0.0,Math.toRadians(0));
-        Pose2d lScore3 = new Pose2d(-42,11.0+0.0,Math.toRadians(0));
-        Pose2d lScore4 = new Pose2d(-42,11.0+0.0,Math.toRadians(0));
-        Pose2d lScore5 = new Pose2d(-42,11.0+0.0,Math.toRadians(0));
-        Pose2d sScore1 = new Pose2d(-31.5,3.5,Math.toRadians(-45));
-        Pose2d sScore2 = new Pose2d(-31.5,3.5,Math.toRadians(-45));
-        Pose2d sScore3 = new Pose2d(-31.5,3.5,Math.toRadians(-45));
-        Pose2d sScore4 = new Pose2d(-31.5,3.5,Math.toRadians(-45));
-        Pose2d sScore5 = new Pose2d(-31.5,3.5,Math.toRadians(-45));
+        Pose2d lScore1 = new Pose2d(-42,12.0,Math.toRadians(0));
+        Pose2d lScore2 = new Pose2d(-42,12.0,Math.toRadians(0));
+        Pose2d lScore3 = new Pose2d(-42,12.0,Math.toRadians(0));
+        Pose2d lScore4 = new Pose2d(-42,12.0,Math.toRadians(0));
+        Pose2d lScore5 = new Pose2d(-42,12.0,Math.toRadians(0));
+        Pose2d sScore1 = new Pose2d(-26.0,7.0,Math.toRadians(-45));
+        Pose2d sScore2 = new Pose2d(-26.0,7.0,Math.toRadians(-45));
+        Pose2d sScore3 = new Pose2d(-26.0,7.0,Math.toRadians(-45));
+        Pose2d sScore4 = new Pose2d(-26.0,7.0,Math.toRadians(-45));
+        Pose2d sScore5 = new Pose2d(-26.0,7.0,Math.toRadians(-45));
 
 //        Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(90));
-        Pose2d lPark1 = new Pose2d(-10,12, Math.toRadians(-90));
+        Pose2d lPark1 = new Pose2d(-12,12, Math.toRadians(-90));
 
         Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(-90));
         Pose2d lPark2 = new Pose2d(-36,30, Math.toRadians(-90));
@@ -214,8 +214,8 @@ public class RightCarryAuto extends AbstractAuto {
         followAndReset(load4, heights[1]);
         followAndExtend(score4, Slides.Position.HIGH);
 
-//        followAndReset(load5, heights[0]);
-//        followAndExtend(score5, Slides.Position.HIGH);
+        followAndReset(load5, heights[0]);
+        followAndExtend(score5, Slides.Position.HIGH);
 
         switch (location) {
             case 1:

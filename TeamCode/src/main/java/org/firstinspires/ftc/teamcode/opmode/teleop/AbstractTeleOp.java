@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.RED;
 
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.hardware.Claw;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
+import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
 @Config
 public abstract class AbstractTeleOp extends OpMode {
@@ -47,7 +49,7 @@ public abstract class AbstractTeleOp extends OpMode {
 
     @Override
     public void init() {
-        robot =  new Robot(hardwareMap);
+        robot =  new Robot(hardwareMap, INTAKE, CameraPosition.RIGHT);
         driver1 = new Controller(gamepad1);
         driver2 = new Controller(gamepad2);
         if (alliance == RED) {
@@ -59,6 +61,18 @@ public abstract class AbstractTeleOp extends OpMode {
         }
 
         robot.slides.decrementAmount = 90;
+    }
+
+    @Override
+    public void init_loop() {
+        if (robot.camera.getFrameCount() < 1) {
+            telemetry.addLine("Initializing Robot...");
+        } else {
+            telemetry.addLine("Initialized");
+
+        }
+        telemetry.addLine(robot.getTelemetry());
+        telemetry.update();
     }
 
 //    public double[] getJuncPos(int juncNum) {
