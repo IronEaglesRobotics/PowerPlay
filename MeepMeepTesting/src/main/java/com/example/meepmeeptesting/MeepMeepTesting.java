@@ -28,41 +28,12 @@ public class MeepMeepTesting {
                 .setStartPose(startOP)
                 .followTrajectorySequence(drive -> {
                             return drive.trajectorySequenceBuilder(startOP)
-
-                                    //five cone
-//                                    .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
-//                                    .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
-//                                    .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
-//                                    .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
-//                                    .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
-//                                    .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
-//                                    .lineToSplineHeading(new Pose2d(56, -12, Math.toRadians(180)))
-//                                    .lineToSplineHeading(new Pose2d(30, -16, Math.toRadians(225)))
-//                                    .lineToSplineHeading(new Pose2d(36, -12, Math.toRadians(180)))
-//                                    .lineToSplineHeading(new Pose2d(12, -12, Math.toRadians(180)))
-
-                                    //test
-
-//                                    .forward(60)
-//                                    .back(6)
-//                                    .setReversed(true)
-//                                    .lineToSplineHeading(new Pose2d(-34, -12, Math.toRadians(135)))
-//                                    .setReversed(false)
-//                                    .splineTo(new Vector2d(-34.00001, -12), Math.toRadians(180))
-//                                    .splineTo(new Vector2d(-52, -12), Math.toRadians(180))
-
-                                    .forward(54)
+                                    .forward(47)
+                                    .turn(Math.toRadians(45))
+                                    .lineToSplineHeading(new Pose2d(-54.5, -13, Math.toRadians(155)))
+                                    .lineToSplineHeading(new Pose2d(-57.5, -16, Math.toRadians(147)))
 
 
-////                                    .turn(Math.toRadians(-45))
-////                                    .back(6)
-
-//                                    .splineTo(new Vector2d(40,-12), Math.toRadians(0))
-//                                    .lineToSplineHeading(new Pose2d(54, -12, Math.toRadians(0)))
-//                                    .setReversed(true)
-//                                    .lineToSplineHeading(new Pose2d(40, -12, Math.toRadians(0)))
-//                                    .splineTo(new Vector2d(36, -13), Math.toRadians(-135))
-//                                    .setReversed(false)
                                     .build();
                         }
                                 );

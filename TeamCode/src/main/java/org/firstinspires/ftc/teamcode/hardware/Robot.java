@@ -21,6 +21,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLA
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_DUNK;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_JUNC;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_LOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
@@ -377,6 +378,18 @@ public class Robot {
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             this.slide2.setTargetPosition(SLIDE_LOW);
             this.slide2.setPower(SLIDE_POWER_UP);
+
+        }
+
+            public void lowDunk() {
+                this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                this.slide.setTargetPosition(LOW_DUNK);
+                this.slide.setPower(SLIDE_POWER_UP);
+                this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                this.slide2.setTargetPosition(LOW_DUNK);
+                this.slide2.setPower(SLIDE_POWER_UP);
 
         }
         public void slideMed() {

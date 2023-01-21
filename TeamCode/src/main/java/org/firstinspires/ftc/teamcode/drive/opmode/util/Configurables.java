@@ -13,7 +13,9 @@ public class Configurables {
     public static double SLIDE_POWER_UP = 1.0;
     public static int SLIDE_MAX = 3200;
     public static int SLIDE_LOW = 2450;
-//    public static int SLIDE_MED = 3050;
+    public static int LOW_DUNK = 1000;
+
+    //    public static int SLIDE_MED = 3050;
 //    public static int SLIDE_POSITION = 0;
     public static int dunk = 1400;
 //    public static int twoCone = 3050;

@@ -68,10 +68,15 @@ public class MainTeleOp extends OpMode {
             this.robot.getLift().slideUp();
         } else if (gamepad2.dpad_up && !prevUpPressed) {
             this.robot.getLift().slideUp();
+            this.robot.getArm().moveLeft();
         } else if (gamepad2.left_bumper && !prevUpPressed) {
             this.robot.getLift().slideLow();
         } else if (gamepad2.right_bumper && !prevUpPressed) {
             this.robot.getLift().lowJunc();
+        } else if (gamepad2.dpad_down && !prevUpPressed) {
+            this.robot.getLift().slideMed();
+            this.robot.getClaw().open();
+            this.robot.getArm().moveRight();
         } else if (downPressed) {
             this.robot.getLift().slideDown();
         } else if ((prevUpPressed != upPressed) || prevDownPressed) {
