@@ -15,6 +15,8 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUT
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP2;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP3;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP4;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP5;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_AUTO;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
@@ -444,6 +446,28 @@ public class Robot {
             this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             this.slide2.setTargetPosition(AUTO_TOP3);
+            this.slide2.setPower(SLIDE_POWER_UP);
+        }
+
+        public void autoTop4() {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide.setTargetPosition(AUTO_TOP4);
+            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide2.setTargetPosition(AUTO_TOP4);
+            this.slide2.setPower(SLIDE_POWER_UP);
+        }
+
+        public void autoTop5() {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide.setTargetPosition(AUTO_TOP5);
+            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide2.setTargetPosition(AUTO_TOP5);
             this.slide2.setPower(SLIDE_POWER_UP);
         }
 

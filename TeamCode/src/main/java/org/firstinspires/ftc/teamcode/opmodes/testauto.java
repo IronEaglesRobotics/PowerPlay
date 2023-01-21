@@ -32,28 +32,27 @@ public class testauto extends LinearOpMode {
                 .build();
 
         Trajectory medium = drive.trajectoryBuilder(push.end())
-                .lineToSplineHeading(new Pose2d(-35 , -18, Math.toRadians(151)))
+                .lineToSplineHeading(new Pose2d(-35.25 , -16, Math.toRadians(151)))
                 .build();
 
         Trajectory getConeOne = drive.trajectoryBuilder(medium.end())
-                .lineToSplineHeading(new Pose2d(-54.5, -16, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(-53.25, -12, Math.toRadians(180)))
                 .build();
 
         Trajectory goScore = drive.trajectoryBuilder(getConeOne.end())
-                .lineToSplineHeading(new Pose2d(-54.3, -21.5, Math.toRadians(153)))
+                .lineToSplineHeading(new Pose2d(-54, -9.5, Math.toRadians(113)))
                 .build();
 
-        Trajectory low = drive.trajectoryBuilder(goScore.end())
-                .forward(3)
+        Trajectory getConeAgain = drive.trajectoryBuilder(goScore.end())
+                .lineToSplineHeading(new Pose2d(-53.25, -12, Math.toRadians(180)))
                 .build();
 
-        Trajectory cone = drive.trajectoryBuilder(low.end())
-                .back(3)
+        Trajectory park = drive.trajectoryBuilder(getConeAgain.end())
+                .back(48)
                 .build();
 
-        Trajectory low2 = drive.trajectoryBuilder(cone.end())
-                .forward(3)
-                .build();
+        while (!isStarted()) {
+        }
 
         //do stuff
         drive.followTrajectory(push);
@@ -61,42 +60,102 @@ public class testauto extends LinearOpMode {
         robot.getLift().slideMed();
         robot.getArm().moveLeft();
         drive.followTrajectory(medium);
-        robot.getLift().dunk();
-        sleep(300);
-        robot.getClaw().open();
-        robot.getArm().moveMid();
-        drive.followTrajectory(getConeOne);
-        robot.getClaw().twistUp();
-
-        drive.followTrajectory(goScore);
-        robot.getArm().moveRight();
         robot.getLift().autoTop();
-        sleep(500);
-        robot.getClaw().close();
-        sleep(1000);
-        robot.getLift().lowJunc();
-        robot.getArm().moveLeft();
-        robot.getClaw().twistDown();
-        drive.followTrajectory(low);
-        robot.getLift().lowDunk();
-        sleep(1000);
+        sleep(150);
         robot.getClaw().open();
         robot.getArm().moveRight();
         sleep(200);
         robot.getClaw().twistUp();
+        drive.followTrajectory(getConeOne);
 
-        drive.followTrajectory(cone);
-        robot.getLift().autoTop();
-        sleep(500);
+        sleep(150);
         robot.getClaw().close();
-        sleep(1000);
+        sleep(150);
         robot.getLift().lowJunc();
         robot.getArm().moveLeft();
+        sleep(100);
         robot.getClaw().twistDown();
-        drive.followTrajectory(low2);
+        drive.followTrajectory(goScore);
         robot.getLift().lowDunk();
-        sleep(1000);
+        sleep(250);
         robot.getClaw().open();
+        robot.getArm().moveRight();
+        sleep(200);
+        robot.getClaw().twistUp();
+        drive.followTrajectory(getConeAgain);
+
+        robot.getLift().autoTop2();
+        sleep(400);
+        robot.getClaw().close();
+        sleep(150);
+        robot.getLift().lowJunc();
+        robot.getArm().moveLeft();
+        sleep(100);
+        robot.getClaw().twistDown();
+        drive.followTrajectory(goScore);
+        robot.getLift().lowDunk();
+        sleep(150);
+        robot.getClaw().open();
+        robot.getArm().moveRight();
+        sleep(200);
+        robot.getClaw().twistUp();
+        drive.followTrajectory(getConeAgain);
+
+        robot.getLift().autoTop3();
+        sleep(500);
+        robot.getClaw().close();
+        sleep(150);
+        robot.getLift().lowJunc();
+        robot.getArm().moveLeft();
+        sleep(100);
+        robot.getClaw().twistDown();
+        drive.followTrajectory(goScore);
+        robot.getLift().lowDunk();
+        sleep(150);
+        robot.getClaw().open();
+        robot.getArm().moveRight();
+        sleep(200);
+        robot.getClaw().twistUp();
+        drive.followTrajectory(getConeAgain);
+
+        robot.getLift().autoTop4();
+        sleep(650);
+        robot.getClaw().close();
+        sleep(150);
+        robot.getLift().lowJunc();
+        robot.getArm().moveLeft();
+        sleep(100);
+        robot.getClaw().twistDown();
+        drive.followTrajectory(goScore);
+        robot.getLift().lowDunk();
+        sleep(150);
+        robot.getClaw().open();
+        robot.getArm().moveRight();
+        sleep(200);
+        robot.getClaw().twistUp();
+        drive.followTrajectory(getConeAgain);
+
+        robot.getLift().autoTop5();
+        sleep(800);
+        robot.getClaw().close();
+        sleep(150);
+        robot.getLift().lowJunc();
+        robot.getArm().moveLeft();
+        sleep(100);
+        robot.getClaw().twistDown();
+        drive.followTrajectory(goScore);
+        robot.getLift().lowDunk();
+        sleep(150);
+        robot.getClaw().open();
+        robot.getArm().moveMid();
+        robot.getLift().slideDown();
+        drive.followTrajectory(getConeAgain);
+        drive.followTrajectory(park);
+
+
+
+
+
 //
 //        Trajectory park = drive.trajectoryBuilder(getCone.end())
 //                .lineToSplineHeading(new Pose2d(36, -12, Math.toRadians(180)))
