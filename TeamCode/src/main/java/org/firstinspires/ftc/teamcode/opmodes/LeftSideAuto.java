@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
-@Config
 
+@Config
 @Autonomous(name = "LeftSideAuto", group = "Competition", preselectTeleOp = "MainTeleOp")
 public class LeftSideAuto extends LinearOpMode {
     public static int parkPosition = 1;

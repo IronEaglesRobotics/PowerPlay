@@ -158,14 +158,14 @@ public class RightSideAuto extends LinearOpMode {
         //Park
         switch (parkPosition) {
             case 1:
-            drive.followTrajectory(park2);
-            drive.followTrajectory(park1);
-            robot.getArm().moveMid();
-            break;
+                drive.followTrajectory(park2);
+                drive.followTrajectory(park1);
+                robot.getArm().moveMid();
+                break;
             case 2:
-            drive.followTrajectory(park2);
-            robot.getArm().moveMid();
-            break;
+                drive.followTrajectory(park2);
+                robot.getArm().moveMid();
+                break;
             case 3:
                 drive.followTrajectory(park3);
                 robot.getArm().moveMid();

@@ -23,11 +23,11 @@ public class Configurables {
 //    public static int CLEAR = 500;
     public static int STOP = 10;
     public static int LOW_JUNC = 1400;
-    public static int AUTO_TOP = 480;
-    public static int AUTO_TOP2 = 360;
-    public static int AUTO_TOP3 = 280;
-    public static int AUTO_TOP4 = 190;
-    public static int AUTO_TOP5 = 50;
+    public static int AUTO_TOP = 450;
+    public static int AUTO_TOP2 = 290;
+    public static int AUTO_TOP3 = 220;
+    public static int AUTO_TOP4 = 90;
+    public static int AUTO_TOP5 = 20;
     public static int AUTO_TOP6 = 10;
 
     // Claw
