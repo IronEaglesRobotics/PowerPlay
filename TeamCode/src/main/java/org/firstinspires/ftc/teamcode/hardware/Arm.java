@@ -15,10 +15,10 @@ public class Arm {
     private Servo pivotRight;
     private Servo pivotLeft;
 
-    public static double maxPos = 0.98;
-    public static double minPos = 0.04;
-    public static double intake = 0.04; // up on joystick
-    public static double score = 0.95; // down on joystick
+    public static double maxPos = 0.97;
+    public static double minPos = 0.06;
+    public static double intake = 0.06; // up on joystick
+    public static double score = 0.97; // down on joystick
     public static double middlePos = 0.07; //(intake+score)/2; // TODO currently not correct, rename
 
     public static double[] presets = new double[]{0.92, 0.9, 0.85};

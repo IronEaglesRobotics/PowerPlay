@@ -25,8 +25,8 @@ public class Slides { // TODO fix the math for different slide motors and less s
     public static int targetMin = 0;
     public static int targetMax = 770;
     public static int highPos = 770 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
-    public static int midPos = 300 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
-    public static int lowPos = 0 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int midPos = 400 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int lowPos = 75 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     private int target = 0;
 
     public int decrementAmount = 100;
@@ -85,8 +85,8 @@ public class Slides { // TODO fix the math for different slide motors and less s
 
     public void update(double runTime) {
         highPos = 770 + heightOffset;
-        midPos = 300 + heightOffset;
-        lowPos = 0 + heightOffset;
+        midPos = 400 + heightOffset;
+        lowPos = 75 + heightOffset;
 
 //        if (target == 0) {
 //            slide.setPower(0);

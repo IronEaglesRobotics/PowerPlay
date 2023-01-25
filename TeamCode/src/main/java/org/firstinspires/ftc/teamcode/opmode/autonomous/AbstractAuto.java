@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.SCORE;
 
 import android.transition.Slide;
@@ -34,10 +35,9 @@ public abstract class AbstractAuto extends LinearOpMode {
 
         setCameraPosition();
 
-        robot = new Robot(hardwareMap, SCORE, cameraPosition);
+        robot = new Robot(hardwareMap, INTAKE, cameraPosition);
         robot.claw.close();
-        robot.arm.goToScore();
-        robot.claw.flip();
+        robot.claw.upright();
 
         makeTrajectories();
 
