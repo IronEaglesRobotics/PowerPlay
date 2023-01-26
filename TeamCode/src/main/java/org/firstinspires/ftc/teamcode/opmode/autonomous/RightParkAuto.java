@@ -8,8 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
-@Config
-@Autonomous(name = "Right Park Auto", group = "Competition", preselectTeleOp = "Blue TeleOp")
+@Autonomous(name = "Right Park Auto", group = "Right Competition", preselectTeleOp = "Blue TeleOp")
 public class RightParkAuto extends AbstractAuto {
 
     public Trajectory parkOne1;
@@ -34,15 +33,15 @@ public class RightParkAuto extends AbstractAuto {
 
     @Override
     public void makeTrajectories() {
-        Pose2d start = new Pose2d(-36,66, Math.toRadians(0));
+        Pose2d start = new Pose2d(-36,66, Math.toRadians(90));
 
-        Pose2d one1 = new Pose2d(-36,36, Math.toRadians(0));
-        Pose2d one2 = new Pose2d(-12,36, Math.toRadians(0));
+        Pose2d one1 = new Pose2d(-36,36, Math.toRadians(90));
+        Pose2d one2 = new Pose2d(-12,36, Math.toRadians(90));
 
-        Pose2d two1 = new Pose2d(-36,36, Math.toRadians(0));
+        Pose2d two1 = new Pose2d(-36,36, Math.toRadians(90));
 
-        Pose2d three1 = new Pose2d(-36,36, Math.toRadians(0));
-        Pose2d three2 = new Pose2d(-60,36, Math.toRadians(0));
+        Pose2d three1 = new Pose2d(-36,36, Math.toRadians(90));
+        Pose2d three2 = new Pose2d(-60,36, Math.toRadians(90));
 
         parkOne1 = robot.drive.trajectoryBuilder(start)
                 .lineToSplineHeading(one1)
