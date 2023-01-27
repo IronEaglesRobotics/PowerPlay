@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.controller;
 
 import com.acmerobotics.dashboard.config.Config;
 
-@Config
 public class Joystick {
     public static double DEADZONE = 0.05; //small 5% deadzone for the new controlers
     double x = 0;

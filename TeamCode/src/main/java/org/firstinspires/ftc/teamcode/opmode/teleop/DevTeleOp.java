@@ -6,6 +6,7 @@ import static org.firstinspires.ftc.teamcode.opmode.Alliance.RED;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
+@Disabled
 @Config
 @TeleOp
 public class DevTeleOp extends OpMode {

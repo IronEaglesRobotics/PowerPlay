@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
 @Disabled
-@Autonomous(name = "Left Carry Auto", group = "Left Competition", preselectTeleOp = "Blue TeleOp")
+@Autonomous(name = "Left Carry Auto", group = "Left Competition", preselectTeleOp = "Main TeleOp")
 public class LeftCarryAuto extends AbstractAuto {
 
     public Trajectory startScore;

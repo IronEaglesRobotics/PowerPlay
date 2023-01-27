@@ -5,7 +5,6 @@ import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Config
 public class DualServoClaw {
     private Servo left;
     private Servo right;

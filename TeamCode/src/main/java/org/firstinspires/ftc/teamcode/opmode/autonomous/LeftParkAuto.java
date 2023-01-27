@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
-@Autonomous(name = "Left Park Auto", group = "Left Competition", preselectTeleOp = "Blue TeleOp")
+@Autonomous(name = "Left Park Auto", group = "Left Competition", preselectTeleOp = "Main TeleOp")
 public class LeftParkAuto extends AbstractAuto {
 
     public Trajectory parkOne1;

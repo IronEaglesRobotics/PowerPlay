@@ -17,7 +17,6 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 
 import java.util.ArrayList;
 
-@Config
 // Class for the camera
 public class Camera {
     private boolean signalWebcamInitialized;

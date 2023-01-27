@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.util.CameraPosition;
 import java.util.ArrayList;
 import java.util.Locale;
 
-@Config
 public abstract class AbstractAuto extends LinearOpMode {
     public Robot robot;
 

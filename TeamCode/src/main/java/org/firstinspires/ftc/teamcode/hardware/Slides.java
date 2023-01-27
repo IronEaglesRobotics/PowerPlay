@@ -19,7 +19,7 @@ public class Slides { // TODO fix the math for different slide motors and less s
     public static PIDController controller = new PIDController(p, i, d);
     public static double downMultiplier = 0.5;
 
-    public static int[] heights = {0, (int)(200/4.0), 2*(int)(200/4.0), 3*(int)(200/4.0), 4*(int)(200/4)};
+    public static int[] heights = {0, (int)(200/4.0), 2*(int)(200/4.0), 3*(int)(200/4.0), 4*(int)(198/4)};
 
     public static int heightOffset = 0;
     public static int targetMin = 0;

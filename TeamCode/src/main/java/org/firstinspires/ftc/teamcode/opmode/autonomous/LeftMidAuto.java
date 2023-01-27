@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
-@Autonomous(name = "Left Mid 1 + 5", group = "Left Competition", preselectTeleOp = "Blue TeleOp")
+@Autonomous(name = "Left Mid 1 + 5", group = "Left Competition", preselectTeleOp = "Main TeleOp")
 public class LeftMidAuto extends AbstractAuto {
 
     public Trajectory startScore1;
@@ -51,38 +51,42 @@ public class LeftMidAuto extends AbstractAuto {
 
         Pose2d start = new Pose2d(32,63.8,Math.toRadians(90));
         Pose2d start2 = new Pose2d(36,12,Math.toRadians(90));
-        Pose2d score = new Pose2d(29,23.9,Math.toRadians(180));
+        Pose2d score = new Pose2d(29.5,23.9,Math.toRadians(180));
 
-        Pose2d sLoad1 = new Pose2d(42,11,Math.toRadians(180));
-        Pose2d sLoad2 = new Pose2d(42,11,Math.toRadians(180));
-        Pose2d sLoad3 = new Pose2d(42,11.5,Math.toRadians(180));
-        Pose2d sLoad4 = new Pose2d(42,12,Math.toRadians(180));
-        Pose2d sLoad5 = new Pose2d(42,12.5,Math.toRadians(180));
-        Pose2d lLoad1 = new Pose2d(57,11,Math.toRadians(180));
-        Pose2d lLoad2 = new Pose2d(57,11,Math.toRadians(180));
-        Pose2d lLoad3 = new Pose2d(57,11.5,Math.toRadians(180));
-        Pose2d lLoad4 = new Pose2d(57,12,Math.toRadians(180));
-        Pose2d lLoad5 = new Pose2d(57,12.5,Math.toRadians(180));
+        Pose2d sLoad1 = new Pose2d(41,10,Math.toRadians(180));
+        Pose2d sLoad2 = new Pose2d(41,10.5,Math.toRadians(180));
+        Pose2d sLoad3 = new Pose2d(41,11,Math.toRadians(180));
+        Pose2d sLoad4 = new Pose2d(41,11.5,Math.toRadians(180));
+        Pose2d sLoad5 = new Pose2d(41,11.8,Math.toRadians(180));
+        Pose2d lLoad1 = new Pose2d(56.5,10,Math.toRadians(180));
+        Pose2d lLoad2 = new Pose2d(56.5,10.5,Math.toRadians(180));
+        Pose2d lLoad3 = new Pose2d(56.5,11,Math.toRadians(180));
+        Pose2d lLoad4 = new Pose2d(56.5,11.5,Math.toRadians(180));
+        Pose2d lLoad5 = new Pose2d(56.5,11.8,Math.toRadians(180));
 
-        Pose2d lScore1 = new Pose2d(42,11.0,Math.toRadians(180));
-        Pose2d lScore2 = new Pose2d(42,11.0,Math.toRadians(180));
-        Pose2d lScore3 = new Pose2d(42,11.5,Math.toRadians(180));
-        Pose2d lScore4 = new Pose2d(42,12.0,Math.toRadians(180));
-        Pose2d lScore5 = new Pose2d(42,12.5,Math.toRadians(180));
+        Pose2d lScore1 = new Pose2d(42,10,Math.toRadians(180));
+        Pose2d lScore2 = new Pose2d(42,10.5,Math.toRadians(180));
+        Pose2d lScore3 = new Pose2d(42,11,Math.toRadians(180));
+        Pose2d lScore4 = new Pose2d(42,11.5,Math.toRadians(180));
+        Pose2d lScore5 = new Pose2d(42,11.8,Math.toRadians(180));
         Pose2d sScore1 = new Pose2d(29.0,25.1,Math.toRadians(180));
         Pose2d sScore2 = new Pose2d(29.0,26.0,Math.toRadians(180));
-        Pose2d sScore3 = new Pose2d(29.0,26.7,Math.toRadians(180));
-        Pose2d sScore4 = new Pose2d(29.0,27.5,Math.toRadians(180));
-        Pose2d sScore5 = new Pose2d(29.0,28.3,Math.toRadians(180));
+        Pose2d sScore3 = new Pose2d(28.8,26.4,Math.toRadians(180));
+        Pose2d sScore4 = new Pose2d(28.4,26.7,Math.toRadians(180));
+        Pose2d sScore5 = new Pose2d(28.2,27.4,Math.toRadians(180));
 
 //        Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(90));
-        Pose2d lPark1 = new Pose2d(29,31, Math.toRadians(180));
-        Pose2d sPark1 = new Pose2d(8,43, Math.toRadians(180));
+        Pose2d sPark1 = new Pose2d(42, 38, Math.toRadians(180));
+        Pose2d lPark1 = new Pose2d(55,38,Math.toRadians(180));
+//        Pose2d lPark1 = new Pose2d(29,31, Math.toRadians(180));
+//        Pose2d sPark1 = new Pose2d(8,43, Math.toRadians(180));
 
-        Pose2d lPark2 = new Pose2d(30,40, Math.toRadians(180));
+        Pose2d lPark2 = new Pose2d(30,38, Math.toRadians(180));
 
-        Pose2d sPark3 = new Pose2d(42, 40, Math.toRadians(180));
-        Pose2d lPark3 = new Pose2d(57,40,Math.toRadians(180));
+        Pose2d lPark3 = new Pose2d(28.2,32, Math.toRadians(180));
+        Pose2d sPark3 = new Pose2d(7,38, Math.toRadians(180));
+//        Pose2d sPark3 = new Pose2d(42, 40, Math.toRadians(180));
+//        Pose2d lPark3 = new Pose2d(57,40,Math.toRadians(180));
 
         startScore1 = robot.drive.trajectoryBuilder(start)
                 .lineToSplineHeading(start2)
@@ -138,8 +142,10 @@ public class LeftMidAuto extends AbstractAuto {
                 .build();
 
         park1 = robot.drive.trajectoryBuilder(score5.end(), true)
-                .lineToSplineHeading(lPark1)
-                .splineToSplineHeading(sPark1, Math.toRadians(180))
+                .splineToLinearHeading(sPark1, Math.toRadians(0))
+                .lineToLinearHeading(lPark1)
+//                .lineToSplineHeading(lPark1)
+//                .splineToSplineHeading(sPark1, Math.toRadians(180))
                 .build();
 
         park2 = robot.drive.trajectoryBuilder(score5.end(), true)
@@ -147,8 +153,10 @@ public class LeftMidAuto extends AbstractAuto {
                 .build();
 
         park3 = robot.drive.trajectoryBuilder(score5.end(), true)
-                .splineToLinearHeading(sPark3, Math.toRadians(0))
-                .lineToLinearHeading(lPark3)
+                .lineToSplineHeading(lPark3)
+                .splineToSplineHeading(sPark3, Math.toRadians(180))
+//                .splineToLinearHeading(sPark3, Math.toRadians(0))
+//                .lineToLinearHeading(lPark3)
                 .build();
 
         robot.drive.setPoseEstimate(start);

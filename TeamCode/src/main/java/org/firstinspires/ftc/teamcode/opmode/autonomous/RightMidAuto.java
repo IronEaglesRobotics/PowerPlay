@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
-@Autonomous(name = "Right Mid 1 + 5", group = "Right Competition", preselectTeleOp = "Blue TeleOp")
+@Autonomous(name = "Right Mid 1 + 5", group = "Right Competition", preselectTeleOp = "Main TeleOp")
 public class RightMidAuto extends AbstractAuto {
 
     public Trajectory startScore1;

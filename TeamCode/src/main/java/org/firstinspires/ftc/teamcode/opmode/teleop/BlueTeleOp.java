@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
 
-@TeleOp(name = "Blue TeleOp", group = "Competition")
+@TeleOp(name = "Main TeleOp", group = "Competition")
 public class BlueTeleOp extends AbstractTeleOp{
 //public class BlueTeleOp extends ClawTeleOp{
     public BlueTeleOp() {
