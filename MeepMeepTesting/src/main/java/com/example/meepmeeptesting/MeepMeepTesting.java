@@ -19,7 +19,8 @@ public class MeepMeepTesting {
 //                .addEntity(optimizationTesting.passthroughBot)
 //                .addEntity(optimizationTesting.driftBot)
 //            .addEntity(autoPaths.blueCarryBot)
-                .addEntity(autoPaths.blueMidBot)
+                .addEntity(autoPaths.redMidBot)
+                .addEntity(autoPaths.redMidBot2)
 //            .addEntity(autoPaths.redCarryBot)
 
                 .start();

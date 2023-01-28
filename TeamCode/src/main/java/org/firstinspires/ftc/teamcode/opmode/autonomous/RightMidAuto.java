@@ -69,15 +69,15 @@ public class RightMidAuto extends AbstractAuto {
         Pose2d lScore3 = new Pose2d(-42,11.5,Math.toRadians(0));
         Pose2d lScore4 = new Pose2d(-42,12.0,Math.toRadians(0));
         Pose2d lScore5 = new Pose2d(-42,12.5,Math.toRadians(0));
-        Pose2d sScore1 = new Pose2d(-29.0,25.1,Math.toRadians(0));
-        Pose2d sScore2 = new Pose2d(-29.0,26.0,Math.toRadians(0));
-        Pose2d sScore3 = new Pose2d(-29.0,26.7,Math.toRadians(0));
-        Pose2d sScore4 = new Pose2d(-29.0,27.5,Math.toRadians(0));
-        Pose2d sScore5 = new Pose2d(-29.0,28.3,Math.toRadians(0));
+        Pose2d sScore1 = new Pose2d(-28.4,25.1,Math.toRadians(0));
+        Pose2d sScore2 = new Pose2d(-28.4,26.0,Math.toRadians(0));
+        Pose2d sScore3 = new Pose2d(-28.4,26.7,Math.toRadians(0));
+        Pose2d sScore4 = new Pose2d(-28.8,27.5,Math.toRadians(0));
+        Pose2d sScore5 = new Pose2d(-28.6,28.4,Math.toRadians(0));
 
 //        Pose2d sPark2 = new Pose2d(-36,24, Math.toRadians(90));
         Pose2d lPark1 = new Pose2d(-29,31, Math.toRadians(0));
-        Pose2d sPark1 = new Pose2d(-8,43, Math.toRadians(0));
+        Pose2d sPark1 = new Pose2d(-8,40, Math.toRadians(0));
 
         Pose2d lPark2 = new Pose2d(-30,40, Math.toRadians(0));
 

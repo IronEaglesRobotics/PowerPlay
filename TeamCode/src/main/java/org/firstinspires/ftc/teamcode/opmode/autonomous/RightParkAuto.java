@@ -35,13 +35,13 @@ public class RightParkAuto extends AbstractAuto {
     public void makeTrajectories() {
         Pose2d start = new Pose2d(-36,66, Math.toRadians(90));
 
-        Pose2d one1 = new Pose2d(-36,36, Math.toRadians(90));
-        Pose2d one2 = new Pose2d(-12,36, Math.toRadians(90));
+        Pose2d one1 = new Pose2d(-36,40, Math.toRadians(90));
+        Pose2d one2 = new Pose2d(-10,40, Math.toRadians(90));
 
-        Pose2d two1 = new Pose2d(-36,36, Math.toRadians(90));
+        Pose2d two1 = new Pose2d(-36,40, Math.toRadians(90));
 
-        Pose2d three1 = new Pose2d(-36,36, Math.toRadians(90));
-        Pose2d three2 = new Pose2d(-60,36, Math.toRadians(90));
+        Pose2d three1 = new Pose2d(-36,40, Math.toRadians(90));
+        Pose2d three2 = new Pose2d(-62,40, Math.toRadians(90));
 
         parkOne1 = robot.drive.trajectoryBuilder(start)
                 .lineToSplineHeading(one1)
