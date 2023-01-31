@@ -194,10 +194,10 @@ public abstract class AbstractTeleOp extends OpMode {
                 }
 
                 // to cancel macro and allow manual movement
-                if (driver2.getLeftStick().getY() > 0.05 || driver2.getRightStick().getY() > 0.05) {
-                    robot.runningMacro = 0;
-                    robot.lastMacro = 0;
-                }
+//                if (driver2.getLeftStick().getY() > 0.05 || driver2.getRightStick().getY() > 0.05) {
+//                    robot.runningMacro = 0;
+//                    robot.lastMacro = 0;
+//                }
 
                 if (driver2.getX().isJustPressed()) { // high position [closed, bring up, bring out]
                     robot.runningMacro = 3;
@@ -251,13 +251,13 @@ public abstract class AbstractTeleOp extends OpMode {
                             break;
                         case(2):
                             doArmDelay = false;
-                            delayStart = getRuntime();
+//                            delayStart = getRuntime();
                             delayState = 3;
                             robot.arm.goToMiddle();
                             break;
-                        case(3):
-                            doArmDelay = false;
-                            break;
+//                        case(3):
+//                            doArmDelay = false;
+//                            break;
                     }
                 }
 
