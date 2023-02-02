@@ -1,19 +1,5 @@
 package org.firstinspires.ftc.teamcode.vision;
 
-import org.firstinspires.ftc.teamcode.util.BarcodeLocation;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
-import org.openftc.apriltag.AprilTagDetection;
-import org.openftc.apriltag.AprilTagDetectorJNI;
-import org.openftc.easyopencv.OpenCvPipeline;
-
-import java.util.ArrayList;
-
 import static org.firstinspires.ftc.teamcode.util.BarcodeLocation.LEFT;
 import static org.firstinspires.ftc.teamcode.util.BarcodeLocation.MIDDLE;
 import static org.firstinspires.ftc.teamcode.util.BarcodeLocation.RIGHT;
@@ -27,6 +13,18 @@ import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.LEFT_BOUNDARY;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.RIGHT_BOUNDARY;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.YELLOW_LOWER;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.YELLOW_UPPER;
+
+import org.firstinspires.ftc.teamcode.util.BarcodeLocation;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+import org.openftc.easyopencv.OpenCvPipeline;
+
+import java.util.ArrayList;
 
 // Class for the pipeline that is used to detect the StarterStack
 // This one uses the traditional open cv color matching method

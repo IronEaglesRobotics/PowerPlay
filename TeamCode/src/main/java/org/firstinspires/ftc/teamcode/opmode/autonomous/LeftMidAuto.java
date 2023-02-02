@@ -64,11 +64,11 @@ public class LeftMidAuto extends AbstractAuto {
         Pose2d lLoad4 = new Pose2d(56.5,11.5,Math.toRadians(180));
         Pose2d lLoad5 = new Pose2d(56.5,11.8,Math.toRadians(180));
 
-        Pose2d lScore1 = new Pose2d(42,10,Math.toRadians(180));
-        Pose2d lScore2 = new Pose2d(42,10.5,Math.toRadians(180));
-        Pose2d lScore3 = new Pose2d(42,11,Math.toRadians(180));
-        Pose2d lScore4 = new Pose2d(42,11.5,Math.toRadians(180));
-        Pose2d lScore5 = new Pose2d(42,11.8,Math.toRadians(180));
+        Pose2d lScore1 = new Pose2d(45,10,Math.toRadians(180));
+        Pose2d lScore2 = new Pose2d(45,10.5,Math.toRadians(180));
+        Pose2d lScore3 = new Pose2d(45,11,Math.toRadians(180));
+        Pose2d lScore4 = new Pose2d(45,11.5,Math.toRadians(180));
+        Pose2d lScore5 = new Pose2d(45,11.8,Math.toRadians(180));
         Pose2d sScore1 = new Pose2d(29.0,24.9,Math.toRadians(180));
         Pose2d sScore2 = new Pose2d(29.0,26.1,Math.toRadians(180));
         Pose2d sScore3 = new Pose2d(28.8,26.4,Math.toRadians(180));
