@@ -5,6 +5,10 @@ public class Color {
     public double s;
     public double v;
 
+    public Color(double[] hsv) {
+        this(hsv[0], hsv[1], hsv[2]);
+    }
+
     public Color(double h, double s, double v) {
         this.h = h;
         this.s = s;
@@ -27,4 +31,7 @@ public class Color {
         return v;
     }
 
+    public String toString() {
+        return String.format("h: %.1f, s: %.1f, v: %.1f", this.h, this.s, this.v);
+    }
 }

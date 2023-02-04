@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode.vision;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
+import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -15,10 +17,15 @@ import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.drawPoint;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.fillConvexHull;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.getCenterOfContour;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 // Class for a Detection using opencv color matching
 public class  Detection {
-    private double minAreaPx;
-    private double maxAreaPx;
+    private final double minAreaPx;
+    private final double maxAreaPx;
     private final Size maxSizePx;
     private double areaPx =  INVALID_AREA;
     private Point centerPx = INVALID_POINT;
@@ -41,7 +48,7 @@ public class  Detection {
     public void draw(Mat img, Scalar color) {
         if (isValid()) {
             drawConvexHull(img, contour, color);
-            drawPoint(img, centerPx, GREEN);
+            drawPoint(img, centerPx, GREEN, 3);
         }
     }
 
@@ -49,7 +56,7 @@ public class  Detection {
     public void fill(Mat img, Scalar color) {
         if (isValid()) {
             fillConvexHull(img, contour, color);
-            drawPoint(img, centerPx, GREEN);
+            drawPoint(img, centerPx, GREEN, 3);
         }
     }
 
@@ -106,5 +113,40 @@ public class  Detection {
     // Get the area of the Detection
     public double getAreaPx() {
         return areaPx;
+    }
+
+    public void drawAngledRect(Mat img, Scalar color, boolean fill) {
+        if (isValid()) {
+            OpenCVUtil.drawAngledRect(img, contour, color, fill);
+        }
+    }
+
+    private List<Point> getSsortedAngledRectVertices() {
+        RotatedRect rect = Imgproc.minAreaRect(new MatOfPoint2f(contour.toArray()));
+        Point[] vertices = new Point[4];
+        rect.points(vertices);
+        return Arrays.stream(vertices).sorted(Comparator.comparingDouble(o -> o.y)).collect(Collectors.toList());
+    }
+
+    public double getWidthOfAngledRect() {
+        List<Point> angledRectVerticies = getSsortedAngledRectVertices();
+
+        double x1 = angledRectVerticies.get(1).x;
+        double x2 = angledRectVerticies.get(0).x;
+        double y1 = angledRectVerticies.get(1).y;
+        double y2 = angledRectVerticies.get(0).y;
+
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    }
+
+    public Point getTopCenterOfAngledRect() {
+        List<Point> angledRectVerticies = getSsortedAngledRectVertices();
+
+        double x1 = angledRectVerticies.get(1).x;
+        double x2 = angledRectVerticies.get(0).x;
+        double y1 = angledRectVerticies.get(1).y;
+        double y2 = angledRectVerticies.get(0).y;
+
+        return new Point((x1 + x2) / 2, (y1 + y2) / 2);
     }
 }

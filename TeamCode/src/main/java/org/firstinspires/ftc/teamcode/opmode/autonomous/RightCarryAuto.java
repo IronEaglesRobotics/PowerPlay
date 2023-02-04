@@ -50,8 +50,8 @@ public class RightCarryAuto extends AbstractAuto {
     @Override
     public void makeTrajectories() {
 
-        Pose2d start = new Pose2d(-30.5,63.8,Math.toRadians(-90));//30.5
-        Pose2d start2 = new Pose2d(-36,18,Math.toRadians(-90));
+        Pose2d start = new Pose2d(-30.5,63.8,Math.toRadians(90));//30.5
+        Pose2d start2 = new Pose2d(-36,18,Math.toRadians(90));
         Pose2d score = new Pose2d(-26,7,Math.toRadians(-45));
 
         Pose2d sLoad1 = new Pose2d(-42,12,Math.toRadians(0));

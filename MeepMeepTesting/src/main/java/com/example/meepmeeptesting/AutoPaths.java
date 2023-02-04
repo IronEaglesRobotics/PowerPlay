@@ -14,8 +14,9 @@ public class AutoPaths {
     Pose2d mid_start = new Pose2d(-30.5,63.8,Math.toRadians(90));
     Pose2d mid_intStart = new Pose2d(-36, 12, Math.toRadians(90));
 
-    Pose2d mid_score = new Pose2d(-32, 24, Math.toRadians(0));
-    Pose2d mid_int = new Pose2d(-42, 12, Math.toRadians(0));
+    Pose2d mid_score = new Pose2d(-35, 24, Math.toRadians(0));
+    Pose2d mid_score_line = new Pose2d(-32, 24, Math.toRadians(0));
+    Pose2d mid_int = new Pose2d(-45, 12, Math.toRadians(0));
     Pose2d mid_load = new Pose2d(-63, 12, Math.toRadians(0));
 
     Pose2d mid_park1 = new Pose2d(-32, 28, Math.toRadians(0));
@@ -224,6 +225,7 @@ public class AutoPaths {
                         .lineToLinearHeading(mid_load)
                         .lineToLinearHeading(mid_int)
                         .splineToLinearHeading(mid_score, Math.toRadians(0))
+                        .lineToLinearHeading(mid_score_line)
 
 //                        .setReversed(true)
 //                        .splineToLinearHeading(mid_int, Math.toRadians(180))
