@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
+import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.RED;
 
@@ -25,7 +26,7 @@ public class ClawTeleOp extends OpMode {
 
     @Override
     public void init() {
-        robot =  new Robot(hardwareMap, INTAKE, CameraPosition.LEFT);
+        robot =  new Robot(hardwareMap, INTAKE, UPRIGHT, CameraPosition.LEFT);
         driver1 = new Controller(gamepad1);
         driver2 = new Controller(gamepad2);
     }

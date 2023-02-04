@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
+import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.FLIPPED;
+import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -25,20 +29,20 @@ public class Robot {
     public static double hslideWait = 0.4;
 
 
-    public Robot(HardwareMap hardwareMap, Arm.Position armPos) {
+    public Robot(HardwareMap hardwareMap) {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
-        claw = new Claw(hardwareMap);
-        arm = new Arm(hardwareMap, armPos);
+        claw = new Claw(hardwareMap, UPRIGHT);
+        arm = new Arm(hardwareMap, INTAKE);
         camEnabled = false;
     }
 
-    public Robot(HardwareMap hardwareMap, Arm.Position armPos, CameraPosition cameraPosition) {
+    public Robot(HardwareMap hardwareMap, Arm.Position armPos, Claw.Position clawPos, CameraPosition cameraPosition) {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
-        claw = new Claw(hardwareMap);
+        claw = new Claw(hardwareMap, clawPos);
         arm = new Arm(hardwareMap, armPos);
         camera = new Camera(cameraPosition);
         camera.init(hardwareMap);

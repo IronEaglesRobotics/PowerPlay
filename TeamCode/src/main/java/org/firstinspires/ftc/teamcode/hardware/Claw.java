@@ -13,6 +13,11 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
     private Servo wrist;
     private RevColorSensorV3 sensor;
 
+    public enum Position {
+        UPRIGHT, FLIPPED
+    }
+
+
     public static double pincherOpen = 0.4;
     public static double pincherClosed = 0.53;
     public static double strongPincherClose = 0.55;
@@ -27,12 +32,18 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 //    private double timeSinceOpened = 0;
     public boolean justOpened = false;
 
-    public Claw(HardwareMap hardwareMap) {
+    public Claw(HardwareMap hardwareMap, Position pos) {
         pincher = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
         sensor = hardwareMap.get(RevColorSensorV3.class, "trigger");
-        open();
-        upright();
+
+        if (pos == Position.UPRIGHT) {
+            upright();
+        } else {
+            flipped();
+        }
+//        open();
+//        upright();
     }
 
     public double getTriggerDistance() {

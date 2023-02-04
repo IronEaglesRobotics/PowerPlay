@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
+import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.RED;
 
@@ -18,8 +19,6 @@ import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
-@Disabled
-@Config
 @TeleOp
 public class DevTeleOp extends OpMode {
     private Robot robot;
@@ -35,7 +34,7 @@ public class DevTeleOp extends OpMode {
 
     @Override
     public void init() {
-        robot =  new Robot(hardwareMap, INTAKE, CameraPosition.LEFT);
+        robot =  new Robot(hardwareMap, INTAKE, UPRIGHT, CameraPosition.LEFT);
         driver1 = new Controller(gamepad1);
         driver2 = new Controller(gamepad2);
     }
@@ -45,8 +44,8 @@ public class DevTeleOp extends OpMode {
         driver1.update();
         driver2.update();
         double x = driver1.getLeftStick().getY()*0.5;
-        double y = -driver1.getRightStick().getX()*0.5;
-        double z = driver1.getLeftStick().getX()*0.25;
+        double y = -driver1.getLeftStick().getX()*0.5;
+        double z = -driver1.getRightStick().getX()*0.25;
 
 //        double x = driver1.getLeftStick().getY();
 //        double y = -driver1.getLeftStick().getX();

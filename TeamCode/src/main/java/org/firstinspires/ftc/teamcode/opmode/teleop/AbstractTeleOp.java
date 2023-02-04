@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
+import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.RED;
 
@@ -49,7 +50,7 @@ public abstract class AbstractTeleOp extends OpMode {
 
     @Override
     public void init() {
-        robot =  new Robot(hardwareMap, INTAKE, CameraPosition.RIGHT);
+        robot =  new Robot(hardwareMap, INTAKE, UPRIGHT, CameraPosition.RIGHT);
         driver1 = new Controller(gamepad1);
         driver2 = new Controller(gamepad2);
         if (alliance == RED) {
@@ -149,6 +150,13 @@ public abstract class AbstractTeleOp extends OpMode {
 //            }
 //        }
 
+        //transform the linear controller output into the nonlinear curve
+//        x = 0.152 * Math.tan(1.42 * x); // blue desmos curve
+//        y = y*0.4;
+//        //y =  0.2*Math.tan(1.3734*y)  ;
+//        z = 0.152 * Math.tan(1.42 * z);
+//        robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
+
         if (driver1.getLeftBumper().isPressed() || driver1.getRightBumper().isPressed()) { // TURBO
             robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
         } else {
@@ -221,45 +229,45 @@ public abstract class AbstractTeleOp extends OpMode {
                     }
                 }
 
-                if (robot.claw.justOpened) {
-                    timeSinceOpened = getRuntime();
-                    robot.claw.justOpened = false;
-                }
+//                if (robot.claw.justOpened) {
+//                    timeSinceOpened = getRuntime();
+//                    robot.claw.justOpened = false;
+//                }
 
-                if (getRuntime() - timeSinceOpened > 0.5) { // means I am ready to go again
-                    if (isAutoClose && robot.claw.isOpen && robot.claw.getTriggerDistance() < Claw.triggerDistance) {
-                        robot.claw.close();
-                        delayState = 0;
-                        doArmDelay = true;
-                    }
-                    if (!isAutoClose && !robot.claw.isOpen) {
-                        delayState = 0;
-                        doArmDelay = true;
-                    }
-                }
+//                if (getRuntime() - timeSinceOpened > 0.5) { // means I am ready to go again
+//                    if (isAutoClose && robot.claw.isOpen && robot.claw.getTriggerDistance() < Claw.triggerDistance) {
+//                        robot.claw.close();
+//                        delayState = 0;
+//                        doArmDelay = true;
+//                    }
+//                    if (!isAutoClose && !robot.claw.isOpen) {
+//                        delayState = 0;
+//                        doArmDelay = true;
+//                    }
+//                }
 
-                if (doArmDelay) {
-                    switch (delayState) {
-                        case (0):
-                            delayStart = getRuntime();
-                            delayState++;
-                            break;
-                        case (1):
-                            if (getRuntime() > delayStart + armWait) {
-                                delayState ++;
-                            }
-                            break;
-                        case(2):
-                            doArmDelay = false;
+//                if (doArmDelay) {
+//                    switch (delayState) {
+//                        case (0):
 //                            delayStart = getRuntime();
-                            delayState = 3;
-                            robot.arm.goToMiddle();
-                            break;
-//                        case(3):
-//                            doArmDelay = false;
+//                            delayState++;
 //                            break;
-                    }
-                }
+//                        case (1):
+//                            if (getRuntime() > delayStart + armWait) {
+//                                delayState ++;
+//                            }
+//                            break;
+//                        case(2):
+//                            doArmDelay = false;
+////                            delayStart = getRuntime();
+//                            delayState = 3;
+//                            robot.arm.goToMiddle();
+//                            break;
+////                        case(3):
+////                            doArmDelay = false;
+////                            break;
+//                    }
+//                }
 
                 break;
             case(1):
