@@ -11,22 +11,22 @@ public class Slides { // TODO fix the math for different slide motors and less s
     private DcMotor slide;
     private DcMotor slide2;
 
-    public static double p = 0.0012;
+    public static double p = 0.001;
     public static double i = 0.02;
     public static double d = 0;
-    public static double f = 0.03;
+    public static double f = 0.025;
     public static double pTolerance = 20;
     public static PIDController controller = new PIDController(p, i, d);
     public static double downMultiplier = 0.5;
 
-    public static int[] heights = {0, (int)(200/4.0), 2*(int)(200/4.0), 3*(int)(197/4.0), 4*(int)(197/4)};
+    public static int[] heights = {0, (int)(200/4.0), 2*(int)(200/4.0), 3*(int)(197/4.0), 4*(int)(194/4)};
 
     public static int heightOffset = 0;
-    public static int targetMin = 0;
+    public static int targetMin = -10;
     public static int targetMax = 770;
     public static int highPos = 770 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     public static int midPos = 400 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
-    public static int lowPos = 75 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
+    public static int lowPos = 50 + heightOffset; // ALSO DEFINED IN UPDATE SLIDES
     private int target = 0;
 
     public int decrementAmount = 100;
@@ -86,7 +86,7 @@ public class Slides { // TODO fix the math for different slide motors and less s
     public void update(double runTime) {
         highPos = 770 + heightOffset;
         midPos = 400 + heightOffset;
-        lowPos = 75 + heightOffset;
+        lowPos = 50 + heightOffset;
 
 //        if (target == 0) {
 //            slide.setPower(0);

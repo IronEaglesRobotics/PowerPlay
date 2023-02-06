@@ -33,7 +33,7 @@ public class Arm {
 
     public static double speed = 0.03;
 
-    public static double p = 0.15;
+    public static double p = 0.2;
     public static double i = 0.01;
     public static double d = 0.003;
     public static double f = 0;

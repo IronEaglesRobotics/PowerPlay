@@ -205,6 +205,30 @@ public abstract class AbstractAuto extends LinearOpMode {
         });
     }
 
+    public void followAndOpen(Trajectory trajectory) {
+        steps.add(new Step("Following a trajectory") {
+            @Override
+            public void start() {
+                robot.claw.open();
+            }
+
+            @Override
+            public void whileRunning() {
+                robot.drive.update();
+            }
+
+            @Override
+            public void end() {
+            }
+
+            @Override
+            public boolean isFinished() {
+                return !robot.drive.isBusy();
+            }
+        });
+    }
+
+
     public void followAndReset(Trajectory trajectory, int pos) {
         steps.add(new Step("Following a trajectory") {
             @Override
