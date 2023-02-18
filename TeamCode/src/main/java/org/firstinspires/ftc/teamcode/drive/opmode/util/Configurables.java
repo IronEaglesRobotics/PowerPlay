@@ -23,6 +23,7 @@ public class Configurables {
 //    public static int CLEAR = 500;
     public static int STOP = 10;
     public static int LOW_JUNC = 1400;
+    public static int AUTO_MED = 1500;
     public static int AUTO_TOP = 480;
     public static int AUTO_TOP2 = 310;
     public static int AUTO_TOP3 = 250;
@@ -33,6 +34,7 @@ public class Configurables {
     // Claw
     public static double CLAW_CLOSED = 0.459;
     public static double CLAW_OPEN = 0.26;
+    public static double CLAW_OPEN_FULL = 0.01;
     public static double CLAW_UP = 0.02;
     public static double CLAW_DOWN = 0.675;
     public static double AUTO = 0.005;
@@ -44,7 +46,8 @@ public class Configurables {
     public static int ARM_UPRIGHT = 353;
     public static int ARM_STARTING = 0;
     public static int ARM_LEFT = -690;
-    public static int ARM_RIGHT = 1090;
+    public static int ARM_RIGHT = 1210;
+    public static int ARM_SCORE = -300;
     public static int ARM_UPRIGHT_TELE = 0;
     public static int ARM_LEFT_TELE = -850;
     public static int ARM_RIGHT_TELE = 840;

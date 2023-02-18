@@ -31,100 +31,103 @@ public class WeirdAuto extends LinearOpMode {
 
         this.robot.getClaw().close();
 
-        Trajectory shift = drive.trajectoryBuilder(startOP)
-                .lineToSplineHeading(new Pose2d(-34,-60,Math.toRadians(90)))
+        // Score the pre-loaded cone
+        Trajectory scorePreload = drive.trajectoryBuilder(startOP)
+                .lineToLinearHeading(new Pose2d(-34.0, -11.0, Math.toRadians(138)))
+                .addTemporalMarker(1.5, () -> {
+                    robot.getArm().moveLeft();
+                })
                 .build();
 
-        Trajectory firstMedium = drive.trajectoryBuilder(shift.end())
-                .lineToSplineHeading(new Pose2d(-35,-16,Math.toRadians(160)))
+        Trajectory getStackCone = drive.trajectoryBuilder(scorePreload.end())
+                .splineTo(new Vector2d(-54.3, -10.2), Math.toRadians(180))
+                .addTemporalMarker(0.2, () -> {
+                    robot.getArm().moveRight();
+                    sleep(10);
+                    robot.getClaw().twistUp();
+                })
                 .build();
 
-        Trajectory getStuff = drive.trajectoryBuilder(firstMedium.end())
-                .splineTo(new Vector2d(-54.5, -10.5),Math.toRadians(180))
+        Trajectory scoreStackCone = drive.trajectoryBuilder(getStackCone.end())
+                .lineToSplineHeading(new Pose2d(-34,-11,Math.toRadians(138)))
+                .addTemporalMarker(0.5, () -> {
+                    robot.getArm().moveLeft();
+                    robot.getClaw().twistDown();
+                })
                 .build();
 
-        Trajectory score2 = drive.trajectoryBuilder(getStuff.end())
-                .lineToSplineHeading(new Pose2d(-34,-16,Math.toRadians(160)))
-                .build();
+        waitForStart();
 
-        Trajectory get2 = drive.trajectoryBuilder(score2.end())
-                .splineTo(new Vector2d(-54.5, -10),Math.toRadians(180))
-                .build();
-
-        Trajectory score3 = drive.trajectoryBuilder(getStuff.end())
-                .lineToSplineHeading(new Pose2d(-34,-15.5,Math.toRadians(160)))
-                .build();
-
-        Trajectory get3 = drive.trajectoryBuilder(score2.end())
-                .splineTo(new Vector2d(-54.5, -9.5),Math.toRadians(180))
-                .build();
-
-        Trajectory score4 = drive.trajectoryBuilder(getStuff.end())
-                .lineToSplineHeading(new Pose2d(-34,-15,Math.toRadians(160)))
-                .build();
-
-        Trajectory get4 = drive.trajectoryBuilder(score2.end())
-                .splineTo(new Vector2d(-54.5, -9),Math.toRadians(180))
-                .build();
-
-        Trajectory score5 = drive.trajectoryBuilder(getStuff.end())
-                .lineToSplineHeading(new Pose2d(-34,-14.5,Math.toRadians(160)))
-                .build();
-
-        Trajectory get5 = drive.trajectoryBuilder(score2.end())
-                .splineTo(new Vector2d(-54.5, -8),Math.toRadians(180))
-                .build();
-
-        Trajectory score6 = drive.trajectoryBuilder(getStuff.end())
-                .lineToSplineHeading(new Pose2d(-34,-14,Math.toRadians(160)))
-                .build();
-
-        while (!isStarted()) {
-//            parkPosition = robot.getAutoCamera().getMarkerId();
-//            telemetry.addData("parkPosition", (parkPosition));
-//            telemetry.update();
-        }
-
-        // Do stuff
-        drive.followTrajectory(firstMedium);
-        robot.getArm().moveMid();
+        // Score the preloaded cone
+        robot.getLift().slideMed();
+        drive.followTrajectory(scorePreload);
+        robot.getLift().autoTop(); // Lower the slide to the height of the top cone
+        sleep(100);
+        robot.getClaw().open();
         sleep(500);
 
-        drive.followTrajectory(getStuff);
-        robot.getArm().moveMid();
-        sleep(700);
-        drive.followTrajectory(score2);
-        robot.getArm().moveMid();
-        sleep(700);
+        // Score the first stack cone
+        drive.followTrajectory(getStackCone);
+        sleep(50); // Wait before scoring
+        robot.getClaw().close();
+        robot.getLift().slideMed();
+        sleep(200);
+        drive.followTrajectory(scoreStackCone);
+        robot.getLift().autoTop2(); // Lower the slide to the height of the second cone
+        sleep(100);
+        robot.getClaw().open();
+        sleep(500);
 
-        drive.followTrajectory(get2);
-        robot.getArm().moveMid();
-        sleep(700);
-        drive.followTrajectory(score3);
-        robot.getArm().moveMid();
-        sleep(700);
+        // Score the second stack cone
+        drive.followTrajectory(getStackCone);
+        sleep(50); // Wait before scoring
+        robot.getClaw().close();
+        robot.getLift().slideMed();
+        sleep(200);
+        drive.followTrajectory(scoreStackCone);
+        robot.getLift().autoTop3(); // Lower the slide to the height of the second cone
+        sleep(100);
 
-        drive.followTrajectory(get3);
-        robot.getArm().moveMid();
-        sleep(700);
-        drive.followTrajectory(score4);
-        robot.getArm().moveMid();
-        sleep(700);
+        robot.getClaw().open();
+        sleep(500);
 
-        drive.followTrajectory(get4);
-        robot.getArm().moveMid();
-        sleep(700);
-        drive.followTrajectory(score5);
-        robot.getArm().moveMid();
-        sleep(700);
+        // Score the third stack cone
+        drive.followTrajectory(getStackCone);
+        sleep(50); // Wait before scoring
+        robot.getClaw().close();
+        robot.getLift().slideMed();
+        sleep(200);
+        drive.followTrajectory(scoreStackCone);
+        robot.getLift().autoTop4(); // Lower the slide to the height of the second cone
+        sleep(100);
+        robot.getClaw().open();
+        sleep(500);
 
-        drive.followTrajectory(get5);
-        robot.getArm().moveMid();
-        sleep(700);
-        drive.followTrajectory(score6);
-        robot.getArm().moveMid();
-        sleep(700);
+        // Score the fourth stack cone
+        drive.followTrajectory(getStackCone);
+        sleep(50); // Wait before scoring
+        robot.getClaw().close();
+        robot.getLift().slideMed();
+        sleep(200);
+        drive.followTrajectory(scoreStackCone);
+        robot.getLift().autoTop5(); // Lower the slide to the height of the second cone
+        sleep(100);
+        robot.getClaw().open();
+        sleep(500);
 
+        // Score the fifth stack cone
+        drive.followTrajectory(getStackCone);
+        sleep(50); // Wait before scoring
+        robot.getClaw().close();
+        robot.getLift().slideMed();
+        sleep(200);
+        drive.followTrajectory(scoreStackCone);
+        robot.getLift().slideDown(); // Lower the slide to the height of the second cone
+        sleep(100);
+        robot.getClaw().open();
+        sleep(500);
+
+        robot.getArm().moveMid();
 
         switch (parkPosition) {
             case 1:

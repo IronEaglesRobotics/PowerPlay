@@ -5,9 +5,11 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_POWER;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT_TELE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_SCORE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_MED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP2;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP3;
@@ -17,6 +19,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLA
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN_FULL;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_DUNK;
@@ -186,6 +189,13 @@ public class Robot {
             this.arm.setTargetPosition(ARM_RIGHT);
         }
 
+        public void moveScore() {
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.arm.setPower(ARM_POWER);
+            this.arm.setTargetPosition(ARM_SCORE);
+        }
+
+
         public void moveLeftTele() {
             this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.arm.setPower(ARM_POWER);
@@ -245,6 +255,11 @@ public class Robot {
             this.isOpen = true;
         }
 
+        public void openFull() {
+            this.clawGrip.setPosition(CLAW_OPEN_FULL);
+            this.isOpen = true;
+        }
+
         public void auto() {
             this.clawGrip.setPosition(AUTO);
         }
@@ -298,6 +313,16 @@ public class Robot {
             this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             this.slide2.setTargetPosition(SLIDE_MAX);
+            this.slide2.setPower(SLIDE_POWER_UP);
+        }
+        public void autoMed() {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide.setTargetPosition(AUTO_MED);
+            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide2.setTargetPosition(AUTO_MED);
             this.slide2.setPower(SLIDE_POWER_UP);
         }
 
