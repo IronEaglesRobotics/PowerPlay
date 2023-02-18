@@ -2,18 +2,16 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Config
-@Autonomous(name = "TestAuto", group = "Competition")
-public class testauto extends LinearOpMode {
+@Autonomous(name = "RightAutoChampionships", group = "Competition")
+public class RightAutoChampionships extends LinearOpMode {
     public static int parkPosition = 1;
     private Robot robot;
 
@@ -23,7 +21,7 @@ public class testauto extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startOP = new Pose2d(-34, -60, Math.toRadians(90));
+        Pose2d startOP = new Pose2d(34, -60, Math.toRadians(90));
 
         drive.setPoseEstimate(startOP);
 
@@ -35,35 +33,35 @@ public class testauto extends LinearOpMode {
                 .build();
 
         Trajectory scoreOnMedium = drive.trajectoryBuilder(push.end())
-                .lineToSplineHeading(new Pose2d(-35.25, -16, Math.toRadians(151)))
+                .lineToSplineHeading(new Pose2d(33.5, -16, Math.toRadians(28.5)))
                 .build();
 
         Trajectory getFirstConeFromStack = drive.trajectoryBuilder(scoreOnMedium.end())
-                .lineToSplineHeading(new Pose2d(-52.5, -11.5, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(51.3, -11.5, Math.toRadians(0)))
                 .build();
 
         Trajectory scoreOnLow = drive.trajectoryBuilder(getFirstConeFromStack.end())
-                .lineToSplineHeading(new Pose2d(-53.5, -10, Math.toRadians(117)))
+                .lineToSplineHeading(new Pose2d(51.5, -10, Math.toRadians(67)))
                 .build();
 
         Trajectory getFromStack = drive.trajectoryBuilder(scoreOnLow.end())
-                .lineToSplineHeading(new Pose2d(-53.25, -12, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(51, -12, Math.toRadians(0)))
                 .build();
 
         Trajectory scoreOnLowAgain = drive.trajectoryBuilder(getFromStack.end())
-                .lineToSplineHeading(new Pose2d(-53.5, -10, Math.toRadians(117)))
+                .lineToSplineHeading(new Pose2d(50.5, -10, Math.toRadians(63.75)))
                 .build();
 
         Trajectory park1 = drive.trajectoryBuilder(getFromStack.end())
-                .forward(4)
+                .back(43.5)
                 .build();
 
         Trajectory park2 = drive.trajectoryBuilder(getFromStack.end())
-                .back(15)
+                .back(17)
                 .build();
 
         Trajectory park3 = drive.trajectoryBuilder(getFromStack.end())
-                .back(42)
+                .forward(3)
                 .build();
 
         //Init
@@ -93,14 +91,14 @@ public class testauto extends LinearOpMode {
 
         sleep(150);
         robot.getClaw().close();
-        sleep(150);
+        sleep(100);
         robot.getLift().lowJunc();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();
         drive.followTrajectory(scoreOnLowAgain);
         robot.getLift().lowDunk();
-        sleep(250);
+        sleep(100);
         robot.getClaw().open();
         robot.getArm().moveRight();
         sleep(200);
@@ -110,14 +108,14 @@ public class testauto extends LinearOpMode {
         robot.getLift().autoTop2();
         sleep(400);
         robot.getClaw().close();
-        sleep(150);
+        sleep(100);
         robot.getLift().lowJunc();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();
         drive.followTrajectory(scoreOnLowAgain);
         robot.getLift().lowDunk();
-        sleep(150);
+        sleep(100);
         robot.getClaw().open();
         robot.getArm().moveRight();
         sleep(200);
@@ -127,7 +125,7 @@ public class testauto extends LinearOpMode {
         robot.getLift().autoTop3();
         sleep(500);
         robot.getClaw().close();
-        sleep(150);
+        sleep(100);
         robot.getLift().lowJunc();
         robot.getArm().moveLeft();
         sleep(100);
@@ -144,14 +142,14 @@ public class testauto extends LinearOpMode {
         robot.getLift().autoTop4();
         sleep(650);
         robot.getClaw().close();
-        sleep(150);
+        sleep(100);
         robot.getLift().lowJunc();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();
         drive.followTrajectory(scoreOnLowAgain);
         robot.getLift().lowDunk();
-        sleep(150);
+        sleep(100);
         robot.getClaw().open();
         robot.getArm().moveRight();
         sleep(200);
@@ -161,14 +159,14 @@ public class testauto extends LinearOpMode {
         robot.getLift().autoTop5();
         sleep(800);
         robot.getClaw().close();
-        sleep(150);
+        sleep(100);
         robot.getLift().lowJunc();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();
         drive.followTrajectory(scoreOnLowAgain);
         robot.getLift().lowDunk();
-        sleep(150);
+        sleep(100);
         robot.getClaw().open();
         robot.getArm().moveMid();
         robot.getLift().slideDown();

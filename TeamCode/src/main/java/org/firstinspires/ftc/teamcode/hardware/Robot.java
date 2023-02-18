@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KD;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KI;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_KP;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AIMING_TOLERANCE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_POWER;
@@ -18,9 +14,9 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUT
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP4;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP5;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_AUTO;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_DUNK;
@@ -33,7 +29,6 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.dunk;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ARM;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.GRIP;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.INVALID_POINT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.LIFT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.SLIDE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_BACK_LEFT;
@@ -42,14 +37,11 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_F
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_FRONT_RIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WRIST;
 
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import org.opencv.core.Point;
 
 public class Robot {
     private Drive drive;
@@ -58,7 +50,6 @@ public class Robot {
     private Lift lift;
 
     private AprilTagCamera autoCamera = null;
-    private AimingCamera aimingCamera = null;
 
     private HardwareMap hardwareMap;
 
@@ -73,46 +64,8 @@ public class Robot {
         return this;
     }
 
-    public void useAimingCamera() {
-        if (this.autoCamera != null) {
-            this.autoCamera.stopBarcodeWebcam();
-            this.autoCamera = null;
-        }
-
-        this.aimingCamera = new AimingCamera().init(this.hardwareMap);
-    }
-
     public void useAutoCamera() {
-        if (this.aimingCamera != null) {
-            this.aimingCamera.stopAimingCamera();
-            this.aimingCamera = null;
-        }
-
         this.autoCamera = new AprilTagCamera().init(this.hardwareMap);
-    }
-
-    public void aimSync() {
-        long startTime = System.currentTimeMillis();
-
-        PIDController pController = new PIDController(AIMING_KP, AIMING_KI, AIMING_KD);
-        pController.setSetPoint(320);
-        pController.setTolerance(AIMING_TOLERANCE);
-
-        Point topOfJunction;
-        while(!pController.atSetPoint() && System.currentTimeMillis() < (startTime + 1000)) {
-            topOfJunction = this.getAimingCamera().getTopOfJunction();
-            if (topOfJunction == null || topOfJunction == INVALID_POINT) {
-                continue;
-            }
-            double output = pController.calculate(topOfJunction.x) * -1;
-            this.getDrive().setInput(0, 0, output);
-        }
-
-        this.getDrive().setInput(0, 0, 0);
-    }
-
-    public AimingCamera getAimingCamera() {
-        return this.aimingCamera;
     }
 
     public AprilTagCamera getAutoCamera() {
@@ -155,6 +108,10 @@ public class Robot {
             this.frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             this.backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             this.backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            this.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             return this;
         }
@@ -185,7 +142,13 @@ public class Robot {
 
         public void setInput(Gamepad gamepad1, Gamepad gamepad2) {
             double x = gamepad1.left_stick_x / GO_SLOW;
+            if ( Math.abs(x) < 0.225) {
+                x = 0;
+            }
             double y = -gamepad1.left_stick_y / GO_SLOW;
+            if ( Math.abs(y) < 0.225) {
+                y = 0;
+            }
             double z = gamepad1.right_stick_x / WHY_TURN;
 
             setInput(x, y, z);
