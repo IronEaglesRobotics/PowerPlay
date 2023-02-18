@@ -9,21 +9,22 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Config
 
 @Autonomous(name = "WeirdAuto", group = "Competition", preselectTeleOp = "MainTeleOp")
 public class WeirdAuto extends LinearOpMode {
-    public static int parkPosition = 1;
     private Robot robot;
-
+    private SampleMecanumDrive drive;
+    private Trajectory getStackCone;
+    private Trajectory scoreStackCone;
     @Override
     public void runOpMode() throws InterruptedException {
 
         this.robot = new Robot().init(hardwareMap);
-
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        this.drive = new SampleMecanumDrive(hardwareMap);
 
         Pose2d startOP = new Pose2d(-32.5, -60, Math.toRadians(90));
 
@@ -39,16 +40,15 @@ public class WeirdAuto extends LinearOpMode {
                 })
                 .build();
 
-        Trajectory getStackCone = drive.trajectoryBuilder(scorePreload.end())
+        this.getStackCone = drive.trajectoryBuilder(scorePreload.end())
                 .splineTo(new Vector2d(-54.3, -10.2), Math.toRadians(180))
-                .addTemporalMarker(0.2, () -> {
+                .addTemporalMarker(0.05, () -> {
                     robot.getArm().moveRight();
-                    sleep(10);
                     robot.getClaw().twistUp();
                 })
                 .build();
 
-        Trajectory scoreStackCone = drive.trajectoryBuilder(getStackCone.end())
+        this.scoreStackCone = drive.trajectoryBuilder(getStackCone.end())
                 .lineToSplineHeading(new Pose2d(-34,-11,Math.toRadians(138)))
                 .addTemporalMarker(0.5, () -> {
                     robot.getArm().moveLeft();
@@ -66,85 +66,31 @@ public class WeirdAuto extends LinearOpMode {
         robot.getClaw().open();
         sleep(500);
 
-        // Score the first stack cone
-        drive.followTrajectory(getStackCone);
-        sleep(50); // Wait before scoring
-        robot.getClaw().close();
-        robot.getLift().slideMed();
-        sleep(200);
-        drive.followTrajectory(scoreStackCone);
-        robot.getLift().autoTop2(); // Lower the slide to the height of the second cone
-        sleep(100);
-        robot.getClaw().open();
-        sleep(500);
-
-        // Score the second stack cone
-        drive.followTrajectory(getStackCone);
-        sleep(50); // Wait before scoring
-        robot.getClaw().close();
-        robot.getLift().slideMed();
-        sleep(200);
-        drive.followTrajectory(scoreStackCone);
-        robot.getLift().autoTop3(); // Lower the slide to the height of the second cone
-        sleep(100);
-
-        robot.getClaw().open();
-        sleep(500);
-
-        // Score the third stack cone
-        drive.followTrajectory(getStackCone);
-        sleep(50); // Wait before scoring
-        robot.getClaw().close();
-        robot.getLift().slideMed();
-        sleep(200);
-        drive.followTrajectory(scoreStackCone);
-        robot.getLift().autoTop4(); // Lower the slide to the height of the second cone
-        sleep(100);
-        robot.getClaw().open();
-        sleep(500);
-
-        // Score the fourth stack cone
-        drive.followTrajectory(getStackCone);
-        sleep(50); // Wait before scoring
-        robot.getClaw().close();
-        robot.getLift().slideMed();
-        sleep(200);
-        drive.followTrajectory(scoreStackCone);
-        robot.getLift().autoTop5(); // Lower the slide to the height of the second cone
-        sleep(100);
-        robot.getClaw().open();
-        sleep(500);
-
-        // Score the fifth stack cone
-        drive.followTrajectory(getStackCone);
-        sleep(50); // Wait before scoring
-        robot.getClaw().close();
-        robot.getLift().slideMed();
-        sleep(200);
-        drive.followTrajectory(scoreStackCone);
-        robot.getLift().slideDown(); // Lower the slide to the height of the second cone
-        sleep(100);
-        robot.getClaw().open();
-        sleep(500);
+        getAndScoreStackCone(Configurables.AUTO_TOP);
+        getAndScoreStackCone(Configurables.AUTO_TOP2);
+        getAndScoreStackCone(Configurables.AUTO_TOP3);
+        getAndScoreStackCone(Configurables.AUTO_TOP4);
+        getAndScoreStackCone(Configurables.AUTO_TOP5);
 
         robot.getArm().moveMid();
+    }
 
-        switch (parkPosition) {
-            case 1:
+    private void getAndScoreStackCone(int height) {
+        // Get the cone off the stack
+        this.robot.getLift().move(height);
+        this.drive.followTrajectory(getStackCone);
+        this.robot.getClaw().close();
 
-                break;
-            case 2:
-                break;
-            case 3:
+        // Move back to the junction
+        this.robot.getLift().slideMed();
+        sleep(500);
+        this.drive.followTrajectory(scoreStackCone);
 
-                // Park in the middle of the field
-                break;
-            default:
-                break;
-            // AHHH!!!!!
-
-        }
-
-
+        // Score
+        this.robot.getLift().lowJunc();
+        sleep(100);
+        this.robot.getClaw().open();
+        this.robot.getArm().moveMid();
+        sleep(500);
     }
 }

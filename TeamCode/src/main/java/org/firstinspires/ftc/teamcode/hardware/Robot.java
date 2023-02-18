@@ -473,5 +473,16 @@ public class Robot {
         public String getTelemetry() {
             return String.format("position: %s", slide.getCurrentPosition());
         }
+
+        public void move(int height) {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide.setTargetPosition(height);
+            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            this.slide2.setTargetPosition(height);
+            this.slide2.setPower(SLIDE_POWER_UP);
+        }
     }
 }
