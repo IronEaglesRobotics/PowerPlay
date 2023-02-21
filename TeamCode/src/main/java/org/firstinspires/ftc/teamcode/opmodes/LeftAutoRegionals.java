@@ -26,14 +26,12 @@ public class LeftAutoRegionals extends LinearOpMode {
         this.robot = new Robot().init(hardwareMap);
         this.drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startOP = new Pose2d(-32.5, -60, Math.toRadians(90));
+        Pose2d initialPosition = new Pose2d(-32.5, -60, Math.toRadians(90));
 
-        drive.setPoseEstimate(startOP);
-
-        this.robot.getClaw().close();
+        drive.setPoseEstimate(initialPosition);
 
         // START -> SCORE
-        Trajectory scorePreload = drive.trajectoryBuilder(startOP)
+        Trajectory scorePreload = drive.trajectoryBuilder(initialPosition)
                 .lineToLinearHeading(new Pose2d(-35.0, -11.5, Math.toRadians(138)))
                 .addTemporalMarker(1.5, () -> {
                     robot.getArm().moveLeft();
