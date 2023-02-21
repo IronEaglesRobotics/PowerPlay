@@ -92,7 +92,7 @@ public class RightAutoChampionships extends LinearOpMode {
         sleep(150);
         robot.getClaw().close();
         sleep(100);
-        robot.getLift().lowJunc();
+        robot.getLift().lowJunction();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();
@@ -109,7 +109,7 @@ public class RightAutoChampionships extends LinearOpMode {
         sleep(400);
         robot.getClaw().close();
         sleep(100);
-        robot.getLift().lowJunc();
+        robot.getLift().lowJunction();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();
@@ -126,7 +126,7 @@ public class RightAutoChampionships extends LinearOpMode {
         sleep(500);
         robot.getClaw().close();
         sleep(100);
-        robot.getLift().lowJunc();
+        robot.getLift().lowJunction();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();
@@ -143,7 +143,7 @@ public class RightAutoChampionships extends LinearOpMode {
         sleep(650);
         robot.getClaw().close();
         sleep(100);
-        robot.getLift().lowJunc();
+        robot.getLift().lowJunction();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();
@@ -160,7 +160,7 @@ public class RightAutoChampionships extends LinearOpMode {
         sleep(800);
         robot.getClaw().close();
         sleep(100);
-        robot.getLift().lowJunc();
+        robot.getLift().lowJunction();
         robot.getArm().moveLeft();
         sleep(100);
         robot.getClaw().twistDown();

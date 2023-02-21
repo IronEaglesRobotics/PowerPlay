@@ -5,7 +5,6 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -13,17 +12,14 @@ import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Config
-@Autonomous(name = "WeirdAuto", group = "Competition", preselectTeleOp = "MainTeleOp")
-public class WeirdAuto extends LinearOpMode {
+@Autonomous(name = "LeftAutoRegionals", group = "Competition", preselectTeleOp = "MainTeleOp")
+public class LeftAutoRegionals extends LinearOpMode {
     private Robot robot;
     private SampleMecanumDrive drive;
     private Trajectory getStackCone;
     private Trajectory scoreStackCone;
-    private Trajectory park1;
-    private Trajectory park2;
-    private Trajectory park3;
+    private int parkPosition = -1;
 
-    private int parkPosition = 2;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -36,14 +32,14 @@ public class WeirdAuto extends LinearOpMode {
 
         this.robot.getClaw().close();
 
-        // Score the pre-loaded cone
+        // START -> SCORE
         Trajectory scorePreload = drive.trajectoryBuilder(startOP)
                 .lineToLinearHeading(new Pose2d(-35.0, -11.5, Math.toRadians(138)))
                 .addTemporalMarker(1.5, () -> {
                     robot.getArm().moveLeft();
                 })
                 .build();
-
+        // SCORE -> STACK
         this.getStackCone = drive.trajectoryBuilder(scorePreload.end())
                 .splineTo(new Vector2d(-54.3, -10.2), Math.toRadians(180))
                 .addTemporalMarker(0.05, () -> {
@@ -51,27 +47,35 @@ public class WeirdAuto extends LinearOpMode {
                     robot.getClaw().twistUp();
                 })
                 .build();
-
+        // STACK -> SCORE
         this.scoreStackCone = drive.trajectoryBuilder(getStackCone.end())
                 .lineToSplineHeading(new Pose2d(-35,-11.5,Math.toRadians(138)))
                 .addTemporalMarker(0.3, () -> {
                     robot.getClaw().twistDown();
                 })
                 .build();
-
-        this.park1 = drive.trajectoryBuilder(scoreStackCone.end())
+        // STACK -> PARK1
+        Trajectory park1 = drive.trajectoryBuilder(scoreStackCone.end())
                 .splineTo(new Vector2d(-58, -10.2), Math.toRadians(180))
+                .addDisplacementMarker(1, () -> {
+                    this.robot.getArm().moveMid();
+                })
                 .build();
-
-        this.park2 = drive.trajectoryBuilder(getStackCone.end())
+        // STACK -> PARK2
+        Trajectory park2 = drive.trajectoryBuilder(getStackCone.end())
                 .lineToSplineHeading(new Pose2d(-36,-11,Math.toRadians(180)))
+                .addDisplacementMarker(1, () -> {
+                    this.robot.getArm().moveMid();
+                })
                 .build();
-
-        this.park3 = drive.trajectoryBuilder(park2.end())
+        // PARK2 -> PARK3
+        Trajectory park3 = drive.trajectoryBuilder(park2.end())
                 .back(24)
+                .addDisplacementMarker(1, () -> {
+                    this.robot.getArm().moveMid();
+                })
                 .build();
 
-        //Init
         this.robot.useAutoCamera();
 
         while (!isStarted()) {
@@ -99,22 +103,16 @@ public class WeirdAuto extends LinearOpMode {
         robot.getArm().moveMid();
 
         switch (this.parkPosition) {
-            case 1:
-                drive.followTrajectory(park1);
-                this.robot.getArm().moveMid();
-                break;
             case 2:
                 drive.followTrajectory(park2);
-                this.robot.getArm().moveMid();
                 break;
             case 3:
                 drive.followTrajectory(park2);
                 drive.followTrajectory(park3);
-                this.robot.getArm().moveMid();
                 break;
             default:
-                drive.followTrajectory(park2);
-                this.robot.getArm().moveMid();
+                drive.followTrajectory(park1);
+                break;
         }
     }
 

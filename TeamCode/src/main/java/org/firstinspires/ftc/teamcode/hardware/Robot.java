@@ -5,21 +5,16 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_POWER;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT_TELE;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_SCORE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_MED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP2;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP3;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP4;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP5;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_AUTO;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN_FULL;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_DUNK;
@@ -29,7 +24,6 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLI
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.STOP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY_TURN;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.dunk;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ARM;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.GRIP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.LIFT;
@@ -51,9 +45,7 @@ public class Robot {
     private Arm arm;
     private Claw claw;
     private Lift lift;
-
-    private AprilTagCamera autoCamera = null;
-
+    private AprilTagCamera autoCamera;
     private HardwareMap hardwareMap;
 
     public Robot init(HardwareMap hardwareMap) {
@@ -145,11 +137,11 @@ public class Robot {
 
         public void setInput(Gamepad gamepad1, Gamepad gamepad2) {
             double x = gamepad1.left_stick_x / GO_SLOW;
-            if ( Math.abs(x) < 0.225) {
+            if (Math.abs(x) < 0.225) {
                 x = 0;
             }
             double y = -gamepad1.left_stick_y / GO_SLOW;
-            if ( Math.abs(y) < 0.225) {
+            if (Math.abs(y) < 0.225) {
                 y = 0;
             }
             double z = gamepad1.right_stick_x / WHY_TURN;
@@ -168,50 +160,45 @@ public class Robot {
             this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
+            this.hold();
+
             return this;
         }
 
-        public void moveLeft() {
+        public void hold() {
+            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.arm.setTargetPosition(this.arm.getCurrentPosition());
+            this.arm.setPower(ARM_POWER);
+        }
+
+        private void move(int position) {
             this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.arm.setPower(ARM_POWER);
-            this.arm.setTargetPosition(ARM_LEFT);
+            this.arm.setTargetPosition(position);
+        }
+
+        public void moveLeft() {
+            this.move(ARM_LEFT);
         }
 
         public void moveMid() {
-            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.arm.setTargetPosition(ARM_UPRIGHT);
-            this.arm.setPower(ARM_POWER);
+            this.move(ARM_UPRIGHT);
         }
 
         public void moveRight() {
-            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.arm.setPower(ARM_POWER);
-            this.arm.setTargetPosition(ARM_RIGHT);
+            this.move(ARM_RIGHT);
         }
-
-        public void moveScore() {
-            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.arm.setPower(ARM_POWER);
-            this.arm.setTargetPosition(ARM_SCORE);
-        }
-
 
         public void moveLeftTele() {
-            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.arm.setPower(ARM_POWER);
-            this.arm.setTargetPosition(ARM_LEFT_TELE);
+            this.move(ARM_LEFT_TELE);
         }
 
         public void moveMidTele() {
-            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.arm.setTargetPosition(ARM_UPRIGHT_TELE);
-            this.arm.setPower(ARM_POWER);
+            this.move(ARM_UPRIGHT_TELE);
         }
 
         public void moveRightTele() {
-            this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.arm.setPower(ARM_POWER);
-            this.arm.setTargetPosition(ARM_RIGHT_TELE);
+            this.move(ARM_RIGHT_TELE);
         }
 
         public void drop() {
@@ -226,13 +213,13 @@ public class Robot {
     public static class Claw {
         private Servo clawTurn = null;
         private Servo clawGrip = null;
-        private boolean isOpen = false;
 
         public Claw init(HardwareMap hardwareMap) {
             this.clawGrip = hardwareMap.get(Servo.class, GRIP);
             this.clawTurn = hardwareMap.get(Servo.class, WRIST);
-
             this.clawGrip.scaleRange(0.01, 1);
+
+            this.close();
 
             return this;
         }
@@ -243,25 +230,10 @@ public class Robot {
 
         public void close() {
             this.clawGrip.setPosition(CLAW_CLOSED);
-            this.isOpen = false;
-        }
-
-        public void autoOpen() {
-            this.clawGrip.setPosition(CLAW_AUTO);
         }
 
         public void open() {
             this.clawGrip.setPosition(CLAW_OPEN);
-            this.isOpen = true;
-        }
-
-        public void openFull() {
-            this.clawGrip.setPosition(CLAW_OPEN_FULL);
-            this.isOpen = true;
-        }
-
-        public void auto() {
-            this.clawGrip.setPosition(AUTO);
         }
 
         public void twistUp() {
@@ -271,18 +243,9 @@ public class Robot {
         public void twistDown() {
             this.clawTurn.setPosition(CLAW_DOWN);
         }
-
-        public boolean isOpen() {
-            return this.isOpen;
-        }
     }
 
     public static class Lift {
-
-//        public int getPosition() {
-//            return slide.getCurrentPosition();
-//        }
-
         public DcMotor slide = null;
         public DcMotor slide2 = null;
 
@@ -305,169 +268,64 @@ public class Robot {
             return this;
         }
 
-        public void slideUp() {
+        private void slideTo(int position, double power) {
             this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(SLIDE_MAX);
-            this.slide.setPower(SLIDE_POWER_UP);
+            this.slide.setTargetPosition(position);
+            this.slide.setPower(power);
+
             this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(SLIDE_MAX);
-            this.slide2.setPower(SLIDE_POWER_UP);
-        }
-        public void autoMed() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(AUTO_MED);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(AUTO_MED);
-            this.slide2.setPower(SLIDE_POWER_UP);
+            this.slide2.setTargetPosition(position);
+            this.slide2.setPower(power);
         }
 
-        public void lowJunc() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(LOW_JUNC);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(LOW_JUNC);
-            this.slide2.setPower(SLIDE_POWER_UP);
+        public void slideMax() {
+            this.slideTo(SLIDE_MAX, SLIDE_POWER_UP);
         }
 
-        public void slideUpFree() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(SLIDE_MAX);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(SLIDE_MAX);
-            this.slide2.setPower(SLIDE_POWER_UP);
-        }
-
-        public void dunk() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(dunk);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(dunk);
-            this.slide2.setPower(SLIDE_POWER_UP);
+        public void lowJunction() {
+            this.slideTo(LOW_JUNC, SLIDE_POWER_UP);
         }
 
         public void slideLow() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(SLIDE_LOW);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(SLIDE_LOW);
-            this.slide2.setPower(SLIDE_POWER_UP);
-
+            this.slideTo(SLIDE_LOW, SLIDE_POWER_UP);
         }
 
-            public void lowDunk() {
-                this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                this.slide.setTargetPosition(LOW_DUNK);
-                this.slide.setPower(SLIDE_POWER_UP);
-                this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                this.slide2.setTargetPosition(LOW_DUNK);
-                this.slide2.setPower(SLIDE_POWER_UP);
-
+        public void lowDunk() {
+            this.slideTo(LOW_DUNK, SLIDE_POWER_UP);
         }
+
         public void slideMed() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(SLIDE_LOW);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(SLIDE_LOW);
-            this.slide2.setPower(SLIDE_POWER_UP);
+            this.slideTo(SLIDE_LOW, SLIDE_POWER_UP);
         }
 
         public void slideDown() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            this.slide.setPower(this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
-            this.slide.setTargetPosition(0);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            this.slide2.setPower(this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
-            this.slide2.setTargetPosition(0);
+            this.slideTo(0, this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
         }
 
         public void autoTop() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(AUTO_TOP);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(AUTO_TOP);
-            this.slide2.setPower(SLIDE_POWER_UP);
+            this.slideTo(AUTO_TOP, SLIDE_POWER_UP);
         }
 
         public void autoTop2() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(AUTO_TOP2);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(AUTO_TOP2);
-            this.slide2.setPower(SLIDE_POWER_UP);
+            this.slideTo(AUTO_TOP2, SLIDE_POWER_UP);
         }
 
         public void autoTop3() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(AUTO_TOP3);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(AUTO_TOP3);
-            this.slide2.setPower(SLIDE_POWER_UP);
+            this.slideTo(AUTO_TOP3, SLIDE_POWER_UP);
         }
 
         public void autoTop4() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(AUTO_TOP4);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(AUTO_TOP4);
-            this.slide2.setPower(SLIDE_POWER_UP);
+            this.slideTo(AUTO_TOP4, SLIDE_POWER_UP);
         }
 
         public void autoTop5() {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(AUTO_TOP5);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(AUTO_TOP5);
-            this.slide2.setPower(SLIDE_POWER_UP);
+            this.slideTo(AUTO_TOP5, SLIDE_POWER_UP);
         }
 
         public void slideStop() {
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setTargetPosition(slide.getCurrentPosition());
-            this.slide.setPower(1.0);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setTargetPosition(slide2.getCurrentPosition());
-            this.slide2.setPower(1.0);
+            this.slideTo(slide.getCurrentPosition(), 1.0);
         }
 
         public String getTelemetry() {
@@ -475,14 +333,7 @@ public class Robot {
         }
 
         public void move(int height) {
-            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide.setTargetPosition(height);
-            this.slide.setPower(SLIDE_POWER_UP);
-            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            this.slide2.setTargetPosition(height);
-            this.slide2.setPower(SLIDE_POWER_UP);
+            this.slideTo(height, SLIDE_POWER_UP);
         }
     }
 }
