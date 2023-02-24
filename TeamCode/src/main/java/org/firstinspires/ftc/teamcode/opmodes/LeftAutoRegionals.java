@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 @Autonomous(name = "LeftAutoRegionals", group = "Competition", preselectTeleOp = "MainTeleOp")
 public class LeftAutoRegionals extends AutoBase {
 
-    public static double fasterVelocity = 90;
+    public static double fasterVelocity = 110;
 
     @Override
     public void initializeTrajectories() {
@@ -84,7 +84,7 @@ public class LeftAutoRegionals extends AutoBase {
                 .build();
         // STACK -> PARK2
         this.park2 = drive.trajectoryBuilder(getStackCone.end())
-                .lineToSplineHeading(new Pose2d(-36,-9,Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(-36,-7.5,Math.toRadians(180)))
                 .addDisplacementMarker(1, () -> {
                     this.robot.getArm().moveMid();
                 })

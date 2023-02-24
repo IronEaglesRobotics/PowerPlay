@@ -291,6 +291,17 @@ public class Robot {
             this.slide2.setPower(power);
         }
 
+        public void slideDown() {
+            this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            this.slide.setPower(this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
+            this.slide.setTargetPosition(0);
+            this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            this.slide2.setPower(this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
+            this.slide2.setTargetPosition(0);
+        }
+
         public void slideMax() {
             this.slideTo(SLIDE_MAX, SLIDE_POWER_UP);
         }
@@ -309,10 +320,6 @@ public class Robot {
 
         public void slideMed() {
             this.slideTo(SLIDE_LOW, SLIDE_POWER_UP);
-        }
-
-        public void slideDown() {
-            this.slideTo(0, this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
         }
 
         public void autoTop() {

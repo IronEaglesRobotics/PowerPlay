@@ -30,7 +30,7 @@ public class Configurables {
     public static int AUTO_TOP5 = 0;
 
     // Claw
-    public static double CLAW_CLOSED = 0.57;
+    public static double CLAW_CLOSED = 0.576;
     public static double CLAW_OPEN = 0.4;
     public static double CLAW_OPENWIDE = 0.23;
     public static double CLAW_UP = 0.02;
@@ -47,7 +47,7 @@ public class Configurables {
     public static int ARM_UPRIGHT_TELE = 0;
     public static int ARM_LEFT_TELE = -850;
     public static int ARM_RIGHT_TELE = 840;
-    public static double ARM_POWER = 0.7;
+    public static double ARM_POWER = 1;
     public static double ARM_P = 1.0;
     public static double ARM_I = 0;
     public static double ARM_D = 0;

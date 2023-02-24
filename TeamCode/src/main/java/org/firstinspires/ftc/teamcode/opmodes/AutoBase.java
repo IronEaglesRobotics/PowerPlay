@@ -83,14 +83,14 @@ public abstract class AutoBase extends LinearOpMode {
         this.drive.followTrajectory(getStackCone);
         robot.getClaw().openWide();
         robot.getArm().moveRight();
-        sleep(200);
+        sleep(300);
         this.robot.getClaw().close();
-        sleep(200);
+        sleep(150);
 
         // Move back to the junction
         this.robot.getLift().slideMed();
         this.robot.getArm().moveLeft();
-        sleep(200);
+        sleep(150);
         this.drive.followTrajectory(scoreStackCone);
 
         // Score
@@ -106,14 +106,14 @@ public abstract class AutoBase extends LinearOpMode {
         this.drive.followTrajectory(getStackConeCorrection);
         robot.getClaw().openWide();
         robot.getArm().moveRight();
-        sleep(200);
+        sleep(300);
         this.robot.getClaw().close();
-        sleep(200);
+        sleep(150);
 
         // Move back to the junction
         this.robot.getLift().slideMed();
         this.robot.getArm().moveLeft();
-        sleep(200);
+        sleep(150);
         this.drive.followTrajectory(scoreStackConeCorrection);
 
         // Score
@@ -129,14 +129,14 @@ public abstract class AutoBase extends LinearOpMode {
         this.drive.followTrajectory(getStackConeCorrectionLast);
         robot.getClaw().openWide();
         robot.getArm().moveRight();
-        sleep(200);
+        sleep(300);
         this.robot.getClaw().close();
-        sleep(200);
+        sleep(150);
 
         // Move back to the junction
         this.robot.getLift().slideMed();
         this.robot.getArm().moveLeft();
-        sleep(200);
+        sleep(150);
         this.drive.followTrajectory(scoreStackConeCorrectionLast);
 
         // Score
@@ -144,6 +144,5 @@ public abstract class AutoBase extends LinearOpMode {
         sleep(100);
         this.robot.getClaw().open();
         this.robot.getArm().moveScore();
-        sleep(100);
     }
 }

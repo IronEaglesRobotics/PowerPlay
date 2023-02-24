@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @TeleOp(name = "Main TeleOp", group = "Development")
@@ -24,6 +25,7 @@ public class MainTeleOp extends OpMode {
 
     @Override
     public void loop() {
+        Configurables.ARM_POWER=1;
         // Drive
         this.robot.getDrive().setInput(gamepad1, gamepad2);
 
