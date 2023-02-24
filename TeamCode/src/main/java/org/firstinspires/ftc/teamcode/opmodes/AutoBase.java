@@ -14,9 +14,14 @@ public abstract class AutoBase extends LinearOpMode {
     protected Trajectory scorePreload;
     protected Trajectory getStackCone;
     protected Trajectory scoreStackCone;
+    protected Trajectory getStackConeCorrection;
+    protected Trajectory scoreStackConeCorrection;
+    protected Trajectory getStackConeCorrectionLast;
+    protected Trajectory scoreStackConeCorrectionLast;
     protected Trajectory park1;
     protected Trajectory park2;
     protected Trajectory park3;
+    protected Trajectory moveBeacon;
 
     protected int parkPosition = -1;
     protected Pose2d initialPosition;
@@ -25,11 +30,13 @@ public abstract class AutoBase extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        Configurables.ARM_POWER= 0.7;
         this.robot = new Robot().init(hardwareMap);
         this.drive = new SampleMecanumDrive(hardwareMap);
-        drive.setPoseEstimate(initialPosition);
 
         initializeTrajectories();
+
+        drive.setPoseEstimate(initialPosition);
 
         this.robot.useAutoCamera();
 
@@ -40,31 +47,33 @@ public abstract class AutoBase extends LinearOpMode {
         }
 
         // Score the preloaded cone
-        robot.getLift().slideMed();
+        robot.getClaw().twistDown();
+        robot.getArm().moveMid();
+        drive.followTrajectory(moveBeacon);
         drive.followTrajectory(scorePreload);
         robot.getLift().autoTop(); // Lower the slide to the height of the top cone
         sleep(100);
         robot.getClaw().open();
-        robot.getArm().moveRight();
+        robot.getArm().moveScore();
 
         getAndScoreStackCone(Configurables.AUTO_TOP);
         getAndScoreStackCone(Configurables.AUTO_TOP2);
-        getAndScoreStackCone(Configurables.AUTO_TOP3);
-        getAndScoreStackCone(Configurables.AUTO_TOP4);
-        getAndScoreStackCone(Configurables.AUTO_TOP5);
+        getAndScoreStackConeCorrection(Configurables.AUTO_TOP3);
+        getAndScoreStackConeCorrection(Configurables.AUTO_TOP4);
+        getAndScoreStackConeCorrectionLast(Configurables.AUTO_TOP5);
 
         robot.getArm().moveMid();
 
         switch (this.parkPosition) {
-            case 2:
-                drive.followTrajectory(park2);
+            case 1:
+                drive.followTrajectory(park1);
                 break;
             case 3:
                 drive.followTrajectory(park2);
                 drive.followTrajectory(park3);
                 break;
             default:
-                drive.followTrajectory(park1);
+                drive.followTrajectory(park2);
                 break;
         }
     }
@@ -72,8 +81,11 @@ public abstract class AutoBase extends LinearOpMode {
     protected void getAndScoreStackCone(int height) {
         // Get the cone off the stack
         this.drive.followTrajectory(getStackCone);
+        robot.getClaw().openWide();
+        robot.getArm().moveRight();
+        sleep(200);
         this.robot.getClaw().close();
-        sleep(100);
+        sleep(200);
 
         // Move back to the junction
         this.robot.getLift().slideMed();
@@ -85,7 +97,53 @@ public abstract class AutoBase extends LinearOpMode {
         this.robot.getLift().move(height);
         sleep(100);
         this.robot.getClaw().open();
-        this.robot.getArm().moveRight();
+        this.robot.getArm().moveScore();
+        sleep(100);
+    }
+
+    protected void getAndScoreStackConeCorrection(int height) {
+        // Get the cone off the stack
+        this.drive.followTrajectory(getStackConeCorrection);
+        robot.getClaw().openWide();
+        robot.getArm().moveRight();
+        sleep(200);
+        this.robot.getClaw().close();
+        sleep(200);
+
+        // Move back to the junction
+        this.robot.getLift().slideMed();
+        this.robot.getArm().moveLeft();
+        sleep(200);
+        this.drive.followTrajectory(scoreStackConeCorrection);
+
+        // Score
+        this.robot.getLift().move(height);
+        sleep(100);
+        this.robot.getClaw().open();
+        this.robot.getArm().moveScore();
+        sleep(100);
+    }
+
+    protected void getAndScoreStackConeCorrectionLast(int height) {
+        // Get the cone off the stack
+        this.drive.followTrajectory(getStackConeCorrectionLast);
+        robot.getClaw().openWide();
+        robot.getArm().moveRight();
+        sleep(200);
+        this.robot.getClaw().close();
+        sleep(200);
+
+        // Move back to the junction
+        this.robot.getLift().slideMed();
+        this.robot.getArm().moveLeft();
+        sleep(200);
+        this.drive.followTrajectory(scoreStackConeCorrectionLast);
+
+        // Score
+        this.robot.getLift().move(height);
+        sleep(100);
+        this.robot.getClaw().open();
+        this.robot.getArm().moveScore();
         sleep(100);
     }
 }

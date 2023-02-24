@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_POWER;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT_TELE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_SCORE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP;
@@ -15,6 +16,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUT
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPENWIDE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_DUNK;
@@ -39,6 +41,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.opencv.engine.OpenCVEngineInterface;
 
 public class Robot {
     private Drive drive;
@@ -201,6 +205,8 @@ public class Robot {
             this.move(ARM_RIGHT_TELE);
         }
 
+        public void moveScore() {this.move(ARM_SCORE);}
+
         public void drop() {
             this.arm.setPower(0);
         }
@@ -236,6 +242,10 @@ public class Robot {
             this.clawGrip.setPosition(CLAW_OPEN);
         }
 
+        public void openWide() {
+            this.clawGrip.setPosition(CLAW_OPENWIDE);
+        }
+
         public void twistUp() {
             this.clawTurn.setPosition(CLAW_UP);
         }
@@ -243,6 +253,7 @@ public class Robot {
         public void twistDown() {
             this.clawTurn.setPosition(CLAW_DOWN);
         }
+
     }
 
     public static class Lift {
