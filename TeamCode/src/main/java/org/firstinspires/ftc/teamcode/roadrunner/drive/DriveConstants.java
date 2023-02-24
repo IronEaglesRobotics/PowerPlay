@@ -55,7 +55,7 @@ public class DriveConstants {
      */
 //    public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
 
-    public static double kV = 0.0135;
+    public static double kV = 0.013;
     public static double kA = 0.003;
     public static double kStatic = 0;
 
@@ -66,10 +66,12 @@ public class DriveConstants {
      * small and gradually increase them later after everything is working. All distance units are
      * inches.
      */
+    // old is 35 35 120 120
+    // new is 70 45 90 90
     public static double MAX_VEL = 35;
     public static double MAX_ACCEL = 35;
-    public static double MAX_ANG_VEL = Math.toRadians(120);
-    public static double MAX_ANG_ACCEL = Math.toRadians(120);
+    public static double MAX_ANG_VEL = Math.toRadians(90);
+    public static double MAX_ANG_ACCEL = Math.toRadians(90);
 
 
     public static double encoderTicksToInches(double ticks) {

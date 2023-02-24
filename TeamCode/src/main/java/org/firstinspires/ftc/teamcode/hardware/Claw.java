@@ -19,15 +19,17 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 
 
     public static double pincherOpen = 0.4;
-    public static double pincherClosed = 0.53;
+    public static double pincherClosed = 0.525;
     public static double strongPincherClose = 0.55;
+    public static double strongPincherOpen = 0.25;
     public static double wristUpright = 0.08;
     public static double wristFlipped = 0.75;
     public static double triggerDistance = 20; // mm
 
     public boolean isOpen = true;
     public boolean isUpright = true;
-    public boolean strong = false;
+    public boolean strongClose = false;
+    public boolean strongOpen = true;
 
 //    private double timeSinceOpened = 0;
     public boolean justOpened = false;
@@ -42,6 +44,7 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
         } else {
             flipped();
         }
+        update();
 //        open();
 //        upright();
     }
@@ -70,18 +73,20 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
         isUpright = !isUpright;
     }
 
-    public void update(double runTime) {
+    public void update() {
         if (isUpright) {
-            upright();
+            wrist.setPosition(wristUpright);
+//            upright();
         } else {
-            flipped();
+            wrist.setPosition(wristFlipped);
+//            flipped();
         }
 
         if (isOpen) {
-            pincher.setPosition(pincherOpen);
+            pincher.setPosition(strongOpen ? strongPincherOpen : pincherOpen);
 //            open();
         } else {
-            pincher.setPosition(strong? strongPincherClose : pincherClosed);
+            pincher.setPosition(strongClose ? strongPincherClose : pincherClosed);
 //            close();
         }
 
@@ -100,25 +105,33 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 
     public void close() {
         isOpen = false;
-        strong = false;
+        strongClose = false;
     }
+
     public void strongClose() {
         isOpen = false;
-        strong = true;
+        strongClose = true;
     }
 
     public void open() {
         isOpen = true;
+        strongOpen = false;
+        justOpened = true;
+    }
+
+    public void strongOpen() {
+        isOpen = true;
+        strongOpen = true;
         justOpened = true;
     }
 
     public void upright() {
-        wrist.setPosition(wristUpright);
+//        wrist.setPosition(wristUpright);
         isUpright = true;
     }
 
     public void flipped() {
-        wrist.setPosition(wristFlipped);
+//        wrist.setPosition(wristFlipped);
         isUpright = false;
     }
 

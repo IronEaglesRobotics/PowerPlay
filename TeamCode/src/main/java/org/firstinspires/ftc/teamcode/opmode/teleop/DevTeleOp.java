@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
+@Disabled
 @TeleOp
 public class DevTeleOp extends OpMode {
     private Robot robot;

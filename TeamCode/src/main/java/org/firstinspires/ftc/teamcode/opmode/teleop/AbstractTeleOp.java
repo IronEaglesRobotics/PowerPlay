@@ -1,56 +1,71 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
-import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
-import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.opmode.Alliance.RED;
+import static java.lang.Math.PI;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.PoseStorage;
 import org.firstinspires.ftc.teamcode.controller.Controller;
-import org.firstinspires.ftc.teamcode.hardware.Claw;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
-import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
 @Config
 public abstract class AbstractTeleOp extends OpMode {
     private Robot robot;
     public Alliance alliance;
-
     Controller driver1;
     Controller driver2;
 
     public static double drivebaseThrottle = 0.4;
-
+    public static double drivebaseTurbo = 1.0;
     public static int heightIncrement = 20;
-
-    public static double robot_width = 12;
-    public static double robot_length = 12;
-    public static double robot_radius = 6;
-
-    public static double groundJuncRadius = 6;
-    public static double coneRadius = 4;
-
-    public static double armWait = 0.2;
 
     Pose2d robot_pos;
     double robot_x, robot_y, robot_heading;
 
-    private double timeSinceOpened = 0; // for claw
-    private double timeSinceClosed = 0;
+    // auto align variables
+    double headingPID;
+    public static double headingP = 0.01;
+    public static double headingI = 0.03;
+    public static double headingD = 0.0005;
+    public static PIDController headingController = new PIDController(headingP, headingI, headingD);
 
-    private int delayState = 0; // for arm
-    private double delayStart = 0;
-    private boolean doArmDelay = false; // for arm
+    double strafePID;
+    public static double strafeP = 0.05;
+    public static double strafeI = 0;
+    public static double strafeD = 0.01;
+    public static PIDController strafeController = new PIDController(strafeP, strafeI, strafeD);
+
+    double robot_y_pos;
+    boolean fixed90Toggle = false;
+    boolean fixed0Toggle = false;
+
+//    public static double robot_width = 12;
+//    public static double robot_length = 12;
+//    public static double robot_radius = 6;
+//
+//    public static double groundJuncRadius = 6;
+//    public static double coneRadius = 4;
+//
+//    public static double armWait = 0.2;
+
+//    private double timeSinceOpened = 0; // for claw
+//    private double timeSinceClosed = 0;
+
+//    private int delayState = 0; // for arm
+//    private double delayStart = 0;
+//    private boolean doArmDelay = false; // for arm
     private boolean isAutoClose = true;
 
     @Override
     public void init() {
-        robot =  new Robot(hardwareMap, INTAKE, UPRIGHT, CameraPosition.RIGHT);
+        robot =  new Robot(hardwareMap);
         driver1 = new Controller(gamepad1);
         driver2 = new Controller(gamepad2);
         if (alliance == RED) {
@@ -62,107 +77,137 @@ public abstract class AbstractTeleOp extends OpMode {
         }
 
         robot.slides.decrementAmount = 90;
+        PoseStorage.AutoJustEnded = false;
     }
 
     @Override
     public void init_loop() {
-        if (robot.camera.getFrameCount() < 1) {
-            telemetry.addLine("Initializing Robot...");
-        } else {
-            telemetry.addLine("Initialized");
-
-        }
+//        if (robot.camera.getFrameCount() < 1) {
+//            telemetry.addLine("Initializing Robot...");
+//        } else {
+//            telemetry.addLine("Initialized");
+//        }
+        telemetry.addLine("Initialized");
         telemetry.addLine(robot.getTelemetry());
         telemetry.update();
     }
 
-//    public double[] getJuncPos(int juncNum) {
-//        int x_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(0)));
-//        int y_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(1)));
-//
-//        double x_pos = (y_ref * -23.5) + 70.5;
-//        double y_pos = (x_ref * -23.5) + 70.5;
-//
-//        return new double[] {x_pos, y_pos};
-//    }
-//
-//    public boolean isGroundJunc(int juncNum) {
-//        int x_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(0)));
-//        int y_ref = Integer.parseInt(String.valueOf(String.valueOf(juncNum).charAt(1)));
-//
-//        return x_ref % 2 != 0 && y_ref % 2 != 0;
-//    }
-//
-//    public int nearestJunc(double posX, double posY) { // robot position
-//        int diffJuncX = (int) ((Math.abs(posX) + 11.75) / 23.5);
-//        int juncY = (posX < 0? 3 + diffJuncX : 3 - diffJuncX);
-//
-//        int diffJuncY = (int) ((Math.abs(posY) + 11.75) / 23.5);
-//        int juncX = (posY < 0? 3 + diffJuncY : 3 - diffJuncY);
-//
-//        return Integer.parseInt(String.valueOf(juncX) + String.valueOf(juncY));
-//    }
+    private int getQuadrant(double angle) {
+        if (0 < angle && angle < PI/2.0) {
+            return 1;
+        } else if (PI/2.0 < angle && angle < PI) {
+            return 2;
+        } else if (PI < angle && angle < 3*PI/2.0) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }
 
     @Override
     public void loop() {
+        // robot position update
+        robot_pos = robot.drive.getPoseEstimate();
+        robot_x = robot_pos.getX();
+        robot_y = robot_pos.getY();
+        robot_heading = robot_pos.getHeading(); // in radians
+
+        // driver 1 controls
         driver1.update();
         driver2.update();
         double x = -driver1.getLeftStick().getY();
         double y = driver1.getLeftStick().getX();
         double z = -driver1.getRightStick().getX();
 
-        robot_pos = robot.drive.getPoseEstimate();
-        robot_x = robot_pos.getX();
-        robot_y = robot_pos.getY();
-        robot_heading = robot_pos.getHeading(); // in radians
-
-
-//        // check if overlapping
-//        int nearJunc = nearestJunc(robot_x, robot_y);
-//        double juncPosX = getJuncPos(nearJunc)[0];
-//        double juncPosY = getJuncPos(nearJunc)[1];
-//        double d = Math.sqrt((robot_x - juncPosX) * (robot_x - juncPosX) + (robot_y - juncPosY) * (robot_y - juncPosY));
-//        double juncRadius = (isGroundJunc(nearJunc)? groundJuncRadius : coneRadius);
-////        double juncAngle = Math.acos(robot_radius / d); // absolute angle of the junction from robot in radians
-//        double juncAngle = Math.atan2(juncPosY - robot_y, juncPosX - robot_x); // absolute angle of the junction from robot in radians
-//
-//        /** NOTES FOR THIS IF STATEMENT
-//         * the below was made with field-centric in mind, which is not correct anymore
-//         * need to rethink idea and where I can move, but its important to realize that x and y are roadrunner
-//         * x and y, not the cartesian x and y... x is forward and y is sideways
-//         * Also include noah's idea for sending a proportional driver instruction sideways or off the junction
-//         * dependent on how much the user continues to throttle "into the junction"
-//         **/
-//        if (d <= robot_radius + juncRadius) {
-//            // overlapping or touching
-//            double radianDiff = juncAngle - robot_heading;
-//
-//            if (radianDiff < Math.toRadians(180) && radianDiff > Math.toRadians(0)) { // facing to the left
-//                y = Math.max(y, 0);
-//            } else if (radianDiff > Math.toRadians(-180) && radianDiff < Math.toRadians(0)) { // facing to the right
-//                y = Math.min(y, 0);
-//            }
-//
-//            if (radianDiff < Math.toRadians(90) && radianDiff > Math.toRadians(-90)) { // facing junction
-//                x = Math.min(x, 0);
-//            } else if (radianDiff > Math.toRadians(90) || radianDiff < Math.toRadians(-90)) { // back against junction
-//                x = Math.max(x, 0);
-//            }
-//        }
-
-        //transform the linear controller output into the nonlinear curve
-//        x = 0.152 * Math.tan(1.42 * x); // blue desmos curve
-//        y = y*0.4;
-//        //y =  0.2*Math.tan(1.3734*y)  ;
-//        z = 0.152 * Math.tan(1.42 * z);
-//        robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
-
-        if (driver1.getLeftBumper().isPressed() || driver1.getRightBumper().isPressed()) { // TURBO
-            robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
+//         figure out if a toggle is present
+        if (driver1.getRightBumper().isPressed()) {
+            if (!fixed90Toggle) {
+                robot_y_pos = robot.drive.getPoseEstimate().getX();
+            }
+            fixed90Toggle = true;
         } else {
-            robot.drive.setWeightedDrivePower(new Pose2d(x * drivebaseThrottle, y * drivebaseThrottle, z * drivebaseThrottle));
+            fixed90Toggle = false;
         }
 
+        if (!fixed90Toggle && driver1.getLeftBumper().isPressed()) {
+            if (!fixed0Toggle) {
+                robot_y_pos = robot.drive.getPoseEstimate().getY();
+            }
+            fixed0Toggle = true;
+        } else {
+            fixed0Toggle = false;
+        }
+
+        // heading pid
+        headingController.setPID(headingP, headingI, headingD);
+        int quadrant = getQuadrant(robot_heading);
+        if (fixed0Toggle) {
+            switch (quadrant) {
+                case 1:
+                    headingPID = headingController.calculate(Math.toDegrees(robot_heading), 0);//- right
+                    break;
+                case 2:
+                    headingPID = headingController.calculate(Math.toDegrees(robot_heading), 180);//+ left
+                    break;
+                case 3:
+                    headingPID = headingController.calculate(Math.toDegrees(robot_heading), 180);//- right
+                    break;
+                case 4:
+                    headingPID = headingController.calculate(Math.toDegrees(robot_heading), 360);//+ left
+                    break;
+            }
+        } else if (fixed90Toggle) {
+            switch (quadrant) {
+                case 1:
+                    headingPID = headingController.calculate(Math.toDegrees(robot_heading), 90);//- right
+                    break;
+                case 2:
+                    headingPID = headingController.calculate(Math.toDegrees(robot_heading), 90);//+ left
+                    break;
+                case 3:
+                    headingPID = headingController.calculate(Math.toDegrees(robot_heading), 270);//- right
+                    break;
+                case 4:
+                    headingPID = headingController.calculate(Math.toDegrees(robot_heading), 270);//+ left
+                    break;
+            }
+        } else {
+            headingPID = 0;
+        }
+
+        // strafe pid
+        strafeController.setPID(strafeP, strafeI, strafeD);
+        if (fixed0Toggle) {
+            strafePID = strafeController.calculate(robot_y, robot_y_pos);
+        } else if (fixed90Toggle) {
+            strafePID = strafeController.calculate(robot_x, robot_y_pos);
+        } else {
+            strafePID = 0;
+        }
+
+        telemetry.addLine("Wanted Position: "+robot_y_pos);
+        telemetry.addLine("Actual Position: "+robot_y);
+        telemetry.addLine("PID: "+strafePID);
+
+        // turbo
+        if (driver1.getLeftBumper().isPressed() || driver1.getRightBumper().isPressed()) {
+            x *= drivebaseTurbo;
+            y *= drivebaseTurbo;
+            z *= drivebaseTurbo;
+        } else {
+            x *= drivebaseThrottle;
+            y *= drivebaseThrottle;
+            z *= drivebaseThrottle;
+        }
+
+        // actually set power
+        if (fixed0Toggle || fixed90Toggle) {
+            robot.drive.setWeightedDrivePower(new Pose2d(x, 0, headingPID));
+        } else {
+            robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
+        }
+
+        // driver 2 controls
         // increment heights
         if (driver2.getDUp().isJustPressed()) {
             Slides.heightOffset += heightIncrement;
@@ -291,8 +336,6 @@ public abstract class AbstractTeleOp extends OpMode {
             robot.macroState = 0;
             robot.slides.cancel();
         }
-
-
 
         // update and telemetry
         robot.update(getRuntime());

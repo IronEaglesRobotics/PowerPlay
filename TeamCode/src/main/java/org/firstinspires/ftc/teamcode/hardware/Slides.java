@@ -12,14 +12,13 @@ public class Slides { // TODO fix the math for different slide motors and less s
     private DcMotor slide2;
 
     public static double p = 0.001;
-    public static double i = 0.02;
+    public static double i = 0.03;
     public static double d = 0;
     public static double f = 0.025;
     public static double pTolerance = 20;
     public static PIDController controller = new PIDController(p, i, d);
-    public static double downMultiplier = 0.5;
 
-    public static int[] heights = {0, (int)(200/4.0), 2*(int)(200/4.0), 3*(int)(197/4.0), 4*(int)(194/4)};
+    public static int[] heights = {0, (int)(190/4.0), 2*(int)(190/4.0), 3*(int)(190/4.0), 4*(int)(180/4)};
 
     public static int heightOffset = 0;
     public static int targetMin = -10;
@@ -31,7 +30,7 @@ public class Slides { // TODO fix the math for different slide motors and less s
 
     public int decrementAmount = 100;
 
-    public static int manualSpeed = 50;
+    public static int manualSpeed = 20;
     public static int zeroPower = 5;
 
     public enum Position { HIGH, MEDIUM, LOW, DOWN }

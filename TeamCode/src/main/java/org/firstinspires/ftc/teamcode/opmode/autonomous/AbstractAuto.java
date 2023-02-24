@@ -1,16 +1,12 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
-import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.SCORE;
 import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.FLIPPED;
-import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
 
-import android.transition.Slide;
-
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.PoseStorage;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
@@ -36,7 +32,7 @@ public abstract class AbstractAuto extends LinearOpMode {
 
         setCameraPosition();
 
-        robot = new Robot(hardwareMap, INTAKE, UPRIGHT, cameraPosition);
+        robot = new Robot(hardwareMap, SCORE, FLIPPED, cameraPosition);
 //        robot.claw.close();
 //        robot.claw.upright();
 //        robot.claw.flip();
@@ -64,6 +60,7 @@ public abstract class AbstractAuto extends LinearOpMode {
             telemetry.addLine(robot.getTelemetry());
             telemetry.update();
         }
+        PoseStorage.AutoJustEnded = true;
         resetRuntime();
 
         // build the first step
@@ -98,6 +95,7 @@ public abstract class AbstractAuto extends LinearOpMode {
 //            // update turret and slides position
 //            PoseStorage.slidesPosition = robot.actuators.getSlides();
 //            PoseStorage.turretPosition = robot.actuators.getTurret();
+            PoseStorage.currentPose = robot.drive.getPoseEstimate();
 
             // while the step is running display telemetry
             step.whileRunning();
@@ -121,6 +119,9 @@ public abstract class AbstractAuto extends LinearOpMode {
     public abstract boolean useCamera();
 
     public abstract void makeTrajectories();
+
+
+//    public abstract void setArm(Arm.Position armPos, Claw.Position clawPos);
 
     //other methods that do certain tasks
 
@@ -228,6 +229,36 @@ public abstract class AbstractAuto extends LinearOpMode {
         });
     }
 
+    public void followAndResetEnd(Trajectory trajectory, int pos) {
+        steps.add(new Step("Following a trajectory") {
+            @Override
+            public void start() {
+                robot.drive.followTrajectoryAsync(trajectory);
+                robot.runningMacro = 4;
+                robot.resetMacroEnd(pos, currentRuntime);
+            }
+
+            @Override
+            public void whileRunning() {
+                if (robot.runningMacro != 0) {
+                    robot.resetMacroEnd(pos, currentRuntime);
+                }
+                robot.drive.update();
+            }
+
+            @Override
+            public void end() {
+//                robot.slides.setTarget(Slides.Position.HIGH); // start moving slides
+//                robot.claw.close();
+//                robot.claw.update();
+            }
+
+            @Override
+            public boolean isFinished() {
+                return !robot.drive.isBusy() && robot.runningMacro == 0;
+            }
+        });
+    }
 
     public void followAndReset(Trajectory trajectory, int pos) {
         steps.add(new Step("Following a trajectory") {
@@ -242,12 +273,13 @@ public abstract class AbstractAuto extends LinearOpMode {
             public void whileRunning() {
                 if (robot.runningMacro != 0) {
                     robot.resetMacro(pos, currentRuntime);
-                } else {
-                    if (robot.claw.getTriggerDistance() < 30) {
-                        robot.claw.close();
-                    } else {
-                        robot.claw.open();
-                    }
+//                } else {
+//                    if (robot.claw.getTriggerDistance() < 30) {
+//                        robot.claw.close();
+//                    }
+//                    else {
+//                        robot.claw.open();
+//                    }
                 }
                 robot.drive.update();
             }
@@ -255,6 +287,8 @@ public abstract class AbstractAuto extends LinearOpMode {
             @Override
             public void end() {
                 robot.slides.setTarget(Slides.Position.HIGH); // start moving slides
+                robot.claw.close();
+                robot.claw.update();
             }
 
             @Override

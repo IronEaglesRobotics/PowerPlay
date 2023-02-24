@@ -29,7 +29,7 @@ public class Constants {
     // CV Camera Constants
     public static final int WEBCAM_WIDTH = 800;//320
     public static final int WEBCAM_HEIGHT = 448;//240
-    public static final OpenCvCameraRotation WEBCAM_ROTATION = OpenCvCameraRotation.SIDEWAYS_RIGHT;
+    public static final OpenCvCameraRotation WEBCAM_ROTATION = OpenCvCameraRotation.SIDEWAYS_LEFT;
 
     // CV Invalid Detection Constants
     public static final Point INVALID_POINT = new Point(Double.MIN_VALUE, Double.MIN_VALUE);

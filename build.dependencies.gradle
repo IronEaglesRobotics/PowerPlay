@@ -3,8 +3,10 @@ repositories {
     google() // Needed for androidx
     flatDir {
         dirs rootProject.file('libs')
+//        dirs 'libs', 'C:\\Users\\tealro\\navx-micro\\android\\libs'
     }
     maven { url = 'https://maven.brott.dev/' }
+//    maven { url = 'https://www.kauailabs.com/dist' }
 }
 
 dependencies {
@@ -19,6 +21,10 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite-task-vision:0.2.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'org.firstinspires.ftc:gameAssets-PowerPlay:1.0.0'
-    implementation 'com.acmerobotics.dashboard:dashboard:0.4.4'
+    implementation 'com.acmerobotics.dashboard:dashboard:0.4.8'
+
+//    implementation 'com.kauailabs:navx2-mxp:2.2.1'
+//    implementation 'com.kauailabs:navx2-frc:2.2.1'
+//    compile (name:'navx_ftc-release', ext:'aar')
 }
 

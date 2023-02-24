@@ -23,7 +23,7 @@ public class MeepMeepTesting {
 //                .addEntity(autoPaths.redMidBot)
 //                .addEntity(autoPaths.redMidBot2)
 //            .addEntity(autoPaths.redCarryBot)
-                .addEntity(semiAutos.rightHighBot)
+                .addEntity(semiAutos.lrightHighBot)
 
                 .start();
 

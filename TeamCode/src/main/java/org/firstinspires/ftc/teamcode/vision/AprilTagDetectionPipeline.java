@@ -21,13 +21,25 @@
 
 package org.firstinspires.ftc.teamcode.vision;
 
+import static org.firstinspires.ftc.teamcode.util.Constants.ANCHOR;
+import static org.firstinspires.ftc.teamcode.util.Constants.BLUR_SIZE;
+import static org.firstinspires.ftc.teamcode.util.Constants.ERODE_DILATE_ITERATIONS;
+import static org.firstinspires.ftc.teamcode.util.Constants.GREEN;
+import static org.firstinspires.ftc.teamcode.util.Constants.RED;
+import static org.firstinspires.ftc.teamcode.util.Constants.STRUCTURING_ELEMENT;
+import static org.firstinspires.ftc.teamcode.util.Constants.YELLOW;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.LEFT_BOUNDARY_APRILTAG;
 import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.RIGHT_BOUNDARY_APRILTAG;
+import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.YELLOW_LOWER;
+import static org.firstinspires.ftc.teamcode.vision.OpenCVUtil.YELLOW_UPPER;
 
+import org.firstinspires.ftc.teamcode.util.Color;
 import org.opencv.calib3d.Calib3d;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDouble;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.MatOfPoint3f;
 import org.opencv.core.Point;
@@ -39,12 +51,13 @@ import org.openftc.apriltag.AprilTagDetectorJNI;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AprilTagDetectionPipeline extends OpenCvPipeline
 {
     private long nativeApriltagPtr;
     private Mat grey = new Mat();
-    private ArrayList<AprilTagDetection> detections = new ArrayList<>();
+    private ArrayList<AprilTagDetection> aprilTagDetections = new ArrayList<>();
 
     private ArrayList<AprilTagDetection> detectionsUpdate = new ArrayList<>();
     private final Object detectionsUpdateSync = new Object();
@@ -69,6 +82,14 @@ public class AprilTagDetectionPipeline extends OpenCvPipeline
     private float decimation;
     private boolean needToSetDecimation;
     private final Object decimationSync = new Object();
+
+    // Junction Detection Stuff
+    Mat blurred = new Mat();
+    Mat hsv = new Mat();
+    Mat colorMask = new Mat();
+    List<Detection> detections = new ArrayList<>();
+    Detection closestDetection = null;
+    Color centerColor;
 
     public AprilTagDetectionPipeline(double tagsize, double fx, double fy, double cx, double cy)
     {
@@ -118,16 +139,56 @@ public class AprilTagDetectionPipeline extends OpenCvPipeline
         }
 
         // Run AprilTag
-        detections = AprilTagDetectorJNI.runAprilTagDetectorSimple(nativeApriltagPtr, grey, tagsize, fx, fy, cx, cy);
+        aprilTagDetections = AprilTagDetectorJNI.runAprilTagDetectorSimple(nativeApriltagPtr, grey, tagsize, fx, fy, cx, cy);
 
         synchronized (detectionsUpdateSync)
         {
-            detectionsUpdate = detections;
+            detectionsUpdate = aprilTagDetections;
         }
+
+        // Junction Detection
+        Imgproc.blur(input, blurred, BLUR_SIZE);
+        Imgproc.cvtColor(blurred, hsv, Imgproc.COLOR_BGR2HSV);
+        Core.inRange(hsv , new Scalar(YELLOW_LOWER.get()), new Scalar(YELLOW_UPPER.get()), colorMask);
+        Imgproc.erode(colorMask, colorMask, STRUCTURING_ELEMENT, ANCHOR, ERODE_DILATE_ITERATIONS);
+        Imgproc.dilate(colorMask, colorMask, STRUCTURING_ELEMENT, ANCHOR, ERODE_DILATE_ITERATIONS);
+
+        this.centerColor = new Color(input.get(input.cols() / 2, input.rows() / 2));
+
+        detections.clear();
+        ArrayList<MatOfPoint> colorContours = new ArrayList<>();
+        Imgproc.findContours(colorMask, colorContours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
+        double closestWidth = 0;
+        for (int i = 0; i < colorContours.size(); i++) {
+            Detection detection = new Detection(input.size(),0.005);
+            detection.setContour(colorContours.get(i));
+            detections.add(detection);
+
+            detection.drawAngledRect(input, YELLOW, true);
+            if (detection.isValid()) {
+                Point p = detection.getTopCenterOfAngledRect();
+                OpenCVUtil.drawPoint(input, p, RED, 10);
+
+                double width = detection.getWidthOfAngledRect();
+                if (width > closestWidth) {
+                    closestDetection = detection;
+                    closestWidth = width;
+                }
+            }
+        }
+
+        if (closestDetection != null) {
+            OpenCVUtil.drawPoint(input, closestDetection.getTopCenterOfAngledRect(), GREEN, 10);
+        }
+
+//        return input;
+
+        // Draw on input mat
+
 
         // For fun, use OpenCV to draw 6DOF markers on the image. We actually recompute the pose using
         // OpenCV because I haven't yet figured out how to re-use AprilTag's pose in OpenCV.
-        for(AprilTagDetection detection : detections)
+        for(AprilTagDetection detection : aprilTagDetections)
         {
             Pose pose = poseFromTrapezoid(detection.corners, cameraMatrix, tagsizeX, tagsizeY);
             drawAxisMarker(input, tagsizeY/2.0, 6, pose.rvec, pose.tvec, cameraMatrix);
@@ -150,7 +211,7 @@ public class AprilTagDetectionPipeline extends OpenCvPipeline
 
     public ArrayList<AprilTagDetection> getLatestDetections()
     {
-        return detections;
+        return aprilTagDetections;
     }
 
     public ArrayList<AprilTagDetection> getDetectionsUpdate()
