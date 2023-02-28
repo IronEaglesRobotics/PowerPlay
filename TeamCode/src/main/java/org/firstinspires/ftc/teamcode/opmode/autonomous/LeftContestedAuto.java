@@ -91,7 +91,7 @@ public class LeftContestedAuto extends AbstractAuto {
         Pose2d sPark2 = new Pose2d(30, 19, Math.toRadians(-90));
         Pose2d lPark2 = new Pose2d(30,28, Math.toRadians(-90));
 
-        Pose2d lPark3 = new Pose2d(5,20, Math.toRadians(-90));
+        Pose2d lPark3 = new Pose2d(6,19, Math.toRadians(-90));
 
         // preload
         this.start = robot.drive.trajectoryBuilder(start1)

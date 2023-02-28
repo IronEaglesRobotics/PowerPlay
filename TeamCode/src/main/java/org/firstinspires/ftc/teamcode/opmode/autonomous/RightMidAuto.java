@@ -94,8 +94,8 @@ public class RightMidAuto extends AbstractAuto {
         Pose2d lPark2 = new Pose2d(-31,18, Math.toRadians(90));
 
         Pose2d sPark3 = new Pose2d(-49, 8, Math.toRadians(0));
-        Pose2d s2Park3 = new Pose2d(-55, 21, Math.toRadians(90));
-        Pose2d lPark3 = new Pose2d(-55,24,Math.toRadians(90));
+        Pose2d s2Park3 = new Pose2d(-55, 21, Math.toRadians(-90));
+        Pose2d lPark3 = new Pose2d(-55,24,Math.toRadians(-90));
 
         // preload
         this.start = robot.drive.trajectoryBuilder(start1)

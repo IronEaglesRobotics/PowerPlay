@@ -90,8 +90,8 @@ public class LeftMidAuto extends AbstractAuto {
 //        Pose2d sPark0 = new Pose2d(-20,7, Math.toRadians(-90));
 //        Pose2d sPark1 = new Pose2d(-10,21, Math.toRadians(-90));
         Pose2d sPark1 = new Pose2d(49, 8, Math.toRadians(180));
-        Pose2d s2Park1 = new Pose2d(55, 21, Math.toRadians(90));
-        Pose2d lPark1 = new Pose2d(55,24,Math.toRadians(90));
+        Pose2d s2Park1 = new Pose2d(55, 21, Math.toRadians(-90));
+        Pose2d lPark1 = new Pose2d(55,24,Math.toRadians(-90));
 
         Pose2d lPark2 = new Pose2d(31,18, Math.toRadians(90));
 
