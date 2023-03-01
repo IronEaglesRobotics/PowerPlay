@@ -30,6 +30,8 @@ public class Controller {
     private final Trigger leftTrigger;
     private final Trigger rightTrigger;
 
+    private final Button touchpad;
+
     public Controller(Gamepad gamepad) {
         this.gamepad = gamepad;
 
@@ -57,6 +59,8 @@ public class Controller {
 
         leftTrigger = new Trigger();
         rightTrigger = new Trigger();
+
+        touchpad = new Button();
     }
 
     public void update() {
@@ -84,6 +88,8 @@ public class Controller {
 
         leftTrigger.update(gamepad.left_trigger);
         rightTrigger.update(gamepad.right_trigger);
+
+        touchpad.update(gamepad.touchpad);
     }
 
     public Joystick getLeftStick() {
@@ -145,6 +151,10 @@ public class Controller {
     }
     public Trigger getRightTrigger() {
         return rightTrigger;
+    }
+
+    public Button getTouchpad() {
+        return touchpad;
     }
 
     public void rumble() {
