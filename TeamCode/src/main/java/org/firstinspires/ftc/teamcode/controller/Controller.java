@@ -32,6 +32,8 @@ public class Controller {
 
     private final Button touchpad;
 
+    private final Button allButtons;
+
     public Controller(Gamepad gamepad) {
         this.gamepad = gamepad;
 
@@ -61,7 +63,10 @@ public class Controller {
         rightTrigger = new Trigger();
 
         touchpad = new Button();
+
+        allButtons = new Button();
     }
+
 
     public void update() {
         leftStick.update(gamepad.left_stick_x, -gamepad.left_stick_y);
@@ -90,6 +95,8 @@ public class Controller {
         rightTrigger.update(gamepad.right_trigger);
 
         touchpad.update(gamepad.touchpad);
+
+        allButtons.update(leftStickButton.isPressed() || rightStickButton.isPressed() || dLeft.isPressed() || dRight.isPressed() || dUp.isPressed() || dDown.isPressed() || a.isPressed() || b.isPressed() || x.isPressed() || y.isPressed() || leftBumper.isPressed() || rightBumper.isPressed() || back.isPressed() || start.isPressed() || leftTrigger.getValue() > 0 || rightTrigger.getValue() > 0 || touchpad.isPressed());
     }
 
     public Joystick getLeftStick() {
@@ -157,6 +164,10 @@ public class Controller {
         return touchpad;
     }
 
+    public Button getAllButtons() {
+        return allButtons;
+    }
+
     public void rumble() {
         gamepad.rumble(Gamepad.RUMBLE_DURATION_CONTINUOUS);
     }
@@ -179,5 +190,8 @@ public class Controller {
 
     public void setColor(int r, int g, int b) {
         gamepad.setLedColor(r, g, b, -1);
+    }
+    public void setColor(int r, int g, int b, int milliseconds) {
+        gamepad.setLedColor(r, g, b, milliseconds);
     }
 }
