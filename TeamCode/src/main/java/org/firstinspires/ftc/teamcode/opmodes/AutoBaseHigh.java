@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-public abstract class AutoBase extends LinearOpMode {
+public abstract class AutoBaseHigh extends LinearOpMode {
     protected Robot robot;
     protected SampleMecanumDrive drive;
     protected Trajectory scorePreload;
@@ -89,7 +89,7 @@ public abstract class AutoBase extends LinearOpMode {
         sleep(150);
 
         // Move back to the junction
-        this.robot.getLift().slideMed();
+        this.robot.getLift().slideHigh();
         this.robot.getArm().moveTilt();
         sleep(150);
         this.drive.followTrajectory(scoreStackCone);
@@ -113,7 +113,7 @@ public abstract class AutoBase extends LinearOpMode {
         sleep(150);
 
         // Move back to the junction
-        this.robot.getLift().slideMed();
+        this.robot.getLift().slideHigh();
         this.robot.getArm().moveTilt();
         sleep(150);
         this.drive.followTrajectory(scoreStackConeCorrection);
@@ -137,7 +137,7 @@ public abstract class AutoBase extends LinearOpMode {
         sleep(150);
 
         // Move back to the junction
-        this.robot.getLift().slideMed();
+        this.robot.getLift().slideHigh();
         this.robot.getArm().moveTilt();
         sleep(150);
         this.drive.followTrajectory(scoreStackConeCorrectionLast);

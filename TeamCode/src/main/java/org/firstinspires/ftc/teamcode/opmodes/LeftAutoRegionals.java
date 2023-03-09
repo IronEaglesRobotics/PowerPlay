@@ -20,7 +20,7 @@ public class LeftAutoRegionals extends AutoBase {
     @Override
     public void initializeTrajectories() {
         // START
-        this.initialPosition = new Pose2d(-32.5, -60, Math.toRadians(90));
+        this.initialPosition = new Pose2d(-31, -60, Math.toRadians(90));
         this.moveBeacon = drive.trajectoryBuilder(initialPosition)
                 .lineToSplineHeading(new Pose2d(-35,-8, Math.toRadians(90)),
                         SampleMecanumDrive.getVelocityConstraint(fasterVelocity, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
@@ -32,46 +32,46 @@ public class LeftAutoRegionals extends AutoBase {
                 .build();
         // START -> SCORE
         this.scorePreload = drive.trajectoryBuilder(moveBeacon.end())
-                .lineToLinearHeading(new Pose2d(-34, -14, Math.toRadians(146)))
+                .lineToLinearHeading(new Pose2d(-32, -13.6, Math.toRadians(146)))
                 .build();
         // SCORE -> STACK
         this.getStackCone = drive.trajectoryBuilder(scorePreload.end())
-                .splineTo(new Vector2d(-54, -9.4), Math.toRadians(180))
-                .addTemporalMarker(0.05, () -> {
+                .splineTo(new Vector2d(-35.5, -10), Math.toRadians(180))
+                .addTemporalMarker(0.15, () -> {
 
                     robot.getClaw().twistUp();
                 })
                 .build();
         // STACK -> SCORE
         this.scoreStackCone = drive.trajectoryBuilder(getStackCone.end())
-                .lineToSplineHeading(new Pose2d(-34.8,-13.25,Math.toRadians(150)))
-                .addTemporalMarker(0.5, () -> {
+                .lineToSplineHeading(new Pose2d(-33.2,-14.5,Math.toRadians(150)))
+                .addTemporalMarker(0.1, () -> {
                     robot.getClaw().twistDown();
                 })
                 .build();
         // CORRECTIONS
         this.getStackConeCorrection = drive.trajectoryBuilder(scorePreload.end())
-                .splineTo(new Vector2d(-54, -7.6), Math.toRadians(180))
-                .addTemporalMarker(0.05, () -> {
+                .splineTo(new Vector2d(-52.4, -8.3), Math.toRadians(180))
+                .addTemporalMarker(0.15, () -> {
                     robot.getClaw().twistUp();
                 })
                 .build();
         this.scoreStackConeCorrection = drive.trajectoryBuilder(getStackCone.end())
-                .lineToSplineHeading(new Pose2d(-34.8,-11.6,Math.toRadians(150)))
-                .addTemporalMarker(0.3, () -> {
+                .lineToSplineHeading(new Pose2d(-33.3,-13,Math.toRadians(150)))
+                .addTemporalMarker(0.1, () -> {
                     robot.getClaw().twistDown();
                 })
                 .build();
         // CORRECTIONS LAST ONE
         this.getStackConeCorrectionLast = drive.trajectoryBuilder(scorePreload.end())
-                .splineTo(new Vector2d(-54.6, -7.2), Math.toRadians(180))
-                .addTemporalMarker(0.05, () -> {
+                .splineTo(new Vector2d(-54, -7.2), Math.toRadians(180))
+                .addTemporalMarker(0.15, () -> {
                     robot.getClaw().twistUp();
                 })
                 .build();
         this.scoreStackConeCorrectionLast = drive.trajectoryBuilder(getStackCone.end())
-                .lineToSplineHeading(new Pose2d(-34.8,-11.2,Math.toRadians(150)))
-                .addTemporalMarker(0.3, () -> {
+                .lineToSplineHeading(new Pose2d(-32.5,-12.5,Math.toRadians(150)))
+                .addTemporalMarker(0.1, () -> {
                     robot.getClaw().twistDown();
                 })
                 .build();

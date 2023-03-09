@@ -6,6 +6,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_SCORE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_TILT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP;
@@ -21,8 +22,11 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLA
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_DUNK;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_JUNC;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_LOW;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_HIGH;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID_TELE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.STOP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY_TURN;
@@ -175,7 +179,7 @@ public class Robot {
             this.arm.setPower(ARM_POWER);
         }
 
-        private void move(int position) {
+        public void move(int position) {
             this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.arm.setPower(ARM_POWER);
             this.arm.setTargetPosition(position);
@@ -205,7 +209,14 @@ public class Robot {
             this.move(ARM_RIGHT_TELE);
         }
 
-        public void moveScore() {this.move(ARM_SCORE);}
+        public void moveScore() {
+            this.move(ARM_SCORE);
+        }
+
+        public void moveTilt() {
+            this.move(ARM_TILT);
+        }
+
 
         public void drop() {
             this.arm.setPower(0);
@@ -279,7 +290,7 @@ public class Robot {
             return this;
         }
 
-        private void slideTo(int position, double power) {
+        public void slideTo(int position, double power) {
             this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             this.slide.setTargetPosition(position);
@@ -294,13 +305,15 @@ public class Robot {
         public void slideDown() {
             this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            this.slide.setPower(this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
+            this.slide.setPower(this.slide.getCurrentPosition() < STOP ? .3 : 0);
             this.slide.setTargetPosition(0);
             this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            this.slide2.setPower(this.slide.getCurrentPosition() < STOP ? 1.0 : 0.0);
+            this.slide2.setPower(this.slide.getCurrentPosition() < STOP ? .3 : 0);
             this.slide2.setTargetPosition(0);
         }
+
+//        }
 
         public void slideMax() {
             this.slideTo(SLIDE_MAX, SLIDE_POWER_UP);
@@ -310,8 +323,8 @@ public class Robot {
             this.slideTo(LOW_JUNC, SLIDE_POWER_UP);
         }
 
-        public void slideLow() {
-            this.slideTo(SLIDE_LOW, SLIDE_POWER_UP);
+        public void slideMedTele() {
+            this.slideTo(SLIDE_MID_TELE, SLIDE_POWER_UP);
         }
 
         public void lowDunk() {
@@ -319,8 +332,10 @@ public class Robot {
         }
 
         public void slideMed() {
-            this.slideTo(SLIDE_LOW, SLIDE_POWER_UP);
+            this.slideTo(SLIDE_MID, SLIDE_POWER_UP);
         }
+
+        public void slideHigh() {this.slideTo(SLIDE_HIGH, SLIDE_POWER_UP);}
 
         public void autoTop() {
             this.slideTo(AUTO_TOP, SLIDE_POWER_UP);
