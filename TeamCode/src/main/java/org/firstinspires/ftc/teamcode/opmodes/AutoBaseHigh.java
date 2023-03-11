@@ -22,8 +22,12 @@ public abstract class AutoBaseHigh extends LinearOpMode {
     protected Trajectory park2;
     protected Trajectory park3;
     protected Trajectory moveBeacon;
+    protected Trajectory scoreStackConeOne;
+    protected Trajectory getStackConeOne;
 
-    protected int parkPosition = -1;
+
+
+    protected int parkPosition = 3;
     protected Pose2d initialPosition;
 
     abstract protected void initializeTrajectories();
@@ -58,7 +62,7 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         robot.getClaw().open();
         robot.getArm().moveScore();
 
-        getAndScoreStackCone(Configurables.AUTO_TOP);
+        getAndScoreStackConeOne(Configurables.AUTO_TOP);
         getAndScoreStackCone(Configurables.AUTO_TOP2);
         getAndScoreStackConeCorrection(Configurables.AUTO_TOP3);
         getAndScoreStackConeCorrection(Configurables.AUTO_TOP4);
@@ -70,13 +74,36 @@ public abstract class AutoBaseHigh extends LinearOpMode {
             case 1:
                 drive.followTrajectory(park1);
                 break;
-            case 3:
-                drive.followTrajectory(park3);
-                break;
-            default:
+            case 2:
                 drive.followTrajectory(park2);
                 break;
+            default:
+                drive.followTrajectory(park3);
+                break;
         }
+    }
+
+    protected void getAndScoreStackConeOne(int height) {
+        // Get the cone off the stack
+        this.drive.followTrajectory(getStackConeOne);
+        robot.getClaw().openWide();
+        robot.getArm().moveRight();
+        sleep(300);
+        this.robot.getClaw().close();
+        sleep(100);
+
+        // Move back to the junction
+        this.robot.getLift().slideMax();
+        this.robot.getArm().moveLeft();
+        sleep(100);
+        this.drive.followTrajectory(scoreStackConeOne);
+
+        // Score
+        this.robot.getLift().move(height);
+        robot.getArm().moveLeft();
+        sleep(100);
+        this.robot.getClaw().open();
+        this.robot.getArm().moveScore();
     }
 
     protected void getAndScoreStackCone(int height) {
@@ -86,12 +113,12 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(150);
+        sleep(100);
 
         // Move back to the junction
-        this.robot.getLift().slideHigh();
-        this.robot.getArm().moveTilt();
-        sleep(150);
+        this.robot.getLift().slideMax();
+        this.robot.getArm().moveLeft();
+        sleep(100);
         this.drive.followTrajectory(scoreStackCone);
 
         // Score
@@ -100,7 +127,6 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         sleep(100);
         this.robot.getClaw().open();
         this.robot.getArm().moveScore();
-        sleep(100);
     }
 
     protected void getAndScoreStackConeCorrection(int height) {
@@ -110,12 +136,12 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(150);
+        sleep(100);
 
         // Move back to the junction
-        this.robot.getLift().slideHigh();
-        this.robot.getArm().moveTilt();
-        sleep(150);
+        this.robot.getLift().slideMax();
+        this.robot.getArm().moveLeft();
+        sleep(100);
         this.drive.followTrajectory(scoreStackConeCorrection);
 
         // Score
@@ -124,7 +150,6 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         sleep(100);
         this.robot.getClaw().open();
         this.robot.getArm().moveScore();
-        sleep(100);
     }
 
     protected void getAndScoreStackConeCorrectionLast(int height) {
@@ -132,14 +157,14 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         this.drive.followTrajectory(getStackConeCorrectionLast);
         robot.getClaw().openWide();
         robot.getArm().moveRight();
-        sleep(300);
+        sleep(350);
         this.robot.getClaw().close();
         sleep(150);
 
         // Move back to the junction
-        this.robot.getLift().slideHigh();
-        this.robot.getArm().moveTilt();
-        sleep(150);
+        this.robot.getLift().slideMax();
+        this.robot.getArm().moveLeft();
+        sleep(100);
         this.drive.followTrajectory(scoreStackConeCorrectionLast);
 
         // Score
@@ -148,5 +173,6 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         sleep(100);
         this.robot.getClaw().open();
         this.robot.getArm().moveScore();
+
     }
 }

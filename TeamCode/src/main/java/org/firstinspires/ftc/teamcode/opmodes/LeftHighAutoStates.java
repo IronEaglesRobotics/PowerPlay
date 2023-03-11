@@ -29,45 +29,60 @@ public class LeftHighAutoStates extends AutoBaseHigh {
                 .build();
         // START -> SCORE
         this.scorePreload = drive.trajectoryBuilder(moveBeacon.end())
-                .lineToLinearHeading(new Pose2d(-32, -13.6, Math.toRadians(142)))
+                .lineToLinearHeading(new Pose2d(-32, -13.6, Math.toRadians(144)))
                 .build();
         // SCORE -> STACK
-        this.getStackCone = drive.trajectoryBuilder(scorePreload.end())
-                .splineTo(new Vector2d(-51.6, -9.5), Math.toRadians(180))
+        this.getStackConeOne = drive.trajectoryBuilder(scorePreload.end())
+                .lineToSplineHeading(new Pose2d(-52.3, -8, Math.toRadians(180)))
                 .addTemporalMarker(0.15, () -> {
 
                     robot.getClaw().twistUp();
                 })
                 .build();
         // STACK -> SCORE
+        this.scoreStackConeOne = drive.trajectoryBuilder(getStackConeOne.end())
+                .lineToSplineHeading(new Pose2d(-30,-10,Math.toRadians(223)))
+                .addTemporalMarker(0.5, () -> {
+                    robot.getClaw().twistDown();
+                })
+                .build();
+
+        this.getStackCone = drive.trajectoryBuilder(scoreStackConeOne.end())
+                .lineToSplineHeading(new Pose2d(-52.3, -8.5, Math.toRadians(180)))
+                .addTemporalMarker(0.15, () -> {
+
+                    robot.getClaw().twistUp();
+                })
+                .build();
+
         this.scoreStackCone = drive.trajectoryBuilder(getStackCone.end())
-                .lineToSplineHeading(new Pose2d(-29,-9,Math.toRadians(223)))
+                .lineToSplineHeading(new Pose2d(-30,-10,Math.toRadians(223)))
                 .addTemporalMarker(0.5, () -> {
                     robot.getClaw().twistDown();
                 })
                 .build();
         // CORRECTIONS
-        this.getStackConeCorrection = drive.trajectoryBuilder(scorePreload.end())
-                .splineTo(new Vector2d(-51.4, -9.5), Math.toRadians(180))
+        this.getStackConeCorrection = drive.trajectoryBuilder(scoreStackConeOne.end())
+                .lineToSplineHeading(new Pose2d(-53., -10.5, Math.toRadians(180)))
                 .addTemporalMarker(0.15, () -> {
                     robot.getClaw().twistUp();
                 })
                 .build();
-        this.scoreStackConeCorrection = drive.trajectoryBuilder(getStackCone.end())
-                .lineToSplineHeading(new Pose2d(-29,-9,Math.toRadians(223)))
+        this.scoreStackConeCorrection = drive.trajectoryBuilder(getStackConeCorrection.end())
+                .lineToSplineHeading(new Pose2d(-30,-12,Math.toRadians(223)))
                 .addTemporalMarker(0.3, () -> {
                     robot.getClaw().twistDown();
                 })
                 .build();
         // CORRECTIONS LAST ONE
-        this.getStackConeCorrectionLast = drive.trajectoryBuilder(scorePreload.end())
-                .splineTo(new Vector2d(-51.2, -9.5), Math.toRadians(180))
+        this.getStackConeCorrectionLast = drive.trajectoryBuilder(scoreStackConeOne.end())
+                .lineToSplineHeading(new Pose2d(-53.5, -13, Math.toRadians(180)))
                 .addTemporalMarker(0.15, () -> {
                     robot.getClaw().twistUp();
                 })
                 .build();
-        this.scoreStackConeCorrectionLast = drive.trajectoryBuilder(getStackCone.end())
-                .lineToSplineHeading(new Pose2d(-29,-9,Math.toRadians(223)))
+        this.scoreStackConeCorrectionLast = drive.trajectoryBuilder(getStackConeCorrectionLast.end())
+                .lineToSplineHeading(new Pose2d(-30,-12,Math.toRadians(223)))
                 .addTemporalMarker(0.3, () -> {
                     robot.getClaw().twistDown();
                 })
@@ -81,7 +96,7 @@ public class LeftHighAutoStates extends AutoBaseHigh {
                 .build();
         // STACK -> PARK2
         this.park2 = drive.trajectoryBuilder(getStackCone.end())
-                .lineToSplineHeading(new Pose2d(-36,-7.5,Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(-36,-13,Math.toRadians(180)))
                 .addDisplacementMarker(1, () -> {
                     this.robot.getArm().moveMid();
                 })

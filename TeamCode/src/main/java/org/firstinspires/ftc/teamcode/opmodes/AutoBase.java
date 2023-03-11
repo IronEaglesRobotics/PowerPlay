@@ -134,7 +134,7 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(150);
+        sleep(200);
 
         // Move back to the junction
         this.robot.getLift().slideMed();
