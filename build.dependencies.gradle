@@ -3,6 +3,7 @@ repositories {
     google() // Needed for androidx
     flatDir {
         dirs rootProject.file('libs')
+//        dirs '..\\ftc_app\\libs'
 //        dirs 'libs', 'C:\\Users\\tealro\\navx-micro\\android\\libs'
     }
     maven { url = 'https://maven.brott.dev/' }

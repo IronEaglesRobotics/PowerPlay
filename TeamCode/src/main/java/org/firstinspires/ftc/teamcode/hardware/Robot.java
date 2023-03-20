@@ -29,10 +29,10 @@ public class Robot {
 
     public Robot(HardwareMap hardwareMap) {
         drive = new SampleMecanumDrive(hardwareMap);
-        if (!PoseStorage.AutoJustEnded) {
-            PoseStorage.currentPose = new Pose2d(0, 0, Math.toRadians(0));
-        }
-        drive.setPoseEstimate(PoseStorage.currentPose);
+//        if (!PoseStorage.AutoJustEnded) {
+//            PoseStorage.currentPose = new Pose2d(0, 0, Math.toRadians(0));
+//        }
+//        drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap, UPRIGHT);
         arm = new Arm(hardwareMap, INTAKE);
@@ -41,13 +41,13 @@ public class Robot {
 
     public Robot(HardwareMap hardwareMap, Arm.Position armPos, Claw.Position clawPos, CameraPosition cameraPosition) {
         drive = new SampleMecanumDrive(hardwareMap);
-        drive.setPoseEstimate(PoseStorage.currentPose);
+//        drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap, clawPos);
         arm = new Arm(hardwareMap, armPos);
-        camera = new Camera(cameraPosition);
-        camera.init(hardwareMap);
-        camEnabled = true;
+//        camera = new Camera(cameraPosition);
+//        camera.init(hardwareMap);
+//        camEnabled = true;
     }
 
     public void extendMacro(Slides.Position pos, double runTime) {
@@ -133,6 +133,7 @@ public class Robot {
 //        } else {
 //            return String.format("Slides: %s\nClaw: %s", claw.getTelemetry());
 //        }
-        return String.format("%s \n%s \nArm: %s \nSlides: %s", drive.getTelemetry(), claw.getTelemetry(), arm.getTelemetry(), slides.getTelemetry());
+        return "";
+//        return String.format("%s \n%s \nArm: %s \nSlides: %s", drive.getTelemetry(), claw.getTelemetry(), arm.getTelemetry(), slides.getTelemetry());
     }
 }

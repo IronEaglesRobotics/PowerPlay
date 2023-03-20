@@ -15,11 +15,17 @@ public class Arm {
     private Servo pivotRight;
     private Servo pivotLeft;
 
-    public static double maxPos = 0.62;
-    public static double minPos = 0.08;
-    public static double intake = 0.085; // up on joystick
-    public static double score = 0.6; // down on joystick
+    public static double maxPos = 0.999;
+    public static double minPos = 0.001;
+    public static double intake = 0.08; // up on joystick
+    public static double score = 0.7; // down on joystick
+    public static double pickup = 0.87;
     public static double middlePos = 0.07; //(intake+score)/2; // TODO currently not correct, rename
+
+    public static double leftMin = 0.0255;
+    public static double leftMax = 0.99;
+    public static double rightMin = 0.01;
+    public static double rightMax = 0.973;
 
     public static double[] presets = new double[]{0.92, 0.9, 0.85};
     public int presetIdx = 0;
@@ -33,7 +39,7 @@ public class Arm {
 
     public static double speed = 0.03;
 
-    public static double p = 0.23;
+    public static double p = 0.2;
     public static double i = 0.00;
     public static double d = 0.02;
     public static double f = 0;
@@ -42,8 +48,12 @@ public class Arm {
 
 
     public Arm(HardwareMap hardwareMap, Position pos) {
-        pivotRight = hardwareMap.get(Servo.class, "pivotRight");
         pivotLeft = hardwareMap.get(Servo.class, "pivotLeft");
+        pivotRight = hardwareMap.get(Servo.class, "pivotRight");
+//        pivotRight.setDirection(Servo.Direction.REVERSE);
+
+        pivotLeft.scaleRange(leftMin, leftMax);
+        pivotRight.scaleRange(rightMin, rightMax);
 
         if (pos == Position.SCORE) {
             goToScore();
@@ -51,7 +61,8 @@ public class Arm {
             goToIntake();
         }
         currentTarget = target; // necessary to make sure arm doesn't move violently during init
-        pivotLeft.setPosition(currentTarget);
+//        pivotLeft.setPosition(currentTarget);
+//        pivotRight.setPosition(currentTarget);
 //        update();
     }
 
@@ -82,7 +93,14 @@ public class Arm {
         target = middlePos;
     }
 
+    public void goToPickup() {
+        target = pickup;
+    }
+
     public void update() {
+        pivotLeft.scaleRange(leftMin, leftMax);
+        pivotRight.scaleRange(rightMin, rightMax);
+
         double pid;
         controller.setPID(p, i, d);
         controller.setTolerance(pTolerance);
@@ -102,8 +120,11 @@ public class Arm {
 //            currentTarget -= pid;
 //        }
 
-//        pivotLeft.setPosition(target);
-        pivotLeft.setPosition(currentTarget);
+        pivotLeft.setPosition(target);
+        pivotRight.setPosition(target);
+//        pivotLeft.setPosition(currentTarget);
+//        pivotRight.setPosition(currentTarget);
+
 //        pivotLeft.setPosition(1+armOffset);
 //        pivotRight.setPosition(currentTarget);
 //        pivotLeft.setPosition(1+armOffset-currentTarget);

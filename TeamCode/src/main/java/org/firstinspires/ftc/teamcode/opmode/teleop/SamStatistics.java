@@ -26,6 +26,12 @@ public class SamStatistics extends OpMode {
     private String bottomRightRedTerminal = "";
     private int droppedBlueCones = 0;
     private int droppedRedCones = 0;
+    private int redConesRemaining = 30;
+    private int blueConesRemaining = 30;
+    private int redBeaconsRemaining = 2;
+    private int blueBeaconsRemaining = 2;
+    private int droppedBlueBeacons = 0;
+    private int droppedRedBeacons = 0;
 
     private ArrayList<Vector2d> pastPositions = new ArrayList<>();
     private HashMap<String, Double> buttonPresses = new HashMap<>();
@@ -145,6 +151,8 @@ public class SamStatistics extends OpMode {
         if (driver1.getDDown().isJustPressed()) { buttonPresses.put("dd", runTime); }
         if (driver1.getDLeft().isJustPressed()) { buttonPresses.put("undo", runTime); }
         if (driver1.getDRight().isJustPressed()) { buttonPresses.put("redo", runTime); }
+        if (driver1.getBack().isJustPressed()) { buttonPresses.put("back", runTime); }
+        if (driver1.getStart().isJustPressed()) { buttonPresses.put("start", runTime); }
 
         // check for any buttons released
         if (driver1.getLeftBumper().isJustReleased()) { buttonReleases.put("lb", runTime); }
@@ -160,6 +168,8 @@ public class SamStatistics extends OpMode {
         if (driver1.getDDown().isJustReleased()) { buttonReleases.put("dd", runTime); }
         if (driver1.getDLeft().isJustReleased()) { buttonReleases.put("undo", runTime); }
         if (driver1.getDRight().isJustReleased()) { buttonReleases.put("redo", runTime); }
+        if (driver1.getBack().isJustReleased()) { buttonReleases.put("back", runTime); }
+        if (driver1.getStart().isJustReleased()) { buttonReleases.put("start", runTime); }
 
         // if a button was released for more than 0.3 seconds, remove it
         for (Map.Entry<String, Double> key : buttonReleases.entrySet()) {
@@ -180,45 +190,48 @@ public class SamStatistics extends OpMode {
             // figure out what element it is
             String element;
             if (alliance == RED) {
-                driver1.rumble(100);
                 if (buttonPresses.containsKey("du")) {
-                    driver1.setColor(0,0,255,100);
+                    driver1.setColor(0,191,255,-1);
                     element = "B";
                 } else if (buttonPresses.containsKey("dd")) {
-                    driver1.setColor(255,0,0,100);
+                    driver1.setColor(255,50,0,-1);
                     element = "R";
                 } else {
-                    driver1.setColor(255,0,0,100);
+                    driver1.setColor(255,0,0,-1);
                     element = "r";
                 }
             } else {
-                driver1.rumble(100);
                 if (buttonPresses.containsKey("du")) {
-                    driver1.setColor(255,0,0,100);
+                    driver1.setColor(255,50,0,-1);
                     element = "R";
                 } else if (buttonPresses.containsKey("dd")) {
-                    driver1.setColor(0,0,255,100);
+                    driver1.setColor(0,191,255,-1);
                     element = "B";
                 } else {
-                    driver1.setColor(0,0,255,100);
+                    driver1.setColor(0,0,255,-1);
                     element = "b";
                 }
             }
 
             // figure out what the coordinates are
             if (buttonPresses.containsKey("lb") && buttonPresses.containsKey("lt") && buttonPresses.containsKey("rb") && buttonPresses.containsKey("rt")) {
+                driver1.rumble(250);
                 if (buttonPresses.containsKey("x")) {
                     topLeftRedTerminal += "r";
+                    redConesRemaining--;
                 } else if (buttonPresses.containsKey("y")) {
                     topRightBlueTerminal += "b";
+                    blueConesRemaining--;
                 } else if (buttonPresses.containsKey("b")) {
                     bottomRightRedTerminal += "r";
+                    redConesRemaining--;
                 } else if (buttonPresses.containsKey("a")) {
                     bottomLeftBlueTerminal += "b";
+                    blueConesRemaining--;
                 }
             }
             else {
-                if (buttonPresses.containsKey("lb") && buttonPresses.containsKey("lt")) {
+                if (buttonPresses.containsKey("lt") && buttonPresses.containsKey("rt")) {
                     xCoord = 5;
                 } else if (buttonPresses.containsKey("rt")) {
                     xCoord = 4;
@@ -247,8 +260,38 @@ public class SamStatistics extends OpMode {
 
                 // update the field array to reflect the new cone or beacon placed
                 if (yCoord != -1 && xCoord != -1) {
+                    driver1.rumble(250);
                     field.get(xCoord-1).set(yCoord-1, field.get(xCoord-1).get(yCoord-1)+element);
                     pastPositions.add(new Vector2d(xCoord-1,yCoord-1));
+                    if (alliance == RED) {
+                        if (element.equals("R")) {
+                            redBeaconsRemaining--;
+                        } else {
+                            redConesRemaining--;
+                        }
+                    } else {
+                        if (element.equals("B")) {
+                            blueBeaconsRemaining--;
+                        } else {
+                            blueConesRemaining--;
+                        }
+                    }
+                } else {
+                    if (buttonPresses.containsKey("back")) {
+                        if (element.equals("B")) {
+                            blueBeaconsRemaining--;
+                        } else {
+                            blueConesRemaining--;
+                        }
+                        droppedBlueCones++;
+                    } else if (buttonPresses.containsKey("start")) {
+                        if (element.equals("R")) {
+                            redBeaconsRemaining--;
+                        } else {
+                            redConesRemaining--;
+                        }
+                        droppedRedCones++;
+                    }
                 }
             }
             if (buttonPresses.containsKey("undo")) {
@@ -267,6 +310,10 @@ public class SamStatistics extends OpMode {
 
         // calculate the score
         telemetry.addLine(calculateScore());
+        telemetry.addLine(String.format("Blue\nRemaining: %s Knocked Over: %s", blueConesRemaining, droppedBlueCones));
+        telemetry.addLine(String.format("Beacons Remaining: %s Knocked Over: %s", blueBeaconsRemaining, droppedBlueBeacons));
+        telemetry.addLine(String.format("Red\nRemaining: %s Knocked Over: %s", redConesRemaining, droppedRedCones));
+        telemetry.addLine(String.format("Beacons Remaining: %s Knocked Over: %s", redBeaconsRemaining, droppedRedBeacons));
         telemetry.addLine(String.format("(0,0): %s\n(0,1): %s\n(0,2): %s", field.get(0).get(0), field.get(0).get(1), field.get(0).get(2)));
         telemetry.addLine(String.format("(1,0): %s\n(1,1): %s\n(1,2): %s", field.get(1).get(0), field.get(1).get(1), field.get(1).get(2)));
         telemetry.addLine(String.format("(2,0): %s\n(2,1): %s\n(2,2): %s", field.get(2).get(0), field.get(2).get(1), field.get(2).get(2)));

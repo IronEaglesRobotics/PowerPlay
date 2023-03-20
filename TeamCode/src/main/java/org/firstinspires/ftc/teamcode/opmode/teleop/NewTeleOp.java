@@ -17,9 +17,10 @@ import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
-@Disabled
-@TeleOp
-public class ClawTeleOp extends OpMode {
+@TeleOp(name = "New TeleOp")
+public class NewTeleOp extends OpMode {
+    private int teamElementLocation = 2;
+
     private Robot robot;
     Controller driver1;
     Controller driver2;
@@ -35,11 +36,15 @@ public class ClawTeleOp extends OpMode {
     public void loop() {
         driver1.update();
         driver2.update();
-//        double x = driver1.getLeftStick().getY();
-//        double y = -driver1.getLeftStick().getX();
-//        double z = -driver1.getRightStick().getX();
-//
-//        robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
+
+        // driver 1
+        double x = -driver1.getLeftStick().getY();
+        double y = driver1.getLeftStick().getX();
+        double z = -driver1.getRightStick().getX();
+        robot.drive.setWeightedDrivePower(new Pose2d(x, y, z));
+
+        // driver 2
+        robot.slides.increaseTarget(driver2.getLeftStick().getY());
 
 //        if (driver2.getA().isJustPressed()) {
 //            robot.claw.toggle();
@@ -56,9 +61,18 @@ public class ClawTeleOp extends OpMode {
             robot.arm.goToScore();
         }
 
+        if (driver2.getB().isJustPressed()) {
+            robot.arm.goToPickup();
+        }
+
         // update and telemetry
         robot.update(getRuntime());
 
+        int newLocation = robot.camera.getMarkerId();
+        if (newLocation != -1) {
+            teamElementLocation = newLocation;
+        }
+        telemetry.addLine("Randomization: "+teamElementLocation);
         telemetry.addLine(robot.getTelemetry());
         telemetry.update();
     }

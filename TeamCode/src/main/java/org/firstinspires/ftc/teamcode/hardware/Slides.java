@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Config
-public class Slides { // TODO fix the math for different slide motors and less slides (5 --> 3)
+public class Slides {
     private DcMotor slide;
     private DcMotor slide2;
 
