@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @Config
 @Autonomous(name = "RightAutoRegionals", group = "Competition", preselectTeleOp = "MainTeleOp")
-public class RightAutoRegionals extends AutoBase {
+public class RightMidAutoStates extends AutoBase {
 
     public static double fasterVelocity = 90;
 
