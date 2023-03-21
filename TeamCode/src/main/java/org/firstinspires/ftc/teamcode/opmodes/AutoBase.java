@@ -50,7 +50,6 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getClaw().twistDown();
         robot.getArm().moveMid();
         drive.followTrajectory(moveBeacon);
-        robot.getArm().moveTilt();
         drive.followTrajectory(scorePreload);
         robot.getArm().moveLeft();
         robot.getLift().autoTop(); // Lower the slide to the height of the top cone
@@ -86,7 +85,7 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(150);
+        sleep(200);
 
         // Move back to the junction
         this.robot.getLift().slideMed();
@@ -110,7 +109,7 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(150);
+        sleep(200);
 
         // Move back to the junction
         this.robot.getLift().slideMed();

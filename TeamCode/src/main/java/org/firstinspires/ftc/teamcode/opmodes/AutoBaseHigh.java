@@ -27,7 +27,7 @@ public abstract class AutoBaseHigh extends LinearOpMode {
 
 
 
-    protected int parkPosition = 3;
+    protected int parkPosition = 2;
     protected Pose2d initialPosition;
 
     abstract protected void initializeTrajectories();
@@ -74,11 +74,11 @@ public abstract class AutoBaseHigh extends LinearOpMode {
             case 1:
                 drive.followTrajectory(park1);
                 break;
-            case 2:
-                drive.followTrajectory(park2);
+            case 3:
+                drive.followTrajectory(park3);
                 break;
             default:
-                drive.followTrajectory(park3);
+                drive.followTrajectory(park2);
                 break;
         }
     }
@@ -90,7 +90,7 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(100);
+        sleep(150);
 
         // Move back to the junction
         this.robot.getLift().slideMax();
@@ -100,7 +100,6 @@ public abstract class AutoBaseHigh extends LinearOpMode {
 
         // Score
         this.robot.getLift().move(height);
-        robot.getArm().moveLeft();
         sleep(100);
         this.robot.getClaw().open();
         this.robot.getArm().moveScore();
@@ -113,7 +112,7 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(100);
+        sleep(150);
 
         // Move back to the junction
         this.robot.getLift().slideMax();
@@ -123,7 +122,6 @@ public abstract class AutoBaseHigh extends LinearOpMode {
 
         // Score
         this.robot.getLift().move(height);
-        robot.getArm().moveLeft();
         sleep(100);
         this.robot.getClaw().open();
         this.robot.getArm().moveScore();
@@ -136,7 +134,7 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(100);
+        sleep(150);
 
         // Move back to the junction
         this.robot.getLift().slideMax();
@@ -146,7 +144,6 @@ public abstract class AutoBaseHigh extends LinearOpMode {
 
         // Score
         this.robot.getLift().move(height);
-        robot.getArm().moveLeft();
         sleep(100);
         this.robot.getClaw().open();
         this.robot.getArm().moveScore();

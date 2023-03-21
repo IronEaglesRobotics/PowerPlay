@@ -19,10 +19,10 @@ public class Configurables {
     public static int SLIDE_HIGH = 2130;
     public static int STOP = 30;
     public static int LOW_JUNC = 1400;
-    public static int AUTO_TOP = 370;
-    public static int AUTO_TOP2 = 250;
+    public static int AUTO_TOP = 380;
+    public static int AUTO_TOP2 = 270;
     public static int AUTO_TOP3 = 160;
-    public static int AUTO_TOP4 = 70;
+    public static int AUTO_TOP4 = 50;
     public static int AUTO_TOP5 = 0;
 
     // Claw
