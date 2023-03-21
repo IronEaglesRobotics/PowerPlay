@@ -19,7 +19,7 @@ public class Configurables {
     public static int SLIDE_HIGH = 2130;
     public static int STOP = 30;
     public static int LOW_JUNC = 1400;
-    public static int AUTO_TOP = 380;
+    public static int AUTO_TOP1 = 380;
     public static int AUTO_TOP2 = 270;
     public static int AUTO_TOP3 = 160;
     public static int AUTO_TOP4 = 50;

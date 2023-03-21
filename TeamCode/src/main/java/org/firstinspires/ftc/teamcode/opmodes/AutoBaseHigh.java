@@ -58,10 +58,10 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         robot.getClaw().open();
         robot.getArm().moveScore();
 
-        getAndScoreStackCone(getStackConeOne, scoreStackConeOne, Configurables.AUTO_TOP);
+        getAndScoreStackCone(getStackConeOne, scoreStackConeOne, Configurables.AUTO_TOP1);
         getAndScoreStackCone(getStackConeTwo, scoreStackConeTwo, Configurables.AUTO_TOP2);
         getAndScoreStackCone(getStackConeThree, scoreStackConeThree, Configurables.AUTO_TOP3);
-        getAndScoreStackCone(getStackConeThree, scoreStackConeThree, Configurables.AUTO_TOP4);
+        getAndScoreStackCone(getStackConeFour, scoreStackConeFour, Configurables.AUTO_TOP4);
         getAndScoreStackCone(getStackConeFive, scoreStackConeFive, Configurables.AUTO_TOP5);
 
         robot.getArm().moveMid();

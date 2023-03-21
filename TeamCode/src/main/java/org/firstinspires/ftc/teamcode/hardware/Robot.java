@@ -9,7 +9,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_TILT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP1;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP2;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP3;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP4;
@@ -19,35 +19,26 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLA
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPENWIDE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.GO_SLOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_DUNK;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_JUNC;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_HIGH;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID_TELE;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.STOP;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY_TURN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ARM;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.GRIP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.LIFT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.SLIDE;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_BACK_LEFT;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_BACK_RIGHT;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_FRONT_LEFT;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WHEEL_FRONT_RIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WRIST;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.opencv.engine.OpenCVEngineInterface;
 
 public class Robot {
     private SampleMecanumDrive drive;
@@ -91,7 +82,7 @@ public class Robot {
     public Claw getClaw() {
         return this.claw;
     }
-    
+
     public static class Arm {
         private DcMotor arm = null;
 
@@ -272,7 +263,7 @@ public class Robot {
         public void slideHigh() {this.slideTo(SLIDE_HIGH, SLIDE_POWER_UP);}
 
         public void autoTop() {
-            this.slideTo(AUTO_TOP, SLIDE_POWER_UP);
+            this.slideTo(AUTO_TOP1, SLIDE_POWER_UP);
         }
 
         public void autoTop2() {

@@ -57,7 +57,7 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getClaw().open();
         robot.getArm().moveScore();
 
-        getAndScoreStackCone(Configurables.AUTO_TOP);
+        getAndScoreStackCone(Configurables.AUTO_TOP1);
         getAndScoreStackCone(Configurables.AUTO_TOP2);
         getAndScoreStackConeCorrection(Configurables.AUTO_TOP3);
         getAndScoreStackConeCorrection(Configurables.AUTO_TOP4);
