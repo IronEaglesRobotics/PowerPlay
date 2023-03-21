@@ -14,12 +14,14 @@ public abstract class AutoBaseHigh extends LinearOpMode {
     protected Trajectory scorePreload;
     protected Trajectory getStackConeOne;
     protected Trajectory scoreStackConeOne;
-    protected Trajectory getStackCone;
-    protected Trajectory scoreStackCone;
-    protected Trajectory getStackConeCorrection;
-    protected Trajectory scoreStackConeCorrection;
-    protected Trajectory getStackConeCorrectionLast;
-    protected Trajectory scoreStackConeCorrectionLast;
+    protected Trajectory getStackConeTwo;
+    protected Trajectory scoreStackConeTwo;
+    protected Trajectory getStackConeThree;
+    protected Trajectory scoreStackConeThree;
+    protected Trajectory getStackConeFour;
+    protected Trajectory scoreStackConeFour;
+    protected Trajectory getStackConeFive;
+    protected Trajectory scoreStackConeFive;
     protected Trajectory park1;
     protected Trajectory park2;
     protected Trajectory park3;
@@ -57,10 +59,10 @@ public abstract class AutoBaseHigh extends LinearOpMode {
         robot.getArm().moveScore();
 
         getAndScoreStackCone(getStackConeOne, scoreStackConeOne, Configurables.AUTO_TOP);
-        getAndScoreStackCone(getStackCone, scoreStackCone, Configurables.AUTO_TOP2);
-        getAndScoreStackCone(getStackConeCorrection, scoreStackConeCorrection, Configurables.AUTO_TOP3);
-        getAndScoreStackCone(getStackConeCorrection, scoreStackConeCorrection, Configurables.AUTO_TOP4);
-        getAndScoreStackCone(getStackConeCorrectionLast, scoreStackConeCorrectionLast, Configurables.AUTO_TOP5);
+        getAndScoreStackCone(getStackConeTwo, scoreStackConeTwo, Configurables.AUTO_TOP2);
+        getAndScoreStackCone(getStackConeThree, scoreStackConeThree, Configurables.AUTO_TOP3);
+        getAndScoreStackCone(getStackConeThree, scoreStackConeThree, Configurables.AUTO_TOP4);
+        getAndScoreStackCone(getStackConeFive, scoreStackConeFive, Configurables.AUTO_TOP5);
 
         robot.getArm().moveMid();
 
