@@ -17,8 +17,8 @@ public class Arm {
 
     public static double maxPos = 0.999;
     public static double minPos = 0.001;
-    public static double intake = 0.08; // up on joystick
-    public static double score = 0.7; // down on joystick
+    public static double intake = 0.06; // up on joystick
+    public static double score = 0.62; // down on joystick
     public static double pickup = 0.87;
     public static double middlePos = 0.07; //(intake+score)/2; // TODO currently not correct, rename
 
@@ -39,9 +39,9 @@ public class Arm {
 
     public static double speed = 0.03;
 
-    public static double p = 0.2;
+    public static double p = 0.13;
     public static double i = 0.00;
-    public static double d = 0.02;
+    public static double d = 0.0;
     public static double f = 0;
     public static double pTolerance = 0.01;
     public static PIDController controller = new PIDController(p, i, d);
@@ -120,10 +120,10 @@ public class Arm {
 //            currentTarget -= pid;
 //        }
 
-        pivotLeft.setPosition(target);
-        pivotRight.setPosition(target);
-//        pivotLeft.setPosition(currentTarget);
-//        pivotRight.setPosition(currentTarget);
+//        pivotLeft.setPosition(target);
+//        pivotRight.setPosition(target);
+        pivotLeft.setPosition(currentTarget);
+        pivotRight.setPosition(currentTarget);
 
 //        pivotLeft.setPosition(1+armOffset);
 //        pivotRight.setPosition(currentTarget);

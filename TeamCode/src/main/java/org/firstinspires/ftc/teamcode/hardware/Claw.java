@@ -11,19 +11,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class Claw { // TODO done in theory, but need to get the actual servo positions &&&& do the Sensor stuff
     private Servo pincher;
     private Servo wrist;
-    private RevColorSensorV3 sensor;
+//    private RevColorSensorV3 sensor;
 
     public enum Position {
         UPRIGHT, FLIPPED
     }
 
-    public static double pincherOpen = 0.4;
-    public static double pincherAutoClosed = 0.49;
-    public static double pincherClosed = 0.525;
-    public static double strongPincherClose = 0.55;
-    public static double strongPincherOpen = 0.25;
-    public static double wristUpright = 0.08;
-    public static double wristFlipped = 0.75;
+    public static double pincherOpen = 0.01;
+    public static double pincherAutoClosed = 0.13;
+    public static double pincherClosed = 0.14;
+    public static double strongPincherClose = 0.15;
+    public static double strongPincherOpen = 0.01;
+    public static double wristUpright = 0.05;
+    public static double wristFlipped = 0.73;
     public static double triggerDistance = 20; // mm
 
     public boolean isOpen = true;
@@ -38,7 +38,7 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
     public Claw(HardwareMap hardwareMap, Position pos) {
         pincher = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
-        sensor = hardwareMap.get(RevColorSensorV3.class, "trigger");
+//        sensor = hardwareMap.get(RevColorSensorV3.class, "trigger");
 
         if (pos == Position.UPRIGHT) {
             upright();
@@ -50,9 +50,9 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 //        upright();
     }
 
-    public double getTriggerDistance() {
-        return sensor.getDistance(DistanceUnit.MM);
-    }
+//    public double getTriggerDistance() {
+//        return sensor.getDistance(DistanceUnit.MM);
+//    }
 
     public void toggle() {
         // I don't use isOpen != isOpen because I want the open method to be called to start the timeout for the sensor
@@ -145,6 +145,7 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
     }
 
     public String getTelemetry() {
-        return "Pincher: "+pincher.getPosition()+"\nRotator: "+wrist.getPosition()+"\nProximitySensor: "+getTriggerDistance();
+//        return "Pincher: "+pincher.getPosition()+"\nRotator: "+wrist.getPosition()+"\nProximitySensor: "+getTriggerDistance();
+        return "Pincher: "+pincher.getPosition()+"\nRotator: "+wrist.getPosition();
     }
 }
