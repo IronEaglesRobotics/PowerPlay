@@ -10,18 +10,12 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP1;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP2;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP3;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP4;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP5;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPENWIDE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_DUNK;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_JUNC;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_HIGH;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID_TELE;
@@ -252,34 +246,12 @@ public class Robot {
             this.slideTo(SLIDE_MID_TELE, SLIDE_POWER_UP);
         }
 
-        public void lowDunk() {
-            this.slideTo(LOW_DUNK, SLIDE_POWER_UP);
-        }
-
         public void slideMed() {
             this.slideTo(SLIDE_MID, SLIDE_POWER_UP);
         }
 
-        public void slideHigh() {this.slideTo(SLIDE_HIGH, SLIDE_POWER_UP);}
-
         public void autoTop() {
             this.slideTo(AUTO_TOP1, SLIDE_POWER_UP);
-        }
-
-        public void autoTop2() {
-            this.slideTo(AUTO_TOP2, SLIDE_POWER_UP);
-        }
-
-        public void autoTop3() {
-            this.slideTo(AUTO_TOP3, SLIDE_POWER_UP);
-        }
-
-        public void autoTop4() {
-            this.slideTo(AUTO_TOP4, SLIDE_POWER_UP);
-        }
-
-        public void autoTop5() {
-            this.slideTo(AUTO_TOP5, SLIDE_POWER_UP);
         }
 
         public void slideStop() {
