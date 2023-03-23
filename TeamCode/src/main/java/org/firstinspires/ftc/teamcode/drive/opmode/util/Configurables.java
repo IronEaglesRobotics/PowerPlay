@@ -8,22 +8,23 @@ public class Configurables {
     public static double GO_SLOW = 1.4;
     public static double WHY_TURN = 1.25;
 
-
     // Slide
+    public static double SCALE_FACTOR = .85;
     public static double SLIDE_POWER_UP = 1.0;
-    public static double SLIDE_POWER_DOWN = 0.001;
-    public static int SLIDE_MAX = 3050;
-    public static int SLIDE_MID = 1275;
-    public static int SLIDE_MID_TELE = 2300;
-    public static int LOW_DUNK = 1000;
-    public static int SLIDE_HIGH = 2130;
-    public static int STOP = 30;
-    public static int LOW_JUNC = 1400;
-    public static int AUTO_TOP1 = 380;
-    public static int AUTO_TOP2 = 270;
-    public static int AUTO_TOP3 = 160;
-    public static int AUTO_TOP4 = 50;
+    public static double SLIDE_POWER_DOWN = 0.7;
+    public static int SLIDE_MAX = (int)(3050 * SCALE_FACTOR);
+    public static int SLIDE_MID = (int)(1275 * SCALE_FACTOR);
+    public static int SLIDE_MID_TELE = (int)(2300 * SCALE_FACTOR);
+    public static int LOW_DUNK = (int)(1000 * SCALE_FACTOR);
+    public static int SLIDE_HIGH = (int)(2130 * SCALE_FACTOR);
+    public static int STOP = (int)(30 * SCALE_FACTOR);
+    public static int LOW_JUNC = (int)(1400 * SCALE_FACTOR);
+    public static int AUTO_TOP1 = (int)(380 * SCALE_FACTOR);
+    public static int AUTO_TOP2 = (int)(270 * SCALE_FACTOR);
+    public static int AUTO_TOP3 = (int)(160 * SCALE_FACTOR);
+    public static int AUTO_TOP4 = (int)(50 * SCALE_FACTOR);
     public static int AUTO_TOP5 = 0;
+    public static int AUTOSCORE = SLIDE_MAX;
 
     // Claw
     public static double CLAW_CLOSED = 0.576;
@@ -39,7 +40,7 @@ public class Configurables {
     public static int ARM_LEFT = -690;
     public static int ARM_RIGHT = 1210;
     public static int ARM_SCORE = 690;
-    public static int ARM_TILT = -200;
+    public static int ARM_TILT = -180;
     public static int ARM_UPRIGHT_TELE = 0;
     public static int ARM_LEFT_TELE = -850;
     public static int ARM_RIGHT_TELE = 840;
@@ -47,6 +48,7 @@ public class Configurables {
     public static double ARM_P = 1.0;
     public static double ARM_I = 0;
     public static double ARM_D = 0;
+    public static int ARM_AUTO = -690;
 
     //Auto
     public static int PARK_POSITION = 1;

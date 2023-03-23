@@ -6,13 +6,12 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.OTH
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.WHY_TURN;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-@TeleOp(name = "Main TeleOp", group = "Development")
-public class MainTeleOp extends OpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp (name = "Tele-Op", group = "Development")
+public class TeleOp extends OpMode {
     private Robot robot;
     private boolean prevUpPressed = false;
     private boolean prevDownPressed = false;

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 
 @Config
 @Autonomous(name = "LeftMid", group = "Competition", preselectTeleOp = "MainTeleOp")
@@ -16,6 +17,8 @@ public class LeftMidAutoStates extends AutoBase {
 
     @Override
     public void initializeTrajectories() {
+        Configurables.AUTOSCORE= Configurables.SLIDE_MID;
+        Configurables.ARM_AUTO = Configurables.ARM_TILT;
         // START
         this.initialPosition = new Pose2d(-33, -59.5, Math.toRadians(90));
         this.moveBeacon = this.robot.getDrive().trajectoryBuilder(initialPosition)
@@ -34,7 +37,7 @@ public class LeftMidAutoStates extends AutoBase {
 
         // Cone 1
         this.getStackConeOne = this.robot.getDrive().trajectoryBuilder(scorePreload.end())
-                .lineToSplineHeading(new Pose2d(-52.4, -8, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(-52.3, -8, Math.toRadians(180)))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
                 .build();
         this.scoreStackConeOne = this.robot.getDrive().trajectoryBuilder(getStackConeOne.end())
@@ -43,11 +46,11 @@ public class LeftMidAutoStates extends AutoBase {
                 .build();
         // Cone 2
         this.getStackConeTwo = this.getStackConeOne;
-        this.scoreStackConeTwo = this.getStackConeOne;
+        this.scoreStackConeTwo = this.scoreStackConeOne;
 
         // Cone 3
         this.getStackConeThree = this.robot.getDrive().trajectoryBuilder(scoreStackConeTwo.end())
-                .lineToSplineHeading(new Pose2d(-52.4, -8, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(-52.3, -8, Math.toRadians(180)))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
                 .build();
         this.scoreStackConeThree = this.robot.getDrive().trajectoryBuilder(getStackConeThree.end())
@@ -61,11 +64,11 @@ public class LeftMidAutoStates extends AutoBase {
 
         // Cone 5
         this.getStackConeFive = this.robot.getDrive().trajectoryBuilder(scoreStackConeFour.end())
-                .lineToSplineHeading(new Pose2d(-52.4, -8, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(-52.3, -8, Math.toRadians(180)))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
                 .build();
         this.scoreStackConeFive = this.robot.getDrive().trajectoryBuilder(getStackConeFive.end())
-                .lineToSplineHeading(new Pose2d(-33.2,-14.5,Math.toRadians(150)))
+                .lineToSplineHeading(new Pose2d(-33.2,-14.5,Math.toRadians(153)))
                 .addTemporalMarker(0.1, robot.getClaw()::twistDown)
                 .build();
 

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 
 @Config
 @Autonomous(name = "RightMid", group = "Competition", preselectTeleOp = "MainTeleOp")
@@ -14,8 +15,11 @@ public class RightMidAutoStates extends AutoBase {
 
     public static double fasterVelocity = 90;
 
+
     @Override
     public void initializeTrajectories() {
+        Configurables.AUTOSCORE= Configurables.SLIDE_MID;
+        Configurables.ARM_AUTO = Configurables.ARM_TILT;
         // START
         this.initialPosition = new Pose2d(35, -59.5, Math.toRadians(90));
         this.moveBeacon = this.robot.getDrive().trajectoryBuilder(initialPosition)
@@ -38,7 +42,7 @@ public class RightMidAutoStates extends AutoBase {
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
                 .build();
         this.scoreStackConeOne = this.robot.getDrive().trajectoryBuilder(getStackConeOne.end())
-                .lineToSplineHeading(new Pose2d(34,-12.7,Math.toRadians(30)))
+                .lineToSplineHeading(new Pose2d(34,-12.7,Math.toRadians(32)))
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
                 .build();
 
@@ -66,7 +70,7 @@ public class RightMidAutoStates extends AutoBase {
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
                 .build();
         this.scoreStackConeFive = this.robot.getDrive().trajectoryBuilder(getStackConeFive.end())
-                .lineToSplineHeading(new Pose2d(33,-8,Math.toRadians(33)))
+                .lineToSplineHeading(new Pose2d(33,-8,Math.toRadians(35)))
                 .addTemporalMarker(0.3, robot.getClaw()::twistDown)
                 .build();
 
@@ -77,7 +81,7 @@ public class RightMidAutoStates extends AutoBase {
                 .build();
         // STACK -> PARK2
         this.park2 = this.robot.getDrive().trajectoryBuilder(scoreStackConeFive.end())
-                .lineToSplineHeading(new Pose2d(34.6,-5,Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(34.6,-3,Math.toRadians(0)))
                 .addDisplacementMarker(1, this.robot.getArm()::moveMid)
                 .build();
         // PARK2 -> PARK3

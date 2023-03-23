@@ -34,6 +34,7 @@ public abstract class AutoBase extends LinearOpMode {
         Configurables.ARM_POWER= 0.7;
         this.robot = new Robot().init(hardwareMap);
 
+
         initializeTrajectories();
 
         this.robot.getDrive().setPoseEstimate(initialPosition);
@@ -46,7 +47,11 @@ public abstract class AutoBase extends LinearOpMode {
             telemetry.update();
         }
 
+
         // Score the preloaded cone
+        int armPosition = this.robot.getArm().getCurrentPosition();
+        telemetry.addData("Arm_Position",(armPosition));
+        telemetry.update();
         robot.getClaw().twistDown();
         robot.getArm().moveMid();
         this.robot.getDrive().followTrajectory(moveBeacon);
@@ -57,6 +62,7 @@ public abstract class AutoBase extends LinearOpMode {
         sleep(100);
         robot.getClaw().open();
         robot.getArm().moveScore();
+
 
         getAndScoreStackCone(getStackConeOne, scoreStackConeOne, Configurables.AUTO_TOP1);
         getAndScoreStackCone(getStackConeTwo, scoreStackConeTwo, Configurables.AUTO_TOP2);
@@ -89,13 +95,14 @@ public abstract class AutoBase extends LinearOpMode {
         sleep(150);
 
         // Move back to the junction
-        this.robot.getLift().slideMax();
-        this.robot.getArm().moveLeft();
+        this.robot.getLift().slideScorAuto();
+        this.robot.getArm().moveAuto();
         sleep(100);
         this.robot.getDrive().followTrajectory(scoreStackConeTrajectory);
 
         // Score
-        this.robot.getLift().move(height);
+        this.robot.getLift().slideToCone(height);
+        this.robot.getArm().moveLeft();
         sleep(100);
         this.robot.getClaw().open();
         this.robot.getArm().moveScore();

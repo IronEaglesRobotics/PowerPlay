@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_AUTO;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_LEFT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_POWER;
@@ -9,6 +10,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_TILT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTOSCORE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.AUTO_TOP1;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_CLOSED;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_DOWN;
@@ -19,8 +21,8 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID_TELE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_UP;
-import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.STOP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ARM;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.GRIP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.LIFT;
@@ -132,6 +134,10 @@ public class Robot {
             this.move(ARM_SCORE);
         }
 
+        public void moveAuto() {
+            this.move(ARM_AUTO);
+        }
+
         public void moveTilt() {
             this.move(ARM_TILT);
         }
@@ -224,11 +230,11 @@ public class Robot {
         public void slideDown() {
             this.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            this.slide.setPower(this.slide.getCurrentPosition() < STOP ? .3 : 0);
+            this.slide.setPower(0);
             this.slide.setTargetPosition(0);
             this.slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            this.slide2.setPower(this.slide.getCurrentPosition() < STOP ? .3 : 0);
+            this.slide2.setPower(0);
             this.slide2.setTargetPosition(0);
         }
 
@@ -237,6 +243,8 @@ public class Robot {
         public void slideMax() {
             this.slideTo(SLIDE_MAX, SLIDE_POWER_UP);
         }
+
+        public void slideScorAuto() {this.slideTo(AUTOSCORE, SLIDE_POWER_UP);}
 
         public void lowJunction() {
             this.slideTo(LOW_JUNC, SLIDE_POWER_UP);
@@ -251,19 +259,15 @@ public class Robot {
         }
 
         public void autoTop() {
-            this.slideTo(AUTO_TOP1, SLIDE_POWER_UP);
+            this.slideTo(AUTO_TOP1,SLIDE_POWER_DOWN);
         }
 
-        public void slideStop() {
-            this.slideTo(slide.getCurrentPosition(), 1.0);
-        }
+        public void slideStop() {this.slideTo(slide.getCurrentPosition(), 1.0);}
 
         public String getTelemetry() {
             return String.format("position: %s", slide.getCurrentPosition());
         }
 
-        public void move(int height) {
-            this.slideTo(height, SLIDE_POWER_UP);
-        }
+        public void slideToCone(int height) {this.slideTo(height,SLIDE_POWER_DOWN);}
     }
 }

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 
 @Config
 @Autonomous(name = "RightHigh", group = "Competition", preselectTeleOp = "MainTeleOp")
@@ -16,6 +17,8 @@ public class RightHighAutoStates extends AutoBase {
 
     @Override
     public void initializeTrajectories() {
+        Configurables.AUTOSCORE= Configurables.SLIDE_MAX;
+        Configurables.ARM_AUTO = Configurables.ARM_LEFT;
         // START
         this.initialPosition = new Pose2d(35, -59.5, Math.toRadians(90));
         this.moveBeacon = this.robot.getDrive().trajectoryBuilder(initialPosition)
