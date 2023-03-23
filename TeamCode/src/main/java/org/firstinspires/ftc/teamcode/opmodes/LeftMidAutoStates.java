@@ -44,6 +44,7 @@ public class LeftMidAutoStates extends AutoBase {
                 .lineToSplineHeading(new Pose2d(-33.2,-14.5,Math.toRadians(150)))
                 .addTemporalMarker(0.1, robot.getClaw()::twistDown)
                 .build();
+
         // Cone 2
         this.getStackConeTwo = this.getStackConeOne;
         this.scoreStackConeTwo = this.scoreStackConeOne;

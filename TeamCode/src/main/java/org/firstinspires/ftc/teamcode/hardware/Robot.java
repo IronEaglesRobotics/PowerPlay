@@ -142,7 +142,6 @@ public class Robot {
             this.move(ARM_TILT);
         }
 
-
         public void drop() {
             this.arm.setPower(0);
         }
@@ -189,13 +188,11 @@ public class Robot {
         public void twistDown() {
             this.clawTurn.setPosition(CLAW_DOWN);
         }
-
     }
 
     public static class Lift {
         public DcMotor slide = null;
         public DcMotor slide2 = null;
-
 
         public Lift init(HardwareMap hardwareMap) {
             this.slide = hardwareMap.get(DcMotor.class, LIFT);
@@ -237,8 +234,6 @@ public class Robot {
             this.slide2.setPower(0);
             this.slide2.setTargetPosition(0);
         }
-
-//        }
 
         public void slideMax() {
             this.slideTo(SLIDE_MAX, SLIDE_POWER_UP);
