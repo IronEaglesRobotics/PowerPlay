@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
@@ -45,33 +46,33 @@ public class LeftContestedAuto extends AbstractAuto {
 
     @Override
     public void makeTrajectories() {
-        double xLoad = -0.7;
-        double yLoad = 0.85;
+        double xLoad = 0.1;
+        double yLoad = 0.95;
 
-        double xInt = -0.7;
-        double yInt = 0.85;
+        double xInt = 0.1;
+        double yInt = 0.95;
 
-        double xScore = -0.7;
-        double yScore = 0.85;
+        double xScore = 0.1;
+        double yScore = 0.95;
 
         // positions
-        Pose2d start1 = new Pose2d(31.25,63,Math.toRadians(-90));
+        Pose2d start1 = new Pose2d(30.5,63,Math.toRadians(-90));
         Pose2d start2 = new Pose2d(36,12,Math.toRadians(-90));
 //        Pose2d start3 = new Pose2d(-22,14,Math.toRadians(0));
-        Pose2d start4 = new Pose2d(28,5,Math.toRadians(-135));
+        Pose2d start4 = new Pose2d(29,5.5,Math.toRadians(-135));
 
-        Pose2d sLoad1 = new Pose2d(48,11.5,Math.toRadians(180));
+        Pose2d sLoad1 = new Pose2d(48,11.8,Math.toRadians(180));
         Pose2d sLoad2 = sLoad1.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad3 = sLoad2.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad4 = sLoad3.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad5 = sLoad4.plus(new Pose2d(xInt, yInt));
-        Pose2d lLoad1 = new Pose2d(59,11.5,Math.toRadians(180));
+        Pose2d lLoad1 = new Pose2d(59.7,11.8,Math.toRadians(180));
         Pose2d lLoad2 = lLoad1.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad3 = lLoad2.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad4 = lLoad3.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad5 = lLoad4.plus(new Pose2d(xLoad, yLoad));
 
-        Pose2d lScore1 = new Pose2d(48,11.5,Math.toRadians(180));
+        Pose2d lScore1 = new Pose2d(48,11.8,Math.toRadians(180));
         Pose2d lScore2 = lScore1.plus(new Pose2d(xInt, yInt));
         Pose2d lScore3 = lScore2.plus(new Pose2d(xInt, yInt));
         Pose2d lScore4 = lScore3.plus(new Pose2d(xInt, yInt));
@@ -84,14 +85,14 @@ public class LeftContestedAuto extends AbstractAuto {
 
 //        Pose2d sPark0 = new Pose2d(-20,7, Math.toRadians(-90));
 //        Pose2d sPark1 = new Pose2d(-10,21, Math.toRadians(-90));
-        Pose2d sPark1 = new Pose2d(49, 14.0, Math.toRadians(180));
-        Pose2d s2Park1 = new Pose2d(54, 25, Math.toRadians(-90));
-        Pose2d lPark1 = new Pose2d(54,28,Math.toRadians(-90));
+        Pose2d sPark1 = new Pose2d(51, 14.0, Math.toRadians(180));
+        Pose2d s2Park1 = new Pose2d(56, 25, Math.toRadians(-90));
+        Pose2d lPark1 = new Pose2d(56,28,Math.toRadians(-90));
 
-        Pose2d sPark2 = new Pose2d(30, 19, Math.toRadians(-90));
-        Pose2d lPark2 = new Pose2d(30,28, Math.toRadians(-90));
+        Pose2d sPark2 = new Pose2d(33, 19, Math.toRadians(-90));
+        Pose2d lPark2 = new Pose2d(33,28, Math.toRadians(-90));
 
-        Pose2d lPark3 = new Pose2d(6,19, Math.toRadians(-90));
+        Pose2d lPark3 = new Pose2d(9,20, Math.toRadians(-90));
 
         // preload
         this.start = robot.drive.trajectoryBuilder(start1)
@@ -188,23 +189,23 @@ public class LeftContestedAuto extends AbstractAuto {
 
     @Override
     public void initializeSteps(int location) {
-        followAndExtend(start, Slides.Position.HIGH);
-        followAndExtend(startScore, Slides.Position.HIGH);
+        followAndExtend(start, Slides.Position.HIGH, Arm.Position.SCORE);
+        followAndExtend(startScore, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load1, heights[4]);
-        followAndExtend(score1, Slides.Position.HIGH);
+        followAndExtend(score1, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load2, heights[3]);
-        followAndExtend(score2, Slides.Position.HIGH);
+        followAndExtend(score2, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load3, heights[2]);
-        followAndExtend(score3, Slides.Position.HIGH);
+        followAndExtend(score3, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load4, heights[1]);
-        followAndExtend(score4, Slides.Position.HIGH);
+        followAndExtend(score4, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load5, heights[0]);
-        followAndExtend(score5, Slides.Position.HIGH);
+        followAndExtend(score5, Slides.Position.HIGH, Arm.Position.SCORE);
 
         switch (location) {
             case 1:

@@ -8,11 +8,13 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
+@Disabled
 @Autonomous(name = "Left Safe High 1 + 5", group = "Left Competition", preselectTeleOp = "Main TeleOp")
 public class LeftSafeAuto extends AbstractAuto {
 
@@ -276,23 +278,23 @@ public class LeftSafeAuto extends AbstractAuto {
     @Override
     public void initializeSteps(int location) {
 //        followTrajectory(start);
-        followAndExtend(start, Slides.Position.HIGH);
+        followAndExtend(start, Slides.Position.HIGH, Arm.Position.SCORE);
 //        followAndExtend(startScore, Slides.Position.HIGH);
 
         followAndReset(load1, heights[4]);
-        followAndExtend(score1, Slides.Position.HIGH);
+        followAndExtend(score1, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load2, heights[3]);
-        followAndExtend(score2, Slides.Position.HIGH);
+        followAndExtend(score2, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load3, heights[2]);
-        followAndExtend(score3, Slides.Position.HIGH);
+        followAndExtend(score3, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load4, heights[1]);
-        followAndExtend(score4, Slides.Position.HIGH);
+        followAndExtend(score4, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load5, heights[0]);
-        followAndExtend(score5, Slides.Position.HIGH);
+        followAndExtend(score5, Slides.Position.HIGH, Arm.Position.SCORE);
 
         switch (location) {
             case 1:

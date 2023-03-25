@@ -15,8 +15,8 @@ public class Rad { // TODO done in theory, but need to get the actual servo posi
         OPEN, CLOSED
     }
 
-    public static double open = 0.01;
-    public static double closed = 0.13;
+    public static double open = 0.49;
+    public static double closed = 0.551;
     public boolean isOpen = false;
 
     public Rad(HardwareMap hardwareMap, Position pos) {

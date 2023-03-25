@@ -1,7 +1,13 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.AUTO;
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.PICKUP;
 import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
+import static org.firstinspires.ftc.teamcode.hardware.Rad.Position.CLOSED;
+import static org.firstinspires.ftc.teamcode.hardware.Rad.Position.OPEN;
+
+import android.transition.Slide;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -17,12 +23,13 @@ public class Robot {
     public Slides slides;
     public Arm arm;
     public Claw claw;
+    public Rad rad;
     public Camera camera;
     private boolean camEnabled = false;
 
     public double macroStartTime = 0;
     public int macroState = 0;
-    public int runningMacro = 0; // 0 = no macro | 1 = low macro | 2 = mid macro | 3 = high macro
+    public int runningMacro = 0; // 0 = no macro | 1 = low macro | 2 = mid macro | 3 = high macro | 4 = pickup macro
     public int lastMacro = 0;
 
     public static double clawWait = 0.2;
@@ -34,8 +41,9 @@ public class Robot {
 //        }
 //        drive.setPoseEstimate(PoseStorage.currentPose);
         slides = new Slides(hardwareMap);
-        claw = new Claw(hardwareMap, UPRIGHT);
         arm = new Arm(hardwareMap, INTAKE);
+        claw = new Claw(hardwareMap, UPRIGHT);
+        rad = new Rad(hardwareMap, CLOSED);
         camEnabled = false;
     }
 
@@ -45,16 +53,25 @@ public class Robot {
         slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap, clawPos);
         arm = new Arm(hardwareMap, armPos);
-//        camera = new Camera(cameraPosition);
-//        camera.init(hardwareMap);
-//        camEnabled = true;
+        if (armPos == PICKUP || armPos == AUTO) {
+            rad = new Rad(hardwareMap, OPEN);
+        } else {
+            rad = new Rad(hardwareMap, CLOSED);
+        }
+        camera = new Camera(cameraPosition);
+        camera.init(hardwareMap);
+        camEnabled = true;
     }
 
-    public void extendMacro(Slides.Position pos, double runTime) {
+    public void extendMacro(Slides.Position slidePos, Arm.Position armPos, double runTime) {
         switch(macroState) {
             case(0):
                 macroStartTime = runTime;
-                claw.close();
+                if (armPos == PICKUP) {
+                    rad.open();
+                } else {
+                    claw.close();
+                }
                 macroState ++;
                 break;
             case(1):
@@ -63,9 +80,14 @@ public class Robot {
                 }
                 break;
             case(2):
+                if (armPos != PICKUP) {
+                    rad.close();
+                } else {
+                    claw.open();
+                }
                 macroStartTime = runTime;
-                slides.setTarget(pos);
-                arm.goToScore();
+                slides.setTarget(slidePos);
+                arm.setTarget(armPos);
                 claw.flipped();
                 macroState = 0;
                 lastMacro = runningMacro;
@@ -78,19 +100,30 @@ public class Robot {
         switch(macroState) {
             case(0):
                 macroStartTime = runTime;
-                claw.open();
+                slides.setTarget(pos);
                 macroState++;
                 break;
             case(1):
-                if (runTime > macroStartTime + clawWait) {
+                if (runTime > macroStartTime + 0.05) {
                     macroState ++;
                 }
                 break;
             case(2):
                 macroStartTime = runTime;
+                claw.open();
+                macroState++;
+                break;
+            case(3):
+                if (runTime > macroStartTime + clawWait) {
+                    macroState ++;
+                }
+                break;
+            case(4):
+                macroStartTime = runTime;
                 slides.setTarget(pos);
                 arm.goToIntake();
                 claw.upright();
+                rad.open();
                 macroState = 0;
                 runningMacro = 0;
                 lastMacro = 0;
@@ -101,19 +134,30 @@ public class Robot {
         switch(macroState) {
             case(0):
                 macroStartTime = runTime;
-                claw.strongOpen();
+                slides.setTarget(pos);
                 macroState++;
                 break;
             case(1):
-                if (runTime > macroStartTime + clawWait) {
+                if (runTime > macroStartTime + 0.05) {
                     macroState ++;
                 }
                 break;
             case(2):
                 macroStartTime = runTime;
+                claw.strongOpen();
+                macroState++;
+                break;
+            case(3):
+                if (runTime > macroStartTime + clawWait) {
+                    macroState ++;
+                }
+                break;
+            case(4):
+                macroStartTime = runTime;
                 slides.setTarget(pos);
                 arm.goToIntake();
                 claw.upright();
+                rad.open();
                 macroState = 0;
                 runningMacro = 0;
                 lastMacro = 0;
@@ -125,6 +169,7 @@ public class Robot {
         slides.update(runTime);
         claw.update();
         arm.update();
+        rad.update();
     }
 
     public String getTelemetry() {

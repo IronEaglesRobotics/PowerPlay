@@ -1,12 +1,17 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.AUTO;
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.PICKUP;
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.SCORE;
 import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.FLIPPED;
+import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
 
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.PoseStorage;
+import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
@@ -32,7 +37,7 @@ public abstract class AbstractAuto extends LinearOpMode {
 
         setCameraPosition();
 
-        robot = new Robot(hardwareMap, SCORE, FLIPPED, cameraPosition);
+        robot = new Robot(hardwareMap, AUTO, UPRIGHT, cameraPosition);
 //        robot.claw.close();
 //        robot.claw.upright();
 //        robot.claw.flip();
@@ -63,6 +68,7 @@ public abstract class AbstractAuto extends LinearOpMode {
         PoseStorage.AutoJustEnded = true;
         resetRuntime();
         robot.claw.close();
+        robot.arm.setTarget(SCORE);
 
         // build the first step
         steps = new ArrayList<>();
@@ -172,25 +178,27 @@ public abstract class AbstractAuto extends LinearOpMode {
         });
     }
 
-    public void followAndExtend(Trajectory trajectory, Slides.Position pos) {
+    public void followAndExtend(Trajectory trajectory, Slides.Position slidePos, Arm.Position armPos) {
         steps.add(new Step("Following a trajectory") {
             @Override
             public void start() {
                 robot.drive.followTrajectoryAsync(trajectory);
-                if (pos == Slides.Position.HIGH) {
+                if (armPos == PICKUP) {
+                    robot.runningMacro = 4;
+                } else if (slidePos == Slides.Position.HIGH) {
                     robot.runningMacro = 3;
-                } else if (pos == Slides.Position.MEDIUM) {
+                } else if (slidePos == Slides.Position.MEDIUM) {
                     robot.runningMacro = 2;
-                } else if (pos == Slides.Position.LOW) {
+                } else if (slidePos == Slides.Position.LOW) {
                     robot.runningMacro = 1;
                 }
-                robot.extendMacro(pos, currentRuntime);
+                robot.extendMacro(slidePos, armPos, currentRuntime);
             }
 
             @Override
             public void whileRunning() {
                 if (robot.runningMacro != 0) {
-                    robot.extendMacro(pos, currentRuntime);
+                    robot.extendMacro(slidePos, armPos, currentRuntime);
                 }
 
                 robot.drive.update();
@@ -235,7 +243,7 @@ public abstract class AbstractAuto extends LinearOpMode {
             @Override
             public void start() {
                 robot.drive.followTrajectoryAsync(trajectory);
-                robot.runningMacro = 4;
+                robot.runningMacro = 5;
                 robot.resetMacroEnd(pos, currentRuntime);
             }
 
@@ -266,7 +274,7 @@ public abstract class AbstractAuto extends LinearOpMode {
             @Override
             public void start() {
                 robot.drive.followTrajectoryAsync(trajectory);
-                robot.runningMacro = 4;
+                robot.runningMacro = 5;
                 robot.resetMacro(pos, currentRuntime);
             }
 

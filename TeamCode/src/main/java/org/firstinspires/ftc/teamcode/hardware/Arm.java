@@ -9,29 +9,29 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Arm {
 
     public enum Position {
-        INTAKE, SCORE
+        INTAKE, SCORE, PICKUP, AUTO
     }
 
     private Servo pivotRight;
     private Servo pivotLeft;
 
-    public static double maxPos = 0.999;
-    public static double minPos = 0.001;
-    public static double intake = 0.06; // up on joystick
-    public static double score = 0.62; // down on joystick
-    public static double pickup = 0.87;
-    public static double middlePos = 0.07; //(intake+score)/2; // TODO currently not correct, rename
+    public static double maxPos = 0.99;
+    public static double minPos = 0.055;
+    public static double intake = 0.065; // up on joystick
+    public static double score = 0.61; // down on joystick
+    public static double pickup = 0.9;
+    public static double auto = 0.87;
 
-    public static double leftMin = 0.0255;
-    public static double leftMax = 0.99;
-    public static double rightMin = 0.01;
-    public static double rightMax = 0.973;
+    public final double leftMin = 0.0255;
+    public final double leftMax = 0.99;
+    public final double rightMin = 0.01;
+    public final double rightMax = 0.973;
 
     public static double[] presets = new double[]{0.92, 0.9, 0.85};
     public int presetIdx = 0;
     public boolean usePresets = false;
 
-    public static double manualSpeed = 0.06;
+    public static double manualSpeed = 0.008;
     public static double armOffset = 0;
 
     private double target = intake;
@@ -46,7 +46,6 @@ public class Arm {
     public static double pTolerance = 0.01;
     public static PIDController controller = new PIDController(p, i, d);
 
-
     public Arm(HardwareMap hardwareMap, Position pos) {
         pivotLeft = hardwareMap.get(Servo.class, "pivotLeft");
         pivotRight = hardwareMap.get(Servo.class, "pivotRight");
@@ -57,7 +56,11 @@ public class Arm {
 
         if (pos == Position.SCORE) {
             goToScore();
-        } else {
+        } else if (pos == Position.PICKUP) {
+            goToPickup();
+        } else if (pos == Position.AUTO) {
+            goToAuto();
+        } else if (pos == Position.INTAKE) {
             goToIntake();
         }
         currentTarget = target; // necessary to make sure arm doesn't move violently during init
@@ -69,6 +72,18 @@ public class Arm {
     public void increaseTarget(double increase) {
         target += (increase * manualSpeed);
         target = Math.min(maxPos, Math.max(minPos, target));
+    }
+
+    public void setTarget(Position pos) {
+        if (pos == Arm.Position.INTAKE) {
+            target = intake;
+        } else if (pos == Arm.Position.SCORE) {
+            target = score;
+        } else if (pos == Arm.Position.PICKUP) {
+            target = pickup;
+        } else if (pos == Arm.Position.AUTO) {
+            target = auto;
+        }
     }
 
     public void goToScore() {
@@ -89,12 +104,11 @@ public class Arm {
         target = intake;
     }
 
-    public void goToMiddle() {
-        target = middlePos;
-    }
-
     public void goToPickup() {
         target = pickup;
+    }
+    public void goToAuto() {
+        target = auto;
     }
 
     public void update() {

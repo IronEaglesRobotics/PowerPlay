@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.PoseStorage;
 import org.firstinspires.ftc.teamcode.controller.Controller;
+import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.opmode.Alliance;
@@ -22,7 +23,7 @@ public abstract class AbstractTeleOp extends OpMode {
     Controller driver1;
     Controller driver2;
 
-    public static double drivebaseThrottle = 0.4;
+    public static double drivebaseThrottle = 0.6;
     public static double drivebaseTurbo = 1.0;
     public static int heightIncrement = 20;
 
@@ -76,7 +77,6 @@ public abstract class AbstractTeleOp extends OpMode {
             driver2.setColor(0, 0, 255);
         }
 
-        robot.slides.decrementAmount = 90;
         PoseStorage.AutoJustEnded = false;
     }
 
@@ -216,23 +216,24 @@ public abstract class AbstractTeleOp extends OpMode {
             Slides.heightOffset -= heightIncrement;
             robot.slides.setTarget(robot.slides.getTarget() - heightIncrement);
         }
-        // change to presets
-        if (driver2.getDRight().isJustPressed()) {
-            robot.arm.toggleUsePreset();
-            robot.arm.goToScore();
-        } else if (driver2.getDLeft().isJustPressed()) {
-            robot.arm.cyclePreset();
-            robot.arm.goToScore();
-        }
 
         switch (robot.runningMacro) {
             case(0): // manual mode
+
+                //track pad is rad
+                // left right dpad is turn wrist
                 robot.slides.increaseTarget(driver2.getLeftStick().getY());
 //                robot.hSlides.increaseTarget(driver2.getRightStick().getY());
                 robot.arm.increaseTarget(driver2.getRightStick().getY());
 //                if (Math.abs(driver2.getRightStick().getY()) > 0.05) { // close claw if anything is moved
 //                    robot.claw.close();
 //                }
+                if (driver2.getDLeft().isPressed()) {
+                    robot.claw.increaseWristTarget();
+                }
+                if (driver2.getDRight().isPressed()) {
+                    robot.claw.decreaseWristTarget();
+                }
 
 //                if (driver2.getRightBumper().isJustPressed()) {
 //                    robot.arm.goToScore();
@@ -243,7 +244,7 @@ public abstract class AbstractTeleOp extends OpMode {
 
                 // retract all the time
                 if (driver2.getLeftStickButton().isJustPressed()) {
-                    robot.runningMacro = 4;
+                    robot.runningMacro = 5;
                 }
 
                 // to cancel macro and allow manual movement
@@ -252,17 +253,19 @@ public abstract class AbstractTeleOp extends OpMode {
 //                    robot.lastMacro = 0;
 //                }
 
-                if (driver2.getX().isJustPressed()) { // high position [closed, bring up, bring out]
+                if (driver2.getTouchpad().isJustPressed()) {
+                    robot.runningMacro = 4;
+                } else if (driver2.getX().isJustPressed()) { // high position [closed, bring up, bring out]
                     robot.runningMacro = 3;
                 } else if (driver2.getY().isJustPressed()) { // middle position [middle goal level]
                     robot.runningMacro = 2;
                 } else if (driver2.getB().isJustPressed() && !driver2.getStart().isJustPressed()) { // low position [low goal level]
                     robot.runningMacro = 1;
                 } else if (driver2.getA().isJustPressed()) {
-                    if (robot.lastMacro == 0) { // if not running any macros
+                    if (robot.lastMacro == 0 || robot.lastMacro == 4) { // if not running any macros or picking up cones
                         robot.claw.toggle();
                     } else { // otherwise, I need to undo a macro
-                        robot.runningMacro = 4;
+                        robot.runningMacro = 5;
                     }
                 } else {
                     if (driver2.getRightBumper().isJustPressed()) {
@@ -273,58 +276,20 @@ public abstract class AbstractTeleOp extends OpMode {
                         robot.claw.flip();
                     }
                 }
-
-//                if (robot.claw.justOpened) {
-//                    timeSinceOpened = getRuntime();
-//                    robot.claw.justOpened = false;
-//                }
-
-//                if (getRuntime() - timeSinceOpened > 0.5) { // means I am ready to go again
-//                    if (isAutoClose && robot.claw.isOpen && robot.claw.getTriggerDistance() < Claw.triggerDistance) {
-//                        robot.claw.close();
-//                        delayState = 0;
-//                        doArmDelay = true;
-//                    }
-//                    if (!isAutoClose && !robot.claw.isOpen) {
-//                        delayState = 0;
-//                        doArmDelay = true;
-//                    }
-//                }
-
-//                if (doArmDelay) {
-//                    switch (delayState) {
-//                        case (0):
-//                            delayStart = getRuntime();
-//                            delayState++;
-//                            break;
-//                        case (1):
-//                            if (getRuntime() > delayStart + armWait) {
-//                                delayState ++;
-//                            }
-//                            break;
-//                        case(2):
-//                            doArmDelay = false;
-////                            delayStart = getRuntime();
-//                            delayState = 3;
-//                            robot.arm.goToMiddle();
-//                            break;
-////                        case(3):
-////                            doArmDelay = false;
-////                            break;
-//                    }
-//                }
-
                 break;
             case(1):
-                robot.extendMacro(Slides.Position.LOW, getRuntime());
+                robot.extendMacro(Slides.Position.LOW, Arm.Position.SCORE, getRuntime());
                 break;
             case(2):
-                robot.extendMacro(Slides.Position.MEDIUM, getRuntime());
+                robot.extendMacro(Slides.Position.MEDIUM, Arm.Position.SCORE, getRuntime());
                 break;
             case(3):
-                robot.extendMacro(Slides.Position.HIGH, getRuntime());
+                robot.extendMacro(Slides.Position.HIGH, Arm.Position.SCORE, getRuntime());
                 break;
-            case (4): // macro reset
+            case(4):
+                robot.extendMacro(Slides.Position.PICKUP, Arm.Position.PICKUP, getRuntime());
+                break;
+            case (5): // macro reset
                 robot.resetMacro(0, getRuntime());
                 break;
         }
