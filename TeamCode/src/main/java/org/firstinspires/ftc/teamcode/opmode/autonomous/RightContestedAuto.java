@@ -46,38 +46,40 @@ public class RightContestedAuto extends AbstractAuto {
 
     @Override
     public void makeTrajectories() {
-        double xLoad = 0.5;
-        double yLoad = 0.1;
+        double xLoad = 0.24;
+        double yLoad = 0.17;
 
-        double xInt = 0.5;
-        double yInt = 0.1;
+        double xInt = 0.24;
+        double yInt = 0.17;
 
-        double xScore = 0.5;
-        double yScore = 0.1;
+        double xScore = 0.24;
+        double yScore = 0.17;
 
         // positions
         Pose2d start1 = new Pose2d(-30.5,64,Math.toRadians(-90));
         Pose2d start2 = new Pose2d(-36,16,Math.toRadians(-90));//-36,12,-90
 //        Pose2d start3 = new Pose2d(-22,14,Math.toRadians(0));
-        Pose2d start4 = new Pose2d(-28,5.0,Math.toRadians(-45));
+//        Pose2d start4 = new Pose2d(-29,5.5,Math.toRadians(-45));
+        Pose2d start4 = new Pose2d(-27.2,4.3,Math.toRadians(-45));
 
-        Pose2d sLoad1 = new Pose2d(-48,10.3,Math.toRadians(0));
+        Pose2d sLoad1 = new Pose2d(-48,9.9,Math.toRadians(0));
         Pose2d sLoad2 = sLoad1.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad3 = sLoad2.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad4 = sLoad3.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad5 = sLoad4.plus(new Pose2d(xInt, yInt));
-        Pose2d lLoad1 = new Pose2d(-60.0,10.3,Math.toRadians(0));
+        Pose2d lLoad1 = new Pose2d(-59.6,9.9,Math.toRadians(0));
         Pose2d lLoad2 = lLoad1.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad3 = lLoad2.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad4 = lLoad3.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad5 = lLoad4.plus(new Pose2d(xLoad, yLoad));
 
-        Pose2d lScore1 = new Pose2d(-48,10.3,Math.toRadians(0));
+        Pose2d lScore1 = new Pose2d(-48,9.9,Math.toRadians(0));
         Pose2d lScore2 = lScore1.plus(new Pose2d(xInt, yInt));
         Pose2d lScore3 = lScore2.plus(new Pose2d(xInt, yInt));
         Pose2d lScore4 = lScore3.plus(new Pose2d(xInt, yInt));
         Pose2d lScore5 = lScore4.plus(new Pose2d(xInt, yInt));
-        Pose2d sScore1 = start4.plus(new Pose2d(xInt, yInt));
+//        Pose2d sScore1 = new Pose2d(-27.2,4.3,Math.toRadians(-45));
+        Pose2d sScore1 = start4.plus(new Pose2d(xScore, yScore));
         Pose2d sScore2 = sScore1.plus(new Pose2d(xScore, yScore));
         Pose2d sScore3 = sScore2.plus(new Pose2d(xScore, yScore));
         Pose2d sScore4 = sScore3.plus(new Pose2d(xScore, yScore));
@@ -85,7 +87,7 @@ public class RightContestedAuto extends AbstractAuto {
 
 //        Pose2d sPark0 = new Pose2d(-20,7, Math.toRadians(-90));
 //        Pose2d sPark1 = new Pose2d(-10,21, Math.toRadians(-90));
-        Pose2d lPark1 = new Pose2d(-8,22, Math.toRadians(-90));
+        Pose2d lPark1 = new Pose2d(-8,20, Math.toRadians(-90));
 
         Pose2d sPark2 = new Pose2d(-33, 18, Math.toRadians(-90));
         Pose2d lPark2 = new Pose2d(-33,26, Math.toRadians(-90));

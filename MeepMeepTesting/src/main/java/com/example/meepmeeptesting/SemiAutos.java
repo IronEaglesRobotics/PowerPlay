@@ -101,25 +101,27 @@ public class SemiAutos {
 
         lrightHighBot = new DefaultBotBuilder(meepMeep)
                 .setColorScheme(new ColorSchemeRedDark())
-                .setConstraints(50, 35, 180, 180, 11)
+                .setConstraints(73, 46, 180, 180, 11)
                 .setDimensions(13.5,13.5)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(lstart)
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-9,18,Math.toRadians(30)))
                         // preload
-                        .lineToLinearHeading(lpushCone)
-                        .setReversed(false)
-//                        .splineToConstantHeading(new Vector2d(lpushCone2.getX(), lpushCone2.getY()), Math.toRadians(-90))
-//                        .splineToConstantHeading(new Vector2d(lscorePreload.getX(), lscorePreload.getY()), Math.toRadians(-90))
-//                        .setReversed(false)
-                        .splineToSplineHeading(lscorePreload, Math.toRadians(135))
-//                        .splineToSplineHeading(lscorePreload, Math.toRadians(-135))
-
-                        // cone stack
                         .setReversed(true)
-                        .splineToSplineHeading(lintermediate, Math.toRadians(0))
-                        .lineToSplineHeading(lload)
-                        .setReversed(false)
-                        .lineToSplineHeading(lintermediate)
-                        .splineToSplineHeading(lscore, Math.toRadians(-135))
+                        .splineToSplineHeading(new Pose2d(-32,10,0), Math.toRadians(180))
+                        .lineToLinearHeading(new Pose2d(-59, 10, 0))
+//                        .setReversed(false)
+////                        .splineToConstantHeading(new Vector2d(lpushCone2.getX(), lpushCone2.getY()), Math.toRadians(-90))
+////                        .splineToConstantHeading(new Vector2d(lscorePreload.getX(), lscorePreload.getY()), Math.toRadians(-90))
+////                        .setReversed(false)
+//                        .splineToSplineHeading(lscorePreload, Math.toRadians(135))
+////                        .splineToSplineHeading(lscorePreload, Math.toRadians(-135))
+//
+//                        // cone stack
+//                        .setReversed(true)
+//                        .splineToSplineHeading(lintermediate, Math.toRadians(0))
+//                        .lineToSplineHeading(lload)
+//                        .setReversed(false)
+//                        .lineToSplineHeading(lintermediate)
+//                        .splineToSplineHeading(lscore, Math.toRadians(-135))
 //
                         // parks
 //                        .setReversed(true)
@@ -130,9 +132,9 @@ public class SemiAutos {
 //                        .splineToSplineHeading(intermediate, Math.toRadians(180))
 //                        .lineToSplineHeading(park2)
 
-                        .setReversed(true)
-                        .splineToSplineHeading(lintermediate, Math.toRadians(180))
-                        .lineToSplineHeading(lpark3)
+//                        .setReversed(true)
+//                        .splineToSplineHeading(lintermediate, Math.toRadians(180))
+//                        .lineToSplineHeading(lpark3)
 
                         .build());
 

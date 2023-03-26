@@ -20,7 +20,7 @@ public class Arm {
     public static double intake = 0.065; // up on joystick
     public static double score = 0.61; // down on joystick
     public static double pickup = 0.9;
-    public static double auto = 0.87;
+    public static double auto = 0.88;
 
     public final double leftMin = 0.0255;
     public final double leftMax = 0.99;
@@ -72,6 +72,10 @@ public class Arm {
     public void increaseTarget(double increase) {
         target += (increase * manualSpeed);
         target = Math.min(maxPos, Math.max(minPos, target));
+    }
+
+    public void setTarget(double pos) {
+        target = pos;
     }
 
     public void setTarget(Position pos) {

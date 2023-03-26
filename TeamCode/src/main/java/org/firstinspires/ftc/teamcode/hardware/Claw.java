@@ -19,8 +19,8 @@ public class Claw { // TODO done in theory, but need to get the actual servo pos
 
     public static double pincherOpen = 0.01;
     public static double pincherAutoClosed = 0.18;
-    public static double pincherClosed = 0.19;
-    public static double strongPincherClose = 0.22;
+    public static double pincherClosed = 0.2;
+    public static double strongPincherClose = 0.21;
     public static double strongPincherOpen = 0.01;
     public static double wristUpright = 0.935;
     public static double wristFlipped = 0.27;

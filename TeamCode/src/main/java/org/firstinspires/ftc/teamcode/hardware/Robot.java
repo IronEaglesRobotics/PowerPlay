@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.AUTO;
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.INTAKE;
 import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.PICKUP;
+import static org.firstinspires.ftc.teamcode.hardware.Arm.Position.SCORE;
 import static org.firstinspires.ftc.teamcode.hardware.Claw.Position.UPRIGHT;
 import static org.firstinspires.ftc.teamcode.hardware.Rad.Position.CLOSED;
 import static org.firstinspires.ftc.teamcode.hardware.Rad.Position.OPEN;
@@ -87,6 +88,9 @@ public class Robot {
                 }
                 macroStartTime = runTime;
                 slides.setTarget(slidePos);
+                if (slidePos == Slides.Position.LOW && armPos == SCORE) {
+                    arm.setTarget(0.61);
+                }
                 arm.setTarget(armPos);
                 claw.flipped();
                 macroState = 0;
@@ -96,29 +100,43 @@ public class Robot {
         }
     }
 
-    public void resetMacro(int pos, double runTime) {
+    public void resetMacroNoDunk(int pos, double runTime) {
         switch(macroState) {
             case(0):
                 macroStartTime = runTime;
-                slides.setTarget(pos);
+                claw.open();
                 macroState++;
                 break;
             case(1):
-                if (runTime > macroStartTime + 0.05) {
+                if (runTime > macroStartTime + clawWait) {
                     macroState ++;
                 }
                 break;
             case(2):
                 macroStartTime = runTime;
+                slides.setTarget(pos);
+                arm.goToIntake();
+                claw.upright();
+                rad.open();
+                macroState = 0;
+                runningMacro = 0;
+                lastMacro = 0;
+        }
+    }
+
+    public void resetMacro(int pos, double runTime) {
+        switch(macroState) {
+            case(0):
+                macroStartTime = runTime;
                 claw.open();
                 macroState++;
                 break;
-            case(3):
+            case(1):
                 if (runTime > macroStartTime + clawWait) {
                     macroState ++;
                 }
                 break;
-            case(4):
+            case(2):
                 macroStartTime = runTime;
                 slides.setTarget(pos);
                 arm.goToIntake();
@@ -134,25 +152,15 @@ public class Robot {
         switch(macroState) {
             case(0):
                 macroStartTime = runTime;
-                slides.setTarget(pos);
-                macroState++;
-                break;
-            case(1):
-                if (runTime > macroStartTime + 0.05) {
-                    macroState ++;
-                }
-                break;
-            case(2):
-                macroStartTime = runTime;
                 claw.strongOpen();
                 macroState++;
                 break;
-            case(3):
+            case(1):
                 if (runTime > macroStartTime + clawWait) {
                     macroState ++;
                 }
                 break;
-            case(4):
+            case(2):
                 macroStartTime = runTime;
                 slides.setTarget(pos);
                 arm.goToIntake();

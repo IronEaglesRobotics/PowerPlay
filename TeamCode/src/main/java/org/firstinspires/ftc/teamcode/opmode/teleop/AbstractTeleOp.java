@@ -290,7 +290,7 @@ public abstract class AbstractTeleOp extends OpMode {
                 robot.extendMacro(Slides.Position.PICKUP, Arm.Position.PICKUP, getRuntime());
                 break;
             case (5): // macro reset
-                robot.resetMacro(0, getRuntime());
+                robot.resetMacroNoDunk(0, getRuntime());
                 break;
         }
 

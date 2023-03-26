@@ -14,8 +14,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.util.CameraPosition;
 
-@Disabled
-@Autonomous(name = "Right Safe High 1 + 5", group = "Right Competition", preselectTeleOp = "Main TeleOp")
+@Autonomous(name = "Right High 1 + 4 + 1", group = "Right Competition", preselectTeleOp = "Main TeleOp")
 public class RightSafeAuto extends AbstractAuto {
 
     // trajectories
@@ -35,8 +34,8 @@ public class RightSafeAuto extends AbstractAuto {
     public Trajectory park2;
     public Trajectory park3;
 
-    public double maxVel = 74;
-    public double maxAcc = 48;
+    public double maxVel = 73;
+    public double maxAcc = 46;
 
     @Override
     public void setAlliance() {}
@@ -53,66 +52,78 @@ public class RightSafeAuto extends AbstractAuto {
 
     @Override
     public void makeTrajectories() {
-        double xLoad = 1.4;
-        double yLoad = -0.9;
+        double xLoad = 0.1;
+        double yLoad = -0.7;
 
-        double xInt = 1.4;
-        double yInt = -0.9;
+        double xInt = 0.1;
+        double yInt = -0.7;
 
-        double xScore = 1.4;
-        double yScore = -0.9;
+        double xScore = 0.1;
+        double yScore = -0.7;
 
         // positions
-        Pose2d start1 = new Pose2d(-31.25,63,Math.toRadians(-90));
-        Pose2d start2 = new Pose2d(-36,26,Math.toRadians(-90));
-        Pose2d start3 = new Pose2d(-20,13,Math.toRadians(0));
-        Pose2d start4 = new Pose2d(-6.1,17.5,Math.toRadians(45));
+        Pose2d start1 = new Pose2d(-30.5,64,Math.toRadians(-90));
+        Pose2d start2 = new Pose2d(-36,16,Math.toRadians(-90));//-36,12,-90
+//        Pose2d start3 = new Pose2d(-22,14,Math.toRadians(0));
+        Pose2d start4 = new Pose2d(-27.2,4.3,Math.toRadians(-45));
 
-        Pose2d sLoad1 = new Pose2d(-25.0,9.3,Math.toRadians(0));
-        Pose2d sLoad2 = sLoad1.plus(new Pose2d(xInt, yInt));
+        Pose2d sLoad1 = new Pose2d(-48,9.5,Math.toRadians(0));
+        Pose2d sLoad2 = new Pose2d(-32.0,9.5+yLoad,Math.toRadians(0));
+//        Pose2d sLoad2 = sLoad1.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad3 = sLoad2.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad4 = sLoad3.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad5 = sLoad4.plus(new Pose2d(xInt, yInt));
-        Pose2d lLoad1 = new Pose2d(-59.5,9.3,Math.toRadians(0));
+        Pose2d lLoad1 = new Pose2d(-59.0,9.5,Math.toRadians(0));
+//        Pose2d lLoad2 = new Pose2d(-59.0,9.5,Math.toRadians(0));
         Pose2d lLoad2 = lLoad1.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad3 = lLoad2.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad4 = lLoad3.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad5 = lLoad4.plus(new Pose2d(xLoad, yLoad));
 
-        Pose2d lScore1 = new Pose2d(-25.0,9.3,Math.toRadians(0));
+        Pose2d lScore1 = new Pose2d(-32.0,9.5,Math.toRadians(0));
         Pose2d lScore2 = lScore1.plus(new Pose2d(xInt, yInt));
         Pose2d lScore3 = lScore2.plus(new Pose2d(xInt, yInt));
         Pose2d lScore4 = lScore3.plus(new Pose2d(xInt, yInt));
         Pose2d lScore5 = lScore4.plus(new Pose2d(xInt, yInt));
-        Pose2d sScore1 = new Pose2d(-4.8,17.5,Math.toRadians(45));
+        Pose2d sScore1 = new Pose2d(-5.5,22,Math.toRadians(30));
         Pose2d sScore2 = sScore1.plus(new Pose2d(xScore, yScore));
         Pose2d sScore3 = sScore2.plus(new Pose2d(xScore, yScore));
         Pose2d sScore4 = sScore3.plus(new Pose2d(xScore, yScore));
-        Pose2d sScore5 = sScore4.plus(new Pose2d(xScore, yScore));
+        Pose2d sScore5 = new Pose2d(-25,3.5,Math.toRadians(-45));
+//        Pose2d sScore5 = sScore4.plus(new Pose2d(xScore, yScore));
 
-        Pose2d lPark1 = new Pose2d(-4,17, Math.toRadians(0));
+        Pose2d lPark1 = new Pose2d(-8,20, Math.toRadians(-90));
 
-        Pose2d sPark2 = new Pose2d(-21, 3, Math.toRadians(0));
-        Pose2d lPark2 = new Pose2d(-28,3, Math.toRadians(0));
+        Pose2d sPark2 = new Pose2d(-33, 18, Math.toRadians(-90));
+        Pose2d lPark2 = new Pose2d(-33,26, Math.toRadians(-90));
 
-        Pose2d sPark3 = new Pose2d(-21, 5, Math.toRadians(0));
-        Pose2d lPark3 = new Pose2d(-56.5,5,Math.toRadians(0));
+        Pose2d sPark3 = new Pose2d(-49, 12.5, Math.toRadians(0));
+        Pose2d s2Park3 = new Pose2d(-55, 25, Math.toRadians(-90));
+        Pose2d lPark3 = new Pose2d(-55,27,Math.toRadians(-90));
 
-        // preload
-        this.start = robot.drive.trajectoryBuilder(start1)
-                .lineToSplineHeading(start2,
-                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
-                )
-                .splineToSplineHeading(start3, Math.toRadians(0),
-                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
-                )
-                .splineToSplineHeading(start4, Math.toRadians(45),
-                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
-                )
-                .build();
+//        Pose2d lPark1 = new Pose2d(-4,17, Math.toRadians(0));
+//
+//        Pose2d sPark2 = new Pose2d(-21, 3, Math.toRadians(0));
+//        Pose2d lPark2 = new Pose2d(-28,3, Math.toRadians(0));
+//
+//        Pose2d sPark3 = new Pose2d(-21, 5, Math.toRadians(0));
+//        Pose2d lPark3 = new Pose2d(-56.5,5,Math.toRadians(0));
+
+//        // preload
+//        this.start = robot.drive.trajectoryBuilder(start1)
+//                .lineToSplineHeading(start2,
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .splineToSplineHeading(start3, Math.toRadians(0),
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .splineToSplineHeading(start4, Math.toRadians(45),
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .build();
 //        this.startScore = robot.drive.trajectoryBuilder(start.end())
 //                .lineToSplineHeading(start4,
 //                        SampleMecanumDrive.getVelocityConstraint(80, 180, DriveConstants.TRACK_WIDTH),
@@ -120,8 +131,25 @@ public class RightSafeAuto extends AbstractAuto {
 //                )
 //                .build();
 
+        // preload
+        this.start = robot.drive.trajectoryBuilder(start1)
+                .lineToSplineHeading(start2,
+                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+                )
+//                .splineToSplineHeading(start3, Math.toRadians(0))
+//                .splineToSplineHeading(start4, Math.toRadians(-45))
+                .build();
+        this.startScore = robot.drive.trajectoryBuilder(start.end())
+                .lineToSplineHeading(start4,
+                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+                )
+                .build();
+
+
         // cone stacks
-        load1 = robot.drive.trajectoryBuilder(start.end(), true)
+        load1 = robot.drive.trajectoryBuilder(startScore.end(), true)
                 .splineToSplineHeading(sLoad1, Math.toRadians(180),
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
@@ -139,7 +167,7 @@ public class RightSafeAuto extends AbstractAuto {
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
-                .splineToSplineHeading(sScore1, Math.toRadians(45),
+                .splineToSplineHeading(sScore1, Math.toRadians(30),
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
@@ -163,7 +191,7 @@ public class RightSafeAuto extends AbstractAuto {
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
-                .splineToSplineHeading(sScore2, Math.toRadians(45),
+                .splineToSplineHeading(sScore2, Math.toRadians(30),
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
@@ -187,7 +215,7 @@ public class RightSafeAuto extends AbstractAuto {
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
-                .splineToSplineHeading(sScore3, Math.toRadians(45),
+                .splineToSplineHeading(sScore3, Math.toRadians(30),
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
@@ -211,7 +239,7 @@ public class RightSafeAuto extends AbstractAuto {
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
-                .splineToSplineHeading(sScore4, Math.toRadians(45),
+                .splineToSplineHeading(sScore4, Math.toRadians(30),
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
@@ -235,7 +263,7 @@ public class RightSafeAuto extends AbstractAuto {
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
-                .splineToSplineHeading(sScore5, Math.toRadians(45),
+                .splineToSplineHeading(sScore5, Math.toRadians(-45),
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
@@ -243,6 +271,8 @@ public class RightSafeAuto extends AbstractAuto {
 
         // parks
         park1 = robot.drive.trajectoryBuilder(score5.end(), true)
+//                .lineToSplineHeading(sPark0)
+//                .splineToSplineHeading(sPark1, Math.toRadians(90))
                 .lineToSplineHeading(lPark1,
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
@@ -250,7 +280,7 @@ public class RightSafeAuto extends AbstractAuto {
                 .build();
 
         park2 = robot.drive.trajectoryBuilder(score5.end(), true)
-                .splineToSplineHeading(sPark2, Math.toRadians(180),
+                .splineToSplineHeading(sPark2, Math.toRadians(90),
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
@@ -265,11 +295,55 @@ public class RightSafeAuto extends AbstractAuto {
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
+                .splineToSplineHeading(s2Park3, Math.toRadians(90),
+                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+                )
                 .lineToSplineHeading(lPark3,
                         SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(maxAcc)
                 )
                 .build();
+//        score5 = robot.drive.trajectoryBuilder(load5.end())
+//                .lineToSplineHeading(lScore5,
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .splineToSplineHeading(sScore5, Math.toRadians(45),
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .build();
+//
+//        // parks
+//        park1 = robot.drive.trajectoryBuilder(score5.end(), true)
+//                .lineToSplineHeading(lPark1,
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .build();
+//
+//        park2 = robot.drive.trajectoryBuilder(score5.end(), true)
+//                .splineToSplineHeading(sPark2, Math.toRadians(180),
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .lineToSplineHeading(lPark2,
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .build();
+//
+//        park3 = robot.drive.trajectoryBuilder(score5.end(), true)
+//                .splineToSplineHeading(sPark3, Math.toRadians(180),
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .lineToSplineHeading(lPark3,
+//                        SampleMecanumDrive.getVelocityConstraint(maxVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+//                        SampleMecanumDrive.getAccelerationConstraint(maxAcc)
+//                )
+//                .build();
 
         // set pose estimate
         robot.drive.setPoseEstimate(start1);
@@ -279,7 +353,7 @@ public class RightSafeAuto extends AbstractAuto {
     public void initializeSteps(int location) {
 //        followTrajectory(start);
         followAndExtend(start, Slides.Position.HIGH, Arm.Position.SCORE);
-//        followAndExtend(startScore, Slides.Position.HIGH);
+        followAndExtend(startScore, Slides.Position.HIGH, Arm.Position.SCORE);
 
         followAndReset(load1, heights[4]);
         followAndExtend(score1, Slides.Position.HIGH, Arm.Position.SCORE);
