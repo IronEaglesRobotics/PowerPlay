@@ -47,13 +47,13 @@ public class RightContestedAuto extends AbstractAuto {
     @Override
     public void makeTrajectories() {
         double xLoad = 0.24;
-        double yLoad = 0.17;
+        double yLoad = 0.15;
 
         double xInt = 0.24;
-        double yInt = 0.17;
+        double yInt = 0.15;
 
         double xScore = 0.24;
-        double yScore = 0.17;
+        double yScore = 0.15;
 
         // positions
         Pose2d start1 = new Pose2d(-30.5,64,Math.toRadians(-90));
@@ -62,18 +62,18 @@ public class RightContestedAuto extends AbstractAuto {
 //        Pose2d start4 = new Pose2d(-29,5.5,Math.toRadians(-45));
         Pose2d start4 = new Pose2d(-27.2,4.3,Math.toRadians(-45));
 
-        Pose2d sLoad1 = new Pose2d(-48,9.9,Math.toRadians(0));
+        Pose2d sLoad1 = new Pose2d(-48,9.8,Math.toRadians(0));
         Pose2d sLoad2 = sLoad1.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad3 = sLoad2.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad4 = sLoad3.plus(new Pose2d(xInt, yInt));
         Pose2d sLoad5 = sLoad4.plus(new Pose2d(xInt, yInt));
-        Pose2d lLoad1 = new Pose2d(-59.6,9.9,Math.toRadians(0));
+        Pose2d lLoad1 = new Pose2d(-59.6,9.8,Math.toRadians(0));
         Pose2d lLoad2 = lLoad1.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad3 = lLoad2.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad4 = lLoad3.plus(new Pose2d(xLoad, yLoad));
         Pose2d lLoad5 = lLoad4.plus(new Pose2d(xLoad, yLoad));
 
-        Pose2d lScore1 = new Pose2d(-48,9.9,Math.toRadians(0));
+        Pose2d lScore1 = new Pose2d(-48,9.8,Math.toRadians(0));
         Pose2d lScore2 = lScore1.plus(new Pose2d(xInt, yInt));
         Pose2d lScore3 = lScore2.plus(new Pose2d(xInt, yInt));
         Pose2d lScore4 = lScore3.plus(new Pose2d(xInt, yInt));

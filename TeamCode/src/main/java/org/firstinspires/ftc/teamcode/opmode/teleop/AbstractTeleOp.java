@@ -291,6 +291,7 @@ public abstract class AbstractTeleOp extends OpMode {
                 break;
             case (5): // macro reset
                 robot.resetMacroNoDunk(0, getRuntime());
+                driver1.rumble(100);
                 break;
         }
 
