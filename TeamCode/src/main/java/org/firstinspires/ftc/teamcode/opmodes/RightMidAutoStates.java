@@ -33,44 +33,57 @@ public class RightMidAutoStates extends AutoBase {
                 .build();
         // START -> SCORE
         this.scorePreload = this.robot.getDrive().trajectoryBuilder(moveBeacon.end())
-                .lineToLinearHeading(new Pose2d(32, -11.5, Math.toRadians(43)))
+                .lineToLinearHeading(new Pose2d(32.5, -11.5, Math.toRadians(46)))
                 .build();
 
         // Cone 1
         this.getStackConeOne = this.robot.getDrive().trajectoryBuilder(scorePreload.end())
-                .splineTo(new Vector2d(54, -8), Math.toRadians(0))
+                .splineTo(new Vector2d(55, -9), Math.toRadians(0))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
                 .build();
         this.scoreStackConeOne = this.robot.getDrive().trajectoryBuilder(getStackConeOne.end())
-                .lineToSplineHeading(new Pose2d(34,-12.7,Math.toRadians(32)))
+                .lineToSplineHeading(new Pose2d(34,-12.7,Math.toRadians(28)))
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
                 .build();
 
         // Cone 2
-        this.getStackConeTwo = this.getStackConeOne;
-        this.scoreStackConeTwo = this.scoreStackConeOne;
+        this.getStackConeTwo = this.robot.getDrive().trajectoryBuilder(scorePreload.end())
+                .splineTo(new Vector2d(55, -9), Math.toRadians(0))
+                .addTemporalMarker(0.15, robot.getClaw()::twistUp)
+                .build();
+        this.scoreStackConeTwo= this.robot.getDrive().trajectoryBuilder(getStackConeTwo.end())
+                .lineToSplineHeading(new Pose2d(34,-12.7,Math.toRadians(26)))
+                .addTemporalMarker(0.5, robot.getClaw()::twistDown)
+                .build();
 
         // Cone 3
         this.getStackConeThree = this.robot.getDrive().trajectoryBuilder(scoreStackConeTwo.end())
-                .splineTo(new Vector2d(54, -6.5), Math.toRadians(0))
+                .splineTo(new Vector2d(52, -9), Math.toRadians(0))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
                 .build();
         this.scoreStackConeThree = this.robot.getDrive().trajectoryBuilder(getStackConeThree.end())
-                .lineToSplineHeading(new Pose2d(33,-9,Math.toRadians(33)))
+                .lineToSplineHeading(new Pose2d(35,-12.7,Math.toRadians(31)))
                 .addTemporalMarker(0.3, robot.getClaw()::twistDown)
                 .build();
 
-        // Cone 4
-        this.getStackConeFour = this.getStackConeThree;
-        this.scoreStackConeFour = this.scoreStackConeThree;
+
+
+        this.getStackConeFour = this.robot.getDrive().trajectoryBuilder(scoreStackConeThree.end())
+                .splineTo(new Vector2d(52, -7), Math.toRadians(0))
+                .addTemporalMarker(0.15, robot.getClaw()::twistUp)
+                .build();
+        this.scoreStackConeFour = this.robot.getDrive().trajectoryBuilder(getStackConeThree.end())
+                .lineToSplineHeading(new Pose2d(35,-9,Math.toRadians(38)))
+                .addTemporalMarker(0.3, robot.getClaw()::twistDown)
+                .build();
 
         // Cone 5
         this.getStackConeFive = this.robot.getDrive().trajectoryBuilder(scoreStackConeFour.end())
-                .splineTo(new Vector2d(54, -5.5), Math.toRadians(0))
+                .splineTo(new Vector2d(54, -6), Math.toRadians(0))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
                 .build();
-        this.scoreStackConeFive = this.robot.getDrive().trajectoryBuilder(getStackConeFive.end())
-                .lineToSplineHeading(new Pose2d(33,-8,Math.toRadians(35)))
+        this.scoreStackConeFive = this.robot.getDrive().trajectoryBuilder(getStackConeFour.end())
+                .lineToSplineHeading(new Pose2d(33,-8,Math.toRadians(38)))
                 .addTemporalMarker(0.3, robot.getClaw()::twistDown)
                 .build();
 
@@ -81,7 +94,7 @@ public class RightMidAutoStates extends AutoBase {
                 .build();
         // STACK -> PARK2
         this.park2 = this.robot.getDrive().trajectoryBuilder(scoreStackConeFive.end())
-                .lineToSplineHeading(new Pose2d(34.6,-3,Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(34.6,-2,Math.toRadians(0)))
                 .addDisplacementMarker(1, this.robot.getArm()::moveMid)
                 .build();
         // PARK2 -> PARK3

@@ -14,6 +14,9 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 public class TeleOp extends OpMode {
     private Robot robot;
     private boolean prevUpPressed = false;
+    private boolean prevUpPressed1 = false;
+    private boolean prevDownPressed1 = false;
+
     private boolean prevDownPressed = false;
     private boolean prevClawPressed = false;
 
@@ -28,27 +31,20 @@ public class TeleOp extends OpMode {
         // Drive
         this.robot.getDrive().setInput(gamepad1, gamepad2);
 
+
         // Arm
         boolean pressRight = gamepad2.dpad_right;
-        boolean pressRightMacroHigh = gamepad2.dpad_up;
-        boolean pressRightMacroMid = gamepad2.left_bumper;
-        boolean pressRightMacroLow = gamepad2.right_bumper;
-        boolean pressRightMacroDown = gamepad2.dpad_down;
         boolean pressLeft = gamepad2.dpad_left;
         boolean pressMid = gamepad2.x;
 
-        if (pressRight || pressRightMacroHigh || pressRightMacroMid || pressRightMacroLow || gamepad1.dpad_up || gamepad1.right_bumper || gamepad1.left_bumper || gamepad1.dpad_left) {
+        if (pressRight || gamepad1.dpad_right) {
             this.robot.getArm().moveRightTele();
-        } else if (pressLeft || gamepad1.dpad_right) {
+        } else if (pressLeft ||gamepad1.dpad_left) {
             this.robot.getArm().moveLeftTele();
         } else if (pressMid) {
             this.robot.getArm().moveMidTele();
         } else {
             this.robot.getArm().drop();
-        }
-
-        if (gamepad2.right_stick_x != 0){
-            this.robot.getArm().move((int)gamepad2.right_stick_x*800);
         }
 
         if (this.robot.getArm().getCurrentPosition() < GO_OTHER_WAY) {
@@ -65,6 +61,8 @@ public class TeleOp extends OpMode {
         // Lift
         boolean upPressed = gamepad2.y;
         boolean downPressed = gamepad2.a;
+        boolean upPressed1 = gamepad1.b;
+        boolean downPressed1 = gamepad1.a;
 
         telemetry.addData("Slide Position", (Position));
         telemetry.addData("Slide Position2", (Position2));
@@ -73,39 +71,42 @@ public class TeleOp extends OpMode {
         telemetry.update();
 
 
-        if (upPressed && !prevUpPressed) {
+        if (upPressed || upPressed1 && !prevUpPressed) {
             this.robot.getLift().slideMax();
         } else if (gamepad2.dpad_up || gamepad1.dpad_up) {
             this.robot.getLift().slideMax();
         } else if (gamepad2.left_bumper || gamepad1.left_bumper) {
             this.robot.getLift().slideMedTele();
-        } else if (gamepad2.right_bumper || gamepad1.right_bumper) {
+        } else if (gamepad2.right_bumper || gamepad1.dpad_down) {
             this.robot.getLift().lowJunction();
-        } else if (gamepad2.dpad_down || gamepad1.dpad_down) {
+        } else if (gamepad2.dpad_down) {
             this.robot.getLift().slideDown();
-        } else if (downPressed || gamepad1.a) {
+        } else if (downPressed || downPressed1) {
             this.robot.getLift().slideDown();
         } else if ((prevUpPressed != upPressed) || prevDownPressed) {
             this.robot.getLift().slideStop();
+        } else if ((prevUpPressed1 != upPressed1) || prevDownPressed1) {
+            this.robot.getLift().slideStop();
         }
-
         prevUpPressed = upPressed;
         prevDownPressed = downPressed;
+        prevUpPressed1 = upPressed1;
+        prevDownPressed1 = downPressed1;
 
         //Slow Mode
 
-        if(gamepad1.a || gamepad1.y || gamepad1.right_bumper) {
+        if(gamepad1.y) {
             GO_SLOW = 4;
-            WHY_TURN = 3.5;
+            WHY_TURN = 3;
         } else if (gamepad1.x){
             GO_SLOW = 1;
-            WHY_TURN = 2;
+            WHY_TURN = 1;
         } else {
             GO_SLOW = 1.4;
-            WHY_TURN = 1.25;
+            WHY_TURN = 1;
         }
 
-        if (gamepad2.b || gamepad2.dpad_down || gamepad2.dpad_left || gamepad1.b || gamepad1.dpad_down || gamepad1.dpad_right) {
+        if (gamepad2.b || gamepad1.right_bumper) {
             this.robot.getClaw().open();
         } else {
             this.robot.getClaw().close();

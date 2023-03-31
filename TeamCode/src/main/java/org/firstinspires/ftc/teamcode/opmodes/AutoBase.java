@@ -75,12 +75,15 @@ public abstract class AutoBase extends LinearOpMode {
         switch (this.parkPosition) {
             case 1:
                 this.robot.getDrive().followTrajectory(park1);
+                this.robot.getArm().moveMid();
                 break;
             case 3:
                 this.robot.getDrive().followTrajectory(park3);
+                this.robot.getArm().moveMid();
                 break;
             default:
                 this.robot.getDrive().followTrajectory(park2);
+                this.robot.getArm().moveMid();
                 break;
         }
     }
@@ -92,7 +95,7 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getArm().moveRight();
         sleep(300);
         this.robot.getClaw().close();
-        sleep(150);
+        sleep(200);
 
         // Move back to the junction
         this.robot.getLift().slideScorAuto();
