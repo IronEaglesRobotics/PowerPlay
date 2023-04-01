@@ -13,6 +13,7 @@ public class Configurables {
     public static double SLIDE_POWER_UP = 1.0;
     public static double SLIDE_POWER_DOWN = 1;
     public static int SLIDE_MAX = (int)(3050 * SCALE_FACTOR);
+    public static int SLIDE_MAX_AUTO = (int)(2000 * SCALE_FACTOR);
     public static int SLIDE_MID = (int)(2100 * SCALE_FACTOR);
     public static int SLIDE_MID_TELE = (int)(2300 * SCALE_FACTOR);
     public static int LOW_DUNK = (int)(1000 * SCALE_FACTOR);
@@ -20,7 +21,7 @@ public class Configurables {
     public static int STOP = (int)(30 * SCALE_FACTOR);
     public static int LOW_JUNC = (int)(1400 * SCALE_FACTOR);
     public static int AUTO_TOP1 = (int)(390 * SCALE_FACTOR);
-    public static int AUTO_TOP2 = (int)(270 * SCALE_FACTOR);
+    public static int AUTO_TOP2 = (int)(250 * SCALE_FACTOR);
     public static int AUTO_TOP3 = (int)(160 * SCALE_FACTOR);
     public static int AUTO_TOP4 = (int)(50 * SCALE_FACTOR);
     public static int AUTO_TOP5 = 0;
@@ -36,12 +37,13 @@ public class Configurables {
     public static double OTHER_WAY = 300;
 
     // Arm
-    public static int ARM_UPRIGHT = 353;
+    public static int ARM_UPRIGHT = 230;
     public static int ARM_LEFT = -690;
     public static int ARM_RIGHT = 2000;
     public static int ARM_SCORE = 690;
     public static int ARM_TILT = -1000;
     public static int ARM_UPRIGHT_TELE = 0;
+    public static int ARM_SCORE_TELE = 0;
     public static int ARM_LEFT_TELE = -850;
     public static int ARM_RIGHT_TELE = 840;
     public static double ARM_POWER = 1;
@@ -49,6 +51,7 @@ public class Configurables {
     public static double ARM_I = 0;
     public static double ARM_D = 0;
     public static int ARM_AUTO = -690;
+    public static int SCORE_AUTO = -200;
 
     //Auto
     public static int PARK_POSITION = 1;

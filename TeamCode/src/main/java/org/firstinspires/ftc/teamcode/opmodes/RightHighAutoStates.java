@@ -43,6 +43,7 @@ public class RightHighAutoStates extends AutoBase {
         this.scoreStackConeOne = this.robot.getDrive().trajectoryBuilder(getStackConeOne.end())
                 .lineToSplineHeading(new Pose2d(34,-7,Math.toRadians(-40)))
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
+                .addTemporalMarker(.5, robot.getArm()::moveScore)
                 .build();
 
         // Cone 2
@@ -54,6 +55,7 @@ public class RightHighAutoStates extends AutoBase {
         this.scoreStackConeTwo = this.robot.getDrive().trajectoryBuilder(getStackConeTwo.end())
                 .lineToSplineHeading(new Pose2d(33,-7,Math.toRadians(-38)))
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
+                .addTemporalMarker(.5, robot.getArm()::moveScore)
                 .build();
 
         // Cone 3
@@ -64,6 +66,7 @@ public class RightHighAutoStates extends AutoBase {
         this.scoreStackConeThree = this.robot.getDrive().trajectoryBuilder(getStackConeThree.end())
                 .lineToSplineHeading(new Pose2d(33,-7,Math.toRadians(-38)))
                 .addTemporalMarker(0.3, robot.getClaw()::twistDown)
+                .addTemporalMarker(.5, robot.getArm()::moveScore)
                 .build();
 
         // Cone 4
@@ -78,6 +81,7 @@ public class RightHighAutoStates extends AutoBase {
         this.scoreStackConeFive = this.robot.getDrive().trajectoryBuilder(getStackConeFive.end())
                 .lineToSplineHeading(new Pose2d(33,-7,Math.toRadians(-38)))
                 .addTemporalMarker(0.3, robot.getClaw()::twistDown)
+                .addTemporalMarker(.5, robot.getArm()::moveScore)
                 .build();
 
         // STACK -> PARK1

@@ -43,7 +43,10 @@ public class TeleOp extends OpMode {
             this.robot.getArm().moveLeftTele();
         } else if (pressMid) {
             this.robot.getArm().moveMidTele();
-        } else {
+        } else if (gamepad2.dpad_down) {
+            this.robot.getArm().moveScoreTele();
+        }
+        else {
             this.robot.getArm().drop();
         }
 
@@ -79,8 +82,6 @@ public class TeleOp extends OpMode {
             this.robot.getLift().slideMedTele();
         } else if (gamepad2.right_bumper || gamepad1.dpad_down) {
             this.robot.getLift().lowJunction();
-        } else if (gamepad2.dpad_down) {
-            this.robot.getLift().slideDown();
         } else if (downPressed || downPressed1) {
             this.robot.getLift().slideDown();
         } else if ((prevUpPressed != upPressed) || prevDownPressed) {

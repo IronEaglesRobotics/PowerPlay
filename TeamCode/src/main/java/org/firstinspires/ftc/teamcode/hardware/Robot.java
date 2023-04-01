@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_RIGHT_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_SCORE;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_SCORE_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_TILT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.ARM_UPRIGHT_TELE;
@@ -120,6 +121,10 @@ public class Robot {
 
         public void moveLeftTele() {
             this.move(ARM_LEFT_TELE);
+        }
+
+        public void moveScoreTele() {
+            this.move(ARM_SCORE_TELE);
         }
 
         public void moveMidTele() {
