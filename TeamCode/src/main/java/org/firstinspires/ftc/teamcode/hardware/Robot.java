@@ -30,11 +30,14 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.LIFT;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.SLIDE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.WRIST;
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 public class Robot {
@@ -42,6 +45,7 @@ public class Robot {
     private Arm arm;
     private Claw claw;
     private Lift lift;
+    private WALE wale;
     private AprilTagCamera autoCamera;
     private HardwareMap hardwareMap;
 
@@ -52,6 +56,7 @@ public class Robot {
         this.claw = new Claw().init(hardwareMap);
         this.lift = new Lift().init(hardwareMap);
         this.arm = new Arm().init(hardwareMap);
+        this.wale = new WALE().init(hardwareMap);
 
         return this;
     }
@@ -79,6 +84,8 @@ public class Robot {
     public Claw getClaw() {
         return this.claw;
     }
+
+    public WALE getWale() { return this.wale; }
 
     public static class Arm {
         private DcMotor arm = null;
@@ -269,5 +276,25 @@ public class Robot {
         }
 
         public void slideToCone(int height) {this.slideTo(height,SLIDE_POWER_DOWN);}
+    }
+
+    public static class WALE {
+        RevTouchSensor touch;
+        Rev2mDistanceSensor distance;
+
+        public double getDistance(DistanceUnit distnaceUnit) {
+            return this.distance.getDistance(distnaceUnit);
+        }
+
+        public boolean isPressed() {
+            return this.touch.isPressed();
+        }
+
+        public WALE init(HardwareMap hardwareMap) {
+            this.touch = hardwareMap.get(RevTouchSensor.class, "touch");
+            this.distance = hardwareMap.get(Rev2mDistanceSensor.class, "distance");
+
+            return this;
+        }
     }
 }

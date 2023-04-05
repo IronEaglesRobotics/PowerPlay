@@ -18,7 +18,7 @@ public class LeftMidAutoStates extends AutoBase {
     @Override
     public void initializeTrajectories() {
         Configurables.AUTOSCORE= Configurables.SLIDE_MID;
-        Configurables.ARM_AUTO = Configurables.ARM_TILT;
+        Configurables.ARM_AUTO = Configurables.SCORE_AUTO;
         // START
         this.initialPosition = new Pose2d(-33.7, -59.5, Math.toRadians(90));
         this.moveBeacon = this.robot.getDrive().trajectoryBuilder(initialPosition)
@@ -27,18 +27,19 @@ public class LeftMidAutoStates extends AutoBase {
                 SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .addTemporalMarker(0.3, () -> {
                     robot.getArm().moveTilt();
-                    robot.getLift().slideMed();
                 })
                 .build();
         // START -> SCORE
         this.scorePreload = this.robot.getDrive().trajectoryBuilder(moveBeacon.end())
-                .lineToLinearHeading(new Pose2d(-33, -13, Math.toRadians(146)))
+                .lineToLinearHeading(new Pose2d(-32, -14, Math.toRadians(146)))
                 .build();
 
         // Cone 1
         this.getStackConeOne = this.robot.getDrive().trajectoryBuilder(scorePreload.end())
                 .lineToSplineHeading(new Pose2d(-53, -8, Math.toRadians(180)))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
+                .addTemporalMarker(.5, robot.getArm()::moveScore)
+
                 .build();
         this.scoreStackConeOne = this.robot.getDrive().trajectoryBuilder(getStackConeOne.end())
                 .lineToSplineHeading(new Pose2d(-33.4,-14.5,Math.toRadians(148)))
@@ -53,6 +54,7 @@ public class LeftMidAutoStates extends AutoBase {
         this.getStackConeThree = this.robot.getDrive().trajectoryBuilder(scoreStackConeTwo.end())
                 .lineToSplineHeading(new Pose2d(-52.3, -7, Math.toRadians(180)))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
+                .addTemporalMarker(.5, robot.getArm()::moveScore)
                 .build();
         this.scoreStackConeThree = this.robot.getDrive().trajectoryBuilder(getStackConeThree.end())
                 .lineToSplineHeading(new Pose2d(-33.4,-12.5,Math.toRadians(148)))
@@ -67,6 +69,7 @@ public class LeftMidAutoStates extends AutoBase {
         this.getStackConeFive = this.robot.getDrive().trajectoryBuilder(scoreStackConeFour.end())
                 .lineToSplineHeading(new Pose2d(-52.3, -7, Math.toRadians(180)))
                 .addTemporalMarker(0.15, robot.getClaw()::twistUp)
+                .addTemporalMarker(.5, robot.getArm()::moveScore)
                 .build();
         this.scoreStackConeFive = this.robot.getDrive().trajectoryBuilder(getStackConeFive.end())
                 .lineToSplineHeading(new Pose2d(-33.4,-12.5,Math.toRadians(148)))

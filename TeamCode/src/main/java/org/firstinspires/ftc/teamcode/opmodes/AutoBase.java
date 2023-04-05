@@ -55,7 +55,8 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getClaw().twistDown();
         robot.getArm().moveMid();
         this.robot.getDrive().followTrajectory(moveBeacon);
-        robot.getArm().moveTilt();
+        robot.getLift().slideMed();
+        robot.getArm().moveAuto();
         this.robot.getDrive().followTrajectory(scorePreload);
         robot.getArm().moveLeft();
         robot.getLift().autoTop(); // Lower the slide to the height of the top cone
@@ -94,21 +95,18 @@ public abstract class AutoBase extends LinearOpMode {
     protected void getAndScoreStackCone(Trajectory getStackConeTrajectory, Trajectory scoreStackConeTrajectory, int height) {
         // Get the cone off the stack
         this.robot.getDrive().followTrajectory(getStackConeTrajectory);
-        robot.getClaw().openWide();
-        robot.getArm().moveRight();
-        sleep(250);
         this.robot.getClaw().close();
-        sleep(200);
+        sleep(50);
 
         // Move back to the junction
         this.robot.getLift().slideScorAuto();
         this.robot.getArm().moveAuto();
-        sleep(100);
+        sleep(50);
         this.robot.getDrive().followTrajectory(scoreStackConeTrajectory);
 
         // Score
         this.robot.getArm().moveLeft();
-        sleep(100);
+        sleep(50);
         this.robot.getClaw().open();
         this.robot.getLift().slideToCone(height);
     }
