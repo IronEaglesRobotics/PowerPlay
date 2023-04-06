@@ -53,6 +53,10 @@ public class Configurables {
     public static int ARM_AUTO = -690;
     public static int SCORE_AUTO = -200;
 
+    // WALE
+    public static double DEPLOY = 0.685;
+    public static double STOW = 0.3;
+
     //Auto
     public static int PARK_POSITION = 1;
 

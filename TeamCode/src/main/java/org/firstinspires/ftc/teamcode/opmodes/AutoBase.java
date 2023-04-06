@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import android.annotation.SuppressLint;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
@@ -26,6 +29,9 @@ public abstract class AutoBase extends LinearOpMode {
     protected Trajectory park2;
     protected Trajectory park3;
     protected int parkPosition = 2;
+    public static double targetDistance = 4.5;
+    public static double tolerance = 1.0;
+    public static double speed = 0.2;
 
     abstract protected void initializeTrajectories();
 
@@ -109,5 +115,61 @@ public abstract class AutoBase extends LinearOpMode {
         sleep(50);
         this.robot.getClaw().open();
         this.robot.getLift().slideToCone(height);
+    }
+
+    private double getCurrentDistance(int samples) {
+        double runningTotal = 0;
+        int i = 0;
+        while (i < samples) {
+            double d = this.robot.getWale().getDistance(DistanceUnit.INCH);
+            if (d > 20.0) {
+                continue;
+            }
+            runningTotal += this.robot.getWale().getDistance(DistanceUnit.INCH);
+            i++;
+        }
+        return runningTotal / samples;
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void waleAlign() {
+        // Bump the wall
+        bump();
+
+        double currentDistance = getCurrentDistance(1);
+        double error = Math.abs(targetDistance - currentDistance);
+
+
+        // Strafe
+        telemetry.addLine(String.format("PoseBeforeMove: %s", this.robot.getDrive().getPoseEstimate()));
+        if (currentDistance > targetDistance + tolerance) {
+            telemetry.addLine(String.format("Moving Left %f inches", error));
+            telemetry.addData("currentDistance", currentDistance);
+            this.robot.getDrive().update();
+            this.robot.getDrive().followTrajectory(this.robot.getDrive().trajectoryBuilder(this.robot.getDrive().getPoseEstimate()).strafeLeft(error).build());
+        } else if (currentDistance < targetDistance - tolerance) {
+            telemetry.addLine(String.format("Moving Right %f inches", error));
+            telemetry.addData("currentDistance", currentDistance);
+            this.robot.getDrive().update();
+            this.robot.getDrive().followTrajectory(this.robot.getDrive().trajectoryBuilder(this.robot.getDrive().getPoseEstimate()).strafeRight(error).build());
+        }
+        telemetry.addLine(String.format("PoseAfterMove: %s", this.robot.getDrive().getPoseEstimate()));
+        telemetry.update();
+
+        // Update Pose Estimate
+        this.robot.getDrive().setPoseEstimate(new Pose2d(-53.4, -8, this.robot.getDrive().getPoseEstimate().getHeading()));
+    }
+
+    private void bump() {
+        this.robot.getWale().deploy();
+        sleep(300);
+
+        while(!this.robot.getWale().isPressed() && opModeIsActive()) {
+            this.robot.getDrive().setWeightedDrivePower(new Pose2d(speed ,0, 0));
+        }
+
+        this.robot.getDrive().setWeightedDrivePower(new Pose2d(0 ,0, 0));
+
+        this.robot.getWale().stow();
     }
 }

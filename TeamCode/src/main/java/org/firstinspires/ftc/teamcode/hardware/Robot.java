@@ -18,12 +18,14 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLA
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_OPENWIDE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.DEPLOY;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_JUNC;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_UP;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.STOW;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.ARM;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.GRIP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Constants.LIFT;
@@ -279,8 +281,10 @@ public class Robot {
     }
 
     public static class WALE {
-        RevTouchSensor touch;
-        Rev2mDistanceSensor distance;
+        private RevTouchSensor touch;
+        private Rev2mDistanceSensor distance;
+
+        private Servo servo;
 
         public double getDistance(DistanceUnit distnaceUnit) {
             return this.distance.getDistance(distnaceUnit);
@@ -293,8 +297,17 @@ public class Robot {
         public WALE init(HardwareMap hardwareMap) {
             this.touch = hardwareMap.get(RevTouchSensor.class, "touch");
             this.distance = hardwareMap.get(Rev2mDistanceSensor.class, "distance");
+            this.servo = hardwareMap.get(Servo.class, "wale");
 
             return this;
+        }
+
+        public void deploy() {
+            this.servo.setPosition(DEPLOY);
+        }
+
+        public void stow() {
+            this.servo.setPosition(STOW);
         }
     }
 }

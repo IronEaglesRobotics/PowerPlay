@@ -58,7 +58,7 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(10, 0, 2);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(25, 0, 2.5);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(10, 0, 1);
 
     public static double LATERAL_MULTIPLIER = 1;
@@ -69,8 +69,8 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private final TrajectorySequenceRunner trajectorySequenceRunner;
 
-    private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
-    private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
+    private static TrajectoryVelocityConstraint VEL_CONSTRAINT;
+    private static TrajectoryAccelerationConstraint ACCEL_CONSTRAINT;
 
     private final TrajectoryFollower follower;
 
@@ -86,8 +86,12 @@ public class SampleMecanumDrive extends MecanumDrive {
     public SampleMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
+        VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
+        ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
+
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
-                new Pose2d(0.1, 0.1, Math.toRadians(0.1)), 0.1);
+                new Pose2d(0.5, 0.5, Math.toRadians(1)), 0.25);
+
 
         LynxModuleUtil.ensureMinimumFirmwareVersion(hardwareMap);
 
