@@ -11,6 +11,9 @@ import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 public abstract class AutoBase extends LinearOpMode {
+    public static double targetDistance = 4.5;
+    public static double tolerance = .75;
+    public static double speed = 0.2;
     protected Robot robot;
     protected Pose2d initialPosition;
     protected Trajectory moveBeacon;
@@ -29,15 +32,12 @@ public abstract class AutoBase extends LinearOpMode {
     protected Trajectory park2;
     protected Trajectory park3;
     protected int parkPosition = 2;
-    public static double targetDistance = 4.5;
-    public static double tolerance = 1.0;
-    public static double speed = 0.2;
 
     abstract protected void initializeTrajectories();
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Configurables.ARM_POWER= 0.7;
+        Configurables.ARM_POWER = 0.7;
         this.robot = new Robot().init(hardwareMap);
 
 
@@ -53,10 +53,13 @@ public abstract class AutoBase extends LinearOpMode {
             telemetry.update();
         }
 
+        telemetry.addData("distance", this.robot.getWale().getDistance(DistanceUnit.INCH));
+        telemetry.addData("touch", this.robot.getWale().isPressed());
+        telemetry.update();
 
         // Score the preloaded cone
         int armPosition = this.robot.getArm().getCurrentPosition();
-        telemetry.addData("Arm_Position",(armPosition));
+        telemetry.addData("Arm_Position", (armPosition));
         telemetry.update();
         robot.getClaw().twistDown();
         robot.getArm().moveMid();
@@ -101,12 +104,17 @@ public abstract class AutoBase extends LinearOpMode {
     protected void getAndScoreStackCone(Trajectory getStackConeTrajectory, Trajectory scoreStackConeTrajectory, int height) {
         // Get the cone off the stack
         this.robot.getDrive().followTrajectory(getStackConeTrajectory);
+        this.waleAlign();
+        sleep(25);
+        this.robot.getArm().moveRight();
+        this.robot.getWale().stow();
+        sleep(150);
         this.robot.getClaw().close();
-        sleep(50);
+        sleep(125);
 
         // Move back to the junction
         this.robot.getLift().slideScorAuto();
-        this.robot.getArm().moveAuto();
+        this.robot.getArm().moveMid();
         sleep(50);
         this.robot.getDrive().followTrajectory(scoreStackConeTrajectory);
 
@@ -164,11 +172,11 @@ public abstract class AutoBase extends LinearOpMode {
         this.robot.getWale().deploy();
         sleep(300);
 
-        while(!this.robot.getWale().isPressed() && opModeIsActive()) {
-            this.robot.getDrive().setWeightedDrivePower(new Pose2d(speed ,0, 0));
+        while (!this.robot.getWale().isPressed() && opModeIsActive()) {
+            this.robot.getDrive().setWeightedDrivePower(new Pose2d(speed, 0, 0));
         }
 
-        this.robot.getDrive().setWeightedDrivePower(new Pose2d(0 ,0, 0));
+        this.robot.getDrive().setWeightedDrivePower(new Pose2d(0, 0, 0));
 
         this.robot.getWale().stow();
     }
