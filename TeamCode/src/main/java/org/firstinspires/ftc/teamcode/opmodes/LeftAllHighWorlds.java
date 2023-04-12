@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 
 @Config
-@Autonomous(name = "LeftHighWorlds", group = "Competition", preselectTeleOp = "MainTeleOp")
+@Autonomous(name = "LeftAllHighWorlds", group = "Competition", preselectTeleOp = "MainTeleOp")
 public class LeftAllHighWorlds extends AutoBase {
 
     public static double fasterVelocity = 110;
@@ -25,13 +25,14 @@ public class LeftAllHighWorlds extends AutoBase {
                 .lineToSplineHeading(new Pose2d(-35,-1, Math.toRadians(90)),
                         SampleMecanumDrive.getVelocityConstraint(fasterVelocity, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .addTemporalMarker(0.3, () -> {
-                    robot.getArm().moveTilt();
-                })
+
+                .addTemporalMarker(0.2, robot.getArm()::moveMid)
+                .addTemporalMarker(0.6, robot.getClaw()::twistDown)
                 .build();
         // START -> SCORE
         this.scorePreload = this.robot.getDrive().trajectoryBuilder(moveBeacon.end())
                 .lineToLinearHeading(new Pose2d(-32, -14.5, Math.toRadians(146)))
+                .addTemporalMarker(0.5, robot.getArm()::moveAuto)
                 .build();
 
         // Cone 1
@@ -41,9 +42,9 @@ public class LeftAllHighWorlds extends AutoBase {
                 .addTemporalMarker(0.3, robot.getWale()::deploy)
                 .build();
         this.scoreStackConeOne = this.robot.getDrive().trajectoryBuilder(getStackConeOne.end())
-                .lineToSplineHeading(new Pose2d(-27,-6.5,Math.toRadians(220)))
+                .lineToSplineHeading(new Pose2d(-27,-3,Math.toRadians(220)))
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
-                .addTemporalMarker(1, robot.getArm()::moveAuto)
+                .addTemporalMarker(0.7, robot.getArm()::moveAuto)
                 .build();
 
         // Cone 2
@@ -51,53 +52,19 @@ public class LeftAllHighWorlds extends AutoBase {
                 .lineToSplineHeading(new Pose2d(-51, -9, Math.toRadians(180)))
                 .addTemporalMarker(.5, robot.getArm()::moveScore)
                 .addTemporalMarker(0.3, robot.getWale()::deploy)
-                .addTemporalMarker(0.7, robot.getClaw()::twistUp)
+                .addTemporalMarker(0.6, robot.getClaw()::twistUp)
                 .build();
 
-        this.scoreStackConeTwo = this.robot.getDrive().trajectoryBuilder(getStackConeTwo.end())
-                .lineToSplineHeading(new Pose2d(-27,-6.5,Math.toRadians(224)))
-                .addTemporalMarker(0.5, robot.getClaw()::twistDown)
-                .addTemporalMarker(.9, robot.getArm()::moveAuto)
-                .build();
+
 
         // Cone 3
-        this.getStackConeThree = this.robot.getDrive().trajectoryBuilder(scoreStackConeOne.end())
-                .lineToSplineHeading(new Pose2d(-51, -9, Math.toRadians(180)))
-                .addTemporalMarker(.5, robot.getArm()::moveScore)
-                .addTemporalMarker(0.3, robot.getWale()::deploy)
-                .addTemporalMarker(0.7, robot.getClaw()::twistUp)
-                .build();
-        this.scoreStackConeThree = this.robot.getDrive().trajectoryBuilder(getStackConeThree.end())
-                .lineToSplineHeading(new Pose2d(-27,-6.5,Math.toRadians(220)))
-                .addTemporalMarker(0.3, robot.getClaw()::twistDown)
-                .addTemporalMarker(.8, robot.getArm()::moveAuto)
-                .build();
-
-        // Cone 4
-        this.getStackConeFour = this.robot.getDrive().trajectoryBuilder(scoreStackConeOne.end())
-                .lineToSplineHeading(new Pose2d(-51, -9, Math.toRadians(180)))
-                .addTemporalMarker(.5, robot.getArm()::moveScore)
-                .addTemporalMarker(0.3, robot.getWale()::deploy)
-                .addTemporalMarker(0.7, robot.getClaw()::twistUp)
-                .build();
-        this.scoreStackConeFour = this.robot.getDrive().trajectoryBuilder(getStackConeThree.end())
-                .lineToSplineHeading(new Pose2d(-27,-6.5,Math.toRadians(220)))
-                .addTemporalMarker(0.3, robot.getClaw()::twistDown)
-                .addTemporalMarker(.8, robot.getArm()::moveAuto)
-                .build();
-
-        // Cone 5
-        this.getStackConeFive = this.robot.getDrive().trajectoryBuilder(scoreStackConeOne.end())
-                .lineToSplineHeading(new Pose2d(-51, -9, Math.toRadians(180)))
-                .addTemporalMarker(.5, robot.getArm()::moveScore)
-                .addTemporalMarker(0.3, robot.getWale()::deploy)
-                .addTemporalMarker(0.7, robot.getClaw()::twistUp)
-                .build();
-        this.scoreStackConeFive = this.robot.getDrive().trajectoryBuilder(getStackConeFive.end())
-                .lineToSplineHeading(new Pose2d(-27,-6.5,Math.toRadians(220)))
-                .addTemporalMarker(0.3, robot.getClaw()::twistDown)
-                .addTemporalMarker(.8, robot.getArm()::moveAuto)
-                .build();
+        scoreStackConeTwo = scoreStackConeOne;
+        getStackConeThree = getStackConeTwo;
+        scoreStackConeThree = scoreStackConeOne;
+        getStackConeFour = getStackConeTwo;
+        scoreStackConeFour = scoreStackConeOne;
+        getStackConeFive = getStackConeTwo;
+        scoreStackConeFive = scoreStackConeOne;
 
         // STACK -> PARK1
         this.park1 = this.robot.getDrive().trajectoryBuilder(scoreStackConeTwo.end())
@@ -105,8 +72,8 @@ public class LeftAllHighWorlds extends AutoBase {
                 .addDisplacementMarker(1, this.robot.getArm()::moveMid)
                 .build();
         // STACK -> PARK2
-        this.park2 = this.robot.getDrive().trajectoryBuilder(getStackConeTwo.end())
-                .lineToSplineHeading(new Pose2d(-34,-20,Math.toRadians(180)))
+        this.park2 = this.robot.getDrive().trajectoryBuilder(scoreStackConeTwo.end())
+                .lineToSplineHeading(new Pose2d(-34,-15,Math.toRadians(180)))
                 .addDisplacementMarker(1, this.robot.getArm()::moveMid)
                 .build();
         // PARK2 -> PARK3

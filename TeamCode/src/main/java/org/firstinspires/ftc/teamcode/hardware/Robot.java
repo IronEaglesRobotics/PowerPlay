@@ -20,8 +20,11 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLA
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.CLAW_UP;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.DEPLOY;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.LOW_JUNC;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_HIGH_AUTO;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_LOW_AUTO;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MAX;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID;
+import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID_AUTO;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_MID_TELE;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_DOWN;
 import static org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables.SLIDE_POWER_UP;
@@ -267,6 +270,19 @@ public class Robot {
             this.slideTo(SLIDE_MID, SLIDE_POWER_UP);
         }
 
+        public void slideHighAuto() {
+            this.slideTo(SLIDE_HIGH_AUTO, SLIDE_POWER_UP);
+        }
+
+        public void slideMidAuto() {
+            this.slideTo(SLIDE_MID_AUTO, SLIDE_POWER_UP);
+        }
+
+        public void slideLowAuto() {
+            this.slideTo(SLIDE_LOW_AUTO, SLIDE_POWER_UP);
+        }
+
+
         public void autoTop() {
             this.slideTo(AUTO_TOP1,SLIDE_POWER_DOWN);
         }
@@ -278,6 +294,8 @@ public class Robot {
         }
 
         public void slideToCone(int height) {this.slideTo(height,SLIDE_POWER_DOWN);}
+        public void slideToHeight(int slideHeight) {this.slideTo(slideHeight,SLIDE_POWER_UP);}
+
     }
 
     public static class WALE {

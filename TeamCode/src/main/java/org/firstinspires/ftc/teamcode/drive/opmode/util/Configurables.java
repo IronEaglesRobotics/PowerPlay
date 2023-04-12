@@ -14,18 +14,22 @@ public class Configurables {
     public static double SLIDE_POWER_DOWN = 1;
     public static int SLIDE_MAX = (int)(3050 * SCALE_FACTOR);
     public static int SLIDE_MAX_AUTO = (int)(2050 * SCALE_FACTOR);
-    public static int SLIDE_MID = (int)(1050 * SCALE_FACTOR);
-    public static int SLIDE_MID_TELE = (int)(1300 * SCALE_FACTOR);
+    public static int SLIDE_MID = (int)(2150 * SCALE_FACTOR);
+    public static int SLIDE_MID_TELE = (int)(1200 * SCALE_FACTOR);
     public static int LOW_DUNK = (int)(1000 * SCALE_FACTOR);
     public static int SLIDE_HIGH = (int)(2130 * SCALE_FACTOR);
     public static int STOP = (int)(30 * SCALE_FACTOR);
-    public static int LOW_JUNC = (int)(200 * SCALE_FACTOR);
-    public static int AUTO_TOP1 = (int)(390 * SCALE_FACTOR);
+    public static int LOW_JUNC = (int)(1300* SCALE_FACTOR);
+    public static int AUTO_TOP1 = (int)(410 * SCALE_FACTOR);
     public static int AUTO_TOP2 = (int)(250 * SCALE_FACTOR);
     public static int AUTO_TOP3 = (int)(160 * SCALE_FACTOR);
     public static int AUTO_TOP4 = (int)(50 * SCALE_FACTOR);
     public static int AUTO_TOP5 = 0;
     public static int AUTOSCORE = SLIDE_MAX;
+    public static int SLIDE_HIGH_AUTO = (int)(2050 * SCALE_FACTOR);
+    public static int SLIDE_MID_AUTO = (int)(1200 * SCALE_FACTOR);
+    public static int SLIDE_LOW_AUTO = (int)(1150 * SCALE_FACTOR);
+
 
     // Claw
     public static double CLAW_CLOSED = 0.6;
@@ -37,7 +41,7 @@ public class Configurables {
     public static double OTHER_WAY = 300;
 
     // Arm
-    public static int ARM_UPRIGHT = 190;
+    public static int ARM_UPRIGHT = 200;
     public static int ARM_LEFT = -690;
     public static int ARM_RIGHT = 2000;
     public static int ARM_SCORE = 690;
@@ -51,7 +55,7 @@ public class Configurables {
     public static double ARM_I = 0;
     public static double ARM_D = 0;
     public static int ARM_AUTO = -690;
-    public static int SCORE_AUTO = -250;
+    public static int SCORE_AUTO = -200;
 
     // WALE
     public static double DEPLOY = 0.685;

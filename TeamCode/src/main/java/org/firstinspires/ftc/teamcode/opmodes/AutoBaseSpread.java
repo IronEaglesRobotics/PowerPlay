@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-public abstract class AutoBase extends LinearOpMode {
+public abstract class AutoBaseSpread extends LinearOpMode {
     public static double coneTargetDistance = 3.5;
     public static double tolerance = .75;
     public static double speed = 0.2;
@@ -18,16 +18,25 @@ public abstract class AutoBase extends LinearOpMode {
     protected Pose2d initialPosition;
     protected Trajectory moveBeacon;
     protected Trajectory scorePreload;
-    protected Trajectory getStackConeOne;
-    protected Trajectory scoreStackConeOne;
-    protected Trajectory getStackConeTwo;
-    protected Trajectory scoreStackConeTwo;
-    protected Trajectory getStackConeThree;
-    protected Trajectory scoreStackConeThree;
-    protected Trajectory getStackConeFour;
-    protected Trajectory scoreStackConeFour;
-    protected Trajectory getStackConeFive;
-    protected Trajectory scoreStackConeFive;
+    protected Trajectory getStackConePreload;
+    protected Trajectory scoreStackConeLow;
+    protected Trajectory scoreStackConeMid;
+    protected Trajectory getStackConeMid;
+    protected Trajectory getStackConeLow;
+    protected Trajectory getStackConeHigh;
+    protected Trajectory scoreStackConeHigh;
+    protected Trajectory getStackContHigh;
+    protected Trajectory scoreStackContHigh;
+    protected Trajectory scoreStackOne;
+    protected Trajectory getStackOne;
+    protected Trajectory scoreStackTwo;
+    protected Trajectory getStackTwo;
+    protected Trajectory scoreStackThree;
+    protected Trajectory getStackThree;
+    protected Trajectory scoreStackFour;
+    protected Trajectory getStackFour;
+    protected Trajectory scoreStackFive;
+    protected Trajectory getStackFive;
     protected Trajectory park1;
     protected Trajectory park2;
     protected Trajectory park3;
@@ -71,11 +80,13 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getClaw().open();
         robot.getArm().moveScore();
 
-        getAndScoreStackCone(getStackConeOne, scoreStackConeOne, Configurables.AUTO_TOP1, coneTargetDistance);
-        getAndScoreStackCone(getStackConeTwo, scoreStackConeTwo, Configurables.AUTO_TOP2, coneTargetDistance);
-        getAndScoreStackCone(getStackConeThree, scoreStackConeThree, Configurables.AUTO_TOP3, coneTargetDistance +.5);
-        getAndScoreStackCone(getStackConeFour, scoreStackConeFour, Configurables.AUTO_TOP4, coneTargetDistance + 0.75);
-        getAndScoreStackCone(getStackConeFive, scoreStackConeFive, Configurables.AUTO_TOP5, coneTargetDistance + 1.0);
+        getAndScoreStackCone(getStackOne, scoreStackOne, Configurables.AUTO_TOP1, coneTargetDistance);
+        getAndScoreStackCone(getStackTwo, scoreStackTwo, Configurables.AUTO_TOP2, coneTargetDistance);
+        getAndScoreStackCone(getStackThree, scoreStackThree, Configurables.AUTO_TOP3, coneTargetDistance +.5);
+        this.robot.getArm().moveScore();
+        sleep(100);
+        getAndScoreStackCone(getStackFour, scoreStackFour, Configurables.AUTO_TOP4, coneTargetDistance + 0.75);
+        getAndScoreStackCone(getStackFive, scoreStackFive, Configurables.AUTO_TOP5, coneTargetDistance + 1);
 
         robot.getArm().moveMid();
 
@@ -107,10 +118,9 @@ public abstract class AutoBase extends LinearOpMode {
         this.robot.getWale().stow();
         sleep(200);
         this.robot.getClaw().close();
-        sleep(120);
+        sleep(150);
 
         // Move back to the junction
-        this.robot.getLift().slideScorAuto();
         this.robot.getArm().moveMid();
         sleep(50);
         this.robot.getDrive().followTrajectory(scoreStackConeTrajectory);

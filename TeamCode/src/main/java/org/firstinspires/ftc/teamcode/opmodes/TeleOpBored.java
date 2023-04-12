@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Tele-Op", group = "Development")
-public class TeleOp extends OpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Tele-Op-Bored", group = "Development")
+public class TeleOpBored extends OpMode {
     private Robot robot;
     private boolean prevUpPressed = false;
     private boolean prevUpPressed1 = false;
@@ -38,12 +38,14 @@ public class TeleOp extends OpMode {
         boolean pressLeft = gamepad2.dpad_left;
         boolean pressMid = gamepad2.x;
 
-        if (pressRight|| gamepad2.dpad_down) {
+        if (pressRight || gamepad1.dpad_right || gamepad2.dpad_down || gamepad1.dpad_left) {
             this.robot.getArm().moveRightTele();
         } else if (pressLeft) {
             this.robot.getArm().moveLeftTele();
         } else if (pressMid) {
             this.robot.getArm().moveMidTele();
+        } else if (gamepad2.dpad_up || gamepad1.dpad_up || gamepad1.dpad_down ||gamepad1.left_bumper || gamepad2.left_bumper || gamepad2.right_bumper) {
+            this.robot.getArm().moveScoreTele();
         } else {
             this.robot.getArm().drop();
         }
@@ -61,7 +63,10 @@ public class TeleOp extends OpMode {
 
         // Lift
         boolean upPressed = gamepad2.y;
-        boolean downPressed = gamepad2.a || gamepad2.dpad_down;
+        boolean downPressed = gamepad2.a || gamepad2.dpad_down|| gamepad1.dpad_left;
+        boolean upPressed1 = gamepad1.b;
+        boolean downPressed1 = gamepad1.a;
+
 
         telemetry.addData("Slide Position", (Position));
         telemetry.addData("Slide Position2", (Position2));
@@ -70,23 +75,26 @@ public class TeleOp extends OpMode {
         telemetry.update();
 
 
-        if (upPressed && !prevUpPressed) {
+        if (upPressed || upPressed1 && !prevUpPressed) {
             this.robot.getLift().slideMax();
-        } else if (gamepad2.dpad_up) {
-            this.robot.getLift().slideMax();
-        } else if (gamepad2.left_bumper) {
+        } else if (gamepad2.dpad_up || gamepad1.dpad_up) {
+            this.robot.getLift().slideScorAuto();
+        } else if (gamepad2.left_bumper || gamepad1.left_bumper) {
             this.robot.getLift().slideMedTele();
-        } else if (gamepad2.right_bumper) {
+        } else if (gamepad2.right_bumper || gamepad1.dpad_down) {
             this.robot.getLift().lowJunction();
-        } else if (downPressed) {
+        } else if (downPressed || downPressed1) {
             this.robot.getLift().slideDown();
         } else if ((prevUpPressed != upPressed) || prevDownPressed) {
+            this.robot.getLift().slideStop();
+        } else if ((prevUpPressed1 != upPressed1) || prevDownPressed1) {
             this.robot.getLift().slideStop();
         }
 
         prevUpPressed = upPressed;
         prevDownPressed = downPressed;
-
+        prevUpPressed1 = upPressed1;
+        prevDownPressed1 = downPressed1;
 
         //Slow Mode
 
@@ -101,7 +109,7 @@ public class TeleOp extends OpMode {
             WHY_TURN = 1;
         }
 
-        if (gamepad2.b || gamepad2.dpad_down) {
+        if (gamepad2.b || gamepad1.right_bumper || gamepad2.dpad_down|| gamepad1.dpad_left) {
             this.robot.getClaw().open();
         } else {
             this.robot.getClaw().close();
