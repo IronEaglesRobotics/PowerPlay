@@ -108,6 +108,10 @@ public abstract class AutoBaseSafe extends LinearOpMode {
     }
 
     protected void getAndScoreStackCone(Trajectory getStackConeTrajectory, Trajectory scoreStackConeTrajectory, int height, double coneTargetDistance, int slideHeight) {
+        if (getStackConeTrajectory == null || scoreStackConeTrajectory == null) {
+            return;
+        }
+
         // Get the cone off the stack
         this.robot.getDrive().followTrajectory(getStackConeTrajectory);
         this.waleAlign(coneTargetDistance);

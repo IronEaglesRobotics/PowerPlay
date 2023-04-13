@@ -15,7 +15,7 @@ public class Configurables {
     public static int SLIDE_MAX = (int)(3050 * SCALE_FACTOR);
     public static int SLIDE_MAX_AUTO = (int)(2050 * SCALE_FACTOR);
     public static int SLIDE_MID = (int)(2150 * SCALE_FACTOR);
-    public static int SLIDE_MID_TELE = (int)(1200 * SCALE_FACTOR);
+    public static int SLIDE_MID_TELE = (int)(2200 * SCALE_FACTOR);
     public static int LOW_DUNK = (int)(1000 * SCALE_FACTOR);
     public static int SLIDE_HIGH = (int)(2130 * SCALE_FACTOR);
     public static int STOP = (int)(30 * SCALE_FACTOR);

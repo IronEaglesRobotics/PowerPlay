@@ -34,8 +34,8 @@ public class TeleOp extends OpMode {
 
 
         // Arm
-        boolean pressRight = gamepad2.dpad_right;
-        boolean pressLeft = gamepad2.dpad_left;
+        boolean pressRight = gamepad2.dpad_left;
+        boolean pressLeft = gamepad2.dpad_right;
         boolean pressMid = gamepad2.x;
 
         if (pressRight|| gamepad2.dpad_down) {
@@ -93,7 +93,7 @@ public class TeleOp extends OpMode {
         if (gamepad1.y) {
             GO_SLOW = 4;
             WHY_TURN = 3;
-        } else if (gamepad1.x) {
+        } else if (gamepad1.x || gamepad1.right_bumper) {
             GO_SLOW = 1;
             WHY_TURN = 1;
         } else {

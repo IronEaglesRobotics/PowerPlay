@@ -57,6 +57,19 @@ public abstract class AutoBaseSpread extends LinearOpMode {
         this.robot.useAutoCamera();
 
         while (!isStarted()) {
+            if (gamepad1.a) {
+                this.robot.getWale().deploy();
+            } else {
+                this.robot.getWale().stow();
+            }
+            this.robot.getDrive().update();
+            Pose2d poseEstimate = this.robot.getDrive().getPoseEstimate();
+            telemetry.addData("x", poseEstimate.getX());
+            telemetry.addData("y", poseEstimate.getY());
+            telemetry.addData("heading", poseEstimate.getHeading());
+            telemetry.addData("distance", this.robot.getWale().getDistance(DistanceUnit.INCH));
+            telemetry.addData("touch", this.robot.getWale().isPressed());
+            telemetry.update();
             this.parkPosition = robot.getAutoCamera().getMarkerId();
             telemetry.addData("parkPosition", (parkPosition));
             telemetry.update();
