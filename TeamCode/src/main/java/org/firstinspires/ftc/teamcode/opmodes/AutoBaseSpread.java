@@ -84,7 +84,7 @@ public abstract class AutoBaseSpread extends LinearOpMode {
         getAndScoreStackCone(getStackTwo, scoreStackTwo, Configurables.AUTO_TOP2, coneTargetDistance);
         getAndScoreStackCone(getStackThree, scoreStackThree, Configurables.AUTO_TOP3, coneTargetDistance +.5);
         this.robot.getArm().moveScore();
-        sleep(100);
+        sleep(200);
         getAndScoreStackCone(getStackFour, scoreStackFour, Configurables.AUTO_TOP4, coneTargetDistance + 0.75);
         getAndScoreStackCone(getStackFive, scoreStackFive, Configurables.AUTO_TOP5, coneTargetDistance + 1);
 
@@ -95,6 +95,7 @@ public abstract class AutoBaseSpread extends LinearOpMode {
                 this.robot.getArm().moveLeft();
                 this.robot.getDrive().followTrajectory(park1);
                 this.robot.getArm().moveMid();
+                sleep(500);
                 break;
             case 3:
                 this.robot.getArm().moveLeft();
@@ -127,9 +128,10 @@ public abstract class AutoBaseSpread extends LinearOpMode {
 
         // Score
         this.robot.getArm().moveLeft();
-        sleep(50);
+        sleep(100);
         this.robot.getClaw().open();
         this.robot.getLift().slideToCone(height);
+        sleep(150);
     }
 
     private double getCurrentDistance(int samples) {
