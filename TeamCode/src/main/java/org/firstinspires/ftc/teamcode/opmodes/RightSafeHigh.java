@@ -10,14 +10,14 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 
 @Config
-@Autonomous(name = "LeftSafeHigh", group = "Competition", preselectTeleOp = "MainTeleOp")
-public class LeftSafeHigh extends AutoBaseSafe {
+@Autonomous(name = "RightSafeHigh", group = "Competition", preselectTeleOp = "MainTeleOp")
+public class RightSafeHigh extends AutoBaseSafe {
 
     public static double fasterVelocity = 110;
 
     @Override
     public void initializeTrajectories() {
-        this.getStackResetPos = new Vector2d(-53.4, -8);
+        this.getStackResetPos = new Vector2d(53.4, -8);
         Configurables.AUTOSCORE = Configurables.SLIDE_MAX_AUTO;
         Configurables.ARM_AUTO = Configurables.SCORE_AUTO;
         // START
@@ -126,7 +126,7 @@ public class LeftSafeHigh extends AutoBaseSafe {
                 .build();
         // PARK2 -> PARK3
         this.park3 = this.robot.getDrive().trajectoryBuilder(park2.end())
-                .back(23)
+                .back(24)
                 .addDisplacementMarker(1, this.robot.getArm()::moveMid)
                 .build();
     }

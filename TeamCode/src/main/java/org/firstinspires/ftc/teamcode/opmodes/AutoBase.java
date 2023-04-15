@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import android.annotation.SuppressLint;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -14,6 +15,7 @@ public abstract class AutoBase extends LinearOpMode {
     public static double coneTargetDistance = 3.5;
     public static double tolerance = .75;
     public static double speed = 0.2;
+    protected Vector2d getStackResetPos;
     protected Robot robot;
     protected Pose2d initialPosition;
     protected Trajectory moveBeacon;
@@ -46,8 +48,8 @@ public abstract class AutoBase extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Configurables.ARM_POWER = 0.7;
         this.robot = new Robot().init(hardwareMap);
+        Configurables.ARM_POWER = 0.7;
 
 
         initializeTrajectories();
@@ -78,7 +80,6 @@ public abstract class AutoBase extends LinearOpMode {
         robot.getLift().autoTop(); // Lower the slide to the height of the top cone
         sleep(100);
         robot.getClaw().open();
-        robot.getArm().moveScore();
 
         getAndScoreStackCone(getStackOne, scoreStackOne, Configurables.AUTO_TOP1, coneTargetDistance, Configurables.SLIDE_HIGH_AUTO);
         getAndScoreStackCone(getStackTwo, scoreStackTwo, Configurables.AUTO_TOP2, coneTargetDistance, Configurables.SLIDE_HIGH_AUTO);
@@ -120,7 +121,7 @@ public abstract class AutoBase extends LinearOpMode {
         this.robot.getWale().stow();
         sleep(200);
         this.robot.getClaw().close();
-        sleep(175);
+        sleep(150);
 
         // Move back to the junction
 //        this.robot.getLift().slideToHeight(slideHeight);
@@ -175,7 +176,7 @@ public abstract class AutoBase extends LinearOpMode {
         telemetry.update();
 
         // Update Pose Estimate
-        this.robot.getDrive().setPoseEstimate(new Pose2d(-53.4, -8, this.robot.getDrive().getPoseEstimate().getHeading()));
+        this.robot.getDrive().setPoseEstimate(new Pose2d(getStackResetPos.getX(), getStackResetPos.getY(), this.robot.getDrive().getPoseEstimate().getHeading()));
     }
 
     private void bump() {

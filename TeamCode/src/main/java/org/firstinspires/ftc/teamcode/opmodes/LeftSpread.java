@@ -17,6 +17,7 @@ public class LeftSpread extends AutoBaseSpread {
 
     @Override
     public void initializeTrajectories() {
+        this.getStackResetPos = new Vector2d(-53.4, -8);
         Configurables.AUTOSCORE = Configurables.SLIDE_MAX_AUTO;
         Configurables.ARM_AUTO = Configurables.SCORE_AUTO;
         // START
@@ -127,7 +128,7 @@ public class LeftSpread extends AutoBaseSpread {
                 .build();
         // PARK2 -> PARK3
         this.park3 = this.robot.getDrive().trajectoryBuilder(park2.end())
-                .back(24)
+                .back(23)
                 .addDisplacementMarker(1.3, this.robot.getArm()::moveMid)
                 .build();
     }

@@ -75,7 +75,7 @@ public class TeleOp extends OpMode {
         } else if (gamepad2.dpad_up) {
             this.robot.getLift().slideMax();
         } else if (gamepad2.left_bumper) {
-            this.robot.getLift().slideMedTele();
+            this.robot.getLift().slideMed();
         } else if (gamepad2.right_bumper) {
             this.robot.getLift().lowJunction();
         } else if (downPressed) {
