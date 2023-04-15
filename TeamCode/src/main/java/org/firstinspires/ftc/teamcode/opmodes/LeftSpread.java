@@ -46,11 +46,13 @@ public class LeftSpread extends AutoBaseSpread {
                 .build();
 //High
         Trajectory scoreStackConeHigh = this.robot.getDrive().trajectoryBuilder(getStackConePreload.end())
-                .lineToSplineHeading(new Pose2d(-5, -11, Math.toRadians(148)))
+                .lineToSplineHeading(new Pose2d(-45, -8, Math.toRadians(170)))
+                .splineTo(new Vector2d(-6,-13),Math.toRadians(-43))
                 .addTemporalMarker(.01,robot.getLift()::slideHighAuto)
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
                 .addTemporalMarker(.7, robot.getArm()::moveAuto)
                 .build();
+
 
         Trajectory getStackConeHigh = this.robot.getDrive().trajectoryBuilder(scoreStackConeHigh.end())
                 .lineToLinearHeading(new Pose2d(-51, -8, Math.toRadians(180)))

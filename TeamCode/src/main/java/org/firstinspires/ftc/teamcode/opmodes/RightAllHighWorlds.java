@@ -40,7 +40,7 @@ public class RightAllHighWorlds extends AutoBase {
                 .lineToSplineHeading(new Pose2d(51, -9, Math.toRadians(3)))
                 .addTemporalMarker(0.45, robot.getClaw()::twistUp)
                 .addTemporalMarker(0.7, robot.getWale()::deploy)
-                .addTemporalMarker(.6, robot.getArm()::moveScore)
+                .addTemporalMarker(.8, robot.getArm()::moveScore)
                 .build();
         this.scoreStackOne = this.robot.getDrive().trajectoryBuilder(getStackOne.end())
                 .lineToSplineHeading(new Pose2d(27.5,-3,Math.toRadians(317.5)))

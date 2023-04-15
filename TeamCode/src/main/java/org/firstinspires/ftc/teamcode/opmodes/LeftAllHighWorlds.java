@@ -73,7 +73,7 @@ public class LeftAllHighWorlds extends AutoBase {
         this.park1 = this.robot.getDrive().trajectoryBuilder(scoreStackTwo.end())
                 .splineTo(new Vector2d(-56.5, -9), Math.toRadians(180))
                 .addDisplacementMarker(1, this.robot.getArm()::moveMid)
-                .build();
+                .build();;;;
         // STACK -> PARK2
         this.park2 = this.robot.getDrive().trajectoryBuilder(scoreStackTwo.end())
                 .lineToSplineHeading(new Pose2d(-34,-15,Math.toRadians(180)))

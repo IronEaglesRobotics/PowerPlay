@@ -118,9 +118,6 @@ public abstract class AbstractAuto extends LinearOpMode {
         int i = 0;
         while (i < samples) {
             double d = this.robot.getWale().getDistance(DistanceUnit.INCH);
-            if (d > 20.0) {
-                continue;
-            }
             runningTotal += this.robot.getWale().getDistance(DistanceUnit.INCH);
             i++;
         }
@@ -129,8 +126,9 @@ public abstract class AbstractAuto extends LinearOpMode {
 
     @SuppressLint("DefaultLocale")
     protected boolean waleAlign(double coneTargetDistance) {
+        boolean shouldBail = !bump();
         double currentDistance = getCurrentDistance(1);
-        if (!bump() || currentDistance > bailThreshold) {
+        if (shouldBail || currentDistance > bailThreshold) {
             return false;
         }
         double error = Math.abs(coneTargetDistance - currentDistance);
