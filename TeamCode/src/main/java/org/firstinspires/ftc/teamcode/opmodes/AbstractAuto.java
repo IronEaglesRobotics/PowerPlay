@@ -75,7 +75,7 @@ public abstract class AbstractAuto extends LinearOpMode {
 
         robot.getArm().moveMid();
 
-        switch (this.parkPosition) {
+        switch (parkPosition) {
             case 1:
                 this.robot.getArm().moveLeft();
                 this.robot.getDrive().followTrajectory(park1);

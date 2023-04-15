@@ -10,6 +10,8 @@ import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.opmode.util.Configurables;
 
+import java.util.Vector;
+
 @Config
 @Autonomous(name = "RightSpread", group = "Competition", preselectTeleOp = "MainTeleOp")
 public class RightSpread extends AutoBaseSpread {
@@ -47,7 +49,7 @@ public class RightSpread extends AutoBaseSpread {
 //High
         Trajectory scoreStackConeHigh = this.robot.getDrive().trajectoryBuilder(getStackConePreload.end())
                 .lineToSplineHeading(new Pose2d(45, -8, Math.toRadians(10)))
-                .splineTo(new Vector2d(6,-13),Math.toRadians(-144))
+                .splineTo(new Vector2d(6,-14),Math.toRadians(-148))
                 .addTemporalMarker(.01,robot.getLift()::slideHighAuto)
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
                 .addTemporalMarker(.7, robot.getArm()::moveAuto)
@@ -56,7 +58,7 @@ public class RightSpread extends AutoBaseSpread {
         Trajectory getStackConeHigh = this.robot.getDrive().trajectoryBuilder(scoreStackConeHigh.end())
 //                .lineToSplineHeading(new Pose2d(45,-10,Math.toRadians(0)))
 //                .splineToConstantHeading(new Vector2d(51, -9), Math.toRadians(0))
-                .lineToSplineHeading(new Pose2d(51,-8, Math.toRadians(0)))
+                .splineTo(new Vector2d(50,-8.5), Math.toRadians(0))
                 .addTemporalMarker(.6, robot.getArm()::moveScore)
                 .addTemporalMarker(.7, robot.getWale()::deploy)
                 .addTemporalMarker(0.9, robot.getClaw()::twistUp)
@@ -69,8 +71,8 @@ public class RightSpread extends AutoBaseSpread {
                 .addTemporalMarker(0.5, robot.getArm()::moveAuto)
                 .build();
         Trajectory getStackConeMid = this.robot.getDrive().trajectoryBuilder(scoreStackConeMid.end())
-                .lineToSplineHeading(new Pose2d(51, -8, Math.toRadians(0)))
-                .addTemporalMarker(.7, robot.getArm()::moveScore)
+                .lineToSplineHeading(new Pose2d(51, -8, Math.toRadians(4)))
+                .addTemporalMarker(.4, robot.getArm()::moveScore)
                 .addTemporalMarker(.7, robot.getWale()::deploy)
                 .addTemporalMarker(0.8, robot.getClaw()::twistUp)
                 .build();
@@ -91,7 +93,7 @@ public class RightSpread extends AutoBaseSpread {
 
  //DangerHigh
         Trajectory scoreStackContHigh = this.robot.getDrive().trajectoryBuilder(getStackConePreload.end())
-                .lineToSplineHeading(new Pose2d(27,-2,Math.toRadians(314.5)))
+                .lineToSplineHeading(new Pose2d(28,-4,Math.toRadians(318.5)))
                 .addTemporalMarker(.01,robot.getLift()::slideHighAuto)
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
                 .addTemporalMarker(1.3, robot.getArm()::moveAuto)
@@ -127,7 +129,7 @@ public class RightSpread extends AutoBaseSpread {
                 .build();
         // STACK -> PARK2
         this.park2 = this.robot.getDrive().trajectoryBuilder(scoreStackContHigh.end())
-                .lineToSplineHeading(new Pose2d(32, -15, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(32, -13, Math.toRadians(0)))
                 .addDisplacementMarker(1, this.robot.getArm()::moveMid)
                 .build();
         // PARK2 -> PARK3
