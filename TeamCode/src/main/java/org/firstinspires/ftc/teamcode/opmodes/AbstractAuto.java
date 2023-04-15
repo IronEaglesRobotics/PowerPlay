@@ -49,22 +49,17 @@ public abstract class AbstractAuto extends LinearOpMode {
         initializeTrajectories();
 
         this.robot.getDrive().setPoseEstimate(initialPosition);
-
         this.robot.useAutoCamera();
 
         while (!isStarted()) {
-            this.parkPosition = robot.getAutoCamera().getMarkerId();
-            telemetry.addData("parkPosition", (parkPosition));
+            telemetry.addData("parkPosition", robot.getAutoCamera().getMarkerId());
+            telemetry.addData("armPosition", this.robot.getArm().getCurrentPosition());
+            telemetry.addData("distance", this.robot.getWale().getDistance(DistanceUnit.INCH));
+            telemetry.addData("touch", this.robot.getWale().isPressed());
             telemetry.update();
         }
 
-        telemetry.addData("distance", this.robot.getWale().getDistance(DistanceUnit.INCH));
-        telemetry.addData("touch", this.robot.getWale().isPressed());
-        telemetry.update();
-
         // Score the preloaded cone
-        int armPosition = this.robot.getArm().getCurrentPosition();
-        telemetry.addData("Arm_Position", (armPosition));
         telemetry.update();
         robot.getArm().moveRight();
         this.robot.getDrive().followTrajectory(moveBeacon);
