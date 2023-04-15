@@ -98,8 +98,6 @@ public abstract class AutoBaseSpread extends LinearOpMode {
         getAndScoreStackCone(getStackOne, scoreStackOne, Configurables.AUTO_TOP1, coneTargetDistance);
         getAndScoreStackCone(getStackTwo, scoreStackTwo, Configurables.AUTO_TOP2, coneTargetDistance);
         getAndScoreStackCone(getStackThree, scoreStackThree, Configurables.AUTO_TOP3, coneTargetDistance +.5);
-        this.robot.getArm().moveScore();
-        sleep(200);
         getAndScoreStackCone(getStackFour, scoreStackFour, Configurables.AUTO_TOP4, coneTargetDistance + 0.75);
         getAndScoreStackCone(getStackFive, scoreStackFive, Configurables.AUTO_TOP5, coneTargetDistance + 1);
 
