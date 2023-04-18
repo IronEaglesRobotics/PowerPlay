@@ -252,6 +252,14 @@ public class Robot {
             this.slide2.setTargetPosition(0);
         }
 
+        public int getTargetPosition() {
+            return this.slide.getTargetPosition();
+        }
+
+        public int getCurrentPosition() {
+            return this.slide.getCurrentPosition();
+        }
+
         public void slideMax() {
             this.slideTo(SLIDE_MAX, SLIDE_POWER_UP);
         }

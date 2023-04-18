@@ -95,7 +95,7 @@ public class RightSpread extends AutoBaseSpread {
                 .lineToSplineHeading(new Pose2d(28,-4,Math.toRadians(318.5)))
                 .addTemporalMarker(.01,robot.getLift()::slideHighAuto)
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
-                .addTemporalMarker(1, robot.getArm()::moveAuto)
+                .addTemporalMarker(1.4, robot.getArm()::moveAuto)
                 .build();
 
         Trajectory getStackContHigh = this.robot.getDrive().trajectoryBuilder(scoreStackContHigh.end())

@@ -26,6 +26,10 @@ public abstract class AutoBaseSpread extends AbstractAuto {
         sleep(50);
         this.robot.getDrive().followTrajectory(scoreStackConeTrajectory);
 
+        while(this.robot.getLift().getCurrentPosition() < (this.robot.getLift().getTargetPosition() - 10)){
+
+        }
+
         // Score
         this.robot.getArm().moveLeft();
         sleep(100);
