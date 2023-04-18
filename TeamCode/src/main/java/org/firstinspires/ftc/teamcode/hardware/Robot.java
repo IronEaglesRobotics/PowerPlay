@@ -177,6 +177,8 @@ public class Robot {
             this.clawTurn = hardwareMap.get(Servo.class, WRIST);
             this.clawGrip.scaleRange(0.01, 1);
 
+            this.close();
+
             return this;
         }
 

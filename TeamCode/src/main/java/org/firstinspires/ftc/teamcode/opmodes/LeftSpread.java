@@ -90,10 +90,10 @@ public class LeftSpread extends AutoBaseSpread {
 
  //DangerHigh
         Trajectory scoreStackContHigh = this.robot.getDrive().trajectoryBuilder(getStackConePreload.end())
-                .lineToSplineHeading(new Pose2d(-27,-3,Math.toRadians(228)))
+                .lineToSplineHeading(new Pose2d(-27,-3,Math.toRadians(220)))
                 .addTemporalMarker(.01,robot.getLift()::slideHighAuto)
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
-                .addTemporalMarker(1, robot.getArm()::moveAuto)
+                .addTemporalMarker(1.2, robot.getArm()::moveAuto)
                 .build();
 
         Trajectory getStackContHigh = this.robot.getDrive().trajectoryBuilder(scoreStackContHigh.end())

@@ -60,7 +60,6 @@ public abstract class AbstractAuto extends LinearOpMode {
         }
 
         // Score the preloaded cone
-        telemetry.update();
         robot.getArm().moveRight();
         this.robot.getDrive().followTrajectory(moveBeacon);
         robot.getLift().slideMedTele();
