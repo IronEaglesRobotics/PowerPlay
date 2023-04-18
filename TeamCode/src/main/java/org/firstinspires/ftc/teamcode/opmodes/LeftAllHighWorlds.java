@@ -41,13 +41,13 @@ public class LeftAllHighWorlds extends AutoBase {
                 .lineToSplineHeading(new Pose2d(-51, -7, Math.toRadians(180)))
                 .addTemporalMarker(0.45, robot.getClaw()::twistUp)
                 .addTemporalMarker(0.3, robot.getWale()::deploy)
-                .addTemporalMarker(.6, robot.getArm()::moveScore)
+                .addTemporalMarker(1, robot.getArm()::moveScore)
                 .build();
         this.scoreStackOne = this.robot.getDrive().trajectoryBuilder(getStackOne.end())
                 .lineToSplineHeading(new Pose2d(-27,-3,Math.toRadians(220)))
                 .addTemporalMarker(.01,robot.getLift()::slideHighAuto)
                 .addTemporalMarker(0.5, robot.getClaw()::twistDown)
-                .addTemporalMarker(0.7, robot.getArm()::moveAuto)
+                .addTemporalMarker(1.2, robot.getArm()::moveAuto)
                 .build();
 
         // Cone 2

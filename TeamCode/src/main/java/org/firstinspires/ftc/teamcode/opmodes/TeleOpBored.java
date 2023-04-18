@@ -38,13 +38,13 @@ public class TeleOpBored extends OpMode {
         boolean pressLeft = gamepad2.dpad_left;
         boolean pressMid = gamepad2.x;
 
-        if (pressRight || gamepad1.dpad_right || gamepad2.dpad_down || gamepad1.dpad_left) {
+        if (pressRight || gamepad2.dpad_down || gamepad1.dpad_left) {
             this.robot.getArm().moveRightTele();
-        } else if (pressLeft) {
+        } else if (pressLeft || gamepad1.dpad_right) {
             this.robot.getArm().moveLeftTele();
         } else if (pressMid) {
             this.robot.getArm().moveMidTele();
-        } else if (gamepad2.dpad_up || gamepad1.dpad_up || gamepad1.dpad_down ||gamepad1.left_bumper || gamepad2.left_bumper || gamepad2.right_bumper) {
+        } else if (gamepad2.dpad_up || gamepad2.left_bumper || gamepad2.right_bumper) {
             this.robot.getArm().moveScoreTele();
         } else {
             this.robot.getArm().drop();
@@ -78,9 +78,9 @@ public class TeleOpBored extends OpMode {
         if (upPressed || upPressed1 && !prevUpPressed) {
             this.robot.getLift().slideMax();
         } else if (gamepad2.dpad_up || gamepad1.dpad_up) {
-            this.robot.getLift().slideScorAuto();
+            this.robot.getLift().slideMax();
         } else if (gamepad2.left_bumper || gamepad1.left_bumper) {
-            this.robot.getLift().slideMedTele();
+            this.robot.getLift().slideMed();
         } else if (gamepad2.right_bumper || gamepad1.dpad_down) {
             this.robot.getLift().lowJunction();
         } else if (downPressed || downPressed1) {

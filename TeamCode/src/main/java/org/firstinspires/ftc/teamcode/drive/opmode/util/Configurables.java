@@ -26,9 +26,9 @@ public class Configurables {
     public static int AUTO_TOP4 = (int)(50 * SCALE_FACTOR);
     public static int AUTO_TOP5 = 0;
     public static int AUTOSCORE = SLIDE_MAX;
-    public static int SLIDE_HIGH_AUTO = (int)(2050 * SCALE_FACTOR);
-    public static int SLIDE_MID_AUTO = (int)(1200 * SCALE_FACTOR);
-    public static int SLIDE_LOW_AUTO = (int)(1150 * SCALE_FACTOR);
+    public static int SLIDE_HIGH_AUTO = (int)(1985 * SCALE_FACTOR);
+    public static int SLIDE_MID_AUTO = (int)(1150 * SCALE_FACTOR);
+    public static int SLIDE_LOW_AUTO = (int)(1120 * SCALE_FACTOR);
 
 
     // Claw
